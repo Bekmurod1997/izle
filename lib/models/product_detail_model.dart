@@ -1,359 +1,193 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'product_detail_model.g.dart';
+
+@JsonSerializable()
 class ProductDetailModel {
-  DataModel? data;
-  List<Similar>? similar;
+  final Ad data;
+  final List<Similar> similar;
 
-  ProductDetailModel({this.data, this.similar});
+  ProductDetailModel({
+    required this.data,
+    required this.similar,
+  });
 
-  ProductDetailModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new DataModel.fromJson(json['data']) : null;
-    if (json['similar'] != null) {
-      similar = <Similar>[];
-      json['similar'].forEach((v) {
-        similar!.add(new Similar.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    if (this.similar != null) {
-      data['similar'] = this.similar!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  factory ProductDetailModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductDetailModelFromJson(json);
 }
 
-class DataModel {
-  int? id;
-  String? photo;
-  String? phone;
-  String? email;
-  String? responsiblePerson;
-  String? cityName;
-  String? categoryName;
-  String? type;
-  String? title;
-  String? description;
-  String? content;
-  String? address;
-  int? price;
-  int? priceD;
-  int? status;
-  String? lng;
-  String? lat;
-  int? views;
-  int? viewPhone;
-  int? premium;
-  int? favorites;
-  String? date;
-  String? dateExpire;
-  List<String>? gallery;
-  User? user;
-  List<String>? filter;
+@JsonSerializable()
+class Ad {
+  final int id;
+  final String? photo;
+  final String? phone;
+  final String? email;
+  @JsonKey(name: 'responsible_person')
+  final String? responsiblePerson;
+  @JsonKey(name: 'city_name')
+  final String? cityName;
+  @JsonKey(name: 'category_name')
+  final String categoryName;
+  final String? type;
+  final String? title;
+  final String? description;
+  final String? content;
+  final String? address;
+  final int? price;
+  @JsonKey(name: 'price_d')
+  final int? priceD;
+  final int? status;
+  final String? lng;
+  final String? lat;
+  final int? views;
+  @JsonKey(name: 'views_phone')
+  final int? viewPhone;
+  final int? premium;
+  final int? favorites;
+  final String? date;
+  @JsonKey(name: 'date_expire')
+  final String? dateExpire;
+  final List<String> gallery;
+  final User user;
+  final List<Filter> filter;
 
-  DataModel(
-      {this.id,
-      this.photo,
-      this.phone,
-      this.email,
-      this.responsiblePerson,
-      this.cityName,
-      this.categoryName,
-      this.type,
-      this.title,
-      this.description,
-      this.content,
-      this.address,
-      this.price,
-      this.priceD,
-      this.status,
-      this.lng,
-      this.lat,
-      this.views,
-      this.viewPhone,
-      this.premium,
-      this.favorites,
-      this.date,
-      this.dateExpire,
-      this.gallery,
-      this.user,
-      this.filter});
+  Ad({
+    required this.id,
+    required this.photo,
+    required this.phone,
+    required this.email,
+    required this.responsiblePerson,
+    required this.cityName,
+    required this.categoryName,
+    required this.type,
+    required this.title,
+    required this.description,
+    required this.content,
+    required this.address,
+    required this.price,
+    required this.priceD,
+    required this.status,
+    required this.lng,
+    required this.lat,
+    required this.views,
+    required this.viewPhone,
+    required this.premium,
+    required this.favorites,
+    required this.date,
+    required this.dateExpire,
+    required this.gallery,
+    required this.user,
+    required this.filter,
+  });
 
-  DataModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    photo = json['photo'];
-    phone = json['phone'];
-    email = json['email'];
-    responsiblePerson = json['responsible_person'];
-    cityName = json['city_name'];
-    categoryName = json['category_name'];
-    type = json['type'];
-    title = json['title'];
-    description = json['description'];
-    content = json['content'];
-    address = json['address'];
-    price = json['price'];
-    priceD = json['price_d'];
-    status = json['status'];
-    lng = json['lng'];
-    lat = json['lat'];
-    views = json['views'];
-    viewPhone = json['view_phone'];
-    premium = json['premium'];
-    favorites = json['favorites'];
-    date = json['date'];
-    dateExpire = json['date_expire'];
-    if (json['gallery'] != null) {
-      gallery = <String>[];
-      json['gallery'].forEach(
-        (v) {
-          // gallery!.add( String.fromJson(v));
-        },
-      );
-    }
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    if (json['filter'] != null) {
-      filter = <String>[];
-      json['filter'].forEach((v) {
-        // filter?.add(String.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['photo'] = this.photo;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['responsible_person'] = this.responsiblePerson;
-    data['city_name'] = this.cityName;
-    data['category_name'] = this.categoryName;
-    data['type'] = this.type;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['content'] = this.content;
-    data['address'] = this.address;
-    data['price'] = this.price;
-    data['price_d'] = this.priceD;
-    data['status'] = this.status;
-    data['lng'] = this.lng;
-    data['lat'] = this.lat;
-    data['views'] = this.views;
-    data['view_phone'] = this.viewPhone;
-    data['premium'] = this.premium;
-    data['favorites'] = this.favorites;
-    data['date'] = this.date;
-    data['date_expire'] = this.dateExpire;
-    // if (this.gallery != null) {
-    //   data['gallery'] = this.gallery?.map((v) => v.toJson()).toList();
-    // }
-    if (this.user != null) {
-      data['user'] = this.user?.toJson();
-    }
-    // if (this.filter != null) {
-    //   data['filter'] = this.filter?.map((v) => v.toJson()).toList();
-    // }
-    return data;
-  }
+  factory Ad.fromJson(Map<String, dynamic> json) => _$AdFromJson(json);
 }
 
-class User {
-  int? id;
-  String? token;
-  String? name;
-  String? phone;
-  String? email;
-  String? photo;
-  String? date;
-  String? city;
-  int? balance;
-
-  User(
-      {this.id,
-      this.token,
-      this.name,
-      this.phone,
-      this.email,
-      this.photo,
-      this.date,
-      this.city,
-      this.balance});
-
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    token = json['token'];
-    name = json['name'];
-    phone = json['phone'];
-    email = json['email'];
-    photo = json['photo'];
-    date = json['date'];
-    city = json['city'];
-    balance = json['balance'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['token'] = this.token;
-    data['name'] = this.name;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['photo'] = this.photo;
-    data['date'] = this.date;
-    data['city'] = this.city;
-    data['balance'] = this.balance;
-    return data;
-  }
-}
-
+@JsonSerializable()
 class Similar {
-  int? id;
-  String? photo;
-  String? phone;
-  String? email;
-  String? responsiblePerson;
-  String? cityName;
-  String? categoryName;
-  String? type;
-  String? title;
-  String? description;
-  String? content;
-  String? address;
-  int? price;
-  int? priceD;
-  int? status;
-  String? lng;
-  String? lat;
-  int? views;
-  int? viewPhone;
-  int? premium;
-  int? favorites;
-  String? date;
-  String? dateExpire;
-  List<String>? gallery;
-  User? user;
-  List<Filter>? filter;
+  final int id;
+  final String? photo;
+  final String? phone;
+  final String? email;
+  @JsonKey(name: 'responsible_person')
+  final String? responsiblePerson;
+  @JsonKey(name: 'city_name')
+  final String? cityName;
+  @JsonKey(name: 'category_name')
+  final String? categoryName;
+  final String? type;
+  final String? title;
+  final String? description;
+  final String? content;
+  final String? address;
+  final int? price;
+  @JsonKey(name: 'price_d')
+  final int? priceD;
+  final int? status;
+  final String? lng;
+  final String? lat;
+  final int? views;
+  @JsonKey(name: 'views_phone')
+  final int? viewPhone;
+  final int? premium;
+  final int? favorites;
+  final String? date;
+  @JsonKey(name: 'data_expire')
+  final String? dateExpire;
+  final List<String> gallery;
+  final User user;
+  final List<Filter> filter;
+  Similar({
+    required this.id,
+    required this.photo,
+    required this.phone,
+    required this.email,
+    required this.responsiblePerson,
+    required this.cityName,
+    required this.categoryName,
+    required this.type,
+    required this.title,
+    required this.description,
+    required this.content,
+    required this.address,
+    required this.price,
+    required this.priceD,
+    required this.status,
+    required this.lng,
+    required this.lat,
+    required this.views,
+    required this.viewPhone,
+    required this.premium,
+    required this.favorites,
+    required this.date,
+    required this.dateExpire,
+    required this.gallery,
+    required this.user,
+    required this.filter,
+  });
 
-  Similar(
-      {this.id,
-      this.photo,
-      this.phone,
-      this.email,
-      this.responsiblePerson,
-      this.cityName,
-      this.categoryName,
-      this.type,
-      this.title,
-      this.description,
-      this.content,
-      this.address,
-      this.price,
-      this.priceD,
-      this.status,
-      this.lng,
-      this.lat,
-      this.views,
-      this.viewPhone,
-      this.premium,
-      this.favorites,
-      this.date,
-      this.dateExpire,
-      this.gallery,
-      this.user,
-      this.filter});
-
-  Similar.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    photo = json['photo'];
-    phone = json['phone'];
-    email = json['email'];
-    responsiblePerson = json['responsible_person'];
-    cityName = json['city_name'];
-    categoryName = json['category_name'];
-    type = json['type'];
-    title = json['title'];
-    description = json['description'];
-    content = json['content'];
-    address = json['address'];
-    price = json['price'];
-    priceD = json['price_d'];
-    status = json['status'];
-    lng = json['lng'];
-    lat = json['lat'];
-    views = json['views'];
-    viewPhone = json['view_phone'];
-    premium = json['premium'];
-    favorites = json['favorites'];
-    date = json['date'];
-    dateExpire = json['date_expire'];
-    gallery = json['gallery'].cast<String>();
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    if (json['filter'] != null) {
-      filter = <Filter>[];
-      json['filter'].forEach((v) {
-        filter?.add(new Filter.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['photo'] = this.photo;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['responsible_person'] = this.responsiblePerson;
-    data['city_name'] = this.cityName;
-    data['category_name'] = this.categoryName;
-    data['type'] = this.type;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['content'] = this.content;
-    data['address'] = this.address;
-    data['price'] = this.price;
-    data['price_d'] = this.priceD;
-    data['status'] = this.status;
-    data['lng'] = this.lng;
-    data['lat'] = this.lat;
-    data['views'] = this.views;
-    data['view_phone'] = this.viewPhone;
-    data['premium'] = this.premium;
-    data['favorites'] = this.favorites;
-    data['date'] = this.date;
-    data['date_expire'] = this.dateExpire;
-    data['gallery'] = this.gallery;
-    if (this.user != null) {
-      data['user'] = this.user?.toJson();
-    }
-    if (this.filter != null) {
-      data['filter'] = this.filter?.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  factory Similar.fromJson(Map<String, dynamic> json) =>
+      _$SimilarFromJson(json);
 }
 
+@JsonSerializable()
+class User {
+  final int id;
+  final String? token;
+  final String? name;
+  final String? phone;
+  final String? email;
+  final String? photo;
+  final String? date;
+  final String? city;
+  final int? balance;
+
+  User({
+    required this.id,
+    required this.token,
+    required this.name,
+    required this.phone,
+    required this.email,
+    required this.photo,
+    required this.date,
+    required this.city,
+    required this.balance,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
+
+@JsonSerializable()
 class Filter {
-  int? filterId;
-  String? name;
-  String? value;
+  @JsonKey(name: 'filter_id')
+  final int filterId;
+  final String name;
+  final String value;
 
-  Filter({this.filterId, this.name, this.value});
+  Filter({
+    required this.filterId,
+    required this.name,
+    required this.value,
+  });
 
-  Filter.fromJson(Map<String, dynamic> json) {
-    filterId = json['filter_id'];
-    name = json['name'];
-    value = json['value'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['filter_id'] = this.filterId;
-    data['name'] = this.name;
-    data['value'] = this.value;
-    return data;
-  }
+  factory Filter.fromJson(Map<String, dynamic> json) => _$FilterFromJson(json);
 }

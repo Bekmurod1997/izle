@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:izle/constants/api.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/user_info.dart';
+import 'package:izle/models/product_detail_model.dart';
 import 'package:izle/models/advertisement/advertisement_list_model.dart';
 import 'package:izle/models/city_model.dart';
 import 'package:izle/models/pdetail.dart';
@@ -175,7 +176,7 @@ class AllServices {
     }
   }
 
-  static Future<ExampleProductDetail?> productDetail(int prodId) async {
+  static Future<ProductDetailModel?> productDetail(int prodId) async {
     try {
       var response =
           await client.get(Uri.parse(ApiUrl.productDetail + '$prodId'));
@@ -184,7 +185,7 @@ class AllServices {
         print(ApiUrl.productDetail + '$prodId');
         print(response.body);
         print('this is product detail service');
-        var body = ExampleProductDetail.fromJson(json.decode(response.body));
+        var body = ProductDetailModel.fromJson(json.decode(response.body));
 
         return body;
       }

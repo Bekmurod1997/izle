@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:izle/constants/fonts.dart';
-import 'package:izle/ui/home/widgets/recommendation_item.dart';
 
 class SimilarAdds extends StatelessWidget {
   const SimilarAdds({Key? key}) : super(key: key);

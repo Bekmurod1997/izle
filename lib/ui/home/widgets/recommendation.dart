@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/favorities_controller.dart';
-import 'package:izle/models/advertisement/advertisement_list_model.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
 
 class Recommendation extends StatefulWidget {
@@ -69,7 +66,7 @@ class _RecommendationState extends State<Recommendation> {
             padding: EdgeInsets.zero,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: allAdsController.allAdsList().data!.length,
+            itemCount: allAdsController.allAdsList().data?.length ?? 0,
             gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
               crossAxisCount: 2,
