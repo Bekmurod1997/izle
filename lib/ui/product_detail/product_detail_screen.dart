@@ -35,7 +35,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   void didChangeDependencies() async {
     await productDetailController.fetchProductDetail(widget.proId!);
-    print(productDetailController.productDetailList?.datamodel?.title);
+    print(productDetailController.productDetailList?.data.title);
     print('id');
     print(widget.proId);
     super.didChangeDependencies();
@@ -85,9 +85,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         children: [
                           Text(
                             // 'Платье для девочки. Турция',
-                            productDetailController
-                                    .productDetailList?.datamodel?.title ??
-                                'nnnn',
+                            // productDetailController
+                            //         .productDetailList?.data?.title ??
+                            'nnnn',
 
                             textAlign: TextAlign.center,
                             style: FontStyles.regularStyle(

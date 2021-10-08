@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
+import 'package:izle/models/product_detail_model.dart';
 import 'package:izle/services/all_services.dart';
-import 'package:izle/models/pdetail.dart';
 
 class ProductDetailController extends GetxController {
   var isLoading = true.obs;
-  ExampleProductDetail? productDetailList;
+  ProductDetailModel? productDetailList;
 
   Future<void> fetchProductDetail(int proId) async {
     try {
