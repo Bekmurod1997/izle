@@ -23,8 +23,7 @@ class MyApp extends StatelessWidget {
 
   final MainCategories mainCategories = Get.put(MainCategories());
   final UserInfoController userInfo = Get.put(UserInfoController());
-  final CreatingAddInfoController creatingAddInfoController =
-      Get.put(CreatingAddInfoController());
+
   final ProductDetailController productDetailController =
       Get.put(ProductDetailController());
   final AllCityController allCityController = Get.put(AllCityController());

@@ -21,15 +21,6 @@ class _SearchResultState extends State<SearchResult> {
   final SearchController sController = Get.find<SearchController>();
 
   TextEditingController searchController = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +52,12 @@ class _SearchResultState extends State<SearchResult> {
                           sController.searchTitleChanger(
                               sTitle: searchController.text);
                           print('afterrrrrr');
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      super.widget));
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (BuildContext context) =>
+                          //           super.widget),
+                          // );
 
                           // Get.back();
                           // Get.to(() => SearchResult(
@@ -101,16 +93,6 @@ class _SearchResultState extends State<SearchResult> {
                 ),
               ],
             ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 20),
-            //   child: Text(
-            //     'Мы нашли 1000 объявлений',
-            //     style: TextStyle(
-            //       fontSize: 18,
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(height: 15),
             GestureDetector(
                 // onTap: () => Get.to(() => ProductDetailScreen()),
                 child: SearchProduct(

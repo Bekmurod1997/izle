@@ -28,7 +28,7 @@ class CreatingAddScreen extends StatefulWidget {
 
 class _CreatingAddScreenState extends State<CreatingAddScreen> {
   final CreatingAddInfoController creatingAddInfoController =
-      Get.find<CreatingAddInfoController>();
+      Get.put(CreatingAddInfoController());
   final UserInfoController userInfoController = Get.find<UserInfoController>();
 
   int selectedIndex = 0;
@@ -52,7 +52,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
 
   @override
   void initState() {
-    imagePicker = new ImagePicker();
+    // imagePicker = new ImagePicker();
     userInfoController.fetchUserInfo();
     super.initState();
   }
@@ -66,179 +66,192 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
         //   context,
         //   title: '  Создать объявления  ',
         // ),
-        body: Obx(
-          () => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CreatAppBar(),
-                  Container(
-                    child: GestureDetector(
-                      onTap: () async {
-                        print('photo pressed');
-                        var source = ImageSource.gallery;
-                        XFile image = await imagePicker.pickImage(
-                          source: source,
-                          imageQuality: 50,
-                          // preferredCameraDevice: CameraDevice.front,
-                        );
-                        setState(() {
-                          _image = File(image.path);
-                        });
-                      },
-                      child: _image != null
-                          ? Image.file(
-                              _image,
-                              width: 200.0,
-                              height: 200.0,
-                              fit: BoxFit.fitHeight,
-                            )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                SvgPicture.asset('assets/icons/upload_f.svg'),
-                                Text('Добавить фото',
-                                    style: FontStyles.semiBoldStyle(
-                                      fontSize: 24,
-                                      fontFamily: 'Lato',
-                                      color: Colors.white,
-                                    ))
-                              ],
-                            ),
-                    ),
-                    width: double.infinity,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/wallet.png',
-                        ),
-                        fit: BoxFit.fill,
+        body: Obx(() {
+          if (userInfoController.isLoading.value) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CreatAppBar(),
+                    Container(
+                      child: GestureDetector(
+                        onTap: () async {
+                          print('photo pressed');
+                          var source = ImageSource.gallery;
+                          XFile image = await imagePicker.pickImage(
+                            source: source,
+                            imageQuality: 50,
+                            // preferredCameraDevice: CameraDevice.front,
+                          );
+                          if (mounted)
+                            setState(() {
+                              _image = File(image.path);
+                            });
+                        },
+                        child: _image != null
+                            ? Image.file(
+                                _image,
+                                width: 200.0,
+                                height: 200.0,
+                                fit: BoxFit.fitHeight,
+                              )
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SvgPicture.asset('assets/icons/upload_f.svg'),
+                                  Text('Добавить фото',
+                                      style: FontStyles.semiBoldStyle(
+                                        fontSize: 24,
+                                        fontFamily: 'Lato',
+                                        color: Colors.white,
+                                      ))
+                                ],
+                              ),
                       ),
-                    ),
-                  ),
-                  CreateTitle(),
-                  CategoryChoice(),
-                  CreateDescription(),
-                  CreatePrice(),
-                  Center(
-                    child: Text(
-                      'Ваши контактные данные',
-                      style: FontStyles.regularStyle(
-                        fontSize: 20,
-                        fontFamily: 'Lato',
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    'Местоположения*',
-                    style: FontStyles.regularStyle(
-                        fontSize: 16, fontFamily: 'Lato'),
-                  ),
-                  SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () => Get.to(() => MapScreen()),
-                    child: Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 17, vertical: 15),
+                      height: 200,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            creatingAddInfoController.locationInfo.value ==
-                                    'nowhere'
-                                ? 'Ташкент, Учтепинский район'
-                                : creatingAddInfoController.locationInfo.value,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/wallet.png',
                           ),
-                          SvgPicture.asset('assets/icons/next-icon.svg'),
-                        ],
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  ////////////////////////////////
-                  ////////////////////////////////
-                  //checking for null name //////
-                  ////////////////////////////////
-                  ////////////////////////////////
-                  if (userInfoController.fetchUserInfoList.first.name != null)
-                    UserInfo(title: 'Контактное лицо*', userInfo: 'Азиз'),
-                  ////////////////////////////////
-                  ////////////////////////////////
-                  //checking for null email //////
-                  ////////////////////////////////
-                  ////////////////////////////////
-                  if (userInfoController.fetchUserInfoList.first.name != null)
+                    CreateTitle(),
+                    CategoryChoice(),
+                    CreateDescription(),
+                    CreatePrice(),
+                    Center(
+                      child: Text(
+                        'Ваши контактные данные',
+                        style: FontStyles.regularStyle(
+                          fontSize: 20,
+                          fontFamily: 'Lato',
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      'Местоположения*',
+                      style: FontStyles.regularStyle(
+                          fontSize: 16, fontFamily: 'Lato'),
+                    ),
+                    SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () => Get.to(() => MapScreen()),
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 17, vertical: 15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                creatingAddInfoController.locationInfo.value ==
+                                        'nowhere'
+                                    ? 'Ташкент, Учтепинский район'
+                                    : creatingAddInfoController
+                                        .locationInfo.value,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),
+                            SvgPicture.asset('assets/icons/next-icon.svg'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ////////////////////////////////
+                    ////////////////////////////////
+                    //checking for null name //////
+                    ////////////////////////////////
+                    ////////////////////////////////
+                    if (userInfoController.fetchUserInfoList.first.name != null)
+                      UserInfo(title: 'Контактное лицо*', userInfo: 'Азиз'),
+                    ////////////////////////////////
+                    ////////////////////////////////
+                    //checking for null email //////
+                    ////////////////////////////////
+                    ////////////////////////////////
+                    if (userInfoController.fetchUserInfoList.first.name != null)
+                      UserInfo(
+                          title: 'Электронная почта*',
+                          userInfo: 'azizakbarov@gmail.com'),
                     UserInfo(
-                        title: 'Электронная почта*',
-                        userInfo: 'azizakbarov@gmail.com'),
-                  UserInfo(
-                      title: 'Телефон',
-                      userInfo: '+' +
-                          userInfoController.fetchUserInfoList.first.phone
-                              .toString()),
-                  SizedBox(height: 30),
-                  GestureDetector(
-                    onTap: () => g.Get.back(),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                          color: ColorPalate.mainPageColor,
-                          borderRadius: new BorderRadius.circular(
-                            10.0,
-                          ),
-                          border: Border.all(
-                            color: ColorPalate.mainColor,
-                            width: 2,
-                          )),
-                      child: Center(
-                        child: Text(
-                          'Предпросмотр',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: ColorPalate.mainColor,
+                        title: 'Телефон',
+                        userInfo: '+' +
+                            userInfoController.fetchUserInfoList.first.phone
+                                .toString()),
+                    SizedBox(height: 30),
+                    GestureDetector(
+                      onTap: () => g.Get.back(),
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        decoration: BoxDecoration(
+                            color: ColorPalate.mainPageColor,
+                            borderRadius: new BorderRadius.circular(
+                              10.0,
+                            ),
+                            border: Border.all(
+                              color: ColorPalate.mainColor,
+                              width: 2,
+                            )),
+                        child: Center(
+                          child: Text(
+                            'Предпросмотр',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: ColorPalate.mainColor,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  CutomeButton(
-                    title: 'Опубликовать',
-                    onpress: () async {
-                      print('pressed');
-                      var client = http.Client();
-                      try {
-                        var response =
-                            await client.get(Uri.parse(ApiUrl.listOfAllAds));
-                        if (response.statusCode == 200) {
-                          print('success in creating ads');
-                          print(response.body);
+                    SizedBox(height: 10),
+                    CutomeButton(
+                      title: 'Опубликовать',
+                      onpress: () async {
+                        print('pressed');
+                        var client = http.Client();
+                        try {
+                          var response =
+                              await client.get(Uri.parse(ApiUrl.listOfAllAds));
+                          if (response.statusCode == 200) {
+                            print('success in creating ads');
+                            print(response.body);
+                          }
+                        } catch (e) {
+                          print('error in creating adds');
+                          print(e);
                         }
-                      } catch (e) {
-                        print('error in creating adds');
-                        print(e);
-                      }
-                    },
-                    buttonColor: ColorPalate.mainColor,
-                    textColor: Colors.white,
-                  ),
-                  SizedBox(height: 30),
-                ],
+                      },
+                      buttonColor: ColorPalate.mainColor,
+                      textColor: Colors.white,
+                    ),
+                    SizedBox(height: 30),
+                  ],
+                ),
               ),
-            ),
-          ),
-        ),
+            );
+          }
+        }),
         bottomNavigationBar: CustomBottomNavBar(),
       ),
     );
