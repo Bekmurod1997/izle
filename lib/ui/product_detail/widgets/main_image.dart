@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MainImage extends StatelessWidget {
-  const MainImage({Key? key}) : super(key: key);
+  final String mainImage;
+  MainImage({required this.mainImage});
 
   @override
   Widget build(BuildContext context) {
@@ -10,8 +11,8 @@ class MainImage extends StatelessWidget {
       height: 250,
       color: Colors.white,
       width: double.infinity,
-      child: Image.asset(
-        'assets/images/111.jpeg',
+      child: Image.network(
+        'http://izle.selfieshop.uz/' + mainImage,
         width: double.infinity,
         fit: BoxFit.fitHeight,
       ),

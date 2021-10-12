@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/ui/ads_by_author/ads_by_author_screen.dart';
 
 class UserInfo extends StatelessWidget {
-  const UserInfo({Key? key}) : super(key: key);
+  final String userName;
+  final String authorToken;
+  UserInfo({required this.userName, required this.authorToken});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class UserInfo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Азиз Ассомов',
+                        userName,
                         style: FontStyles.semiBoldStyle(
                           fontSize: 24,
                           fontFamily: 'Lato',
@@ -39,7 +43,10 @@ class UserInfo extends StatelessWidget {
                       ),
                       SizedBox(height: 13),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => Get.to(() => AdsByAuthor(
+                              authorToken: authorToken,
+                              userName: userName,
+                            )),
                         child: Text(
                           'Все объявления автора',
                           style: FontStyles.semiBoldStyle(

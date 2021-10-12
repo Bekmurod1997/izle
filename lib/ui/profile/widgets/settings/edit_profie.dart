@@ -164,6 +164,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           email: emailController.text,
                           name: nameController.text);
                       // Get.back();
+                      // userInfoController.fetchUserInfo();
                     },
                     buttonColor: ColorPalate.mainColor,
                     textColor: Colors.white,

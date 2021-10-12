@@ -2,9 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/controller/my_ads_controller.dart';
 import 'package:izle/ui/profile/widgets/adds/widgets/non_active_adds_card.dart';
 
-class NonActiveAdds extends StatelessWidget {
+class NonActiveAdds extends StatefulWidget {
+  @override
+  State<NonActiveAdds> createState() => _NonActiveAddsState();
+}
+
+class _NonActiveAddsState extends State<NonActiveAdds> {
+  final MyAdsController myAdsController = Get.find<MyAdsController>();
+  @override
+  void initState() {
+    myAdsController.fetchMyOrders();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,15 +64,54 @@ class NonActiveAdds extends StatelessWidget {
             Divider(
               thickness: 3,
             ),
-            ListView.separated(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) => NonActiveAddsCard(),
-              separatorBuilder: (context, index) => SizedBox(
-                height: 10,
-              ),
-              itemCount: 10,
-            ),
+            Obx(() {
+              if (myAdsController.isLoading.value) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => NonActiveAddsCard(
+                    category: myAdsController
+                        .allMyAdsList()
+                        .data![index]
+                        .categoryName!,
+                    description: myAdsController
+                        .allMyAdsList()
+                        .data![index]
+                        .description!,
+                    email:
+                        '${myAdsController.allMyAdsList().data![index].user?.email}',
+                    content:
+                        myAdsController.allMyAdsList().data![index].content!,
+                    locationTitle:
+                        myAdsController.allMyAdsList().data![index].address!,
+                    phoneNumber:
+                        myAdsController.allMyAdsList().data![index].phone!,
+                    type: '${myAdsController.allMyAdsList().data![index].type}',
+                    userName:
+                        myAdsController.allMyAdsList().data![index].user!.name!,
+                    status: myAdsController.allMyAdsList().data![index].status!,
+                    id: myAdsController.allMyAdsList().data![index].id!,
+                    title: myAdsController.allMyAdsList().data![index].title!,
+                    date: myAdsController.allMyAdsList().data![index].date!,
+                    imageUrl:
+                        myAdsController.allMyAdsList().data![index].photo!,
+                    price: myAdsController
+                        .allMyAdsList()
+                        .data![index]
+                        .price
+                        .toString(),
+                  ),
+                  separatorBuilder: (context, index) => SizedBox(
+                    height: 10,
+                  ),
+                  itemCount: myAdsController.allMyAdsList().data!.length,
+                );
+              }
+            })
           ],
         ),
       )),

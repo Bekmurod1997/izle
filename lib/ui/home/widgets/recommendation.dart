@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/favorities_controller.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
+import 'package:izle/ui/product_detail/product_detail_screen.dart';
 
 class Recommendation extends StatefulWidget {
   @override
@@ -76,15 +77,22 @@ class _RecommendationState extends State<Recommendation> {
               height: MediaQuery.of(context).size.height * 0.3,
             ),
             itemBuilder: (context, index) {
-              return RecommandationItem(
-                isFavorite: false,
-                title: allAdsController.allAdsList().data![index].title!,
-                id: allAdsController.allAdsList().data![index].id!,
-                city: allAdsController.allAdsList().data![index].cityName!,
-                price:
-                    allAdsController.allAdsList().data![index].price.toString(),
-                date: allAdsController.allAdsList().data![index].date!,
-                imageUrl: allAdsController.allAdsList().data![index].photo!,
+              return GestureDetector(
+                onTap: () => Get.to(() => ProductDetailScreen(
+                    proId: allAdsController.allAdsList().data![index].id)),
+                child: RecommandationItem(
+                  isFavorite: false,
+                  title: allAdsController.allAdsList().data![index].title!,
+                  id: allAdsController.allAdsList().data![index].id!,
+                  city: allAdsController.allAdsList().data![index].cityName!,
+                  price: allAdsController
+                      .allAdsList()
+                      .data![index]
+                      .price
+                      .toString(),
+                  date: allAdsController.allAdsList().data![index].date!,
+                  imageUrl: allAdsController.allAdsList().data![index].photo!,
+                ),
               );
             },
           ),

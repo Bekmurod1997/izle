@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
+
 import 'package:izle/controller/all_categories.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
-import 'package:izle/controller/sub_category_controller.dart';
+
 import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
@@ -15,13 +15,10 @@ class CategoryList extends StatefulWidget {
 }
 
 class _CategoryListState extends State<CategoryList> {
-  final AdvertismentSubCategoryController advertismentSubCategoryController =
-      Get.put(AdvertismentSubCategoryController());
-
   final MainCategories mainCategories = Get.find<MainCategories>();
 
-  final SubCategoryController subCategoryController =
-      Get.put(SubCategoryController());
+  // final SubCategoryController subCategoryController =
+  //     Get.find<SubCategoryController>();
   final CreatingAddInfoController creatingAddInfoController =
       Get.find<CreatingAddInfoController>();
 
@@ -90,13 +87,13 @@ class _CategoryListState extends State<CategoryList> {
                         fontFamily: 'Lato',
                       ),
                     ),
-                    subtitle: Text(
-                      '42345 объявлений',
-                      style: FontStyles.regularStyle(
-                        fontSize: 10,
-                        fontFamily: 'Lato',
-                      ),
-                    ),
+                    // subtitle: Text(
+                    //   '42345 объявлений',
+                    //   style: FontStyles.regularStyle(
+                    //     fontSize: 10,
+                    //     fontFamily: 'Lato',
+                    //   ),
+                    // ),
                     trailing: SvgPicture.asset('assets/icons/next-icon.svg'),
                   ),
                 ),

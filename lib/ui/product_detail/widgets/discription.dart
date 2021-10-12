@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:izle/constants/fonts.dart';
 
 class ProductDesciption extends StatelessWidget {
-  const ProductDesciption({Key? key}) : super(key: key);
-
+  final String proDesc;
+  ProductDesciption({required this.proDesc});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +23,8 @@ class ProductDesciption extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            'Красивое платье, фирменное. Пости новое. На размер 7-8 лет.',
+            // 'Красивое платье, фирменное. Пости новое. На размер 7-8 лет.',
+            proDesc,
             style: FontStyles.regularStyle(
               fontSize: 14,
               fontFamily: 'Lato',

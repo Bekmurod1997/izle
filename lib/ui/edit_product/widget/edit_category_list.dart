@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
+
 import 'package:izle/controller/all_categories.dart';
-import 'package:izle/controller/sub_category_controller.dart';
-import 'package:izle/ui/category/sub_categories.dart';
-import 'package:izle/ui/components/custom_bottomNavbar.dart';
+import 'package:izle/controller/creating_add_info_controller.dart';
+
 import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/ui/edit_product/widget/edit_sub_category_list.dart';
+import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/sub_category_list.dart';
 
-class AllCategoryScreen extends StatefulWidget {
+class EditCategoryList extends StatefulWidget {
   @override
-  State<AllCategoryScreen> createState() => _AllCategoryScreenState();
+  State<EditCategoryList> createState() => _EditCategoryListState();
 }
 
-class _AllCategoryScreenState extends State<AllCategoryScreen> {
-  final AdvertismentSubCategoryController advertismentSubCategoryController =
-      Get.find<AdvertismentSubCategoryController>();
-
+class _EditCategoryListState extends State<EditCategoryList> {
   final MainCategories mainCategories = Get.find<MainCategories>();
 
-  final SubCategoryController subCategoryController =
-      Get.put(SubCategoryController());
+  // final SubCategoryController subCategoryController =
+  //     Get.find<SubCategoryController>();
+  final CreatingAddInfoController creatingAddInfoController =
+      Get.find<CreatingAddInfoController>();
 
   @override
   void initState() {
@@ -53,11 +53,20 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
             itemCount: mainCategories.categoriesList.length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () => Get.to(() => SubCategories(
+                onTap: () {
+                  creatingAddInfoController.mainCategoryChanger(
+                      categoryName:
+                          mainCategories.categoriesList[index].nameRu);
+                  print('pressed categroy name');
+                  print(creatingAddInfoController.mainCategory);
+                  Get.to(
+                    () => EditSubCategoryList(
                       id: mainCategories.categoriesList[index].id!,
                       catName: mainCategories.categoriesList[index].nameRu!,
                       imgUrl: mainCategories.categoriesList[index].photo!,
-                    )),
+                    ),
+                  );
+                },
                 child: Card(
                   color: ColorPalate.addsBackgroundColor,
                   child: ListTile(
@@ -79,13 +88,6 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                         fontFamily: 'Lato',
                       ),
                     ),
-                    subtitle: Text(
-                      '42345 объявлений',
-                      style: FontStyles.regularStyle(
-                        fontSize: 10,
-                        fontFamily: 'Lato',
-                      ),
-                    ),
                     trailing: SvgPicture.asset('assets/icons/next-icon.svg'),
                   ),
                 ),
@@ -94,7 +96,6 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
           );
         }
       }),
-      bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

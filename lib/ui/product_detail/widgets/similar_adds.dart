@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/ui/home/widgets/recommendation_item.dart';
 
 class SimilarAdds extends StatelessWidget {
-  const SimilarAdds({Key? key}) : super(key: key);
-
+  final dynamic myList;
+  SimilarAdds({required this.myList});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,29 +26,38 @@ class SimilarAdds extends StatelessWidget {
           ///
           ///
           ///
-          // Container(
-          //   color: Colors.white,
-          //   height: 250,
-          //   width: double.infinity,
-          //   child: ListView.separated(
-          //     scrollDirection: Axis.horizontal,
-          //     // physics: NeverScrollableScrollPhysics(),
-          //     shrinkWrap: true,
-          //     itemBuilder: (context, index) => Container(
-          //       margin: const EdgeInsets.only(left: 15),
-          //       width: MediaQuery.of(context).size.width * 0.44,
-          //       height: 250,
-          //       child: RecommandationItem(
-          //         // isFavorite: false,
-          //       ),
-          //     ),
-          //     separatorBuilder: (context, index) => SizedBox(
-          //       width: 10,
-          //     ),
-          //     itemCount: 12,
-          //   ),
-          // ),
+
+          Container(
+            color: Colors.white,
+            height: 280,
+            width: double.infinity,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              // physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) => Container(
+                margin: const EdgeInsets.only(left: 15),
+                width: MediaQuery.of(context).size.width * 0.44,
+                height: 250,
+                child: RecommandationItem(
+                  city: '${myList[index].cityName}',
+                  date: '${myList[index].date}',
+                  id: myList[index].id,
+                  imageUrl: '${myList[index].photo}',
+                  isFavorite: false,
+                  price: '${myList[index].price}',
+                  title: '${myList[index].title}',
+                  // isFavorite: false,
+                ),
+              ),
+              separatorBuilder: (context, index) => SizedBox(
+                width: 10,
+              ),
+              itemCount: myList.length,
+            ),
+          ),
           //Similar adds
+
           /////
           ///
           ///

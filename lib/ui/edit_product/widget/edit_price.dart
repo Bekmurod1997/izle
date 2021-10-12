@@ -5,20 +5,28 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 
-class CreatePrice extends StatefulWidget {
+class EditPrice extends StatefulWidget {
+  final String type;
+  final String price;
+  EditPrice({required this.type, required this.price});
   @override
-  _CreatePriceState createState() => _CreatePriceState();
+  _EditPriceState createState() => _EditPriceState();
 }
 
-class _CreatePriceState extends State<CreatePrice> {
+class _EditPriceState extends State<EditPrice> {
   final CreatingAddInfoController creatingAddInfoController =
       Get.find<CreatingAddInfoController>();
 
   final TextEditingController priceController = TextEditingController();
-
   int selectedIndex = 0;
   int val = -1;
   bool status1 = false;
+  @override
+  void initState() {
+    priceController.text = widget.price;
+    selectedIndex = int.parse(widget.type);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

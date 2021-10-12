@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/controller/user_info.dart';
+import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,7 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  final UserInfoController userInfoController = Get.find<UserInfoController>();
+
   TextEditingController password = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -49,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Padding(
               padding: EdgeInsets.only(left: 15, right: 15, top: 5),
               child: TextFormField(
+                controller: phoneNumber,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                 ),
@@ -113,9 +119,13 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           GestureDetector(
-            onTap: () => Get.to(
-              () => CreatingAddScreen(),
-            ),
+            onTap: () {
+              AllServices.login(phoneNumber.text, password.text);
+              userInfoController.fetchUserInfo();
+            },
+            // Get.to(
+            //   () => CreatingAddScreen(),
+            // ),
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 15),

@@ -11,9 +11,28 @@ class CreatingAddInfoController extends GetxController {
   var locationInfo = 'nowhere'.obs;
   var typeId = 0.obs;
   var name = 'nobody'.obs;
+  var price = 0.0.obs;
+
+  void allClear() {
+    mainCategory.value = 'nothing';
+    subCategory.value = 'nothing';
+    subCategoryId.value = 1;
+    description.value = 'nothing';
+    title.value = 'nothing';
+    lat.value = 0.0;
+    long.value = 0.0;
+    locationInfo.value = 'nowhere';
+    typeId.value = 0;
+    name.value = 'nobody';
+    price.value = 0.0;
+  }
 
   void nameChanger(String nameC) {
     name.value = nameC;
+  }
+
+  void priceChanger(double priceC) {
+    price.value = priceC;
   }
 
   void typeIdChanger(int id) {
@@ -37,9 +56,10 @@ class CreatingAddInfoController extends GetxController {
     mainCategory.value = categoryName!;
   }
 
-  void subCategoryChanger({String? subCategoryName, required int? id}) {
-    subCategory.value = subCategoryName!;
-    subCategoryId.value = id!;
+  Future subCategoryChanger(
+      {required String subCategoryName, required int id}) async {
+    subCategory.value = subCategoryName;
+    subCategoryId.value = id;
   }
 
   void descriptionChanger({required String descriptionn}) {

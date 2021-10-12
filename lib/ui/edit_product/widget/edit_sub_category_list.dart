@@ -9,22 +9,22 @@ import 'package:get/get.dart';
 import 'package:izle/ui/edit_product/edit_product_screen.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
 
-class SubCategoryList extends StatefulWidget {
+class EditSubCategoryList extends StatefulWidget {
   final int id;
   final String catName;
   final String imgUrl;
 
-  SubCategoryList({
+  EditSubCategoryList({
     required this.id,
     required this.catName,
     required this.imgUrl,
   });
 
   @override
-  State<SubCategoryList> createState() => _SubCategoryListState();
+  State<EditSubCategoryList> createState() => _EditSubCategoryListState();
 }
 
-class _SubCategoryListState extends State<SubCategoryList> {
+class _EditSubCategoryListState extends State<EditSubCategoryList> {
   final SubCategoryController subCategoryController =
       Get.find<SubCategoryController>();
   final CreatingAddInfoController creatingAddInfoController =
@@ -100,8 +100,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                   itemCount: subCategoryController.subCategoryList.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () {
-                        creatingAddInfoController.subCategoryChanger(
+                      onTap: () async {
+                        await creatingAddInfoController.subCategoryChanger(
                             subCategoryName:
                                 '${subCategoryController.subCategoryList[index].nameRu}',
                             id: subCategoryController
@@ -111,7 +111,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         print(creatingAddInfoController.subCategoryId);
                         print(subCategoryController.subCategoryList[index].id);
 
-                        Get.offAll(() => CreatingAddScreen());
+                        Get.back();
+                        Get.back();
                       },
                       child: Container(
                         color: ColorPalate.addsBackgroundColor,

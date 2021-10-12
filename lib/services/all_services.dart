@@ -5,16 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:izle/constants/api.dart';
 import 'package:izle/constants/colors.dart';
+import 'package:izle/controller/creating_add_info_controller.dart';
+import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/controller/user_info.dart';
+import 'package:izle/models/login_model.dart';
 import 'package:izle/models/product_detail_model.dart';
 import 'package:izle/models/advertisement/advertisement_list_model.dart';
 import 'package:izle/models/city_model.dart';
-import 'package:izle/models/pdetail.dart';
 import 'package:izle/models/user_info_model.dart';
+import 'package:izle/ui/nav.dart';
+import 'package:izle/ui/profile/active_profile.dart';
+import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
 import 'package:izle/utils/my_prefs.dart';
 import 'package:get/get.dart';
 
 class AllServices {
+  static PageNavigationController pageNavigationController =
+      Get.find<PageNavigationController>();
   static final token = MyPref.token;
   static var client = http.Client();
 
@@ -33,6 +40,115 @@ class AllServices {
       }
     } catch (e) {
       print('error in auth');
+    }
+  }
+
+  static Future createAd() async {
+    final CreatingAddInfoController creatingAddInfoController =
+        Get.find<CreatingAddInfoController>();
+    final UserInfoController userInfoController =
+        Get.find<UserInfoController>();
+    try {
+      var response = await client.post(Uri.parse(ApiUrl.createAds), body: {
+        'title': '${creatingAddInfoController.title}',
+        'category_id': '${creatingAddInfoController.subCategoryId}',
+        'price': '${creatingAddInfoController.price}',
+        'price_d': '2799',
+        'content': '${creatingAddInfoController.description}',
+        'city_id': '10',
+        'phone': '${userInfoController.fetchUserInfoList.first.phone}',
+        'email': 'a@mail.ru',
+        'type': '1',
+        'address': '${creatingAddInfoController.locationInfo}',
+        'responsible_person': 'Дмитрий Мухамадиев',
+        'lat': '${creatingAddInfoController.lat}',
+        'lng': '${creatingAddInfoController.long}',
+      }, headers: {
+        "Authorization": "Bearer $token"
+      });
+      if (response.statusCode == 200) {
+        print('success in creating ads');
+        print(response.body);
+        Get.to(() => ActiveProfileScreen());
+      }
+    } catch (e) {
+      print('error in creating adds');
+      print(e);
+    }
+  }
+
+  static Future editAd(int id) async {
+    print(ApiUrl.editAds + '$id');
+    final CreatingAddInfoController creatingAddInfoController =
+        Get.find<CreatingAddInfoController>();
+    final UserInfoController userInfoController =
+        Get.find<UserInfoController>();
+    try {
+      var response =
+          await client.post(Uri.parse(ApiUrl.editAds + '$id'), body: {
+        'title': '${creatingAddInfoController.title}',
+        'category_id': '${creatingAddInfoController.subCategoryId}',
+        'price': '${creatingAddInfoController.price}',
+        'price_d': '2799',
+        'content': '${creatingAddInfoController.description}',
+        'city_id': '10',
+        'phone': '${userInfoController.fetchUserInfoList.first.phone}',
+        'email': 'a@mail.ru',
+        'type': '${creatingAddInfoController.typeId}',
+        'address': '${creatingAddInfoController.locationInfo}',
+        'responsible_person': 'Дмитрий Мухамадиев',
+        'lat': '${creatingAddInfoController.lat}',
+        'lng': '${creatingAddInfoController.long}',
+      }, headers: {
+        'Accept': 'application/json',
+        // "Authorization": "Bearer $token",
+        HttpHeaders.authorizationHeader: 'Bearer $token'
+      });
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print('successs');
+        print('success in creating ads');
+        print(response.body);
+        Get.to(() => ActiveProfileScreen());
+      }
+    } catch (e) {
+      print('error in creating adds');
+      print(e);
+    }
+  }
+
+  static Future myOrders() async {
+    try {
+      print('url link');
+      print(ApiUrl.myAds);
+      var response = await client.get(Uri.parse(ApiUrl.myAds),
+          headers: {"Authorization": "Bearer $token"});
+      if (response.statusCode == 200) {
+        var body = AdvertisementListModel.fromJson(json.decode(response.body));
+        print(response.body);
+        print('this is my orders');
+
+        return body;
+      }
+    } catch (e) {
+      print('error in myorders service');
+    }
+  }
+
+  static Future authorOrders(String authorToken) async {
+    try {
+      print('url link');
+      print(ApiUrl.myAds);
+      var response = await client.get(Uri.parse(ApiUrl.myAds),
+          headers: {"Authorization": "Bearer $authorToken"});
+      if (response.statusCode == 200) {
+        var body = AdvertisementListModel.fromJson(json.decode(response.body));
+        // print(response.body);
+        print('this is author orders');
+        return body;
+      }
+    } catch (e) {
+      print('error in myorders service');
     }
   }
 
@@ -96,12 +212,28 @@ class AllServices {
     }
   }
 
+  static Future deleteAd(int id) async {
+    try {
+      print(ApiUrl.deleteAds + '$id');
+      var response = await client.post(
+        Uri.parse(ApiUrl.deleteAds + '$id'),
+        headers: {"Authorization": "Bearer $token"},
+      );
+      if (response.statusCode == 200) {
+        print('ad was deleted successfully ');
+      }
+    } catch (e) {
+      print('error in delete add service');
+    }
+  }
+
   static Future fetchFavorites() async {
     try {
       var response = await client.get(
         Uri.parse(ApiUrl.favorites),
         headers: {"Authorization": "Bearer $token"},
       );
+      print(response.statusCode);
       if (response.statusCode == 200) {
         var body = AdvertisementListModel.fromJson(json.decode(response.body));
         // print(response.body);
@@ -147,6 +279,22 @@ class AllServices {
     }
   }
 
+  static Future logout() async {
+    try {
+      var response = await client.get(Uri.parse(ApiUrl.logout),
+          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+      if (response.statusCode == 200) {
+        print('successfully logout');
+        MyPref.clearToken();
+        Get.offAll(() => NavScreen());
+        pageNavigationController.pageControllerChanger(0);
+        pageNavigationController.tabIndexChanger(0);
+      }
+    } catch (e) {
+      print('error in logout service');
+    }
+  }
+
   static Future allCities() async {
     try {
       var response = await client.get(
@@ -160,6 +308,26 @@ class AllServices {
       }
     } catch (e) {
       print('error in allcities service');
+    }
+  }
+
+  static Future login(String phoneNumber, String password) async {
+    try {
+      var response = await client.post(
+        Uri.parse(ApiUrl.signin),
+        body: {'phone': phoneNumber, 'password': password},
+      );
+      if (response.statusCode == 200) {
+        var body = LoginModel.fromJson(json.decode(response.body));
+        print('login successfully');
+        print(response.body);
+        MyPref.token = body.token!;
+        Get.to(
+          () => CreatingAddScreen(),
+        );
+      }
+    } catch (e) {
+      print('error in login service');
     }
   }
 

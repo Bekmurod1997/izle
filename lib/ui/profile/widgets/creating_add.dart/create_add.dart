@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:izle/constants/api.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/user_info.dart';
+import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
@@ -20,6 +21,7 @@ import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/title.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/user_info.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class CreatingAddScreen extends StatefulWidget {
   @override
@@ -28,7 +30,7 @@ class CreatingAddScreen extends StatefulWidget {
 
 class _CreatingAddScreenState extends State<CreatingAddScreen> {
   final CreatingAddInfoController creatingAddInfoController =
-      Get.put(CreatingAddInfoController());
+      Get.find<CreatingAddInfoController>();
   final UserInfoController userInfoController = Get.find<UserInfoController>();
 
   int selectedIndex = 0;
@@ -53,8 +55,13 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
   @override
   void initState() {
     // imagePicker = new ImagePicker();
-    userInfoController.fetchUserInfo();
+    // userInfoController.fetchUserInfo();
     super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // executes after build
+      imagePicker = new ImagePicker();
+      userInfoController.fetchUserInfo();
+    });
   }
 
   @override
@@ -182,22 +189,23 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     //checking for null name //////
                     ////////////////////////////////
                     ////////////////////////////////
-                    if (userInfoController.fetchUserInfoList.first.name != null)
-                      UserInfo(title: 'Контактное лицо*', userInfo: 'Азиз'),
+                    // if (userInfoController.fetchUserInfoList.first.name != null)
+                    UserInfo(title: 'Контактное лицо*', userInfo: 'aziz'
+                        // '${userInfoController.fetchUserInfoList.first.name}',
+                        ),
                     ////////////////////////////////
                     ////////////////////////////////
                     //checking for null email //////
                     ////////////////////////////////
                     ////////////////////////////////
-                    if (userInfoController.fetchUserInfoList.first.name != null)
-                      UserInfo(
-                          title: 'Электронная почта*',
-                          userInfo: 'azizakbarov@gmail.com'),
+                    // if (userInfoController.fetchUserInfoList.first.name != null)
                     UserInfo(
-                        title: 'Телефон',
-                        userInfo: '+' +
-                            userInfoController.fetchUserInfoList.first.phone
-                                .toString()),
+                        title: 'Электронная почта*',
+                        userInfo: 'azizakbarov@gmail.com'),
+                    UserInfo(title: 'Телефон', userInfo: '+00000000000'
+                        // userInfoController.fetchUserInfoList.first.phone
+                        //     .toString(),
+                        ),
                     SizedBox(height: 30),
                     GestureDetector(
                       onTap: () => g.Get.back(),
@@ -227,20 +235,9 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     SizedBox(height: 10),
                     CutomeButton(
                       title: 'Опубликовать',
-                      onpress: () async {
+                      onpress: () {
+                        AllServices.createAd();
                         print('pressed');
-                        var client = http.Client();
-                        try {
-                          var response =
-                              await client.get(Uri.parse(ApiUrl.listOfAllAds));
-                          if (response.statusCode == 200) {
-                            print('success in creating ads');
-                            print(response.body);
-                          }
-                        } catch (e) {
-                          print('error in creating adds');
-                          print(e);
-                        }
                       },
                       buttonColor: ColorPalate.mainColor,
                       textColor: Colors.white,

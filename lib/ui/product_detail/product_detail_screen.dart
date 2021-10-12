@@ -76,7 +76,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MainImage(),
+                    MainImage(
+                      mainImage:
+                          '${productDetailController.productDetailList?.data.photo}',
+                    ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Column(
@@ -84,11 +87,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            // 'Платье для девочки. Турция',
-                            // productDetailController
-                            //         .productDetailList?.data?.title ??
-                            'nnnn',
-
+                            '${productDetailController.productDetailList?.data.title}',
                             textAlign: TextAlign.center,
                             style: FontStyles.regularStyle(
                               fontSize: 24,
@@ -97,7 +96,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            '90 500 000 сум',
+                            '${productDetailController.productDetailList?.data.price}сум',
                             style: FontStyles.blackStyle(
                               fontSize: 24,
                               fontFamily: 'Lato',
@@ -106,7 +105,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           SizedBox(height: 4),
                           SizedBox(height: 10),
                           Text(
-                            'Сегодня 11:25',
+                            '${productDetailController.productDetailList?.data.date}',
                             style: FontStyles.regularStyle(
                               fontSize: 10,
                               fontFamily: 'Lato',
@@ -115,7 +114,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            'Нукус, 22-микро район',
+                            '${productDetailController.productDetailList?.data.address}',
                             style: FontStyles.regularStyle(
                               fontSize: 18,
                               fontFamily: 'Lato',
@@ -144,7 +143,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     SizedBox(height: 7),
                     Divider(),
                     SizedBox(height: 0),
-                    ProductDesciption(),
+                    ProductDesciption(
+                      proDesc:
+                          '${productDetailController.productDetailList?.data.description}',
+                    ),
                     SizedBox(height: 0),
                     Center(
                       child: GestureDetector(
@@ -164,11 +166,22 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     SizedBox(height: 10),
                     // Divider(),
                     SizedBox(height: 0),
-                    UserInfo(),
+                    UserInfo(
+                      userName:
+                          '${productDetailController.productDetailList?.data.user.name}',
+                      authorToken:
+                          '${productDetailController.productDetailList?.data.user.token}',
+                    ),
+                    // Text(
+                    //     productDetailController.productDetailList?.similar),
                     // Divider(),
                     // SizedBox(height: 20),
                     // MyMaps(),
-                    SimilarAdds(),
+                    SimilarAdds(
+                      myList:
+                          productDetailController.productDetailList?.similar,
+                    ),
+
                     Container(color: Colors.white, height: 20),
                     // CallChatButtons(),
                     SizedBox(height: 34),

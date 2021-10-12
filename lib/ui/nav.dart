@@ -8,6 +8,7 @@ import 'package:izle/ui/home/home_screen.dart';
 import 'package:izle/ui/message/message_screen.dart';
 import 'package:izle/ui/profile/active_profile.dart';
 import 'package:izle/ui/profile/profile_screen.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class NavScreen extends StatefulWidget {
   const NavScreen({Key? key}) : super(key: key);
@@ -36,6 +37,8 @@ class _NavScreenState extends State<NavScreen> {
   @override
   void initState() {
     activeTabIndex = 0;
+    print('tokeeen in nav');
+    print(MyPref.token);
     super.initState();
   }
 
