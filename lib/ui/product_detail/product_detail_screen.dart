@@ -33,13 +33,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   //   super.initState();
   // }
   @override
-  void didChangeDependencies() async {
-    await productDetailController.fetchProductDetail(widget.proId!);
+  void initState() {
+    productDetailController.fetchProductDetail(widget.proId!);
     print(productDetailController.productDetailList?.data.title);
     print('id');
     print(widget.proId);
-    super.didChangeDependencies();
+    print('------');
+    super.initState();
   }
+
+  // @override
+  // void didChangeDependencies() async {
+  //   await productDetailController.fetchProductDetail(widget.proId!);
+  //   print(productDetailController.productDetailList!.data.title);
+  //   print('id');
+  //   print(widget.proId);
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -177,10 +187,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     // Divider(),
                     // SizedBox(height: 20),
                     // MyMaps(),
-                    SimilarAdds(
-                      myList:
-                          productDetailController.productDetailList?.similar,
-                    ),
+                    // SimilarAdds(
+                    //   myList:
+                    //       productDetailController.productDetailList?.similar,
+                    // ),
 
                     Container(color: Colors.white, height: 20),
                     // CallChatButtons(),

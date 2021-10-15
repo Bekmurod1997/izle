@@ -12,8 +12,8 @@ class EditCreateDescription extends StatefulWidget {
 
 class _EditCreateDescriptionState extends State<EditCreateDescription> {
   TextEditingController itemDec = TextEditingController();
-  // final CreatingAddInfoController creatingAddInfoController =
-  //     Get.find<CreatingAddInfoController>();
+  final CreatingAddInfoController creatingAddInfoController =
+      Get.find<CreatingAddInfoController>();
 
   String workdCount = '';
 
@@ -51,7 +51,7 @@ class _EditCreateDescriptionState extends State<EditCreateDescription> {
                       workdCount = text;
                       print(workdCount.length);
                     });
-                    // creatingAddInfoController.description.value = workdCount;
+                    creatingAddInfoController.description.value = itemDec.text;
                   },
                   controller: itemDec,
                   maxLines: 8,

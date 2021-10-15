@@ -52,18 +52,18 @@ class _SearchResultState extends State<SearchResult> {
                           sController.searchTitleChanger(
                               sTitle: searchController.text);
                           print('afterrrrrr');
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (BuildContext context) =>
-                          //           super.widget),
-                          // );
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    super.widget),
+                          );
 
-                          // Get.back();
-                          // Get.to(() => SearchResult(
-                          //       searchResult:
-                          //           sController.searchTitle.toString(),
-                          //     ));
+                          Get.back();
+                          Get.to(() => SearchResult(
+                                searchResult:
+                                    sController.searchTitle.toString(),
+                              ));
                         },
                         icon: Icon(Icons.search),
                       ),

@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as g;
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/ui/edit_product/widget/app_bar_edit.dart';
@@ -13,7 +15,6 @@ import 'package:izle/ui/edit_product/widget/edit_category_choice.dart';
 import 'package:izle/ui/edit_product/widget/edit_price.dart';
 import 'package:izle/ui/edit_product/widget/edit_product_description.dart';
 import 'package:izle/ui/edit_product/widget/edit_title.dart';
-import 'package:izle/ui/profile/widgets/adds/non_active_adds.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/map_screen.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/user_info.dart';
 
@@ -28,6 +29,8 @@ class EditProductSceen extends StatefulWidget {
   final String? userName;
   final String? email;
   final String? price;
+  final String? lat;
+  final String? long;
 
   final String? phoneNumber;
   final String? content;
@@ -45,7 +48,8 @@ class EditProductSceen extends StatefulWidget {
     this.type,
     this.userName,
     this.content,
-
+    this.lat,
+    this.long,
     // required this.status,
   });
   @override
@@ -58,6 +62,22 @@ class _EditProductSceenState extends State<EditProductSceen> {
   int val = -1;
   var _image;
   var imagePicker;
+  final CreatingAddInfoController creatingAddInfoController =
+      Get.find<CreatingAddInfoController>();
+
+  @override
+  void initState() {
+    creatingAddInfoController.titleChanger(titlee: widget.title);
+    creatingAddInfoController.descriptionChanger(
+        descriptionn: '${widget.content}');
+    creatingAddInfoController.typeIdChanger(int.parse(widget.type!));
+    creatingAddInfoController.priceChanger(double.parse(widget.price!));
+    creatingAddInfoController.locationInfoChanger(widget.locationTitle!);
+    // creatingAddInfoController.landAndLongChanger(
+    //     double.parse('${widget.lat}'), double.parse(widget.long!));
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

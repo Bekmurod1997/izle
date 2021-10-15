@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:izle/constants/api.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
+import 'package:izle/controller/my_ads_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/models/login_model.dart';
@@ -17,14 +19,14 @@ import 'package:izle/ui/nav.dart';
 import 'package:izle/ui/profile/active_profile.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
 import 'package:izle/utils/my_prefs.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as g;
 
 class AllServices {
   static PageNavigationController pageNavigationController =
-      Get.find<PageNavigationController>();
+      g.Get.find<PageNavigationController>();
   static final token = MyPref.token;
   static var client = http.Client();
-
+  String pN = '9';
   static Future listOfAllAds(int page) async {
     print('url link');
     print(ApiUrl.listOfAllAds + '$page');
@@ -44,12 +46,16 @@ class AllServices {
   }
 
   static Future createAd() async {
+    Dio dio = Dio();
     final CreatingAddInfoController creatingAddInfoController =
-        Get.find<CreatingAddInfoController>();
+        g.Get.find<CreatingAddInfoController>();
     final UserInfoController userInfoController =
-        Get.find<UserInfoController>();
+        g.Get.find<UserInfoController>();
     try {
-      var response = await client.post(Uri.parse(ApiUrl.createAds), body: {
+      // for(var i= 1; i<creatingAddInfoController.images.length; i++ ){
+
+      //   }
+      FormData formData = FormData.fromMap({
         'title': '${creatingAddInfoController.title}',
         'category_id': '${creatingAddInfoController.subCategoryId}',
         'price': '${creatingAddInfoController.price}',
@@ -63,13 +69,57 @@ class AllServices {
         'responsible_person': 'Дмитрий Мухамадиев',
         'lat': '${creatingAddInfoController.lat}',
         'lng': '${creatingAddInfoController.long}',
-      }, headers: {
-        "Authorization": "Bearer $token"
       });
+      String fileName = creatingAddInfoController.mainPhoto.value;
+      List otherName = creatingAddInfoController.images;
+      // for (var i = 1; i < creatingAddInfoController.images.length; i++) {
+      //   otherName.add('gallery[$i]');
+      // }
+      formData.files.addAll([
+        MapEntry(
+          'photo',
+          await MultipartFile.fromFile(fileName,
+              filename: fileName.split('/').last),
+        ),
+      ]);
+      // for (var i = 1; i < creatingAddInfoController.images.length; i++) {
+      //   formData.files.addAll([
+      //     MapEntry(
+      //         'gallery[$i]',
+      //         await MultipartFile.fromFile(otherName[i],
+      //             filename: otherName[i].split('/').last)),
+      //   ]);
+      // }
+      // formData.files.addAll()
+      var response = await dio.post(
+        ApiUrl.createAds,
+        data: formData,
+        options: Options(headers: {"Authorization": "Bearer $token"}),
+      );
+
+      // var response = await client.post(Uri.parse(ApiUrl.createAds), body: {
+      //   'title': '${creatingAddInfoController.title}',
+      //   'category_id': '${creatingAddInfoController.subCategoryId}',
+      //   'price': '${creatingAddInfoController.price}',
+      //   'price_d': '2799',
+      //   'content': '${creatingAddInfoController.description}',
+      //   'city_id': '10',
+      //   'phone': '${userInfoController.fetchUserInfoList.first.phone}',
+      //   'email': 'a@mail.ru',
+      //   'type': '1',
+      //   'address': '${creatingAddInfoController.locationInfo}',
+      //   'responsible_person': 'Дмитрий Мухамадиев',
+      //   'lat': '${creatingAddInfoController.lat}',
+      //   'lng': '${creatingAddInfoController.long}',
+      // }, headers: {
+      //   "Authorization": "Bearer $token"
+      // });
+
       if (response.statusCode == 200) {
         print('success in creating ads');
-        print(response.body);
-        Get.to(() => ActiveProfileScreen());
+        creatingAddInfoController.allClear();
+        // print(response.body);
+        g.Get.to(() => ActiveProfileScreen());
       }
     } catch (e) {
       print('error in creating adds');
@@ -78,11 +128,21 @@ class AllServices {
   }
 
   static Future editAd(int id) async {
-    print(ApiUrl.editAds + '$id');
+    final MyAdsController myAdsController = g.Get.find<MyAdsController>();
+
     final CreatingAddInfoController creatingAddInfoController =
-        Get.find<CreatingAddInfoController>();
+        g.Get.find<CreatingAddInfoController>();
     final UserInfoController userInfoController =
-        Get.find<UserInfoController>();
+        g.Get.find<UserInfoController>();
+    print(ApiUrl.editAds + '$id');
+    print('my title ${creatingAddInfoController.title}');
+    print('my cat_id ${creatingAddInfoController.subCategoryId}');
+    print('my price ${creatingAddInfoController.price}');
+    print('my des ${creatingAddInfoController.description}');
+    print('my type ${creatingAddInfoController.typeId}');
+    print('my address ${creatingAddInfoController.locationInfo}');
+    print(
+        'my lat and long ${creatingAddInfoController.lat} and ${creatingAddInfoController.long}');
     try {
       var response =
           await client.post(Uri.parse(ApiUrl.editAds + '$id'), body: {
@@ -109,7 +169,9 @@ class AllServices {
         print('successs');
         print('success in creating ads');
         print(response.body);
-        Get.to(() => ActiveProfileScreen());
+        myAdsController.fetchMyOrders();
+        creatingAddInfoController.allClear();
+        g.Get.to(() => ActiveProfileScreen());
       }
     } catch (e) {
       print('error in creating adds');
@@ -155,7 +217,7 @@ class AllServices {
   static Future editProfile(
       {required String name, required String email}) async {
     final UserInfoController userInfoController =
-        Get.find<UserInfoController>();
+        g.Get.find<UserInfoController>();
 
     try {
       var response =
@@ -167,7 +229,7 @@ class AllServices {
       });
       if (response.statusCode == 200) {
         print('success in update profile');
-        Get.snackbar(
+        g.Get.snackbar(
           '',
           '',
           messageText: Text(
@@ -179,7 +241,7 @@ class AllServices {
         userInfoController.fetchUserInfo();
       } else {
         print('eerrorr in else statement');
-        Get.snackbar(
+        g.Get.snackbar(
           '',
           '',
           messageText: Text(
@@ -266,8 +328,13 @@ class AllServices {
 
   static Future userInfo() async {
     try {
-      var response = await client.get(Uri.parse(ApiUrl.myProfile),
-          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+      var response = await client.get(
+        Uri.parse(ApiUrl.myProfile),
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+          "Authorization": "Bearer $token"
+        },
+      );
       if (response.statusCode == 200) {
         // print(response.body);
         // print('this is userInfo service');
@@ -286,7 +353,7 @@ class AllServices {
       if (response.statusCode == 200) {
         print('successfully logout');
         MyPref.clearToken();
-        Get.offAll(() => NavScreen());
+        g.Get.offAll(() => NavScreen());
         pageNavigationController.pageControllerChanger(0);
         pageNavigationController.tabIndexChanger(0);
       }
@@ -322,7 +389,7 @@ class AllServices {
         print('login successfully');
         print(response.body);
         MyPref.token = body.token!;
-        Get.to(
+        g.Get.to(
           () => CreatingAddScreen(),
         );
       }
@@ -359,6 +426,35 @@ class AllServices {
       }
     } catch (e) {
       print('error in product detail service');
+      print(e);
+    }
+  }
+
+  static Future recoveryPassword(String phoneNumber) async {
+    try {
+      var response = await client.post(Uri.parse(ApiUrl.recoverPassword),
+          body: {'phone': phoneNumber});
+      if (response.statusCode == 200) {
+        print('success in sending phone to recovry');
+      }
+    } catch (e) {
+      print('error in recovry passwrod sending phonenumber');
+      print(e);
+    }
+  }
+
+  static Future recoveryCodePassword(String phoneNumber, String code) async {
+    try {
+      var response = await client.post(Uri.parse(ApiUrl.recoverCode), body: {
+        'phone': phoneNumber,
+        'code': code,
+      });
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print('success in sending phone to code to recory');
+      }
+    } catch (e) {
+      print('error in recovry passwrod sending code to recovery');
       print(e);
     }
   }

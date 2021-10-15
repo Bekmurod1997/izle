@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' as g;
-import 'package:http/http.dart' as http;
-import 'package:izle/constants/api.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/services/all_services.dart';
@@ -21,7 +19,6 @@ import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/title.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/user_info.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
-import 'package:izle/utils/my_prefs.dart';
 
 class CreatingAddScreen extends StatefulWidget {
   @override
@@ -38,20 +35,9 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
   // bool _value = false;
   int val = -1;
 
-  // Future getUserImage() async {
-  //   final pickedUserImage =
-  //       await userImagePicker.getImage(source: ImageSource.gallery);
-  //   setState(() {
-  //     if (pickedUserImage != null) {
-  //       _userImage = File(pickedUserImage.path);
-  //     } else {
-  //       print('No Image Selected');
-  //     }
-  //   });
-  // }
   var _image;
   var imagePicker;
-
+  List<dynamic> imageUrl = [];
   @override
   void initState() {
     // imagePicker = new ImagePicker();
@@ -62,6 +48,23 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
       imagePicker = new ImagePicker();
       userInfoController.fetchUserInfo();
     });
+  }
+
+  // final ImagePicker _myPicker = ImagePicker();
+  List<XFile>? _imageFileList = [];
+  // dynamic _pickImageError;
+  final ImagePicker _picker = ImagePicker();
+  void selectImages() async {
+    final List<XFile>? selectImages = await _picker.pickMultiImage();
+    if (selectImages!.isNotEmpty) {
+      _imageFileList!.addAll(selectImages);
+    }
+    print("Image list lengt" + _imageFileList!.length.toString());
+    for (var i = 0; i < _imageFileList!.length; i++) {
+      imageUrl.add('${_imageFileList![i].path}');
+    }
+    creatingAddInfoController.imagesChanger(imageUrl);
+    setState(() {});
   }
 
   @override
@@ -86,9 +89,33 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CreatAppBar(),
+
+                    // ElevatedButton(
+                    //   child: Text("Pick images"),
+                    //   onPressed: () {
+                    //     selectImages();
+                    //   },
+                    // ),
+
+                    // Container(
+                    //   height: 100,
+                    //   width: double.infinity,
+                    //   child: ListView.separated(
+                    //       scrollDirection: Axis.horizontal,
+                    //       itemBuilder: (context, index) {
+                    //         return Image.file(
+                    //             File(_imageFileList![index].path));
+                    //       },
+                    //       separatorBuilder: (context, index) =>
+                    //           SizedBox(width: 30),
+                    //       itemCount: _imageFileList!.length),
+                    // ),
+
+                    // if (_imageFileList!.isEmpty)
                     Container(
                       child: GestureDetector(
                         onTap: () async {
+                          // selectImages();
                           print('photo pressed');
                           var source = ImageSource.gallery;
                           XFile image = await imagePicker.pickImage(
@@ -100,6 +127,10 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                             setState(() {
                               _image = File(image.path);
                             });
+                          // String fileName = image.path.split('/').last;
+
+                          creatingAddInfoController
+                              .mainPhotoChanger(image.path);
                         },
                         child: _image != null
                             ? Image.file(
@@ -134,6 +165,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                         ),
                       ),
                     ),
+
                     CreateTitle(),
                     CategoryChoice(),
                     CreateDescription(),
@@ -236,6 +268,18 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     CutomeButton(
                       title: 'Опубликовать',
                       onpress: () {
+                        // print(_image);
+                        // print(creatingAddInfoController.images);
+                        // List imageeeee = [];
+                        // for (var i = 0; i < imageUrl.length; i++) {
+                        //   // print(imageUrl[i]);
+                        //   // imageeeee.addAll([
+                        //   //   'gallery[$i], ',
+                        //   // ]);
+                        //   // print(imageeeee[i].spit('/').);
+                        //   // print('--------');
+                        //   print(creatingAddInfoController.images[i].toString());
+                        // }
                         AllServices.createAd();
                         print('pressed');
                       },

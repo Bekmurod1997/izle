@@ -13,6 +13,8 @@ class EditTitle extends StatefulWidget {
 
 class _EditTitleState extends State<EditTitle> {
   final TextEditingController titleController = TextEditingController();
+  final CreatingAddInfoController creatingAddInfoController =
+      Get.find<CreatingAddInfoController>();
   @override
   void initState() {
     titleController.text = widget.title;
@@ -43,9 +45,9 @@ class _EditTitleState extends State<EditTitle> {
             child: TextFormField(
               controller: titleController,
               // controller: creatingAddInfoController.title.value == 'nothing'? titleController:creatingAddInfoController.title.value,
-              // onChanged: (String value) {
-              //   creatingAddInfoController.title.value = value;
-              // },
+              onChanged: (String value) {
+                creatingAddInfoController.title.value = value;
+              },
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText:

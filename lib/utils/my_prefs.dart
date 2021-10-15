@@ -22,4 +22,12 @@ class MyPref {
   static clearCode() => prefs.remove(SPKeys.code);
   static clearUserName() => prefs.remove(SPKeys.userName);
   static clearPhoneNumber() => prefs.remove(SPKeys.phoneNumber);
+
+  static clearAllll() {
+    prefs.remove(SPKeys.token);
+    prefs.remove(SPKeys.email);
+    prefs.remove(SPKeys.code);
+    prefs.remove(SPKeys.userName);
+    prefs.remove(SPKeys.phoneNumber);
+  }
 }

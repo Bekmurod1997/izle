@@ -11,9 +11,9 @@ class MyAdsController extends GetxController {
     try {
       isLoading(true);
       var myAds = await AllServices.myOrders();
-      if (currentPage > myAds.mMeta.pageCount) {
-        return;
-      }
+      // if (currentPage > myAds.mMeta.pageCount) {
+      //   return;
+      // }
       if (currentPage > 1) {
         allMyAdsList().data!.addAll(myAds.data);
         return;

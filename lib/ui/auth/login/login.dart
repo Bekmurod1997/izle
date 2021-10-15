@@ -4,6 +4,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/services/all_services.dart';
+import 'package:izle/ui/auth/login/widgets/recovery_password.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -107,14 +108,17 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.only(top: 15),
-            margin: const EdgeInsets.only(left: 20, right: 20),
-            child: Text(
-              'Забыли пароль?',
-              style: FontStyles.semiBoldStyle(
-                fontSize: 16,
-                fontFamily: 'Lato',
+          GestureDetector(
+            onTap: () => Get.to(() => RecovryPasswordScreen()),
+            child: Container(
+              padding: const EdgeInsets.only(top: 15),
+              margin: const EdgeInsets.only(left: 20, right: 20),
+              child: Text(
+                'Забыли пароль?',
+                style: FontStyles.semiBoldStyle(
+                  fontSize: 16,
+                  fontFamily: 'Lato',
+                ),
               ),
             ),
           ),

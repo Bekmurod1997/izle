@@ -82,6 +82,8 @@ class _NonActiveAddsState extends State<NonActiveAdds> {
                         .allMyAdsList()
                         .data![index]
                         .description!,
+                    lat: myAdsController.allMyAdsList().data![index].lat!,
+                    long: myAdsController.allMyAdsList().data![index].lng!,
                     email:
                         '${myAdsController.allMyAdsList().data![index].user?.email}',
                     content:

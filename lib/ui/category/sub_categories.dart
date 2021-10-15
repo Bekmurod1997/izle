@@ -25,6 +25,7 @@ class _SubCategoriesState extends State<SubCategories> {
   @override
   void initState() {
     subCategoryController.fetchSubCategries(widget.id);
+    print(widget.id);
     print('this is sub cate iniit');
     print(subCategoryController.subCategoryList);
     super.initState();

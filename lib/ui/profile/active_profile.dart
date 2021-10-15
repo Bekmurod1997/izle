@@ -78,7 +78,9 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'a',
+                            userInfoController.fetchUserInfoList.first.name ??
+                                'user',
+                            // 'a',
                             // userInfoController.fetchUserInfoList.first.name ??
                             //     '',
                             style: FontStyles.semiBoldStyle(

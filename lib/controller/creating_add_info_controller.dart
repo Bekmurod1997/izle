@@ -12,6 +12,16 @@ class CreatingAddInfoController extends GetxController {
   var typeId = 0.obs;
   var name = 'nobody'.obs;
   var price = 0.0.obs;
+  var mainPhoto = 'nothing'.obs;
+  var images = [].obs;
+
+  void imagesChanger(List imagesC) {
+    images.addAll(imagesC);
+  }
+
+  void mainPhotoChanger(String imageUrl) {
+    mainPhoto.value = imageUrl;
+  }
 
   void allClear() {
     mainCategory.value = 'nothing';

@@ -20,6 +20,8 @@ class NonActiveAddsCard extends StatelessWidget {
   final String date;
   final String content;
   final int status;
+  final String lat;
+  final String long;
   NonActiveAddsCard({
     required this.id,
     required this.title,
@@ -35,6 +37,8 @@ class NonActiveAddsCard extends StatelessWidget {
     required this.userName,
     required this.date,
     required this.status,
+    required this.lat,
+    required this.long,
   });
   @override
   Widget build(BuildContext context) {
@@ -52,13 +56,14 @@ class NonActiveAddsCard extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Container(
+                          height: MediaQuery.of(context).size.height * 0.08,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             color: ColorPalate.addsBackgroundColor,
                           ),
                           child: Image.network(
                             'http://izle.selfieshop.uz/' + imageUrl,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
