@@ -33,16 +33,19 @@ class CategoryChoice extends StatelessWidget {
               right: 15,
             ),
             child: ListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text(creatingAddInfoController.mainCategory.value ==
-                            'nothing' &&
-                        creatingAddInfoController.subCategory.value == 'nothing'
-                    ? 'выберите категорию'
-                    : creatingAddInfoController.mainCategory.value +
-                        '/' +
-                        creatingAddInfoController.subCategory.value),
-                trailing: Icon(Icons.navigate_next),
-                onTap: () => Get.to(() => CategoryList())),
+              contentPadding: EdgeInsets.zero,
+              title: Text(creatingAddInfoController.mainCategory.value ==
+                          'nothing' &&
+                      creatingAddInfoController.subCategory.value == 'nothing'
+                  ? 'выберите категорию'
+                  : creatingAddInfoController.mainCategory.value +
+                      '/' +
+                      creatingAddInfoController.subCategory.value),
+              trailing: Icon(Icons.navigate_next),
+              onTap: () => Get.to(
+                () => CategoryList(),
+              ),
+            ),
           ),
         ),
         SizedBox(height: 15),

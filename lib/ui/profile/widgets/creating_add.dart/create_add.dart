@@ -37,7 +37,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
 
   var _image;
   var imagePicker;
-  List<dynamic> imageUrl = [];
+  List<String> imageUrl = [];
   @override
   void initState() {
     // imagePicker = new ImagePicker();
@@ -90,26 +90,26 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                   children: [
                     CreatAppBar(),
 
-                    // ElevatedButton(
-                    //   child: Text("Pick images"),
-                    //   onPressed: () {
-                    //     selectImages();
-                    //   },
-                    // ),
+                    ElevatedButton(
+                      child: Text("Pick images"),
+                      onPressed: () {
+                        selectImages();
+                      },
+                    ),
 
-                    // Container(
-                    //   height: 100,
-                    //   width: double.infinity,
-                    //   child: ListView.separated(
-                    //       scrollDirection: Axis.horizontal,
-                    //       itemBuilder: (context, index) {
-                    //         return Image.file(
-                    //             File(_imageFileList![index].path));
-                    //       },
-                    //       separatorBuilder: (context, index) =>
-                    //           SizedBox(width: 30),
-                    //       itemCount: _imageFileList!.length),
-                    // ),
+                    Container(
+                      height: 100,
+                      width: double.infinity,
+                      child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Image.file(
+                                File(_imageFileList![index].path));
+                          },
+                          separatorBuilder: (context, index) =>
+                              SizedBox(width: 30),
+                          itemCount: _imageFileList!.length),
+                    ),
 
                     // if (_imageFileList!.isEmpty)
                     Container(
@@ -268,19 +268,19 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     CutomeButton(
                       title: 'Опубликовать',
                       onpress: () {
-                        // print(_image);
-                        // print(creatingAddInfoController.images);
-                        // List imageeeee = [];
-                        // for (var i = 0; i < imageUrl.length; i++) {
-                        //   // print(imageUrl[i]);
-                        //   // imageeeee.addAll([
-                        //   //   'gallery[$i], ',
-                        //   // ]);
-                        //   // print(imageeeee[i].spit('/').);
-                        //   // print('--------');
-                        //   print(creatingAddInfoController.images[i].toString());
-                        // }
-                        AllServices.createAd();
+                        print(_image);
+                        print(creatingAddInfoController.images);
+                        List imageeeee = [];
+                        for (var i = 0; i < imageUrl.length; i++) {
+                          print(imageUrl[i]);
+                          imageeeee.addAll([
+                            'gallery[$i], ',
+                          ]);
+                          print(imageeeee[i]);
+                          print('--------');
+                          print(creatingAddInfoController.images[i].toString());
+                        }
+                        // AllServices.createAd();
                         print('pressed');
                       },
                       buttonColor: ColorPalate.mainColor,
