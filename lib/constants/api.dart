@@ -1,4 +1,7 @@
 abstract class ApiUrl {
+  //forImage
+
+  static const izleUrl = 'http://izle.selfieshop.uz/';
   //User
 
   static const baseUrl = 'http://izle.selfieshop.uz/';
@@ -41,4 +44,10 @@ abstract class ApiUrl {
   static const addAndDeleteFavorite = '${apiUrl}ads/add-favorite?id=';
   static const favorites = '${apiUrl}ads/favorites?id=';
   static const productDetail = '${apiUrl}ads/view?id=';
+
+  //chat/////
+
+  static const allChat = '${apiUrl}chat/users';
+  static const chatId = '${apiUrl}chat/messages?id=';
+  static const sendMessage = '${apiUrl}chat/send';
 }

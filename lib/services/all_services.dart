@@ -10,10 +10,12 @@ import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/my_ads_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/controller/user_info.dart';
+import 'package:izle/models/all_message_model.dart';
 import 'package:izle/models/login_model.dart';
 import 'package:izle/models/product_detail_model.dart';
 import 'package:izle/models/advertisement/advertisement_list_model.dart';
 import 'package:izle/models/city_model.dart';
+import 'package:izle/models/single_message_model.dart';
 import 'package:izle/models/user_info_model.dart';
 import 'package:izle/ui/nav.dart';
 import 'package:izle/ui/profile/active_profile.dart';
@@ -27,6 +29,68 @@ class AllServices {
   static final token = MyPref.token;
   static var client = http.Client();
   String pN = '9';
+
+  static Future allMessages() async {
+    print('url link');
+    print(ApiUrl.allChat);
+    try {
+      var response = await client.get(Uri.parse(ApiUrl.allChat),
+          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+      if (response.statusCode == 200) {
+        var body = AllMessageModel.fromJson(json.decode(response.body));
+        print(response.body);
+        return body;
+      }
+    } catch (e) {
+      print('error in chat service');
+      print(e);
+    }
+  }
+
+  static Future singleMessage({int? messageId}) async {
+    print('url link');
+    print(ApiUrl.chatId + '$messageId');
+    try {
+      var response = await client.get(Uri.parse(ApiUrl.chatId + '$messageId'),
+          headers: {
+            'Accept': 'application/json',
+            HttpHeaders.authorizationHeader: 'Bearer $token'
+          });
+      print(response.body);
+      if (response.statusCode == 200) {
+        var body = SingleMessageModel.fromJson(json.decode(response.body));
+        print(response.body);
+        return body;
+      }
+    } catch (e) {
+      print('error in singleMessage');
+      print(e);
+    }
+  }
+
+  static Future sendMessage(
+      {required String getterId, required String message}) async {
+    print('url link');
+    print(ApiUrl.sendMessage);
+    try {
+      var response = await client.post(Uri.parse(ApiUrl.sendMessage), headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token'
+      }, body: {
+        'getter_id': getterId,
+        'message': message,
+      });
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print('success in sending message');
+        print(response.body);
+        // return body;
+      }
+    } catch (e) {
+      print('error in sending message');
+      print(e);
+    }
+  }
+
   static Future listOfAllAds(int page) async {
     print('url link');
     print(ApiUrl.listOfAllAds + '$page');
@@ -228,6 +292,7 @@ class AllServices {
         'name': name,
       });
       if (response.statusCode == 200) {
+        MyPref.userName = name;
         print('success in update profile');
         g.Get.snackbar(
           '',
@@ -353,6 +418,7 @@ class AllServices {
       if (response.statusCode == 200) {
         print('successfully logout');
         MyPref.clearToken();
+
         g.Get.offAll(() => NavScreen());
         pageNavigationController.pageControllerChanger(0);
         pageNavigationController.tabIndexChanger(0);

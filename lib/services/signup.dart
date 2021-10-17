@@ -21,12 +21,13 @@ class SignUp {
   }) async {
     try {
       var response = await client.post(Uri.parse(ApiUrl.signup), body: {
-        // 'name': 'User',
+        'name': 'user',
         // 'email': 'a@mail.ru',
         'phone': phone,
         'password': password,
       });
       if (response.statusCode == 200) {
+        MyPref.userName = 'user';
         var body = SignUpModel.fromJson(json.decode(response.body));
         print(response.body);
         print('this is signup service');
