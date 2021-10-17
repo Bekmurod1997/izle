@@ -111,7 +111,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         print(creatingAddInfoController.subCategoryId);
                         print(subCategoryController.subCategoryList[index].id);
 
-                        Get.offAll(() => CreatingAddScreen());
+                        Navigator.pop(context);
+                        Navigator.pop(context);
                       },
                       child: Container(
                         color: ColorPalate.addsBackgroundColor,

@@ -15,36 +15,31 @@ class ProductDetailModel {
       _$ProductDetailModelFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Ad {
   final int id;
   final String? photo;
   final String? phone;
   final String? email;
-  @JsonKey(name: 'responsible_person')
   final String? responsiblePerson;
-  @JsonKey(name: 'city_name')
   final String? cityName;
-  @JsonKey(name: 'category_name')
   final String categoryName;
-  final String? type;
+  final int? type;
   final String? title;
   final String? description;
   final String? content;
   final String? address;
   final int? price;
-  @JsonKey(name: 'price_d')
   final int? priceD;
   final int? status;
   final String? lng;
   final String? lat;
   final int? views;
-  @JsonKey(name: 'views_phone')
   final int? viewPhone;
   final int? premium;
   final int? favorites;
   final String? date;
-  @JsonKey(name: 'date_expire')
+
   final String? dateExpire;
   final List<String> gallery;
   final User user;
@@ -82,36 +77,30 @@ class Ad {
   factory Ad.fromJson(Map<String, dynamic> json) => _$AdFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Similar {
   final int id;
   final String? photo;
   final String? phone;
   final String? email;
-  @JsonKey(name: 'responsible_person')
   final String? responsiblePerson;
-  @JsonKey(name: 'city_name')
   final String? cityName;
-  @JsonKey(name: 'category_name')
   final String? categoryName;
-  final String? type;
+  final int? type;
   final String? title;
   final String? description;
   final String? content;
   final String? address;
   final int? price;
-  @JsonKey(name: 'price_d')
   final int? priceD;
   final int? status;
   final String? lng;
   final String? lat;
   final int? views;
-  @JsonKey(name: 'views_phone')
   final int? viewPhone;
   final int? premium;
   final int? favorites;
   final String? date;
-  @JsonKey(name: 'data_expire')
   final String? dateExpire;
   final List<String> gallery;
   final User user;
@@ -176,12 +165,11 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Filter {
-  @JsonKey(name: 'filter_id')
-  final int filterId;
-  final String name;
-  final String value;
+  final int? filterId;
+  final String? name;
+  final String? value;
 
   Filter({
     required this.filterId,
