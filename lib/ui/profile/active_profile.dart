@@ -35,15 +35,19 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      // executes after build
-      // print(MyPref.token);
-      userInfoController.fetchUserInfo();
-      print(userInfoController.fetchUserInfoList);
-      print('this is init state in active');
-    });
+    // WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    //   // executes after build
+    //   // print(MyPref.token);
 
+    // });
+    fetchUser();
     super.initState();
+  }
+
+  Future<void> fetchUser() async {
+    await userInfoController.fetchUserInfo();
+    print(userInfoController.fetchUserInfoList);
+    print('this is init state in active');
   }
 
   @override

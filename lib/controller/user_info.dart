@@ -6,7 +6,7 @@ class UserInfoController extends GetxController {
   var isLoading = true.obs;
   var fetchUserInfoList = <UserInfoModel>[];
 
-  void fetchUserInfo() async {
+  Future<void> fetchUserInfo() async {
     try {
       isLoading(true);
       var fetchUser = await AllServices.userInfo();

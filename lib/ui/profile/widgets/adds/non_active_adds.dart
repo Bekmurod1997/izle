@@ -110,7 +110,7 @@ class _NonActiveAddsState extends State<NonActiveAdds> {
                   separatorBuilder: (context, index) => SizedBox(
                     height: 10,
                   ),
-                  itemCount: myAdsController.allMyAdsList().data!.length,
+                  itemCount: myAdsController.allMyAdsList().data?.length ?? 0,
                 );
               }
             })
