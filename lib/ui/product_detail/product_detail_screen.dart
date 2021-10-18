@@ -187,10 +187,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     // Divider(),
                     // SizedBox(height: 20),
                     // MyMaps(),
-                    // SimilarAdds(
-                    //   myList:
-                    //       productDetailController.productDetailList?.similar,
-                    // ),
+                    SimilarAdds(
+                      myList:
+                          productDetailController.productDetailList?.similar,
+                    ),
 
                     Container(color: Colors.white, height: 20),
                     // CallChatButtons(),
@@ -207,7 +207,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       color: Colors.white,
                     ),
                     padding: EdgeInsets.only(top: 10, bottom: 10),
-                    child: CallChatButtons()),
+                    child: CallChatButtons(
+                      userId: productDetailController
+                          .productDetailList?.data.user.id,
+                      userPhone: productDetailController
+                          .productDetailList?.data.user.phone,
+                      userName: productDetailController
+                          .productDetailList?.data.user.name,
+                      imageUrl: productDetailController
+                          .productDetailList?.data.user.photo,
+                    )),
               ),
             ],
           );

@@ -23,11 +23,9 @@ class _RecommendationState extends State<Recommendation> {
     print('this is recommendation');
     allAdsController.fetchAllAds();
     print(allAdsController.allAdsList);
-    print('++++++++++++++++++++++++++');
+
     favoriteController.fetchFavorites();
-    print('favoriteeeeeees');
-    print('123123dasd  +${favoriteController.favoriteList}');
-    print('----___----');
+
     // print(allAdsController.allAdsList().mMeta!.pageCount);
 
     // addds.assignAll(allAdsController.allAdsList.)

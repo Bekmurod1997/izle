@@ -100,8 +100,8 @@ class AllServices {
       );
       if (response.statusCode == 200) {
         var body = AdvertisementListModel.fromJson(json.decode(response.body));
-        print(response.body);
-        print('this is list of all ads service');
+        // print(response.body);
+        // print('this is list of all ads service');
         return body;
       }
     } catch (e) {
@@ -303,7 +303,7 @@ class AllServices {
           ),
           backgroundColor: ColorPalate.mainColor,
         );
-        userInfoController.fetchUserInfo();
+        // userInfoController.fetchUserInfo();
       } else {
         print('eerrorr in else statement');
         g.Get.snackbar(
@@ -445,6 +445,8 @@ class AllServices {
   }
 
   static Future login(String phoneNumber, String password) async {
+    final UserInfoController userInfoController =
+        g.Get.find<UserInfoController>();
     try {
       var response = await client.post(
         Uri.parse(ApiUrl.signin),
@@ -455,6 +457,9 @@ class AllServices {
         print('login successfully');
         print(response.body);
         MyPref.token = body.token!;
+        print('token in login');
+        print(MyPref.token);
+        userInfoController.fetchUserInfo();
         g.Get.to(
           () => CreatingAddScreen(),
         );

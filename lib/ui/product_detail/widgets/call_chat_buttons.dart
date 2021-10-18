@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
+import 'package:izle/ui/message/widgets/first_message.dart';
 
 class CallChatButtons extends StatelessWidget {
-  const CallChatButtons({Key? key}) : super(key: key);
+  final int? userId;
+  final String? userPhone;
+  final String? userName;
+  final String? imageUrl;
+  CallChatButtons({
+    this.userId,
+    this.userPhone,
+    this.userName,
+    this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +21,9 @@ class CallChatButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            print(userPhone);
+          },
           child: Container(
             width: MediaQuery.of(context).size.width / 2 - 50,
             padding: const EdgeInsets.symmetric(vertical: 9),
@@ -35,7 +48,14 @@ class CallChatButtons extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Get.to(() => FirstMessageScreen(
+                  imageUrl: imageUrl,
+                  userId: userId,
+                  userName: userName,
+                  userPhone: userPhone,
+                ));
+          },
           child: Container(
             width: MediaQuery.of(context).size.width / 2 - 50,
             padding: const EdgeInsets.symmetric(vertical: 11),

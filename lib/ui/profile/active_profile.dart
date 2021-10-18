@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:izle/controller/my_ads_controller.dart';
 import 'package:izle/controller/user_info.dart';
+import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
@@ -36,7 +37,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       // executes after build
-      print(MyPref.token);
+      // print(MyPref.token);
       userInfoController.fetchUserInfo();
       print(userInfoController.fetchUserInfoList);
       print('this is init state in active');
@@ -78,12 +79,12 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'user',
-                            // userInfoController.fetchUserInfoList.first.id
-                            //     .toString(),
+                            // 'user',
+                            //   userInfoController.fetchUserInfoList.first.name
+                            // :
                             // 'a',
-                            // userInfoController.fetchUserInfoList.first.name ??
-                            //     '',
+                            userInfoController.fetchUserInfoList.first.name ??
+                                '',
                             style: FontStyles.semiBoldStyle(
                               fontSize: 22,
                               fontFamily: 'Lato',
@@ -362,7 +363,27 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                           icon: SvgPicture.asset('assets/icons/logout.svg'),
                           onPressed: () {
                             print('pressedddd');
-                            logOutDialog(context);
+                            showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                      title: Text('Xотите выйти'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Get.back(),
+                                          child: Text('No'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () async {
+                                            await AllServices.logout();
+                                            print('pressed yes');
+
+                                            print('fff');
+                                          },
+                                          child: Text('Yes'),
+                                        ),
+                                      ],
+                                      // content: Text('This is my content'),
+                                    ));
                             // AllServices.logout();
                           },
                           label: Text('Выйти',

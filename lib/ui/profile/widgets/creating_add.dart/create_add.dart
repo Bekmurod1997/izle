@@ -90,26 +90,26 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                   children: [
                     CreatAppBar(),
 
-                    ElevatedButton(
-                      child: Text("Pick images"),
-                      onPressed: () {
-                        selectImages();
-                      },
-                    ),
+                    // ElevatedButton(
+                    //   child: Text("Pick images"),
+                    //   onPressed: () {
+                    //     selectImages();
+                    //   },
+                    // ),
 
-                    Container(
-                      height: 100,
-                      width: double.infinity,
-                      child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return Image.file(
-                                File(_imageFileList![index].path));
-                          },
-                          separatorBuilder: (context, index) =>
-                              SizedBox(width: 30),
-                          itemCount: _imageFileList!.length),
-                    ),
+                    // Container(
+                    //   height: 100,
+                    //   width: double.infinity,
+                    //   child: ListView.separated(
+                    //       scrollDirection: Axis.horizontal,
+                    //       itemBuilder: (context, index) {
+                    //         return Image.file(
+                    //             File(_imageFileList![index].path));
+                    //       },
+                    //       separatorBuilder: (context, index) =>
+                    //           SizedBox(width: 30),
+                    //       itemCount: _imageFileList!.length),
+                    // ),
 
                     // if (_imageFileList!.isEmpty)
                     Container(
