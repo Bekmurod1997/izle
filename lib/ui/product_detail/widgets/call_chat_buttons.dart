@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/ui/message/widgets/first_message.dart';
 
-class CallChatButtons extends StatelessWidget {
+class CallChatButtons extends StatefulWidget {
   final int? userId;
   final String? userPhone;
   final String? userName;
@@ -16,14 +16,20 @@ class CallChatButtons extends StatelessWidget {
   });
 
   @override
+  State<CallChatButtons> createState() => _CallChatButtonsState();
+}
+
+class _CallChatButtonsState extends State<CallChatButtons> {
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
-          onTap: () {
-            print(userPhone);
-          },
+          onTap: () {},
+          // onTap: () => setState(() {
+          //   _launched = _makePhoneCall('tel:+0090000');
+          // }),
           child: Container(
             width: MediaQuery.of(context).size.width / 2 - 50,
             padding: const EdgeInsets.symmetric(vertical: 9),
@@ -50,10 +56,10 @@ class CallChatButtons extends StatelessWidget {
         GestureDetector(
           onTap: () {
             Get.to(() => FirstMessageScreen(
-                  imageUrl: imageUrl,
-                  userId: userId,
-                  userName: userName,
-                  userPhone: userPhone,
+                  imageUrl: widget.imageUrl,
+                  userId: widget.userId,
+                  userName: widget.userName,
+                  userPhone: widget.userPhone,
                 ));
           },
           child: Container(

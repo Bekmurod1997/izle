@@ -173,6 +173,5 @@ class _AuthorAdsCardState extends State<AuthorAdsCard> {
         : SizedBox(
             height: 0.00000001,
           );
-    ;
   }
 }

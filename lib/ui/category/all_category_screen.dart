@@ -94,7 +94,7 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
           );
         }
       }),
-      bottomNavigationBar: CustomBottomNavBar(),
+      // bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

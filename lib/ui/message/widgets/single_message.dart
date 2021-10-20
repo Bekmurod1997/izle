@@ -42,7 +42,6 @@ class _SingleScreenState extends State<SingleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String messageContnet = '';
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorPalate.mainPageColor,

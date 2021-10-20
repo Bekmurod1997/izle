@@ -5,6 +5,7 @@ import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/favorities_controller.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class Recommendation extends StatefulWidget {
   @override
@@ -41,6 +42,7 @@ class _RecommendationState extends State<Recommendation> {
     super.initState();
   }
 
+  // ignore: unused_element
   _getMoreData() {
     print('end');
   }
@@ -48,9 +50,7 @@ class _RecommendationState extends State<Recommendation> {
   @override
   Widget build(BuildContext context) {
     // var mmm = allAdsController.allAdsList().data.;
-    final List<Map> myProducts =
-        List.generate(40, (index) => {"id": index, "name": "Product $index"})
-            .toList();
+
     return Obx(() {
       if (allAdsController.isLoading.value &&
           favoriteController.isLoading.value) {
@@ -72,7 +72,7 @@ class _RecommendationState extends State<Recommendation> {
               crossAxisSpacing: 5,
               mainAxisSpacing: 5,
               // height: MediaQuery.of(context).size.height * 0.4,
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.35,
             ),
             itemBuilder: (context, index) {
               return GestureDetector(
@@ -80,9 +80,10 @@ class _RecommendationState extends State<Recommendation> {
                     proId: allAdsController.allAdsList().data![index].id)),
                 child: RecommandationItem(
                   isFavorite: false,
-                  title: allAdsController.allAdsList().data![index].title!,
+                  title: allAdsController.allAdsList().data?[index].title ?? '',
                   id: allAdsController.allAdsList().data![index].id!,
-                  city: allAdsController.allAdsList().data![index].cityName!,
+                  city: allAdsController.allAdsList().data?[index].cityName ??
+                      'tashkent',
                   price: allAdsController
                       .allAdsList()
                       .data![index]

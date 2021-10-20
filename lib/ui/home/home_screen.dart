@@ -3,6 +3,7 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/search_controller.dart';
 import 'package:izle/ui/home/widgets/search.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 import 'widgets/recommendation.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     adsController.fetchAllAds();
+
+    print('my token');
+    print(MyPref.token);
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -79,6 +83,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }
             }),
+            Container(
+              margin: EdgeInsets.only(left: 40),
+              child: GestureDetector(
+                onTap: () {
+                  print('aaaaa');
+                  MyPref.clearAllll();
+                },
+                child: Text('sss'),
+              ),
+            ),
             // Categories(),
 
             SizedBox(height: 10),

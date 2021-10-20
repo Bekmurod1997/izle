@@ -1,19 +1,20 @@
 import 'dart:io';
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:izle/constants/api.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/models/auth/code_confirm_model.dart';
+import 'package:izle/ui/nav.dart';
 import 'package:izle/utils/my_prefs.dart';
-import 'package:get/get.dart';
 
 class CodeConfirm {
   static var client = http.Client();
 
   static Future codeConfirm({String? code, String? token}) async {
-    // final UserInfoController userInfoController =
-    //     Get.find<UserInfoController>();
+    final UserInfoController userInfoController =
+        Get.find<UserInfoController>();
 
     try {
       var response = await client.post(Uri.parse(ApiUrl.confirmCod), headers: {
@@ -31,9 +32,11 @@ class CodeConfirm {
         print(body.data!.name);
         print(body.data!.email);
         MyPref.token = body.data!.token!;
+        MyPref.phoneNumber = body.data!.phone!;
         print('MyPref toke');
         print(MyPref.token);
-        // userInfoController.fetchUserInfo();
+        await Get.offAll(() => NavScreen());
+        userInfoController.fetchUserInfo();
       }
     } catch (e) {
       print('error in code confirm');

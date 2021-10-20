@@ -73,6 +73,7 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
               child: Padding(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: TextFormField(
+                  keyboardType: TextInputType.phone,
                   controller: phoneNumber,
                   decoration: InputDecoration(
                       border: InputBorder.none, hintText: '+998'),
@@ -80,9 +81,9 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
               ),
             ),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 var phone = phoneNumber.text;
-                AllServices.recoveryPassword(phone.substring(1));
+                await AllServices.recoveryPassword(phone.substring(1));
                 Get.to(
                     () => ConfirmToRecovery(phoneNumber: phone.substring(1)));
               },

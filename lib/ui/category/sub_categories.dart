@@ -86,6 +86,7 @@ class _SubCategoriesState extends State<SubCategories> {
                 );
               } else {
                 return ListView.separated(
+                  reverse: true,
                   separatorBuilder: (context, index) => SizedBox(
                     height: 4,
                   ),

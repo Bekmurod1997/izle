@@ -8,7 +8,6 @@ import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/edit_product/widget/edit_sub_category_list.dart';
-import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/sub_category_list.dart';
 
 class EditCategoryList extends StatefulWidget {
   @override

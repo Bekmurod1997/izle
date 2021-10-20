@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/ui/edit_product/widget/edit_category_list.dart';
 
-import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/category_list.dart';
-
 class EditCategoryChoice extends StatelessWidget {
   final String category;
   EditCategoryChoice({required this.category});

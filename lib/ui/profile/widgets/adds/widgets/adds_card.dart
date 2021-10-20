@@ -565,8 +565,8 @@ class _AddsCardState extends State<AddsCard> {
               ),
             ),
           )
-        : SizedBox(
-            height: 0.00000001,
+        : Center(
+            child: Text('Вы еще не добавили объявление'),
           );
   }
 }

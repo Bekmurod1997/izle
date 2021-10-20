@@ -37,7 +37,9 @@ class _NonActiveAddsState extends State<NonActiveAdds> {
                 children: [
                   SizedBox(width: 10),
                   GestureDetector(
-                    onTap: () => Get.back(),
+                    onTap: () {
+                      Get.back();
+                    },
                     child: RotatedBox(
                       quarterTurns: 2,
                       child: SvgPicture.asset(
@@ -73,40 +75,47 @@ class _NonActiveAddsState extends State<NonActiveAdds> {
                 return ListView.separated(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => NonActiveAddsCard(
-                    category: myAdsController
-                        .allMyAdsList()
-                        .data![index]
-                        .categoryName!,
-                    description: myAdsController
-                        .allMyAdsList()
-                        .data![index]
-                        .description!,
-                    lat: myAdsController.allMyAdsList().data![index].lat!,
-                    long: myAdsController.allMyAdsList().data![index].lng!,
-                    email:
-                        '${myAdsController.allMyAdsList().data![index].user?.email}',
-                    content:
-                        myAdsController.allMyAdsList().data![index].content!,
-                    locationTitle:
-                        myAdsController.allMyAdsList().data![index].address!,
-                    phoneNumber:
-                        myAdsController.allMyAdsList().data![index].phone!,
-                    type: '${myAdsController.allMyAdsList().data![index].type}',
-                    userName:
-                        myAdsController.allMyAdsList().data![index].user!.name!,
-                    status: myAdsController.allMyAdsList().data![index].status!,
-                    id: myAdsController.allMyAdsList().data![index].id!,
-                    title: myAdsController.allMyAdsList().data![index].title!,
-                    date: myAdsController.allMyAdsList().data![index].date!,
-                    imageUrl:
-                        myAdsController.allMyAdsList().data![index].photo!,
-                    price: myAdsController
-                        .allMyAdsList()
-                        .data![index]
-                        .price
-                        .toString(),
-                  ),
+                  itemBuilder: (context, index) {
+                    return NonActiveAddsCard(
+                      category: myAdsController
+                          .allMyAdsList()
+                          .data![index]
+                          .categoryName!,
+                      description: myAdsController
+                          .allMyAdsList()
+                          .data![index]
+                          .description!,
+                      lat: myAdsController.allMyAdsList().data![index].lat!,
+                      long: myAdsController.allMyAdsList().data![index].lng!,
+                      email:
+                          '${myAdsController.allMyAdsList().data![index].user?.email}',
+                      content:
+                          myAdsController.allMyAdsList().data![index].content!,
+                      locationTitle:
+                          myAdsController.allMyAdsList().data![index].address!,
+                      phoneNumber:
+                          myAdsController.allMyAdsList().data![index].phone!,
+                      type:
+                          '${myAdsController.allMyAdsList().data![index].type}',
+                      userName: myAdsController
+                          .allMyAdsList()
+                          .data![index]
+                          .user!
+                          .name!,
+                      status:
+                          myAdsController.allMyAdsList().data![index].status!,
+                      id: myAdsController.allMyAdsList().data![index].id!,
+                      title: myAdsController.allMyAdsList().data![index].title!,
+                      date: myAdsController.allMyAdsList().data![index].date!,
+                      imageUrl:
+                          myAdsController.allMyAdsList().data![index].photo!,
+                      price: myAdsController
+                          .allMyAdsList()
+                          .data![index]
+                          .price
+                          .toString(),
+                    );
+                  },
                   separatorBuilder: (context, index) => SizedBox(
                     height: 10,
                   ),

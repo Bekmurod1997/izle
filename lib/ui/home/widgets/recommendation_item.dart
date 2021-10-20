@@ -57,12 +57,14 @@ class _RecommandationItemState extends State<RecommandationItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
                       child: Text(
                         widget.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                         style: FontStyles.semiBoldStyle(
                             fontSize: 13,
                             fontFamily: 'Lato',

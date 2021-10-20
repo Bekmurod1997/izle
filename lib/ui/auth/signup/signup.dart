@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/services/signup.dart';
+import 'package:izle/ui/auth/signup/widgets/confirm_screen.dart';
 import 'package:izle/utils/my_prefs.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -112,16 +114,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             ),
-            // Container(
-            //   padding: const EdgeInsets.only(top: 15),
-            //   child: Text(
-            //     'Забыли пароль?',
-            //     style: FontStyles.semiBoldStyle(
-            //       fontSize: 16,
-            //       fontFamily: 'Lato',
-            //     ),
-            //   ),
-            // ),
             SizedBox(height: 40),
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
@@ -144,15 +136,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             ),
-
             GestureDetector(
               onTap: () {
                 print('aaaa');
+                MyPref.phoneNumber = phoneController.text;
+                print(MyPref.phoneNumber);
+                // Get.dialog(
+                //   Scaffold(
+                //     backgroundColor: Colors.black.withOpacity(.1),
+                //     body: Center(
+                //       child: Container(
+                //         margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                //         padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                //         color: Colors.white,
+                //         width: double.infinity,
+                //         height: 100.0,
+                //         child: Row(
+                //           children: [
+                //             CircularProgressIndicator(
+                //               valueColor: AlwaysStoppedAnimation<Color>(
+                //                   ColorPalate.mainColor),
+                //             ),
+                //             SizedBox(
+                //               width: 30,
+                //             ),
+                //             Text(
+                //               'pleaseWait'.tr,
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // );
+
                 SignUp.signUpUser(
                   phone: phoneController.text,
                   password: passwordController.text,
                 );
-                print(MyPref.token);
+                // print(MyPref.token);
               },
               // onTap: () => Get.to(
               //   () => CreatingAddScreen(),

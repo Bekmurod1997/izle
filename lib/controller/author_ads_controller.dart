@@ -7,10 +7,11 @@ class AuthorAdsController extends GetxController {
   var allAuthorAdsList = AdvertisementListModel().obs;
   var currentPage = 1;
 
-  void fetchAuthorOrders(String authorToken) async {
+  void fetchAuthorOrders({int? userId}) async {
     try {
       isLoading(true);
-      var authorAds = await AllServices.authorOrders(authorToken);
+      var authorAds =
+          await AllServices.authorOrders(page: currentPage, userId: userId);
       if (currentPage > authorAds.mMeta.pageCount) {
         return;
       }

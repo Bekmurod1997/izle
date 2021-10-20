@@ -338,7 +338,7 @@ class _MessageScreenState extends State<MessageScreen> {
           );
         }
       }),
-      bottomNavigationBar: CustomBottomNavBar(),
+      // bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

@@ -6,8 +6,6 @@ import 'package:izle/ui/components/custom_appbar.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:get/get.dart';
-import 'package:izle/ui/edit_product/edit_product_screen.dart';
-import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
 
 class EditSubCategoryList extends StatefulWidget {
   final int id;

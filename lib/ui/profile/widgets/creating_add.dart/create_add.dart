@@ -19,6 +19,7 @@ import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/title.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/user_info.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class CreatingAddScreen extends StatefulWidget {
   @override
@@ -69,49 +70,48 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: ColorPalate.mainPageColor,
-        // appBar: customAppBar1(
-        //   context,
-        //   title: '  Создать объявления  ',
-        // ),
-        body: Obx(() {
-          if (userInfoController.isLoading.value) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-              child: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: ColorPalate.mainPageColor,
+      // appBar: customAppBar1(
+      //   context,
+      //   title: '  Создать объявления  ',
+      // ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 30),
+              CreatAppBar(),
+
+              // ElevatedButton(
+              //   child: Text("Pick images"),
+              //   onPressed: () {
+              //     selectImages();
+              //   },
+              // ),
+
+              // Container(
+              //   height: 100,
+              //   width: double.infinity,
+              //   child: ListView.separated(
+              //       scrollDirection: Axis.horizontal,
+              //       itemBuilder: (context, index) {
+              //         return Image.file(
+              //             File(_imageFileList![index].path));
+              //       },
+              //       separatorBuilder: (context, index) =>
+              //           SizedBox(width: 30),
+              //       itemCount: _imageFileList!.length),
+              // ),
+
+              // if (_imageFileList!.isEmpty)
+
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CreatAppBar(),
-
-                    // ElevatedButton(
-                    //   child: Text("Pick images"),
-                    //   onPressed: () {
-                    //     selectImages();
-                    //   },
-                    // ),
-
-                    // Container(
-                    //   height: 100,
-                    //   width: double.infinity,
-                    //   child: ListView.separated(
-                    //       scrollDirection: Axis.horizontal,
-                    //       itemBuilder: (context, index) {
-                    //         return Image.file(
-                    //             File(_imageFileList![index].path));
-                    //       },
-                    //       separatorBuilder: (context, index) =>
-                    //           SizedBox(width: 30),
-                    //       itemCount: _imageFileList!.length),
-                    // ),
-
-                    // if (_imageFileList!.isEmpty)
                     Container(
                       child: GestureDetector(
                         onTap: () async {
@@ -222,9 +222,10 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     ////////////////////////////////
                     ////////////////////////////////
                     // if (userInfoController.fetchUserInfoList.first.name != null)
-                    UserInfo(title: 'Контактное лицо*', userInfo: 'aziz'
-                        // '${userInfoController.fetchUserInfoList.first.name}',
-                        ),
+                    UserInfo(
+                      title: 'Контактное лицо*', userInfo: MyPref.userName,
+                      // '${userInfoController.fetchUserInfoList.first.name}',
+                    ),
                     ////////////////////////////////
                     ////////////////////////////////
                     //checking for null email //////
@@ -234,7 +235,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     UserInfo(
                         title: 'Электронная почта*',
                         userInfo: 'azizakbarov@gmail.com'),
-                    UserInfo(title: 'Телефон', userInfo: '+00000000000'
+                    UserInfo(title: 'Телефон', userInfo: MyPref.phoneNumber
                         // userInfoController.fetchUserInfoList.first.phone
                         //     .toString(),
                         ),
@@ -280,7 +281,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                           print('--------');
                           print(creatingAddInfoController.images[i].toString());
                         }
-                        // AllServices.createAd();
+                        AllServices.createAd();
                         print('pressed');
                       },
                       buttonColor: ColorPalate.mainColor,
@@ -290,11 +291,12 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                   ],
                 ),
               ),
-            );
-          }
-        }),
-        bottomNavigationBar: CustomBottomNavBar(),
+            ],
+          ),
+        ),
       ),
+
+      // bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

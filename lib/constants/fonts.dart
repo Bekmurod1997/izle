@@ -73,17 +73,20 @@ class FontStyles {
         color: color);
   }
 
-  static blackStyle(
-      {required double fontSize,
-      required String fontFamily,
-      bool undeline = false,
-      Color color = Colors.black}) {
+  static blackStyle({
+    required double fontSize,
+    required String fontFamily,
+    bool undeline = false,
+    Color color = Colors.black,
+    double letterSpace = 1.0,
+  }) {
     return TextStyle(
         fontSize: fontSize,
         fontWeight: FontWeight.w900,
         fontFamily: fontFamily,
         decoration:
             undeline == true ? TextDecoration.underline : TextDecoration.none,
-        color: color);
+        color: color,
+        letterSpacing: letterSpace);
   }
 }

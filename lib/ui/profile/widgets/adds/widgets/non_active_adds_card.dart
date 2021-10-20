@@ -22,6 +22,7 @@ class NonActiveAddsCard extends StatelessWidget {
   final int status;
   final String lat;
   final String long;
+
   NonActiveAddsCard({
     required this.id,
     required this.title,
@@ -229,6 +230,8 @@ class NonActiveAddsCard extends StatelessWidget {
               ),
             ),
           )
-        : Container();
+        : Center(
+            child: Text('Вы еще не добавили объявление'),
+          );
   }
 }

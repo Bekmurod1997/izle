@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/product_detail_controller.dart';
+import 'package:izle/ui/product_detail/map.dart';
 
 import 'widgets/call_chat_buttons.dart';
 import 'widgets/complain.dart';
@@ -35,7 +36,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   void initState() {
     productDetailController.fetchProductDetail(widget.proId!);
-    print(productDetailController.productDetailList?.data.title);
+    // print(productDetailController.productDetailList?.data.title);
     print('id');
     print(widget.proId);
     print('------');
@@ -98,7 +99,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         children: [
                           Text(
                             '${productDetailController.productDetailList?.data.title}',
-                            textAlign: TextAlign.center,
                             style: FontStyles.regularStyle(
                               fontSize: 24,
                               fontFamily: 'Lato',
@@ -106,18 +106,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            '${productDetailController.productDetailList?.data.price}сум',
+                            '${productDetailController.productDetailList?.data.price} сум',
                             style: FontStyles.blackStyle(
-                              fontSize: 24,
-                              fontFamily: 'Lato',
-                            ),
+                                fontSize: 24,
+                                fontFamily: 'Lato',
+                                letterSpace: 2),
                           ),
                           SizedBox(height: 4),
                           SizedBox(height: 10),
                           Text(
                             '${productDetailController.productDetailList?.data.date}',
                             style: FontStyles.regularStyle(
-                              fontSize: 10,
+                              fontSize: 12,
                               fontFamily: 'Lato',
                               color: Color(0xff7F807F),
                             ),
@@ -133,6 +133,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           SizedBox(height: 10),
                           GestureDetector(
+                            onTap: () => Get.to(() => MyMaps(
+                                  lat: productDetailController
+                                          .productDetailList?.data.lat ??
+                                      '',
+                                  lng: productDetailController
+                                          .productDetailList?.data.lng ??
+                                      '',
+                                )),
                             child: Text(
                               'Показать на карте',
                               style: FontStyles.regularStyle(
@@ -176,11 +184,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     SizedBox(height: 10),
                     // Divider(),
                     SizedBox(height: 0),
+
                     UserInfo(
                       userName:
                           '${productDetailController.productDetailList?.data.user.name}',
                       authorToken:
                           '${productDetailController.productDetailList?.data.user.token}',
+                      userId: productDetailController
+                          .productDetailList!.data.user.id,
                     ),
                     // Text(
                     //     productDetailController.productDetailList?.similar),
@@ -194,7 +205,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
                     Container(color: Colors.white, height: 20),
                     // CallChatButtons(),
-                    SizedBox(height: 34),
+                    SizedBox(height: 54),
                   ],
                 ),
               ),

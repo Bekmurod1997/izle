@@ -17,20 +17,20 @@ class MoreVertical extends StatelessWidget {
       itemBuilder: (context) => [
         PopupMenuItem(
           value: 1,
-          child: Text('Поделиться'),
+          child: GestureDetector(
+              onTap: () {
+                Share.share('check out my website https://example.com',
+                    subject: 'Look what I made!');
+              },
+              child: Text('Поделиться')),
         ),
         PopupMenuItem(
           value: 2,
           child: Text('Добавить заметку'),
         ),
         PopupMenuItem(
-          value: 2,
-          child: GestureDetector(
-              onTap: () {
-                Share.share('check out my website https://example.com',
-                    subject: 'Look what I made!');
-              },
-              child: Text("Пожаловаться")),
+          value: 3,
+          child: Text("Пожаловаться"),
         ),
         PopupMenuItem(
           value: 2,

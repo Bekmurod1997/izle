@@ -29,16 +29,25 @@ class _SearchState extends State<Search> {
       child: TextField(
         controller: searchController,
         decoration: InputDecoration(
-          prefixIcon: IconButton(
-            onPressed: () {
-              sController.searchTitleChanger(sTitle: searchController.text);
-              Get.to(() => SearchResult(
-                    searchResult: sController.searchTitle.toString(),
-                  ));
-              pageController.pageControllerChanger(6);
-            },
-            icon: Icon(Icons.search),
-          ),
+          prefixIcon: GestureDetector(
+              onTap: () {
+                sController.searchTitleChanger(sTitle: searchController.text);
+                Get.to(() => SearchResult(
+                      searchResult: sController.searchTitle.toString(),
+                    ));
+                pageController.pageControllerChanger(6);
+              },
+              child: Icon(Icons.search)),
+          // prefixIcon: IconButton(
+          //   onPressed: () {
+          //     sController.searchTitleChanger(sTitle: searchController.text);
+          //     Get.to(() => SearchResult(
+          //           searchResult: sController.searchTitle.toString(),
+          //         ));
+          //     pageController.pageControllerChanger(6);
+          //   },
+          //   icon: Icon(Icons.search),
+          // ),
           border: InputBorder.none,
           hintText: 'Что вы ищете?',
           hintStyle: FontStyles.regularStyle(

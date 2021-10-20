@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:io';
 import 'dart:convert';
 
@@ -15,6 +17,7 @@ import 'package:izle/models/login_model.dart';
 import 'package:izle/models/product_detail_model.dart';
 import 'package:izle/models/advertisement/advertisement_list_model.dart';
 import 'package:izle/models/city_model.dart';
+import 'package:izle/models/recovery_password_model.dart';
 import 'package:izle/models/single_message_model.dart';
 import 'package:izle/models/user_info_model.dart';
 import 'package:izle/ui/nav.dart';
@@ -158,7 +161,10 @@ class AllServices {
       var response = await dio.post(
         ApiUrl.createAds,
         data: formData,
-        options: Options(headers: {"Authorization": "Bearer $token"}),
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+          "Authorization": "Bearer $token"
+        }),
       );
 
       // var response = await client.post(Uri.parse(ApiUrl.createAds), body: {
@@ -178,7 +184,7 @@ class AllServices {
       // }, headers: {
       //   "Authorization": "Bearer $token"
       // });
-
+      print(response.statusCode);
       if (response.statusCode == 200) {
         print('success in creating ads');
         creatingAddInfoController.allClear();
@@ -261,12 +267,19 @@ class AllServices {
     }
   }
 
-  static Future authorOrders(String authorToken) async {
+  static Future authorOrders({int? userId, int? page}) async {
     try {
       print('url link');
-      print(ApiUrl.myAds);
-      var response = await client.get(Uri.parse(ApiUrl.myAds),
-          headers: {"Authorization": "Bearer $authorToken"});
+      print('http://izle.selfieshop.uz/api/ads/index?' +
+          '$userId' +
+          '&page=' +
+          '$page');
+      var response = await client.get(Uri.parse(
+          'http://izle.selfieshop.uz/api/ads/index?' +
+              '$userId' +
+              '&page=' +
+              '$page'));
+
       if (response.statusCode == 200) {
         var body = AdvertisementListModel.fromJson(json.decode(response.body));
         // print(response.body);
@@ -277,6 +290,22 @@ class AllServices {
       print('error in myorders service');
     }
   }
+  // static Future authorOrders(String authorToken) async {
+  //   try {
+  //     print('url link');
+  //     print(ApiUrl.myAds);
+  //     var response = await client.get(Uri.parse(ApiUrl.myAds),
+  //         headers: {"Authorization": "Bearer $authorToken"});
+  //     if (response.statusCode == 200) {
+  //       var body = AdvertisementListModel.fromJson(json.decode(response.body));
+  //       // print(response.body);
+  //       print('this is author orders');
+  //       return body;
+  //     }
+  //   } catch (e) {
+  //     print('error in myorders service');
+  //   }
+  // }
 
   static Future editProfile(
       {required String name, required String email}) async {
@@ -457,11 +486,14 @@ class AllServices {
         print('login successfully');
         print(response.body);
         MyPref.token = body.token!;
+        MyPref.userId = '${body.id}';
         print('token in login');
         print(MyPref.token);
         userInfoController.fetchUserInfo();
+        pageNavigationController.pageControllerChanger(0);
+
         g.Get.to(
-          () => CreatingAddScreen(),
+          () => NavScreen(),
         );
       }
     } catch (e) {
@@ -506,7 +538,11 @@ class AllServices {
       var response = await client.post(Uri.parse(ApiUrl.recoverPassword),
           body: {'phone': phoneNumber});
       if (response.statusCode == 200) {
+        var body = RecoveryPasswordModel.fromJson(json.decode(response.body));
+        print(body.data?.code);
+
         print('success in sending phone to recovry');
+        return body;
       }
     } catch (e) {
       print('error in recovry passwrod sending phonenumber');

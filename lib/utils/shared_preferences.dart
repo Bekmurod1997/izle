@@ -4,4 +4,5 @@ abstract class SPKeys {
   static const String email = 'email';
   static const String code = 'code';
   static const String phoneNumber = 'phoneNumber';
+  static const String userId = 'phoneNumber';
 }

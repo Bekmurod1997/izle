@@ -103,7 +103,7 @@ class _ConfirmToRecoveryState extends State<ConfirmToRecovery> {
                 ),
                 child: Center(
                   child: Text(
-                    'Podverdit',
+                    'Подтверждать',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,

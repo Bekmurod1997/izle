@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/my_ads_controller.dart';
 import 'package:izle/ui/profile/widgets/adds/widgets/adds_card.dart';
-import 'package:izle/utils/my_prefs.dart';
 
 class ActiveAdds extends StatefulWidget {
   @override
@@ -22,16 +21,11 @@ class _ActiveAddsState extends State<ActiveAdds> {
     super.initState();
   }
 
+  int activeAds = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-          // backgroundColor: ColorPalate.mainPageColor,
-          // appBar: PreferredSize(
-          //   child: customAppBar1(context, title: 'Активные'),
-          //   preferredSize: Size.fromHeight(40),
-          // ),
-          body: Obx(() {
+      child: Scaffold(body: Obx(() {
         if (myAdsController.isLoading.value) {
           return Center(
             child: CircularProgressIndicator(),
@@ -80,23 +74,26 @@ class _ActiveAddsState extends State<ActiveAdds> {
                 ListView.separated(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => AddsCard(
-                    status: myAdsController.allMyAdsList().data![index].status!,
-                    id: myAdsController.allMyAdsList().data![index].id!,
-                    title: myAdsController.allMyAdsList().data![index].title!,
-                    date: myAdsController.allMyAdsList().data![index].date!,
-                    imageUrl:
-                        myAdsController.allMyAdsList().data![index].photo!,
-                    price: myAdsController
-                        .allMyAdsList()
-                        .data![index]
-                        .price
-                        .toString(),
-                  ),
+                  itemBuilder: (context, index) {
+                    return AddsCard(
+                      status:
+                          myAdsController.allMyAdsList().data![index].status!,
+                      id: myAdsController.allMyAdsList().data![index].id!,
+                      title: myAdsController.allMyAdsList().data![index].title!,
+                      date: myAdsController.allMyAdsList().data![index].date!,
+                      imageUrl:
+                          myAdsController.allMyAdsList().data![index].photo!,
+                      price: myAdsController
+                          .allMyAdsList()
+                          .data![index]
+                          .price
+                          .toString(),
+                    );
+                  },
                   separatorBuilder: (context, index) => SizedBox(
                     height: 10,
                   ),
-                  itemCount: myAdsController.allMyAdsList().data!.length,
+                  itemCount: myAdsController.allMyAdsList().data?.length ?? 0,
                 )
               ],
             ),

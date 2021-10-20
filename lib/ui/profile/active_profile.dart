@@ -9,7 +9,6 @@ import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
-import 'package:izle/ui/components/logout_dialog.dart';
 import 'package:izle/ui/components/profile_listTile.dart';
 import 'package:izle/ui/favorites/favorite_screen.dart';
 import 'package:izle/ui/message/message_screen.dart';
@@ -40,376 +39,723 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
     //   // print(MyPref.token);
 
     // });
-    fetchUser();
+    // fetchUser();
     super.initState();
   }
 
-  Future<void> fetchUser() async {
-    await userInfoController.fetchUserInfo();
-    print(userInfoController.fetchUserInfoList);
-    print('this is init state in active');
-  }
+  // Future<void> fetchUser() async {
+  //   await userInfoController.fetchUserInfo();
+  //   print(userInfoController.fetchUserInfoList);
+  //   print('this is init state in active');
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffE5E5E5),
-      body: Obx(() {
-        if (userInfoController.isLoading.value) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 65),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color(0xff038992),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 65),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Color(0xff038992),
+              ),
+              padding: const EdgeInsets.only(top: 15, bottom: 15, left: 20),
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/icons/user.svg',
+                    height: 80,
                   ),
-                  padding: const EdgeInsets.only(top: 15, bottom: 15, left: 20),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icons/user.svg',
-                        height: 80,
-                      ),
-                      SizedBox(width: 15),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            // 'user',
-                            //   userInfoController.fetchUserInfoList.first.name
-                            // :
-                            // 'a',
-                            userInfoController.fetchUserInfoList.first.name ??
-                                '',
-                            style: FontStyles.semiBoldStyle(
-                              fontSize: 22,
-                              fontFamily: 'Lato',
-                              color: Colors.white,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(right: 10, bottom: 5),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Ваш кошелек: 20 500,00 UZS',
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.white70),
-                                ),
-                                SizedBox(width: 5),
-                                GestureDetector(
-                                  onTap: () =>
-                                      Get.to(() => WalletInstruction()),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: ColorPalate.lightGreen,
-                                        width: 2,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'i',
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                        color: ColorPalate.lightGreen,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Text(
-                            'Редактировать профиль',
-                            style: FontStyles.regularStyle(
-                                fontSize: 12,
-                                fontFamily: 'Lato',
-                                color: Colors.white70),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: CutomeButton(
-                    title: 'Опубликовать',
-                    onpress: () => print('pressed'),
-                    buttonColor: ColorPalate.lightGreen,
-                    textColor: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: CutomeButton(
-                    title: 'Купить пакет',
-                    onpress: () => print('pressed'),
-                    buttonColor: ColorPalate.lightGreen,
-                    textColor: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
+                  SizedBox(width: 15),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.only(
-                          left: 12,
-                          right: 18,
-                          top: 21,
-                          bottom: 20,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                      Text(
+                        // 'user',
+                        //   userInfoController.fetchUserInfoList.first.name
+                        // :
+                        // 'a',
+                        MyPref.userName,
+                        style: FontStyles.semiBoldStyle(
+                          fontSize: 22,
+                          fontFamily: 'Lato',
                           color: Colors.white,
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(right: 10, bottom: 5),
+                        child: Row(
                           children: [
                             Text(
-                              'Ваши объявления',
-                              style: FontStyles.semiBoldStyle(
-                                fontSize: 18,
-                                fontFamily: 'Lato',
-                              ),
+                              'Ваш кошелек: 20 500,00 UZS',
+                              style: TextStyle(
+                                  fontSize: 12, color: Colors.white70),
                             ),
-                            SizedBox(height: 17),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/comm2.svg',
-                              title: 'Активные',
-                              onpress: () => Get.to(
-                                () => ActiveAdds(),
-                              ),
-                            ),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_no.svg',
-                              title: 'Неактивные',
-                              onpress: () => Get.to(
-                                () => NonActiveAdds(),
-                              ),
-                            ),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_fav.svg',
-                              title: 'Избранное',
-                              isDivider: false,
-                              onpress: () => Get.to(
-                                () => FavoriteScreen(),
+                            SizedBox(width: 5),
+                            GestureDetector(
+                              onTap: () => Get.to(() => WalletInstruction()),
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: ColorPalate.lightGreen,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Text(
+                                  'i',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorPalate.lightGreen,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 23),
-                      Container(
-                        padding: const EdgeInsets.only(
-                          left: 12,
-                          right: 18,
-                          top: 21,
-                          bottom: 20,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Сообщения',
-                              style: FontStyles.semiBoldStyle(
-                                fontSize: 18,
-                                fontFamily: 'Lato',
-                              ),
-                            ),
-                            SizedBox(height: 17),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_mes.svg',
-                              title: 'Недавние',
-                              onpress: () => Get.to(
-                                () => MessageScreen(),
-                              ),
-                            ),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_arch.svg',
-                              title: 'Архивные',
-                              isDivider: false,
-                              onpress: () =>
-                                  print('it should go to archive message'),
-                            ),
-                          ],
-                        ),
+                      Text(
+                        'Редактировать профиль',
+                        style: FontStyles.regularStyle(
+                            fontSize: 12,
+                            fontFamily: 'Lato',
+                            color: Colors.white70),
                       ),
-                      SizedBox(height: 23),
-                      Container(
-                        padding: const EdgeInsets.only(
-                          left: 12,
-                          right: 18,
-                          top: 21,
-                          bottom: 20,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Платежи',
-                              style: FontStyles.semiBoldStyle(
-                                fontSize: 18,
-                                fontFamily: 'Lato',
-                              ),
-                            ),
-                            SizedBox(height: 17),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_wal.svg',
-                              title: 'Ваш кошелек',
-                              onpress: () => Get.to(
-                                () => WalletScreen(),
-                              ),
-                            ),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_his.svg',
-                              isDivider: false,
-                              title: 'История платежей',
-                              onpress: () => Get.to(
-                                () => TransactionScreen(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      Container(
-                        padding: const EdgeInsets.only(
-                          left: 12,
-                          right: 18,
-                          top: 21,
-                          bottom: 20,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Настройки и другое',
-                              style: FontStyles.semiBoldStyle(
-                                fontSize: 18,
-                                fontFamily: 'Lato',
-                              ),
-                            ),
-                            SizedBox(height: 17),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_set.svg',
-                              title: 'Настройки',
-                              onpress: () => Get.to(
-                                () => Settings(),
-                              ),
-                            ),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_help.svg',
-                              title: 'Помощь',
-                              onpress: () => print('pressed'),
-                            ),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_term.svg',
-                              title: 'Условия использования',
-                              onpress: () => print('pressed'),
-                            ),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_locked.svg',
-                              title: 'Политика конфиденциальности',
-                              onpress: () => print('pressed'),
-                            ),
-                            ProfileListTile(
-                              iconUrl: 'assets/icons/act_about.svg',
-                              title: 'О приложении',
-                              isDivider: false,
-                              onpress: () => print('pressed'),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      CutomeButton(
-                        title: 'Редактировать',
-                        onpress: () => Get.to(() => EditProfileScreen()),
-                        buttonColor: ColorPalate.mainColor,
-                        textColor: Colors.white,
-                      ),
-                      SizedBox(height: 10),
-                      Center(
-                        child: TextButton.icon(
-                          icon: SvgPicture.asset('assets/icons/logout.svg'),
-                          onPressed: () {
-                            print('pressedddd');
-                            showDialog(
-                                context: context,
-                                builder: (_) => AlertDialog(
-                                      title: Text('Xотите выйти'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () => Get.back(),
-                                          child: Text('No'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () async {
-                                            await AllServices.logout();
-                                            print('pressed yes');
-
-                                            print('fff');
-                                          },
-                                          child: Text('Yes'),
-                                        ),
-                                      ],
-                                      // content: Text('This is my content'),
-                                    ));
-                            // AllServices.logout();
-                          },
-                          label: Text('Выйти',
-                              style: FontStyles.semiBoldStyle(
-                                fontSize: 20,
-                                fontFamily: 'Lato',
-                              )),
-                          style: TextButton.styleFrom(
-                            primary: Colors.black,
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: CutomeButton(
+                title: 'Опубликовать',
+                onpress: () => print('pressed'),
+                buttonColor: ColorPalate.lightGreen,
+                textColor: Colors.white,
+              ),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: CutomeButton(
+                title: 'Купить пакет',
+                onpress: () => print('pressed'),
+                buttonColor: ColorPalate.lightGreen,
+                textColor: Colors.white,
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(
+                      left: 12,
+                      right: 18,
+                      top: 21,
+                      bottom: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Ваши объявления',
+                          style: FontStyles.semiBoldStyle(
+                            fontSize: 18,
+                            fontFamily: 'Lato',
                           ),
                         ),
-                      ),
-                      SizedBox(height: 40),
-                    ],
+                        SizedBox(height: 17),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/comm2.svg',
+                          title: 'Активные',
+                          onpress: () => Get.to(
+                            () => ActiveAdds(),
+                          ),
+                        ),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_no.svg',
+                          title: 'Неактивные',
+                          onpress: () => Get.to(
+                            () => NonActiveAdds(),
+                          ),
+                        ),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_fav.svg',
+                          title: 'Избранное',
+                          isDivider: false,
+                          onpress: () => Get.to(
+                            () => FavoriteScreen(),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 23),
+                  Container(
+                    padding: const EdgeInsets.only(
+                      left: 12,
+                      right: 18,
+                      top: 21,
+                      bottom: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Сообщения',
+                          style: FontStyles.semiBoldStyle(
+                            fontSize: 18,
+                            fontFamily: 'Lato',
+                          ),
+                        ),
+                        SizedBox(height: 17),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_mes.svg',
+                          title: 'Недавние',
+                          onpress: () => Get.to(
+                            () => MessageScreen(),
+                          ),
+                        ),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_arch.svg',
+                          title: 'Архивные',
+                          isDivider: false,
+                          onpress: () =>
+                              print('it should go to archive message'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 23),
+                  Container(
+                    padding: const EdgeInsets.only(
+                      left: 12,
+                      right: 18,
+                      top: 21,
+                      bottom: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Платежи',
+                          style: FontStyles.semiBoldStyle(
+                            fontSize: 18,
+                            fontFamily: 'Lato',
+                          ),
+                        ),
+                        SizedBox(height: 17),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_wal.svg',
+                          title: 'Ваш кошелек',
+                          onpress: () => Get.to(
+                            () => WalletScreen(),
+                          ),
+                        ),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_his.svg',
+                          isDivider: false,
+                          title: 'История платежей',
+                          onpress: () => Get.to(
+                            () => TransactionScreen(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  Container(
+                    padding: const EdgeInsets.only(
+                      left: 12,
+                      right: 18,
+                      top: 21,
+                      bottom: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Настройки и другое',
+                          style: FontStyles.semiBoldStyle(
+                            fontSize: 18,
+                            fontFamily: 'Lato',
+                          ),
+                        ),
+                        SizedBox(height: 17),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_set.svg',
+                          title: 'Настройки',
+                          onpress: () => Get.to(
+                            () => Settings(),
+                          ),
+                        ),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_help.svg',
+                          title: 'Помощь',
+                          onpress: () => print('pressed'),
+                        ),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_term.svg',
+                          title: 'Условия использования',
+                          onpress: () => print('pressed'),
+                        ),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_locked.svg',
+                          title: 'Политика конфиденциальности',
+                          onpress: () => print('pressed'),
+                        ),
+                        ProfileListTile(
+                          iconUrl: 'assets/icons/act_about.svg',
+                          title: 'О приложении',
+                          isDivider: false,
+                          onpress: () => print('pressed'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  CutomeButton(
+                    title: 'Редактировать',
+                    onpress: () => Get.to(() => EditProfileScreen()),
+                    buttonColor: ColorPalate.mainColor,
+                    textColor: Colors.white,
+                  ),
+                  SizedBox(height: 10),
+                  Center(
+                    child: TextButton.icon(
+                      icon: SvgPicture.asset('assets/icons/logout.svg'),
+                      onPressed: () {
+                        print('pressedddd');
+                        showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                  title: Text('Xотите выйти'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Get.back(),
+                                      child: Text('No'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        await AllServices.logout();
+                                        print('pressed yes');
+
+                                        print('fff');
+                                      },
+                                      child: Text('Yes'),
+                                    ),
+                                  ],
+                                  // content: Text('This is my content'),
+                                ));
+                        // AllServices.logout();
+                      },
+                      label: Text('Выйти',
+                          style: FontStyles.semiBoldStyle(
+                            fontSize: 20,
+                            fontFamily: 'Lato',
+                          )),
+                      style: TextButton.styleFrom(
+                        primary: Colors.black,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                ],
+              ),
             ),
-          );
-        }
-      }),
-      bottomNavigationBar: CustomBottomNavBar(),
+          ],
+        ),
+      ),
+
+      // body: Obx(() {
+      //   if (userInfoController.isLoading.value) {
+      //     return Center(
+      //       child: CircularProgressIndicator(),
+      //     );
+      //   } else {
+      //     return SingleChildScrollView(
+      //       child: Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         children: [
+      //           SizedBox(height: 65),
+      //           Container(
+      //             margin: const EdgeInsets.symmetric(horizontal: 20),
+      //             decoration: BoxDecoration(
+      //               borderRadius: BorderRadius.circular(15),
+      //               color: Color(0xff038992),
+      //             ),
+      //             padding: const EdgeInsets.only(top: 15, bottom: 15, left: 20),
+      //             child: Row(
+      //               children: [
+      //                 SvgPicture.asset(
+      //                   'assets/icons/user.svg',
+      //                   height: 80,
+      //                 ),
+      //                 SizedBox(width: 15),
+      //                 Column(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   children: [
+      //                     Text(
+      //                       // 'user',
+      //                       //   userInfoController.fetchUserInfoList.first.name
+      //                       // :
+      //                       // 'a',
+      //                       userInfoController.fetchUserInfoList.first.name ??
+      //                           '',
+      //                       style: FontStyles.semiBoldStyle(
+      //                         fontSize: 22,
+      //                         fontFamily: 'Lato',
+      //                         color: Colors.white,
+      //                       ),
+      //                     ),
+      //                     Container(
+      //                       margin: const EdgeInsets.only(right: 10, bottom: 5),
+      //                       child: Row(
+      //                         children: [
+      //                           Text(
+      //                             'Ваш кошелек: 20 500,00 UZS',
+      //                             style: TextStyle(
+      //                                 fontSize: 12, color: Colors.white70),
+      //                           ),
+      //                           SizedBox(width: 5),
+      //                           GestureDetector(
+      //                             onTap: () =>
+      //                                 Get.to(() => WalletInstruction()),
+      //                             child: Container(
+      //                               padding: const EdgeInsets.all(5),
+      //                               decoration: BoxDecoration(
+      //                                 shape: BoxShape.circle,
+      //                                 border: Border.all(
+      //                                   color: ColorPalate.lightGreen,
+      //                                   width: 2,
+      //                                 ),
+      //                               ),
+      //                               child: Text(
+      //                                 'i',
+      //                                 style: TextStyle(
+      //                                   fontSize: 10,
+      //                                   fontWeight: FontWeight.bold,
+      //                                   color: ColorPalate.lightGreen,
+      //                                 ),
+      //                               ),
+      //                             ),
+      //                           ),
+      //                         ],
+      //                       ),
+      //                     ),
+      //                     Text(
+      //                       'Редактировать профиль',
+      //                       style: FontStyles.regularStyle(
+      //                           fontSize: 12,
+      //                           fontFamily: 'Lato',
+      //                           color: Colors.white70),
+      //                     ),
+      //                   ],
+      //                 )
+      //               ],
+      //             ),
+      //           ),
+      //           SizedBox(height: 10),
+      //           Padding(
+      //             padding: const EdgeInsets.symmetric(
+      //               horizontal: 20,
+      //             ),
+      //             child: CutomeButton(
+      //               title: 'Опубликовать',
+      //               onpress: () => print('pressed'),
+      //               buttonColor: ColorPalate.lightGreen,
+      //               textColor: Colors.white,
+      //             ),
+      //           ),
+      //           SizedBox(height: 10),
+      //           Padding(
+      //             padding: const EdgeInsets.symmetric(
+      //               horizontal: 20,
+      //             ),
+      //             child: CutomeButton(
+      //               title: 'Купить пакет',
+      //               onpress: () => print('pressed'),
+      //               buttonColor: ColorPalate.lightGreen,
+      //               textColor: Colors.white,
+      //             ),
+      //           ),
+      //           SizedBox(height: 20),
+      //           Padding(
+      //             padding: const EdgeInsets.symmetric(horizontal: 20),
+      //             child: Column(
+      //               crossAxisAlignment: CrossAxisAlignment.start,
+      //               children: [
+      //                 Container(
+      //                   padding: const EdgeInsets.only(
+      //                     left: 12,
+      //                     right: 18,
+      //                     top: 21,
+      //                     bottom: 20,
+      //                   ),
+      //                   decoration: BoxDecoration(
+      //                     borderRadius: BorderRadius.circular(10),
+      //                     color: Colors.white,
+      //                   ),
+      //                   child: Column(
+      //                     crossAxisAlignment: CrossAxisAlignment.start,
+      //                     children: [
+      //                       Text(
+      //                         'Ваши объявления',
+      //                         style: FontStyles.semiBoldStyle(
+      //                           fontSize: 18,
+      //                           fontFamily: 'Lato',
+      //                         ),
+      //                       ),
+      //                       SizedBox(height: 17),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/comm2.svg',
+      //                         title: 'Активные',
+      //                         onpress: () => Get.to(
+      //                           () => ActiveAdds(),
+      //                         ),
+      //                       ),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_no.svg',
+      //                         title: 'Неактивные',
+      //                         onpress: () => Get.to(
+      //                           () => NonActiveAdds(),
+      //                         ),
+      //                       ),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_fav.svg',
+      //                         title: 'Избранное',
+      //                         isDivider: false,
+      //                         onpress: () => Get.to(
+      //                           () => FavoriteScreen(),
+      //                         ),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ),
+      //                 SizedBox(height: 23),
+      //                 Container(
+      //                   padding: const EdgeInsets.only(
+      //                     left: 12,
+      //                     right: 18,
+      //                     top: 21,
+      //                     bottom: 20,
+      //                   ),
+      //                   decoration: BoxDecoration(
+      //                     borderRadius: BorderRadius.circular(10),
+      //                     color: Colors.white,
+      //                   ),
+      //                   child: Column(
+      //                     crossAxisAlignment: CrossAxisAlignment.start,
+      //                     children: [
+      //                       Text(
+      //                         'Сообщения',
+      //                         style: FontStyles.semiBoldStyle(
+      //                           fontSize: 18,
+      //                           fontFamily: 'Lato',
+      //                         ),
+      //                       ),
+      //                       SizedBox(height: 17),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_mes.svg',
+      //                         title: 'Недавние',
+      //                         onpress: () => Get.to(
+      //                           () => MessageScreen(),
+      //                         ),
+      //                       ),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_arch.svg',
+      //                         title: 'Архивные',
+      //                         isDivider: false,
+      //                         onpress: () =>
+      //                             print('it should go to archive message'),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ),
+      //                 SizedBox(height: 23),
+      //                 Container(
+      //                   padding: const EdgeInsets.only(
+      //                     left: 12,
+      //                     right: 18,
+      //                     top: 21,
+      //                     bottom: 20,
+      //                   ),
+      //                   decoration: BoxDecoration(
+      //                     borderRadius: BorderRadius.circular(10),
+      //                     color: Colors.white,
+      //                   ),
+      //                   child: Column(
+      //                     crossAxisAlignment: CrossAxisAlignment.start,
+      //                     children: [
+      //                       Text(
+      //                         'Платежи',
+      //                         style: FontStyles.semiBoldStyle(
+      //                           fontSize: 18,
+      //                           fontFamily: 'Lato',
+      //                         ),
+      //                       ),
+      //                       SizedBox(height: 17),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_wal.svg',
+      //                         title: 'Ваш кошелек',
+      //                         onpress: () => Get.to(
+      //                           () => WalletScreen(),
+      //                         ),
+      //                       ),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_his.svg',
+      //                         isDivider: false,
+      //                         title: 'История платежей',
+      //                         onpress: () => Get.to(
+      //                           () => TransactionScreen(),
+      //                         ),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ),
+      //                 SizedBox(height: 30),
+      //                 Container(
+      //                   padding: const EdgeInsets.only(
+      //                     left: 12,
+      //                     right: 18,
+      //                     top: 21,
+      //                     bottom: 20,
+      //                   ),
+      //                   decoration: BoxDecoration(
+      //                     borderRadius: BorderRadius.circular(10),
+      //                     color: Colors.white,
+      //                   ),
+      //                   child: Column(
+      //                     crossAxisAlignment: CrossAxisAlignment.start,
+      //                     children: [
+      //                       Text(
+      //                         'Настройки и другое',
+      //                         style: FontStyles.semiBoldStyle(
+      //                           fontSize: 18,
+      //                           fontFamily: 'Lato',
+      //                         ),
+      //                       ),
+      //                       SizedBox(height: 17),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_set.svg',
+      //                         title: 'Настройки',
+      //                         onpress: () => Get.to(
+      //                           () => Settings(),
+      //                         ),
+      //                       ),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_help.svg',
+      //                         title: 'Помощь',
+      //                         onpress: () => print('pressed'),
+      //                       ),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_term.svg',
+      //                         title: 'Условия использования',
+      //                         onpress: () => print('pressed'),
+      //                       ),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_locked.svg',
+      //                         title: 'Политика конфиденциальности',
+      //                         onpress: () => print('pressed'),
+      //                       ),
+      //                       ProfileListTile(
+      //                         iconUrl: 'assets/icons/act_about.svg',
+      //                         title: 'О приложении',
+      //                         isDivider: false,
+      //                         onpress: () => print('pressed'),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ),
+      //                 SizedBox(height: 30),
+      //                 CutomeButton(
+      //                   title: 'Редактировать',
+      //                   onpress: () => Get.to(() => EditProfileScreen()),
+      //                   buttonColor: ColorPalate.mainColor,
+      //                   textColor: Colors.white,
+      //                 ),
+      //                 SizedBox(height: 10),
+      //                 Center(
+      //                   child: TextButton.icon(
+      //                     icon: SvgPicture.asset('assets/icons/logout.svg'),
+      //                     onPressed: () {
+      //                       print('pressedddd');
+      //                       showDialog(
+      //                           context: context,
+      //                           builder: (_) => AlertDialog(
+      //                                 title: Text('Xотите выйти'),
+      //                                 actions: [
+      //                                   TextButton(
+      //                                     onPressed: () => Get.back(),
+      //                                     child: Text('No'),
+      //                                   ),
+      //                                   TextButton(
+      //                                     onPressed: () async {
+      //                                       await AllServices.logout();
+      //                                       print('pressed yes');
+
+      //                                       print('fff');
+      //                                     },
+      //                                     child: Text('Yes'),
+      //                                   ),
+      //                                 ],
+      //                                 // content: Text('This is my content'),
+      //                               ));
+      //                       // AllServices.logout();
+      //                     },
+      //                     label: Text('Выйти',
+      //                         style: FontStyles.semiBoldStyle(
+      //                           fontSize: 20,
+      //                           fontFamily: 'Lato',
+      //                         )),
+      //                     style: TextButton.styleFrom(
+      //                       primary: Colors.black,
+      //                     ),
+      //                   ),
+      //                 ),
+      //                 SizedBox(height: 40),
+      //               ],
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //     );
+      //   }
+      // }),
+
+      // bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

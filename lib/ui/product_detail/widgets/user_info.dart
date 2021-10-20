@@ -7,7 +7,11 @@ import 'package:izle/ui/ads_by_author/ads_by_author_screen.dart';
 class UserInfo extends StatelessWidget {
   final String userName;
   final String authorToken;
-  UserInfo({required this.userName, required this.authorToken});
+  final int userId;
+  UserInfo(
+      {required this.userName,
+      required this.authorToken,
+      required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class UserInfo extends StatelessWidget {
       color: Color(0xffF2F4F5),
       padding: const EdgeInsets.only(top: 5, bottom: 15),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,6 +48,7 @@ class UserInfo extends StatelessWidget {
                       SizedBox(height: 13),
                       GestureDetector(
                         onTap: () => Get.to(() => AdsByAuthor(
+                              userId: userId,
                               authorToken: authorToken,
                               userName: userName,
                             )),
