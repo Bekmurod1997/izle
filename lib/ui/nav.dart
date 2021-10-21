@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/ui/category/all_category_screen.dart';
 import 'package:izle/ui/components/custom_bottomNavbar.dart';
@@ -9,6 +10,7 @@ import 'package:izle/ui/auth/auth_screen.dart';
 import 'package:izle/ui/favorites/favorite_screen.dart';
 import 'package:izle/ui/home/home_screen.dart';
 import 'package:izle/ui/message/message_screen.dart';
+import 'package:izle/ui/message/unauth_message.dart';
 import 'package:izle/ui/profile/active_profile.dart';
 import 'package:izle/ui/profile/profile_screen.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
@@ -35,16 +37,21 @@ class _NavScreenState extends State<NavScreen> {
     HomeScreen(),
     AllCategoryScreen(),
     MyPref.token == '' ? AuthScreen() : CreatingAddScreen(),
-    MessageScreen(),
+    MyPref.token == '' ? UnAuthMessageScreen() : MessageScreen(),
     MyPref.token == '' ? ProfileScreen() : ActiveProfileScreen(),
   ];
   late int activeTabIndex;
   @override
   void initState() {
     activeTabIndex = 0;
+    fetchingStorage();
     print('tokeeen in nav');
     print(MyPref.token);
     super.initState();
+  }
+
+  void fetchingStorage() async {
+    await GetStorage.init();
   }
 
   void onTabPress(int tabIndex) {
@@ -61,14 +68,15 @@ class _NavScreenState extends State<NavScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorPalate.mainPageColor,
-      body: Obx(() {
-        return tabContents[pageNavigationController.pageControler.value];
+    return Obx(() {
+      return Scaffold(
+        backgroundColor: ColorPalate.mainPageColor,
+        body: tabContents[pageNavigationController.pageControler.value],
         // child: HomeScreen(),
-      }),
-      bottomNavigationBar: CustomBottomNavBar(),
-    );
+
+        bottomNavigationBar: CustomBottomNavBar(),
+      );
+    });
   }
 
   // Widget bottomNavigationBar() {

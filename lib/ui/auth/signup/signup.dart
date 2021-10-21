@@ -64,6 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   keyboardType: TextInputType.number,
                   controller: phoneController,
                   decoration: InputDecoration(
+                    hintText: '998',
                     border: InputBorder.none,
                   ),
                 ),

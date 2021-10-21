@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/controller/search_controller.dart';
 
-import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/ui/home/widgets/filter_page.dart';
 
@@ -21,7 +20,11 @@ class _SearchResultState extends State<SearchResult> {
   final SearchController sController = Get.find<SearchController>();
 
   TextEditingController searchController = TextEditingController();
-
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +104,7 @@ class _SearchResultState extends State<SearchResult> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavBar(),
+      // bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

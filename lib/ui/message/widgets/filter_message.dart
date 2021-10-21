@@ -66,7 +66,7 @@ class _FilterMessageState extends State<FilterMessage> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavBar(),
+      // bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

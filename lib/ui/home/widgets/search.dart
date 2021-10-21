@@ -35,7 +35,7 @@ class _SearchState extends State<Search> {
                 Get.to(() => SearchResult(
                       searchResult: sController.searchTitle.toString(),
                     ));
-                pageController.pageControllerChanger(6);
+                // pageController.pageControllerChanger(6);
               },
               child: Icon(Icons.search)),
           // prefixIcon: IconButton(

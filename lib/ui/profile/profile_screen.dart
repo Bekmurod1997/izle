@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/constants/colors.dart';
+import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/ui/components/custom_listTile.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
@@ -9,7 +9,8 @@ import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
 import 'package:marquee/marquee.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  final PageNavigationController pageNavigationController =
+      Get.find<PageNavigationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,9 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
               GestureDetector(
-                onTap: () => Get.to(() => CreatingAddScreen()),
+                onTap: () => pageNavigationController.pageControllerChanger(2),
+
+                // onTap: () => Get.to(() => CreatingAddScreen()),
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 15),

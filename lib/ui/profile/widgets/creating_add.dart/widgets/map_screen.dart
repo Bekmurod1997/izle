@@ -126,16 +126,22 @@ class _MapScreenState extends State<MapScreen> {
             onTap: handleTap,
             myLocationButtonEnabled: false,
           ),
-          // Positioned(
-          //   top: 200,
-          //   child: Text(
-          //     '$lat and $long',
-          //     style: TextStyle(
-          //       color: Colors.white,
-          //       fontSize: 30,
-          //     ),
-          //   ),
-          // ),
+          Positioned(
+            bottom: 50,
+            right: 30,
+            child: Container(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.done,
+                  color: Colors.green,
+                  size: 40,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

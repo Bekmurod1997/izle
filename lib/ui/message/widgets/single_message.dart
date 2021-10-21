@@ -42,166 +42,162 @@ class _SingleScreenState extends State<SingleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: ColorPalate.mainPageColor,
-        body: Obx(() {
-          if (singleChatController.isLoading.value) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return Stack(
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      color: Colors.white,
-                      // padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
-                      child: Column(
-                        children: [
-                          Divider(
-                            thickness: 3,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.back();
-                                      },
-                                      child: RotatedBox(
-                                        quarterTurns: 2,
-                                        child: SvgPicture.asset(
-                                          'assets/icons/next-icon.svg',
-                                          height: 20,
-                                        ),
+    return Scaffold(
+      backgroundColor: ColorPalate.mainPageColor,
+      body: Obx(() {
+        if (singleChatController.isLoading.value) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          return Stack(
+            children: [
+              Column(
+                children: [
+                  SizedBox(height: 30),
+                  Container(
+                    color: Colors.white,
+                    // padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
+                    child: Column(
+                      children: [
+                        Divider(
+                          thickness: 3,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: RotatedBox(
+                                      quarterTurns: 2,
+                                      child: SvgPicture.asset(
+                                        'assets/icons/next-icon.svg',
+                                        height: 20,
                                       ),
                                     ),
-                                    SizedBox(width: 20),
-                                    Container(
-                                      child: Image.network(
-                                        ApiUrl.izleUrl + widget.imageUrl,
-                                        height: 50,
-                                      ),
-                                    ),
-                                    SizedBox(width: 15),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          // 'Азиз Ассомов',
-                                          widget.userName,
-                                          style: FontStyles.boldStyle(
-                                            fontSize: 24,
-                                            fontFamily: 'Lato',
-                                          ),
-                                        ),
-                                        Text(
-                                          'был(а) вчера 19:35',
-                                          style: FontStyles.regularStyle(
-                                            fontSize: 14,
-                                            fontFamily: 'Roboto',
-                                            color: Color(0xff616161),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                PopupMenuButton(
-                                  // padding: EdgeInsets.zero,
-                                  icon: Icon(
-                                    Icons.more_vert,
-                                    size: 30,
                                   ),
-                                  itemBuilder: (context) => <PopupMenuEntry>[
-                                    PopupMenuItem(
-                                      value: 1,
-                                      child: Text("Пометить как важное"),
+                                  SizedBox(width: 20),
+                                  Container(
+                                    child: Image.network(
+                                      ApiUrl.izleUrl + widget.imageUrl,
+                                      height: 50,
                                     ),
-                                    PopupMenuItem(
-                                      value: 2,
-                                      child: Text("Архивировать"),
-                                    ),
-                                    PopupMenuItem(
-                                      value: 3,
-                                      child: Text("Удалить"),
-                                    ),
-                                    PopupMenuDivider(
-                                      height: 14,
-                                    ),
-                                    PopupMenuItem(
-                                      value: 4,
-                                      child: Text("Все объявления автора"),
-                                    ),
-                                    PopupMenuItem(
-                                      value: 5,
-                                      child: Text("Заблокировать"),
-                                    ),
-                                  ],
+                                  ),
+                                  SizedBox(width: 15),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        // 'Азиз Ассомов',
+                                        widget.userName,
+                                        style: FontStyles.boldStyle(
+                                          fontSize: 24,
+                                          fontFamily: 'Lato',
+                                        ),
+                                      ),
+                                      Text(
+                                        'был(а) вчера 19:35',
+                                        style: FontStyles.regularStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'Roboto',
+                                          color: Color(0xff616161),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              PopupMenuButton(
+                                // padding: EdgeInsets.zero,
+                                icon: Icon(
+                                  Icons.more_vert,
+                                  size: 30,
                                 ),
-                              ],
+                                itemBuilder: (context) => <PopupMenuEntry>[
+                                  PopupMenuItem(
+                                    value: 1,
+                                    child: Text("Пометить как важное"),
+                                  ),
+                                  PopupMenuItem(
+                                    value: 2,
+                                    child: Text("Архивировать"),
+                                  ),
+                                  PopupMenuItem(
+                                    value: 3,
+                                    child: Text("Удалить"),
+                                  ),
+                                  PopupMenuDivider(
+                                    height: 14,
+                                  ),
+                                  PopupMenuItem(
+                                    value: 4,
+                                    child: Text("Все объявления автора"),
+                                  ),
+                                  PopupMenuItem(
+                                    value: 5,
+                                    child: Text("Заблокировать"),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 3),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    color: Colors.white,
+                    child: ListTile(
+                      dense: true,
+                      visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Продам Chevrolet Lacetti',
+                            style: FontStyles.regularStyle(
+                              fontSize: 14,
+                              fontFamily: 'Roboto',
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
+                          SizedBox(height: 3),
+                          Text(
+                            '90 000 000 сум',
+                            style: FontStyles.boldStyle(
+                              fontSize: 14,
+                              fontFamily: 'Roboto',
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(height: 3),
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      color: Colors.white,
-                      child: ListTile(
-                        dense: true,
-                        visualDensity:
-                            VisualDensity(horizontal: 0, vertical: -4),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Продам Chevrolet Lacetti',
-                              style: FontStyles.regularStyle(
-                                fontSize: 14,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                            SizedBox(height: 3),
-                            Text(
-                              '90 000 000 сум',
-                              style: FontStyles.boldStyle(
-                                fontSize: 14,
-                                fontFamily: 'Roboto',
-                              ),
-                            ),
-                          ],
+                      title: Text(
+                        'ID: 12345678',
+                        style: FontStyles.regularStyle(
+                          fontSize: 10,
+                          color: Color(0xff616161),
+                          fontFamily: 'Lato',
                         ),
-                        title: Text(
-                          'ID: 12345678',
-                          style: FontStyles.regularStyle(
-                            fontSize: 10,
-                            color: Color(0xff616161),
-                            fontFamily: 'Lato',
-                          ),
-                        ),
-                        trailing: IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            'assets/icons/next-icon.svg',
-                          ),
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          'assets/icons/next-icon.svg',
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: ListView.separated(
+                  ),
+                  Expanded(
+                    child: ListView.separated(
                         reverse: true,
                         separatorBuilder: (context, index) =>
                             SizedBox(height: 10),
@@ -340,7 +336,7 @@ class _SingleScreenState extends State<SingleScreen> {
                                     // ),
                                   ],
                                 ),
-                              ),
+                              )
 
                         // SizedBox(height: 10),
 
@@ -410,96 +406,95 @@ class _SingleScreenState extends State<SingleScreen> {
                         // ),
 
                         // SizedBox(height: 10),
-                      ),
-                    ),
-                    SizedBox(height: 60),
-                    // SizedBox(height: 10),
-                  ],
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    margin: EdgeInsets.only(top: 20),
-                    padding: const EdgeInsets.only(bottom: 0),
-                    color: Colors.white,
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(width: 14),
-                        Container(
-                          width: 30,
-                          child: Icon(
-                            Icons.attach_file,
-                            color: Color(0xff112F2E),
-                          ),
                         ),
-                        Container(
-                          width: 30,
-                          child: SvgPicture.asset(
-                            'assets/icons/maps-and-flags.svg',
-                            height: 20,
-                            color: Color(0xff112F2E),
-                          ),
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width - 120,
-                              height: 30,
-                              // color: Colors.yellow,
-                              // decoration: BoxDecoration(
-                              //   color: Colors.white,
-                              //   borderRadius: new BorderRadius.circular(15.0),
-                              //   border: Border.all(color: Colors.black),
-                              // ),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: 15, right: 15, top: 0, bottom: 0),
-                                child: TextFormField(
-                                  controller: messageController,
-                                  decoration: InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    // contentPadding: EdgeInsets.only(bottom: 0),
-                                    // border: InputBorder.none,
-                                    hintText: 'Напишите сообщение',
-                                    hintStyle: FontStyles.regularStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'Lato',
-                                        color: Color(0xff616161)),
-                                  ),
+                  ),
+                  SizedBox(height: 25),
+                  // SizedBox(height: 10),
+                ],
+              ),
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  margin: EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(bottom: 0),
+                  color: Colors.white,
+                  child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 14),
+                      // Container(
+                      //   width: 30,
+                      //   child: Icon(
+                      //     Icons.attach_file,
+                      //     color: Color(0xff112F2E),
+                      //   ),
+                      // ),
+                      // Container(
+                      //   width: 30,
+                      //   child: SvgPicture.asset(
+                      //     'assets/icons/maps-and-flags.svg',
+                      //     height: 20,
+                      //     color: Color(0xff112F2E),
+                      //   ),
+                      // ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width - 70,
+                            height: 30,
+                            // color: Colors.yellow,
+                            // decoration: BoxDecoration(
+                            //   color: Colors.white,
+                            //   borderRadius: new BorderRadius.circular(15.0),
+                            //   border: Border.all(color: Colors.black),
+                            // ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: 15, right: 15, top: 0, bottom: 0),
+                              child: TextFormField(
+                                controller: messageController,
+                                decoration: InputDecoration(
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  // contentPadding: EdgeInsets.only(bottom: 0),
+                                  // border: InputBorder.none,
+                                  hintText: 'Напишите сообщение',
+                                  hintStyle: FontStyles.regularStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Lato',
+                                      color: Color(0xff616161)),
                                 ),
                               ),
                             ),
-                            IconButton(
-                              padding: const EdgeInsets.only(right: 10),
-                              onPressed: () async {
-                                await AllServices.sendMessage(
-                                    getterId: widget.getterId.toString(),
-                                    message: messageController.text);
-                                singleChatController
-                                    .fetchSingleChat(widget.chatId);
-                                messageController.text = '';
-                              },
-                              icon: Icon(
-                                Icons.send,
-                                color: Color(0xff347EE4),
-                              ),
+                          ),
+                          IconButton(
+                            padding: const EdgeInsets.only(right: 10),
+                            onPressed: () async {
+                              await AllServices.sendMessage(
+                                  getterId: widget.getterId.toString(),
+                                  message: messageController.text);
+                              singleChatController
+                                  .fetchSingleChat(widget.chatId);
+                              messageController.text = '';
+                            },
+                            icon: Icon(
+                              Icons.send,
+                              color: Color(0xff347EE4),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            );
-          }
-        }),
-        // bottomNavigationBar: CustomBottomNavBar(),
-      ),
+              ),
+            ],
+          );
+        }
+      }),
+      // bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

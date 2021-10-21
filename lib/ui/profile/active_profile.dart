@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:izle/controller/my_ads_controller.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/services/all_services.dart';
-import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
@@ -365,16 +364,15 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                                   actions: [
                                     TextButton(
                                       onPressed: () => Get.back(),
-                                      child: Text('No'),
+                                      child: Text('Нет'),
                                     ),
                                     TextButton(
                                       onPressed: () async {
                                         await AllServices.logout();
-                                        print('pressed yes');
 
                                         print('fff');
                                       },
-                                      child: Text('Yes'),
+                                      child: Text('Да'),
                                     ),
                                   ],
                                   // content: Text('This is my content'),

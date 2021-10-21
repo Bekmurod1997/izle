@@ -47,7 +47,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       // executes after build
       imagePicker = new ImagePicker();
-      userInfoController.fetchUserInfo();
+      userInfoController.fetchUserInfo(userToken: MyPref.token);
     });
   }
 
@@ -222,10 +222,10 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     ////////////////////////////////
                     ////////////////////////////////
                     // if (userInfoController.fetchUserInfoList.first.name != null)
-                    UserInfo(
-                      title: 'Контактное лицо*', userInfo: MyPref.userName,
-                      // '${userInfoController.fetchUserInfoList.first.name}',
-                    ),
+                    // UserInfo(
+                    //   title: 'Контактное лицо*', userInfo: MyPref.userName,
+                    //   // '${userInfoController.fetchUserInfoList.first.name}',
+                    // ),
                     ////////////////////////////////
                     ////////////////////////////////
                     //checking for null email //////
@@ -281,6 +281,34 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                           print('--------');
                           print(creatingAddInfoController.images[i].toString());
                         }
+                        Get.dialog(
+                          Scaffold(
+                            backgroundColor: Colors.black.withOpacity(.1),
+                            body: Center(
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                color: Colors.white,
+                                width: double.infinity,
+                                height: 100.0,
+                                child: Row(
+                                  children: [
+                                    CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          ColorPalate.mainColor),
+                                    ),
+                                    SizedBox(
+                                      width: 30,
+                                    ),
+                                    Text('Подождите пожалуйста'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
                         AllServices.createAd();
                         print('pressed');
                       },

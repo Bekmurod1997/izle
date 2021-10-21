@@ -72,7 +72,7 @@ class _RecommendationState extends State<Recommendation> {
               crossAxisSpacing: 5,
               mainAxisSpacing: 5,
               // height: MediaQuery.of(context).size.height * 0.4,
-              height: MediaQuery.of(context).size.height * 0.35,
+              height: MediaQuery.of(context).size.height * 0.3,
             ),
             itemBuilder: (context, index) {
               return GestureDetector(

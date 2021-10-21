@@ -70,9 +70,11 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
         key: _formKey,
         child: Column(
           children: [
+            SizedBox(height: 60),
             Center(
               child: Image.asset('assets/images/izle.png'),
             ),
+            SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
@@ -110,6 +112,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 20),
             // Text('sssss'),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -181,6 +184,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                                 ],
                               ),
                             )),
+                  SizedBox(height: 20),
                   SizedBox(
                     height: 54,
                     width: 500,

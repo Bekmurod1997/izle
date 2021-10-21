@@ -28,7 +28,7 @@ class MessageItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        pageNavigationController.pageControllerChanger(7);
+        // pageNavigationController.pageControllerChanger(7);
         Get.to(() => SingleScreen(
               chatId: id!,
               getterId: getterId!,

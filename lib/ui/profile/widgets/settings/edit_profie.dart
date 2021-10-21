@@ -29,7 +29,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       // executes after build
-      userInfoController.fetchUserInfo();
+      userInfoController.fetchUserInfo(userToken: MyPref.token);
       print(userInfoController.fetchUserInfoList);
       if (userInfoController.fetchUserInfoList.first.name == null ||
           userInfoController.fetchUserInfoList.first.name == '') {

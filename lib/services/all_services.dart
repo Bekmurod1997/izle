@@ -17,6 +17,7 @@ import 'package:izle/models/login_model.dart';
 import 'package:izle/models/product_detail_model.dart';
 import 'package:izle/models/advertisement/advertisement_list_model.dart';
 import 'package:izle/models/city_model.dart';
+import 'package:izle/models/re_password_model.dart';
 import 'package:izle/models/recovery_password_model.dart';
 import 'package:izle/models/single_message_model.dart';
 import 'package:izle/models/user_info_model.dart';
@@ -29,7 +30,7 @@ import 'package:get/get.dart' as g;
 class AllServices {
   static PageNavigationController pageNavigationController =
       g.Get.find<PageNavigationController>();
-  static final token = MyPref.token;
+
   static var client = http.Client();
   String pN = '9';
 
@@ -38,7 +39,7 @@ class AllServices {
     print(ApiUrl.allChat);
     try {
       var response = await client.get(Uri.parse(ApiUrl.allChat),
-          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+          headers: {HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}'});
       if (response.statusCode == 200) {
         var body = AllMessageModel.fromJson(json.decode(response.body));
         print(response.body);
@@ -54,11 +55,11 @@ class AllServices {
     print('url link');
     print(ApiUrl.chatId + '$messageId');
     try {
-      var response = await client.get(Uri.parse(ApiUrl.chatId + '$messageId'),
-          headers: {
-            'Accept': 'application/json',
-            HttpHeaders.authorizationHeader: 'Bearer $token'
-          });
+      var response =
+          await client.get(Uri.parse(ApiUrl.chatId + '$messageId'), headers: {
+        'Accept': 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}'
+      });
       print(response.body);
       if (response.statusCode == 200) {
         var body = SingleMessageModel.fromJson(json.decode(response.body));
@@ -77,7 +78,7 @@ class AllServices {
     print(ApiUrl.sendMessage);
     try {
       var response = await client.post(Uri.parse(ApiUrl.sendMessage), headers: {
-        HttpHeaders.authorizationHeader: 'Bearer $token'
+        HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}'
       }, body: {
         'getter_id': getterId,
         'message': message,
@@ -162,8 +163,8 @@ class AllServices {
         ApiUrl.createAds,
         data: formData,
         options: Options(headers: {
-          HttpHeaders.authorizationHeader: 'Bearer $token',
-          "Authorization": "Bearer $token"
+          HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}',
+          "Authorization": "Bearer ${MyPref.token}"
         }),
       );
 
@@ -182,7 +183,7 @@ class AllServices {
       //   'lat': '${creatingAddInfoController.lat}',
       //   'lng': '${creatingAddInfoController.long}',
       // }, headers: {
-      //   "Authorization": "Bearer $token"
+      //   "Authorization": "Bearer ${MyPref.token}"
       // });
       print(response.statusCode);
       if (response.statusCode == 200) {
@@ -231,8 +232,8 @@ class AllServices {
         'lng': '${creatingAddInfoController.long}',
       }, headers: {
         'Accept': 'application/json',
-        // "Authorization": "Bearer $token",
-        HttpHeaders.authorizationHeader: 'Bearer $token'
+        // "Authorization": "Bearer ${MyPref.token}",
+        HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}'
       });
       print(response.statusCode);
       if (response.statusCode == 200) {
@@ -254,7 +255,7 @@ class AllServices {
       print('url link');
       print(ApiUrl.myAds);
       var response = await client.get(Uri.parse(ApiUrl.myAds),
-          headers: {"Authorization": "Bearer $token"});
+          headers: {"Authorization": "Bearer ${MyPref.token}"});
       if (response.statusCode == 200) {
         var body = AdvertisementListModel.fromJson(json.decode(response.body));
         print(response.body);
@@ -315,11 +316,12 @@ class AllServices {
     try {
       var response =
           await client.post(Uri.parse(ApiUrl.updateProfile), headers: {
-        HttpHeaders.authorizationHeader: 'Bearer $token'
+        HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}'
       }, body: {
         'email': email,
         'name': name,
       });
+      print(response.statusCode);
       if (response.statusCode == 200) {
         MyPref.userName = name;
         print('success in update profile');
@@ -373,7 +375,7 @@ class AllServices {
       print(ApiUrl.deleteAds + '$id');
       var response = await client.post(
         Uri.parse(ApiUrl.deleteAds + '$id'),
-        headers: {"Authorization": "Bearer $token"},
+        headers: {"Authorization": "Bearer ${MyPref.token}"},
       );
       if (response.statusCode == 200) {
         print('ad was deleted successfully ');
@@ -387,7 +389,7 @@ class AllServices {
     try {
       var response = await client.get(
         Uri.parse(ApiUrl.favorites),
-        headers: {"Authorization": "Bearer $token"},
+        headers: {"Authorization": "Bearer ${MyPref.token}"},
       );
       print(response.statusCode);
       if (response.statusCode == 200) {
@@ -405,13 +407,13 @@ class AllServices {
     try {
       var response = await client.get(
           Uri.parse(ApiUrl.addAndDeleteFavorite + '$id'),
-          headers: {"Authorization": "Bearer $token"});
+          headers: {"Authorization": "Bearer ${MyPref.token}"});
       if (response.statusCode == 200) {
         // print('success in adding favorites');
         // print(response.body);
       } else {
         print('error in else statement');
-        print(token);
+        print(MyPref.token);
         print(response.statusCode);
         print(ApiUrl.addAndDeleteFavorite + '$id');
       }
@@ -420,19 +422,21 @@ class AllServices {
     }
   }
 
-  static Future userInfo() async {
+  static Future userInfo({String? userToken}) async {
     try {
       var response = await client.get(
         Uri.parse(ApiUrl.myProfile),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer $token',
-          "Authorization": "Bearer $token"
+          HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}',
+          "Authorization": "Bearer ${MyPref.token}"
         },
       );
+      print('this is userInfo Service' + '${response.statusCode}');
       if (response.statusCode == 200) {
         // print(response.body);
         // print('this is userInfo service');
         var body = UserInfoModel.fromJson(json.decode(response.body));
+        print(response.body);
         return body;
       }
     } catch (e) {
@@ -443,10 +447,11 @@ class AllServices {
   static Future logout() async {
     try {
       var response = await client.get(Uri.parse(ApiUrl.logout),
-          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+          headers: {HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}'});
+      print(response.statusCode);
       if (response.statusCode == 200) {
         print('successfully logout');
-        MyPref.clearToken();
+        await MyPref.clearAllll();
 
         g.Get.offAll(() => NavScreen());
         pageNavigationController.pageControllerChanger(0);
@@ -481,22 +486,57 @@ class AllServices {
         Uri.parse(ApiUrl.signin),
         body: {'phone': phoneNumber, 'password': password},
       );
+      print(response.body);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         var body = LoginModel.fromJson(json.decode(response.body));
         print('login successfully');
+        print('tokeeeeeeen');
+        print(body.token);
         print(response.body);
         MyPref.token = body.token!;
+        MyPref.phoneNumber = body.phone!;
+        MyPref.userName = body.phone!;
         MyPref.userId = '${body.id}';
+
         print('token in login');
         print(MyPref.token);
-        userInfoController.fetchUserInfo();
+        await userInfoController.fetchUserInfo(userToken: MyPref.token);
         pageNavigationController.pageControllerChanger(0);
 
         g.Get.to(
           () => NavScreen(),
         );
+      } else if (response.statusCode == 422) {
+        return g.Get.dialog(
+          GestureDetector(
+            onTap: () {
+              g.Get.back();
+            },
+            child: Scaffold(
+              backgroundColor: Colors.black.withOpacity(.1),
+              body: GestureDetector(
+                child: Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                    color: Colors.white,
+                    width: double.infinity,
+                    height: 100.0,
+                    child: Center(
+                      child: Text(
+                        'Не верный логин и/или пароль',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
       }
     } catch (e) {
+      print(e);
       print('error in login service');
     }
   }
@@ -504,7 +544,7 @@ class AllServices {
   static Future editProfileService() async {
     try {
       var response = await client.post(Uri.parse(ApiUrl.updateProfile),
-          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+          headers: {HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}'});
       if (response.statusCode == 200) {
         // print(response.body);
         // print('this is editProfile service');
@@ -558,7 +598,11 @@ class AllServices {
       });
       print(response.statusCode);
       if (response.statusCode == 200) {
+        var body = RecoveryPasswordModel2.fromJson(json.decode(response.body));
+        print(response.body);
+
         print('success in sending phone to code to recory');
+        return body;
       }
     } catch (e) {
       print('error in recovry passwrod sending code to recovery');

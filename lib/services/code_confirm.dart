@@ -33,10 +33,15 @@ class CodeConfirm {
         print(body.data!.email);
         MyPref.token = body.data!.token!;
         MyPref.phoneNumber = body.data!.phone!;
+        MyPref.userName = '${body.data!.phone!}';
+        print('-----');
+        print(MyPref.token);
+        print(MyPref.phoneNumber);
+        print(MyPref.userName);
         print('MyPref toke');
         print(MyPref.token);
         await Get.offAll(() => NavScreen());
-        userInfoController.fetchUserInfo();
+        userInfoController.fetchUserInfo(userToken: MyPref.token);
       }
     } catch (e) {
       print('error in code confirm');

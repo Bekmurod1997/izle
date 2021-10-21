@@ -76,16 +76,14 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
                   keyboardType: TextInputType.phone,
                   controller: phoneNumber,
                   decoration: InputDecoration(
-                      border: InputBorder.none, hintText: '+998'),
+                      border: InputBorder.none, hintText: '998'),
                 ),
               ),
             ),
             GestureDetector(
               onTap: () async {
-                var phone = phoneNumber.text;
-                await AllServices.recoveryPassword(phone.substring(1));
-                Get.to(
-                    () => ConfirmToRecovery(phoneNumber: phone.substring(1)));
+                await AllServices.recoveryPassword(phoneNumber.text);
+                Get.to(() => ConfirmToRecovery(phoneNumber: phoneNumber.text));
               },
               // Get.to(
               //   () => CreatingAddScreen(),

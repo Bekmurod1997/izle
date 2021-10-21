@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
@@ -66,7 +67,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                       style: TextStyle(
                         fontSize: 12,
                         color: pageNavigationController.tabIndex.value == index
-                            ? Color(0xff2F80ED)
+                            ? ColorPalate.mainColor
                             : Colors.grey,
                       ),
                     ),
@@ -306,78 +307,80 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     //   ),
     // );
 
-    return Container(
-      child: BottomNavigationBar(
-        selectedFontSize: 0,
+    return Obx(() {
+      return Container(
+        child: BottomNavigationBar(
+          selectedFontSize: 0,
 
-        // unselectedItemColor: Colors.white,
-        // fixedColor: Colors.white,
-        // unselectedLabelStyle: TextStyle(color: Colors.white),
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        currentIndex: pageNavigationController.pageControler.value, //New
-        onTap: _onItemTapped,
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.yellow,
+          // unselectedItemColor: Colors.white,
+          // fixedColor: Colors.white,
+          selectedLabelStyle: TextStyle(color: Colors.red),
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.white,
+          currentIndex: pageNavigationController.pageControler.value, //New
+          onTap: _onItemTapped,
+          selectedItemColor: Colors.red,
+          unselectedItemColor: Colors.yellow,
 
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: _buildIcon(
-              'assets/icons/home3.svg',
-              'Главная',
-              0,
-              pageNavigationController.tabIndex.value == 0
-                  ? Color(0xff2F80ED)
-                  : Colors.grey,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: _buildIcon(
+                'assets/icons/home3.svg',
+                'Главная',
+                0,
+                pageNavigationController.tabIndex.value == 0
+                    ? ColorPalate.mainColor
+                    : Colors.grey,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: _buildIcon(
-              'assets/icons/1.svg',
-              'Категории',
-              1,
-              pageNavigationController.tabIndex.value == 1
-                  ? Color(0xff2F80ED)
-                  : Colors.grey,
+            BottomNavigationBarItem(
+              icon: _buildIcon(
+                'assets/icons/1.svg',
+                'Категории',
+                1,
+                pageNavigationController.tabIndex.value == 1
+                    ? ColorPalate.mainColor
+                    : Colors.grey,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: _buildIcon(
-              'assets/icons/sozdat.svg',
-              'Создать',
-              2,
-              pageNavigationController.tabIndex.value == 2
-                  ? Color(0xff2F80ED)
-                  : Colors.grey,
+            BottomNavigationBarItem(
+              icon: _buildIcon(
+                'assets/icons/sozdat.svg',
+                'Создать',
+                2,
+                pageNavigationController.tabIndex.value == 2
+                    ? ColorPalate.mainColor
+                    : Colors.grey,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: _buildIcon(
-              'assets/icons/coolicon.svg',
-              'Сообщения',
-              3,
-              pageNavigationController.tabIndex.value == 3
-                  ? Color(0xff2F80ED)
-                  : Colors.grey,
+            BottomNavigationBarItem(
+              icon: _buildIcon(
+                'assets/icons/coolicon.svg',
+                'Сообщения',
+                3,
+                pageNavigationController.tabIndex.value == 3
+                    ? ColorPalate.mainColor
+                    : Colors.grey,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: _buildIcon(
-              'assets/icons/profile_active.svg',
-              'Профиль',
-              4,
-              pageNavigationController.tabIndex.value == 4
-                  ? Color(0xff2F80ED)
-                  : Colors.grey,
+            BottomNavigationBarItem(
+              icon: _buildIcon(
+                'assets/icons/profile_active.svg',
+                'Профиль',
+                4,
+                pageNavigationController.tabIndex.value == 4
+                    ? ColorPalate.mainColor
+                    : Colors.grey,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }

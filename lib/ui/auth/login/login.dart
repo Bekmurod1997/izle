@@ -5,6 +5,7 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/auth/login/widgets/recovery_password.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -59,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.phone,
                   controller: phoneNumber,
                   decoration: InputDecoration(
-                      border: InputBorder.none, hintText: '+998'),
+                      border: InputBorder.none, hintText: '998'),
                 ),
               ),
             ),
@@ -126,35 +127,35 @@ class _LoginScreenState extends State<LoginScreen> {
             GestureDetector(
               onTap: () {
                 var phone = phoneNumber.text;
-                Get.dialog(
-                  Scaffold(
-                    backgroundColor: Colors.black.withOpacity(.1),
-                    body: Center(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        color: Colors.white,
-                        width: double.infinity,
-                        height: 100.0,
-                        child: Row(
-                          children: [
-                            CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  ColorPalate.mainColor),
-                            ),
-                            SizedBox(
-                              width: 30,
-                            ),
-                            Text('Подождите пожалуйста'),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                );
+                // Get.dialog(
+                //   Scaffold(
+                //     backgroundColor: Colors.black.withOpacity(.1),
+                //     body: Center(
+                //       child: Container(
+                //         margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                //         padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                //         color: Colors.white,
+                //         width: double.infinity,
+                //         height: 100.0,
+                //         child: Row(
+                //           children: [
+                //             CircularProgressIndicator(
+                //               valueColor: AlwaysStoppedAnimation<Color>(
+                //                   ColorPalate.mainColor),
+                //             ),
+                //             SizedBox(
+                //               width: 30,
+                //             ),
+                //             Text('Подождите пожалуйста'),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // );
 
-                AllServices.login(phone.substring(1), password.text);
-                userInfoController.fetchUserInfo();
+                AllServices.login(phoneNumber.text, password.text);
+                userInfoController.fetchUserInfo(userToken: MyPref.token);
               },
               // Get.to(
               //   () => CreatingAddScreen(),

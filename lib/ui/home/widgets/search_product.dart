@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:izle/controller/search_controller.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
+import 'package:izle/ui/product_detail/product_detail_screen.dart';
 
 class SearchProduct extends StatefulWidget {
   final String searchTitle;
@@ -31,6 +32,13 @@ class _SearchProductState extends State<SearchProduct> {
       sController.fetchSearch(widget.searchTitle);
     });
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   print('calling didchangeDepande');
+  //   sController.fetchSearch(widget.searchTitle);
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,18 +79,22 @@ class _SearchProductState extends State<SearchProduct> {
                   // height: MediaQuery.of(context).size.height * 0.3,
                 ),
                 itemBuilder: (context, index) {
-                  return RecommandationItem(
-                    isFavorite: false,
-                    title: sController.allSearchList().data![index].title!,
-                    id: sController.allSearchList().data![index].id!,
-                    city: sController.allSearchList().data![index].cityName!,
-                    price: sController
-                        .allSearchList()
-                        .data![index]
-                        .price
-                        .toString(),
-                    date: sController.allSearchList().data![index].date!,
-                    imageUrl: sController.allSearchList().data![index].photo!,
+                  return GestureDetector(
+                    onTap: () => Get.to(() => ProductDetailScreen(
+                        proId: sController.allSearchList().data![index].id!)),
+                    child: RecommandationItem(
+                      isFavorite: false,
+                      title: sController.allSearchList().data![index].title!,
+                      id: sController.allSearchList().data![index].id!,
+                      city: sController.allSearchList().data![index].cityName!,
+                      price: sController
+                          .allSearchList()
+                          .data![index]
+                          .price
+                          .toString(),
+                      date: sController.allSearchList().data![index].date!,
+                      imageUrl: sController.allSearchList().data![index].photo!,
+                    ),
                   );
                 },
               ),

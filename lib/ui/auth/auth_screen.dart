@@ -67,7 +67,7 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             SizedBox(height: 3),
             Divider(
-              thickness: 1,
+              thickness: 2,
             ),
             SizedBox(height: 60),
             Container(

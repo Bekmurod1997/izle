@@ -313,25 +313,32 @@ class _MessageScreenState extends State<MessageScreen> {
                 RefreshIndicator(
                   color: Colors.red,
                   onRefresh: () => allChatController.fetchAllChat(),
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: allChatController.chatList.length,
-                    itemBuilder: (context, index) => Container(
-                        padding: const EdgeInsets.only(top: 0),
-                        child: MessageItem(
-                          id: allChatController.chatList[index].id,
-                          date: allChatController.chatList[index].date,
-                          imageUrl: allChatController.chatList[index].photo,
-                          lastMessage:
-                              allChatController.chatList[index].lastMessage,
-                          userName: allChatController.chatList[index].name,
-                          getterId: allChatController.chatList[index].userId,
-                          messageCount:
-                              allChatController.chatList[index].messages,
-                        )),
-                  ),
+                  child: allChatController.chatList.length == 0
+                      ? Container(
+                          child: Center(child: Text('Нет сообщений')),
+                        )
+                      : ListView.builder(
+                          padding: EdgeInsets.zero,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: allChatController.chatList.length,
+                          itemBuilder: (context, index) => Container(
+                              padding: const EdgeInsets.only(top: 0),
+                              child: MessageItem(
+                                id: allChatController.chatList[index].id,
+                                date: allChatController.chatList[index].date,
+                                imageUrl:
+                                    allChatController.chatList[index].photo,
+                                lastMessage: allChatController
+                                    .chatList[index].lastMessage,
+                                userName:
+                                    allChatController.chatList[index].name,
+                                getterId:
+                                    allChatController.chatList[index].userId,
+                                messageCount:
+                                    allChatController.chatList[index].messages,
+                              )),
+                        ),
                 ),
               ],
             ),
