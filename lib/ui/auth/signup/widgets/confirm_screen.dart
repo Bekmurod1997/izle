@@ -188,6 +188,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                   SizedBox(
                     height: 54,
                     width: 500,
+                    // ignore: deprecated_member_use
                     child: RaisedButton(
                       elevation: 0,
                       color: ColorPalate.mainColor,

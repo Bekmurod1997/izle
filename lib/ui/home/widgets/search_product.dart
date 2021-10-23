@@ -25,7 +25,7 @@ class _SearchProductState extends State<SearchProduct> {
     print('---------');
     print(sController.searchTitle.value);
     print('---------');
-    sController.fetchSearch(widget.searchTitle);
+    // sController.fetchSearch(widget.searchTitle);
 
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
@@ -75,8 +75,7 @@ class _SearchProductState extends State<SearchProduct> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 5,
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  // height: MediaQuery.of(context).size.height * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.3,
                 ),
                 itemBuilder: (context, index) {
                   return GestureDetector(
@@ -99,16 +98,16 @@ class _SearchProductState extends State<SearchProduct> {
                 },
               ),
             ),
-            sController.currentPage <
-                    sController.allSearchList().mMeta!.pageCount!
-                ? TextButton(
-                    onPressed: () {
-                      sController.currentPage++;
-                      sController.fetchSearch(widget.searchTitle);
-                    },
-                    child: Text('loadmore'),
-                  )
-                : Container(),
+            // sController.currentPage <
+            //         sController.allSearchList().mMeta!.pageCount!
+            //     ? TextButton(
+            //         onPressed: () {
+            //           sController.currentPage++;
+            //           sController.fetchSearch(widget.searchTitle);
+            //         },
+            //         child: Text('loadmore'),
+            //       )
+            //     : Container(),
           ],
         );
       }

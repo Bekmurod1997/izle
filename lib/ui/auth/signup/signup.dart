@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/services/signup.dart';
-import 'package:izle/ui/auth/signup/widgets/confirm_screen.dart';
 import 'package:izle/utils/my_prefs.dart';
 
 class SignUpScreen extends StatefulWidget {

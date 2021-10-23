@@ -6,7 +6,6 @@ import 'package:get/get.dart' as g;
 import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/services/all_services.dart';
-import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
@@ -55,18 +54,18 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
   List<XFile>? _imageFileList = [];
   // dynamic _pickImageError;
   final ImagePicker _picker = ImagePicker();
-  void selectImages() async {
-    final List<XFile>? selectImages = await _picker.pickMultiImage();
-    if (selectImages!.isNotEmpty) {
-      _imageFileList!.addAll(selectImages);
-    }
-    print("Image list lengt" + _imageFileList!.length.toString());
-    for (var i = 0; i < _imageFileList!.length; i++) {
-      imageUrl.add('${_imageFileList![i].path}');
-    }
-    creatingAddInfoController.imagesChanger(imageUrl);
-    setState(() {});
-  }
+  // void selectImages() async {
+  //   final List<XFile>? selectImages = await _picker.pickMultiImage();
+  //   if (selectImages!.isNotEmpty) {
+  //     _imageFileList!.addAll(selectImages);
+  //   }
+  //   print("Image list lengt" + _imageFileList!.length.toString());
+  //   for (var i = 0; i < _imageFileList!.length; i++) {
+  //     imageUrl.add('${_imageFileList![i].path}');
+  //   }
+  //   creatingAddInfoController.imagesChanger(imageUrl);
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +77,8 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
       // ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-        child: SingleChildScrollView(
-          child: Column(
+        child: SingleChildScrollView(child: g.Obx(() {
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 30),
@@ -270,17 +269,17 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                       title: 'Опубликовать',
                       onpress: () {
                         print(_image);
-                        print(creatingAddInfoController.images);
-                        List imageeeee = [];
-                        for (var i = 0; i < imageUrl.length; i++) {
-                          print(imageUrl[i]);
-                          imageeeee.addAll([
-                            'gallery[$i], ',
-                          ]);
-                          print(imageeeee[i]);
-                          print('--------');
-                          print(creatingAddInfoController.images[i].toString());
-                        }
+                        // print(creatingAddInfoController.images);
+                        // List imageeeee = [];
+                        // for (var i = 0; i < imageUrl.length; i++) {
+                        //   print(imageUrl[i]);
+                        //   imageeeee.addAll([
+                        //     'gallery[$i], ',
+                        //   ]);
+                        //   print(imageeeee[i]);
+                        //   print('--------');
+                        //   print(creatingAddInfoController.images[i].toString());
+                        // }
                         Get.dialog(
                           Scaffold(
                             backgroundColor: Colors.black.withOpacity(.1),
@@ -320,8 +319,8 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                 ),
               ),
             ],
-          ),
-        ),
+          );
+        })),
       ),
 
       // bottomNavigationBar: CustomBottomNavBar(),

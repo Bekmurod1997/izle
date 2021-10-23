@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:izle/constants/fonts.dart';
 
 class MyMaps extends StatefulWidget {
   final String lat;
@@ -13,10 +11,10 @@ class MyMaps extends StatefulWidget {
 }
 
 class _MyMapsState extends State<MyMaps> {
-  static const _initialCameraPosition = CameraPosition(
-    target: LatLng(41.26465, 69.21627),
-    zoom: 11.5,
-  );
+  // static const _initialCameraPosition = CameraPosition(
+  //   target: LatLng(41.26465, 69.21627),
+  //   zoom: 11.5,
+  // );
 
   @override
   Widget build(BuildContext context) {

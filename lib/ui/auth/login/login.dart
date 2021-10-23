@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             GestureDetector(
               onTap: () {
-                var phone = phoneNumber.text;
+                // var phone = phoneNumber.text;
                 // Get.dialog(
                 //   Scaffold(
                 //     backgroundColor: Colors.black.withOpacity(.1),

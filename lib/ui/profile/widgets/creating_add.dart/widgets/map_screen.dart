@@ -127,9 +127,11 @@ class _MapScreenState extends State<MapScreen> {
             myLocationButtonEnabled: false,
           ),
           Positioned(
-            bottom: 50,
-            right: 30,
+            bottom: 100,
+            right: 10,
             child: Container(
+              padding: EdgeInsets.all(5),
+              color: Colors.white,
               child: GestureDetector(
                 onTap: () {
                   Navigator.pop(context);

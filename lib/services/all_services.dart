@@ -23,7 +23,6 @@ import 'package:izle/models/single_message_model.dart';
 import 'package:izle/models/user_info_model.dart';
 import 'package:izle/ui/nav.dart';
 import 'package:izle/ui/profile/active_profile.dart';
-import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
 import 'package:izle/utils/my_prefs.dart';
 import 'package:get/get.dart' as g;
 
@@ -130,16 +129,17 @@ class AllServices {
         'price_d': '2799',
         'content': '${creatingAddInfoController.description}',
         'city_id': '10',
-        'phone': '${userInfoController.fetchUserInfoList.first.phone}',
+        'phone': '${MyPref.phoneNumber}',
         'email': 'a@mail.ru',
         'type': '1',
         'address': '${creatingAddInfoController.locationInfo}',
         'responsible_person': 'Дмитрий Мухамадиев',
         'lat': '${creatingAddInfoController.lat}',
         'lng': '${creatingAddInfoController.long}',
+        'name': '${MyPref.userName}'
       });
       String fileName = creatingAddInfoController.mainPhoto.value;
-      List otherName = creatingAddInfoController.images;
+      // List otherName = creatingAddInfoController.images;
       // for (var i = 1; i < creatingAddInfoController.images.length; i++) {
       //   otherName.add('gallery[$i]');
       // }
@@ -150,15 +150,15 @@ class AllServices {
               filename: fileName.split('/').last),
         ),
       ]);
-      // for (var i = 1; i < creatingAddInfoController.images.length; i++) {
-      //   formData.files.addAll([
-      //     MapEntry(
-      //         'gallery[$i]',
-      //         await MultipartFile.fromFile(otherName[i],
-      //             filename: otherName[i].split('/').last)),
-      //   ]);
-      // }
-      // formData.files.addAll()
+      // // for (var i = 1; i < creatingAddInfoController.images.length; i++) {
+      // //   formData.files.addAll([
+      // //     MapEntry(
+      // //         'gallery[$i]',
+      // //         await MultipartFile.fromFile(otherName[i],
+      // //             filename: otherName[i].split('/').last)),
+      // //   ]);
+      // // }
+      // // formData.files.addAll()
       var response = await dio.post(
         ApiUrl.createAds,
         data: formData,
@@ -175,16 +175,18 @@ class AllServices {
       //   'price_d': '2799',
       //   'content': '${creatingAddInfoController.description}',
       //   'city_id': '10',
-      //   'phone': '${userInfoController.fetchUserInfoList.first.phone}',
+      //   'phone': '${MyPref.phoneNumber}',
       //   'email': 'a@mail.ru',
       //   'type': '1',
       //   'address': '${creatingAddInfoController.locationInfo}',
       //   'responsible_person': 'Дмитрий Мухамадиев',
       //   'lat': '${creatingAddInfoController.lat}',
       //   'lng': '${creatingAddInfoController.long}',
+      //   'name': '${MyPref.userName}'
       // }, headers: {
       //   "Authorization": "Bearer ${MyPref.token}"
       // });
+
       print(response.statusCode);
       if (response.statusCode == 200) {
         print('success in creating ads');

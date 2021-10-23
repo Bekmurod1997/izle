@@ -16,6 +16,8 @@ class Products extends StatefulWidget {
 class _ProductsState extends State<Products> {
   final AdvertismentSubCategoryController advertismentSubCategoryController =
       Get.find<AdvertismentSubCategoryController>();
+  ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     advertismentSubCategoryController.fetchAdsSubCat(catId: widget.catId);
@@ -24,7 +26,24 @@ class _ProductsState extends State<Products> {
     print(advertismentSubCategoryController.adSubCatList);
     print('///////////');
     // print(advertismentSubCategoryController.adSubCatList[0].title);
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        // allAdsController.currentPage++;
+        // allAdsController.fetchAllAds();
 
+        if (advertismentSubCategoryController.currentPage <
+            advertismentSubCategoryController
+                .adSubCatList()
+                .mMeta!
+                .pageCount!) {
+          advertismentSubCategoryController.currentPage++;
+          advertismentSubCategoryController.adSubCatList();
+        } else {
+          print('nothing to scroll');
+        }
+      }
+    });
     super.initState();
   }
 
@@ -39,37 +58,54 @@ class _ProductsState extends State<Products> {
         return Padding(
           padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
           child: GridView.builder(
+            controller: _scrollController,
             padding: EdgeInsets.zero,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: advertismentSubCategoryController.adSubCatList.length,
+            itemCount:
+                advertismentSubCategoryController.adSubCatList().data?.length ??
+                    0,
             gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
               crossAxisCount: 2,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
               height: MediaQuery.of(context).size.height * 0.3,
             ),
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () => Get.to(() => ProductDetailScreen(
                       proId: advertismentSubCategoryController
-                          .adSubCatList[index].id,
+                          .adSubCatList()
+                          .data![index]
+                          .id,
                     )),
                 child: ProductItem(
                     cityName: advertismentSubCategoryController
-                        .adSubCatList[index].cityName,
+                        .adSubCatList()
+                        .data![index]
+                        .cityName,
                     date: advertismentSubCategoryController
-                        .adSubCatList[index].date,
+                        .adSubCatList()
+                        .data![index]
+                        .date,
                     imageUrl: advertismentSubCategoryController
-                        .adSubCatList[index].photo,
+                        .adSubCatList()
+                        .data![index]
+                        .photo,
                     price: advertismentSubCategoryController
-                        .adSubCatList[index].price
+                        .adSubCatList()
+                        .data![index]
+                        .price
                         .toString(),
                     title: advertismentSubCategoryController
-                        .adSubCatList[index].title,
+                        .adSubCatList()
+                        .data![index]
+                        .title,
                     id: advertismentSubCategoryController
-                        .adSubCatList[index].id!,
+                        .adSubCatList()
+                        .data![index]
+                        .id!,
                     isFavorite: false),
               );
             },

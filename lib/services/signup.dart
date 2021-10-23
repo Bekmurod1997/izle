@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:izle/constants/api.dart';
-import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
-import 'package:izle/controller/user_info.dart';
 import 'package:izle/models/auth/signup_model.dart';
-import 'package:izle/services/code_confirm.dart';
 import 'package:izle/ui/auth/signup/widgets/confirm_screen.dart';
-import 'package:izle/ui/nav.dart';
 import 'package:izle/utils/my_prefs.dart';
 import 'package:get/get.dart';
 import 'dart:convert';

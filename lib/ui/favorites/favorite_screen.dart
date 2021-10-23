@@ -35,7 +35,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           );
         } else if (favoriteController.favoriteList.isEmpty) {
           return Center(
-            child: Text('empty favorite'),
+            child: Text('Вы еще не добавили'),
           );
         } else {
           return SingleChildScrollView(

@@ -10,6 +10,7 @@ class CustomBottomNavBar extends StatefulWidget {
 }
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
+  // ignore: unused_field
   int _selectedIndex = 0; //New
 
   final PageNavigationController pageNavigationController =
@@ -23,13 +24,13 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     pageNavigationController.tabIndex.value = index;
   }
 
-  Color _getBgColor(int index) =>
-      pageNavigationController.tabIndex.value == index
-          ? Colors.red
-          : Colors.yellow;
+  // Color _getBgColor(int index) =>
+  //     pageNavigationController.tabIndex.value == index
+  //         ? Colors.red
+  //         : Colors.yellow;
 
-  Color _getItemColor(int index) =>
-      _selectedIndex == index ? Colors.red : Colors.yellow;
+  // Color _getItemColor(int index) =>
+  //     _selectedIndex == index ? Colors.red : Colors.yellow;
 
   Widget _buildIcon(
     String iconUrl,
@@ -62,6 +63,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                       fit: BoxFit.contain,
                       height: 25,
                     ),
+                    SizedBox(height: 3),
                     Text(
                       text,
                       style: TextStyle(

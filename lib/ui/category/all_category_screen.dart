@@ -4,7 +4,6 @@ import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
 import 'package:izle/controller/all_categories.dart';
 import 'package:izle/controller/sub_category_controller.dart';
 import 'package:izle/ui/category/sub_categories.dart';
-import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';

@@ -122,6 +122,9 @@ class _FirstMessageScreenState extends State<FirstMessageScreen> {
                   ],
                 ),
               ),
+              Divider(
+                thickness: 3,
+              ),
               SizedBox(height: 10),
             ],
           ),
@@ -132,7 +135,6 @@ class _FirstMessageScreenState extends State<FirstMessageScreen> {
               padding: const EdgeInsets.only(bottom: 0),
               color: Colors.white,
               child: Row(
-                // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(width: 14),

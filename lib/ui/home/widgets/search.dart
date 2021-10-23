@@ -37,7 +37,10 @@ class _SearchState extends State<Search> {
                     ));
                 // pageController.pageControllerChanger(6);
               },
-              child: Icon(Icons.search)),
+              child: Icon(
+                Icons.search,
+                size: 25,
+              )),
           // prefixIcon: IconButton(
           //   onPressed: () {
           //     sController.searchTitleChanger(sTitle: searchController.text);
@@ -51,7 +54,7 @@ class _SearchState extends State<Search> {
           border: InputBorder.none,
           hintText: 'Что вы ищете?',
           hintStyle: FontStyles.regularStyle(
-            fontSize: 14,
+            fontSize: 16,
             fontFamily: 'Lato',
             color: Color(0xff7E8389),
           ),

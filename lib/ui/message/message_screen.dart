@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:izle/controller/all_chat_controller.dart';
-
-import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/ui/components/custom_listTile2.dart';
 import 'package:izle/ui/message/widgets/message_item.dart';
 

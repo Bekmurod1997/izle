@@ -7,9 +7,6 @@ import 'package:izle/controller/search_controller.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
 import 'package:izle/ui/home/widgets/search.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
-import 'package:izle/utils/my_prefs.dart';
-
-import 'widgets/recommendation.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -79,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 20),
                 child: GridView.builder(
                   // controller: _scrollController,
                   padding: EdgeInsets.zero,
@@ -90,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
                     crossAxisCount: 2,
                     crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
+                    mainAxisSpacing: 15,
                     // height: MediaQuery.of(context).size.height * 0.4,
                     height: MediaQuery.of(context).size.height * 0.3,
                   ),

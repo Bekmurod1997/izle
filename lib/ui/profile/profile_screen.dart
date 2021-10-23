@@ -5,7 +5,7 @@ import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/ui/components/custom_listTile.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
-import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
+
 import 'package:marquee/marquee.dart';
 
 class ProfileScreen extends StatelessWidget {

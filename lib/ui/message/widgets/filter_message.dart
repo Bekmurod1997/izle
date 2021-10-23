@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:izle/ui/components/custom_appbar.dart';
-import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/constants/fonts.dart';
 
 class FilterMessage extends StatefulWidget {

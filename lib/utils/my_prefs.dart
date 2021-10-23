@@ -16,6 +16,7 @@ class MyPref {
   static set email(String value) => prefs.write(SPKeys.email, value);
   static set code(String value) => prefs.write(SPKeys.code, value);
   static set userId(String value) => prefs.write(SPKeys.code, value);
+
   static set phoneNumber(String value) =>
       prefs.write(SPKeys.phoneNumber, value);
 

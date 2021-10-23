@@ -5,7 +5,6 @@ import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/favorities_controller.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class Recommendation extends StatefulWidget {
   @override

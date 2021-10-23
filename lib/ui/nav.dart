@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
@@ -7,7 +6,6 @@ import 'package:izle/ui/category/all_category_screen.dart';
 import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/ui/auth/auth_screen.dart';
-import 'package:izle/ui/favorites/favorite_screen.dart';
 import 'package:izle/ui/home/home_screen.dart';
 import 'package:izle/ui/message/message_screen.dart';
 import 'package:izle/ui/message/unauth_message.dart';

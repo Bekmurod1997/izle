@@ -82,132 +82,124 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           //     .productDetailList.first.similar?.first.cityName);
           return Stack(
             children: [
-              SingleChildScrollView(
-                physics: ScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MainImage(
-                      mainImage:
-                          '${productDetailController.productDetailList?.data.photo}',
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${productDetailController.productDetailList?.data.title}',
-                            style: FontStyles.regularStyle(
-                              fontSize: 24,
-                              fontFamily: 'Lato',
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            '${productDetailController.productDetailList?.data.price} сум',
-                            style: FontStyles.blackStyle(
-                                fontSize: 24,
-                                fontFamily: 'Lato',
-                                letterSpace: 2),
-                          ),
-                          SizedBox(height: 4),
-                          SizedBox(height: 10),
-                          Text(
-                            '${productDetailController.productDetailList?.data.date}',
-                            style: FontStyles.regularStyle(
-                              fontSize: 12,
-                              fontFamily: 'Lato',
-                              color: Color(0xff7F807F),
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            '${productDetailController.productDetailList?.data.address}',
-                            style: FontStyles.regularStyle(
-                              fontSize: 18,
-                              fontFamily: 'Lato',
-                              color: Color(0xff7F807F),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          GestureDetector(
-                            onTap: () => Get.to(() => MyMaps(
-                                  lat: productDetailController
-                                          .productDetailList?.data.lat ??
-                                      '',
-                                  lng: productDetailController
-                                          .productDetailList?.data.lng ??
-                                      '',
-                                )),
-                            child: Text(
-                              'Показать на карте',
-                              style: FontStyles.regularStyle(
-                                fontSize: 13,
-                                fontFamily: 'Lato',
-                                color: Color(0xff0081BB),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-
-                    SizedBox(height: 5),
-                    Divider(),
-                    SizedBox(height: 7),
-                    TypeButtons(),
-                    SizedBox(height: 7),
-                    Divider(),
-                    SizedBox(height: 0),
-                    ProductDesciption(
-                      proDesc:
-                          '${productDetailController.productDetailList?.data.description}',
-                    ),
-                    SizedBox(height: 0),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () => Get.to(
-                          () => ComplainScreen(),
-                        ),
-                        child: Text(
-                          'Пожаловаться',
-                          style: FontStyles.semiBoldStyle(
-                            fontSize: 16,
+              ListView(
+                children: [
+                  MainImage(
+                    mainImage:
+                        '${productDetailController.productDetailList?.data.photo}',
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${productDetailController.productDetailList?.data.title}',
+                          style: FontStyles.regularStyle(
+                            fontSize: 24,
                             fontFamily: 'Lato',
-                            undeline: true,
                           ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          '${productDetailController.productDetailList?.data.price} сум',
+                          style: FontStyles.blackStyle(
+                              fontSize: 24, fontFamily: 'Lato', letterSpace: 2),
+                        ),
+                        SizedBox(height: 4),
+                        SizedBox(height: 10),
+                        Text(
+                          '${productDetailController.productDetailList?.data.date}',
+                          style: FontStyles.regularStyle(
+                            fontSize: 12,
+                            fontFamily: 'Lato',
+                            color: Color(0xff7F807F),
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '${productDetailController.productDetailList?.data.address}',
+                          style: FontStyles.regularStyle(
+                            fontSize: 18,
+                            fontFamily: 'Lato',
+                            color: Color(0xff7F807F),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () => Get.to(() => MyMaps(
+                                lat: productDetailController
+                                        .productDetailList?.data.lat ??
+                                    '',
+                                lng: productDetailController
+                                        .productDetailList?.data.lng ??
+                                    '',
+                              )),
+                          child: Text(
+                            'Показать на карте',
+                            style: FontStyles.regularStyle(
+                              fontSize: 13,
+                              fontFamily: 'Lato',
+                              color: Color(0xff0081BB),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 5),
+                  Divider(),
+                  SizedBox(height: 7),
+                  TypeButtons(),
+                  SizedBox(height: 7),
+                  Divider(),
+                  SizedBox(height: 0),
+                  ProductDesciption(
+                    proDesc:
+                        '${productDetailController.productDetailList?.data.description}',
+                  ),
+                  SizedBox(height: 0),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () => Get.to(
+                        () => ComplainScreen(),
+                      ),
+                      child: Text(
+                        'Пожаловаться',
+                        style: FontStyles.semiBoldStyle(
+                          fontSize: 16,
+                          fontFamily: 'Lato',
+                          undeline: true,
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    // Divider(),
-                    SizedBox(height: 0),
+                  ),
+                  SizedBox(height: 10),
+                  // Divider(),
 
-                    UserInfo(
-                      userName:
-                          '${productDetailController.productDetailList?.data.user.name}',
-                      authorToken:
-                          '${productDetailController.productDetailList?.data.user.token}',
-                      userId: productDetailController
-                          .productDetailList!.data.user.id,
-                    ),
-                    // Text(
-                    //     productDetailController.productDetailList?.similar),
-                    // Divider(),
-                    // SizedBox(height: 20),
-                    // MyMaps(),
-                    SimilarAdds(
-                      myList:
-                          productDetailController.productDetailList?.similar,
-                    ),
+                  UserInfo(
+                    userName:
+                        '${productDetailController.productDetailList?.data.user.name}',
+                    authorToken:
+                        '${productDetailController.productDetailList?.data.user.token}',
+                    userId:
+                        productDetailController.productDetailList!.data.user.id,
+                  ),
 
-                    Container(color: Colors.white, height: 20),
-                    // CallChatButtons(),
-                    SizedBox(height: 54),
-                  ],
-                ),
+                  // Text(
+                  //     productDetailController.productDetailList?.similar),
+                  // Divider(),
+                  // SizedBox(height: 20),
+                  // MyMaps(),
+                  SimilarAdds(
+                    myList: productDetailController.productDetailList?.similar,
+                  ),
+
+                  // CallChatButtons(),
+                  SizedBox(height: 4),
+                ],
               ),
               Positioned(
                 bottom: 0,
