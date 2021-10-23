@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // );
 
                 AllServices.login(phoneNumber.text, password.text);
-                userInfoController.fetchUserInfo(userToken: MyPref.token);
+                // userInfoController.fetchUserInfo(userToken: MyPref.token);
               },
               // Get.to(
               //   () => CreatingAddScreen(),

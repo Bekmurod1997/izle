@@ -42,14 +42,9 @@ class _NavScreenState extends State<NavScreen> {
   @override
   void initState() {
     activeTabIndex = 0;
-    fetchingStorage();
     print('tokeeen in nav');
     print(MyPref.token);
     super.initState();
-  }
-
-  void fetchingStorage() async {
-    await GetStorage.init();
   }
 
   void onTabPress(int tabIndex) {

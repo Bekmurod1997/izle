@@ -42,12 +42,6 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
     super.initState();
   }
 
-  // Future<void> fetchUser() async {
-  //   await userInfoController.fetchUserInfo();
-  //   print(userInfoController.fetchUserInfoList);
-  //   print('this is init state in active');
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -12,6 +12,7 @@ import 'package:izle/controller/sub_category_controller.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/pageview/my_pageview.dart';
 import 'package:get/get.dart';
+import 'package:izle/ui/nav.dart';
 
 void main() async {
   await GetStorage.init();
@@ -40,8 +41,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(debugShowCheckedModeBanner: false, home: MyPageView()
-        // home: NavScreen(),
-        );
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      // home: MyPageView()
+      home: NavScreen(),
+    );
   }
 }

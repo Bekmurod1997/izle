@@ -424,13 +424,75 @@ class AllServices {
     }
   }
 
+  static Future login(String phoneNumber, String password) async {
+    final UserInfoController userInfoController =
+        g.Get.find<UserInfoController>();
+    try {
+      var response = await client.post(
+        Uri.parse(ApiUrl.signin),
+        body: {'phone': phoneNumber, 'password': password},
+      );
+      print(response.body);
+      print('hereeeee' + '${response.statusCode}');
+      if (response.statusCode == 200) {
+        var body = LoginModel.fromJson(json.decode(response.body));
+        print('login successfully');
+        print('tokeeeeeeen');
+        print(body.token);
+        print(response.body);
+        MyPref.token = body.token!;
+        MyPref.phoneNumber = body.phone!;
+        MyPref.userName = body.phone!;
+        MyPref.userId = '${body.id}';
+
+        print('token in login');
+        print(MyPref.token);
+        await userInfoController.fetchUserInfo(userToken: MyPref.token);
+        pageNavigationController.pageControllerChanger(0);
+
+        g.Get.offAll(
+          () => NavScreen(),
+        );
+      } else if (response.statusCode == 422) {
+        return g.Get.dialog(
+          GestureDetector(
+            onTap: () {
+              g.Get.back();
+            },
+            child: Scaffold(
+              backgroundColor: Colors.black.withOpacity(.1),
+              body: GestureDetector(
+                child: Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                    color: Colors.white,
+                    width: double.infinity,
+                    height: 100.0,
+                    child: Center(
+                      child: Text(
+                        'Не верный логин и/или пароль',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+      print('error in login service');
+    }
+  }
+
   static Future userInfo({String? userToken}) async {
     try {
       var response = await client.get(
         Uri.parse(ApiUrl.myProfile),
         headers: {
-          HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}',
-          "Authorization": "Bearer ${MyPref.token}"
+          HttpHeaders.authorizationHeader: 'Bearer $userToken',
         },
       );
       print('this is userInfo Service' + '${response.statusCode}');
@@ -443,6 +505,7 @@ class AllServices {
       }
     } catch (e) {
       print('error in edit profile service');
+      print(e);
     }
   }
 
@@ -477,69 +540,6 @@ class AllServices {
       }
     } catch (e) {
       print('error in allcities service');
-    }
-  }
-
-  static Future login(String phoneNumber, String password) async {
-    final UserInfoController userInfoController =
-        g.Get.find<UserInfoController>();
-    try {
-      var response = await client.post(
-        Uri.parse(ApiUrl.signin),
-        body: {'phone': phoneNumber, 'password': password},
-      );
-      print(response.body);
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        var body = LoginModel.fromJson(json.decode(response.body));
-        print('login successfully');
-        print('tokeeeeeeen');
-        print(body.token);
-        print(response.body);
-        MyPref.token = body.token!;
-        MyPref.phoneNumber = body.phone!;
-        MyPref.userName = body.phone!;
-        MyPref.userId = '${body.id}';
-
-        print('token in login');
-        print(MyPref.token);
-        await userInfoController.fetchUserInfo(userToken: MyPref.token);
-        pageNavigationController.pageControllerChanger(0);
-
-        g.Get.to(
-          () => NavScreen(),
-        );
-      } else if (response.statusCode == 422) {
-        return g.Get.dialog(
-          GestureDetector(
-            onTap: () {
-              g.Get.back();
-            },
-            child: Scaffold(
-              backgroundColor: Colors.black.withOpacity(.1),
-              body: GestureDetector(
-                child: Center(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                    color: Colors.white,
-                    width: double.infinity,
-                    height: 100.0,
-                    child: Center(
-                      child: Text(
-                        'Не верный логин и/или пароль',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      }
-    } catch (e) {
-      print(e);
-      print('error in login service');
     }
   }
 

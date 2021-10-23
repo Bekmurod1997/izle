@@ -13,7 +13,7 @@ class UserInfoController extends GetxController {
       if (fetchUser != null) {
         fetchUserInfoList.assign(fetchUser);
 
-        print(fetchUserInfoList);
+        // print(fetchUserInfoList);
       }
     } finally {
       isLoading(false);
