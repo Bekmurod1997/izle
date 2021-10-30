@@ -10,12 +10,15 @@ class MyPref {
   static String get code => prefs.read(SPKeys.code);
   static String get phoneNumber => prefs.read(SPKeys.phoneNumber) ?? '';
   static String get userId => prefs.read(SPKeys.userId);
+  static String get loginLanding => prefs.read(SPKeys.loginLanding) ?? '';
 
   static set token(String value) => prefs.write(SPKeys.token, value);
   static set userName(String value) => prefs.write(SPKeys.userName, value);
   static set email(String value) => prefs.write(SPKeys.email, value);
   static set code(String value) => prefs.write(SPKeys.code, value);
   static set userId(String value) => prefs.write(SPKeys.code, value);
+  static set loginLanding(String value) =>
+      prefs.write(SPKeys.loginLanding, value);
 
   static set phoneNumber(String value) =>
       prefs.write(SPKeys.phoneNumber, value);
@@ -26,6 +29,7 @@ class MyPref {
   static clearUserName() => prefs.remove(SPKeys.userName);
   static clearUserId() => prefs.remove(SPKeys.userId);
   static clearPhoneNumber() => prefs.remove(SPKeys.phoneNumber);
+  static clearloginLanding() => prefs.remove(SPKeys.loginLanding);
 
   static clearAllll() {
     prefs.remove(SPKeys.token);
@@ -34,5 +38,6 @@ class MyPref {
     prefs.remove(SPKeys.userName);
     prefs.remove(SPKeys.phoneNumber);
     prefs.remove(SPKeys.userId);
+    prefs.remove(SPKeys.loginLanding);
   }
 }

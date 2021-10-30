@@ -5,4 +5,5 @@ abstract class SPKeys {
   static const String code = 'code';
   static const String phoneNumber = 'phoneNumber';
   static const String userId = 'phoneNumber';
+  static const String loginLanding = 'loginLanding';
 }

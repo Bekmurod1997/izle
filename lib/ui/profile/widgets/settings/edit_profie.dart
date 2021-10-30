@@ -57,7 +57,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: Obx(() {
         if (userInfoController.isLoading.value) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+            ),
           );
         } else {
           return Padding(

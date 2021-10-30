@@ -51,22 +51,21 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
   }
 
   // final ImagePicker _myPicker = ImagePicker();
-  // List<XFile> _imageFileList = [];
+  // List<XFile>? _imageFileList = [];
   // dynamic _pickImageError;
-  final ImagePicker _picker = ImagePicker();
-  void selectImages() async {
-    final List<XFile>? selectImages = await _picker.pickMultiImage();
-    if (selectImages == null || selectImages.isEmpty) return;
-
-    // _imageFileList.addAll(selectImages);
-
-    print("Image list lengt" + selectImages.length.toString());
-    for (var i = 0; i < selectImages.length; i++) {
-      imageUrl.add(selectImages[i].path);
-    }
-    creatingAddInfoController.imagesChanger(imageUrl);
-    setState(() {});
-  }
+  // final ImagePicker _picker = ImagePicker();
+  // void selectImages() async {
+  //   final List<XFile>? selectImages = await _picker.pickMultiImage();
+  //   if (selectImages!.isNotEmpty) {
+  //     _imageFileList!.addAll(selectImages);
+  //   }
+  //   print("Image list lengt" + _imageFileList!.length.toString());
+  //   for (var i = 0; i < _imageFileList!.length; i++) {
+  //     imageUrl.add('${_imageFileList![i].path}');
+  //   }
+  //   creatingAddInfoController.imagesChanger(imageUrl);
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +84,12 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
               SizedBox(height: 30),
               CreatAppBar(),
 
-              ElevatedButton(
-                child: Text("Pick images"),
-                onPressed: () {
-                  selectImages();
-                },
-              ),
+              // ElevatedButton(
+              //   child: Text("Pick images"),
+              //   onPressed: () {
+              //     selectImages();
+              //   },
+              // ),
 
               Container(
                 height: 100,
@@ -281,34 +280,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                         //   print('--------');
                         //   print(creatingAddInfoController.images[i].toString());
                         // }
-                        Get.dialog(
-                          Scaffold(
-                            backgroundColor: Colors.black.withOpacity(.1),
-                            body: Center(
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                color: Colors.white,
-                                width: double.infinity,
-                                height: 100.0,
-                                child: Row(
-                                  children: [
-                                    CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          ColorPalate.mainColor),
-                                    ),
-                                    SizedBox(
-                                      width: 30,
-                                    ),
-                                    Text('Подождите пожалуйста'),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
+
                         AllServices.createAd();
                         print('pressed');
                       },

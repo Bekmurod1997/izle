@@ -73,6 +73,9 @@ class AllServices {
 
   static Future sendMessage(
       {required String getterId, required String message}) async {
+    final CreatingAddInfoController creatingAddInfoController =
+        g.Get.find<CreatingAddInfoController>();
+
     print('url link');
     print(ApiUrl.sendMessage);
     try {
@@ -84,9 +87,11 @@ class AllServices {
       });
       print(response.statusCode);
       if (response.statusCode == 200) {
+        var body = SingleMessageModel.fromJson(json.decode(response.body));
         print('success in sending message');
         print(response.body);
-        // return body;
+
+        return body;
       }
     } catch (e) {
       print('error in sending message');
@@ -99,8 +104,12 @@ class AllServices {
     print(ApiUrl.listOfAllAds + '$page');
     try {
       var response = await client.get(
-        Uri.parse(ApiUrl.listOfAllAds + '$page'),
-      );
+          Uri.parse(
+            ApiUrl.listOfAllAds + '$page',
+          ),
+          headers: {
+            'Accept': 'application/json',
+          });
       if (response.statusCode == 200) {
         var body = AdvertisementListModel.fromJson(json.decode(response.body));
         // print(response.body);
@@ -266,7 +275,13 @@ class AllServices {
         print(response.body);
         myAdsController.fetchMyOrders();
         creatingAddInfoController.allClear();
-        g.Get.to(() => ActiveProfileScreen());
+        // g.Get.to(() => ActiveProfileScreen());
+        pageNavigationController.pageControllerChanger(4);
+        pageNavigationController.tabIndexChanger(4);
+
+        g.Get.offAll(
+          () => NavScreen(),
+        );
       }
     } catch (e) {
       print('error in creating adds');
@@ -471,6 +486,7 @@ class AllServices {
         print(MyPref.token);
         await userInfoController.fetchUserInfo(userToken: MyPref.token);
         pageNavigationController.pageControllerChanger(0);
+        pageNavigationController.tabIndexChanger(0);
 
         g.Get.offAll(
           () => NavScreen(),

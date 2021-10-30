@@ -45,7 +45,9 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
       body: Obx(() {
         if (mainCategories.isLoading.value) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+            ),
           );
         } else {
           return ListView.builder(

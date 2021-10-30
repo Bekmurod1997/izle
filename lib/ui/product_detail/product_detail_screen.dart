@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/product_detail_controller.dart';
 import 'package:izle/ui/product_detail/map.dart';
@@ -61,9 +62,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
             leading: IconButton(
-              icon: SvgPicture.asset(
-                'assets/icons/left-arrow.svg',
-                height: 18,
+              icon: RotatedBox(
+                quarterTurns: 2,
+                child: SvgPicture.asset(
+                  'assets/icons/next-icon.svg',
+                  height: 20,
+                ),
               ),
               onPressed: () => Get.back(),
             ),
@@ -75,7 +79,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       body: Obx(() {
         if (productDetailController.isLoading.value) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+            ),
           );
         } else {
           // print(productDetailController
@@ -176,7 +182,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+
                   // Divider(),
 
                   UserInfo(
@@ -186,8 +192,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         '${productDetailController.productDetailList?.data.user.token}',
                     userId:
                         productDetailController.productDetailList!.data.user.id,
+                    userImage:
+                        '${productDetailController.productDetailList?.data.user.photo}',
+                    userPhone:
+                        '${productDetailController.productDetailList!.data.user.phone}',
                   ),
-
+                  SizedBox(height: 20),
                   // Text(
                   //     productDetailController.productDetailList?.similar),
                   // Divider(),
@@ -196,9 +206,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   SimilarAdds(
                     myList: productDetailController.productDetailList?.similar,
                   ),
+                  SizedBox(height: 10),
 
                   // CallChatButtons(),
-                  SizedBox(height: 4),
                 ],
               ),
               Positioned(

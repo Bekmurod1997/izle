@@ -5,7 +5,6 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/auth/login/widgets/recovery_password.dart';
-import 'package:izle/utils/my_prefs.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

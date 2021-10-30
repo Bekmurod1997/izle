@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/all_chat_controller.dart';
 import 'package:izle/ui/components/custom_listTile2.dart';
 import 'package:izle/ui/message/widgets/message_item.dart';
@@ -215,7 +218,9 @@ class _MessageScreenState extends State<MessageScreen> {
       body: Obx(() {
         if (allChatController.isLoading.value) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+            ),
           );
         } else {
           return SingleChildScrollView(
@@ -313,7 +318,23 @@ class _MessageScreenState extends State<MessageScreen> {
                   onRefresh: () => allChatController.fetchAllChat(),
                   child: allChatController.chatList.length == 0
                       ? Container(
-                          child: Center(child: Text('Нет сообщений')),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 80),
+                              Center(
+                                child: Image.asset('assets/images/smms.png'),
+                              ),
+                              SizedBox(height: 20),
+                              Text(
+                                'Пока сообщений нет',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff2E3A59),
+                                ),
+                              )
+                            ],
+                          ),
                         )
                       : ListView.builder(
                           padding: EdgeInsets.zero,

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/favorities_controller.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
 
 class Recommendation extends StatefulWidget {
+  ScrollController scrollController;
+  Recommendation({required this.scrollController});
   @override
   _RecommendationState createState() => _RecommendationState();
 }
@@ -18,33 +21,6 @@ class _RecommendationState extends State<Recommendation> {
 
   var currentPage = 1;
   // List<AdvertisementListModel> addds = [];
-  @override
-  void initState() {
-    print('this is recommendation');
-    allAdsController.fetchAllAds();
-    print(allAdsController.allAdsList);
-
-    favoriteController.fetchFavorites();
-
-    // print(allAdsController.allAdsList().mMeta!.pageCount);
-
-    // addds.assignAll(allAdsController.allAdsList.)
-
-    // _scrollController.addListener(() {
-    //   if (_scrollController.position.pixels ==
-    //       _scrollController.position.maxScrollExtent) {
-    //     // allAdsController.currentPage++;
-    //     // allAdsController.fetchAllAds();
-    //     _getMoreData();
-    //   }
-    // });
-    super.initState();
-  }
-
-  // ignore: unused_element
-  _getMoreData() {
-    print('end');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,48 +28,66 @@ class _RecommendationState extends State<Recommendation> {
 
     return Obx(() {
       if (allAdsController.isLoading.value &&
-          favoriteController.isLoading.value) {
+          allAdsController.isLoading.value) {
         return Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+          ),
         );
       } else {
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-          child: GridView.builder(
-            controller: _scrollController,
-            padding: EdgeInsets.zero,
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: allAdsController.allAdsList().data?.length ?? 0,
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
-              crossAxisCount: 2,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-              // height: MediaQuery.of(context).size.height * 0.4,
-              height: MediaQuery.of(context).size.height * 0.3,
-            ),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => Get.to(() => ProductDetailScreen(
-                    proId: allAdsController.allAdsList().data![index].id)),
-                child: RecommandationItem(
-                  isFavorite: false,
-                  title: allAdsController.allAdsList().data?[index].title ?? '',
-                  id: allAdsController.allAdsList().data![index].id!,
-                  city: allAdsController.allAdsList().data?[index].cityName ??
-                      'tashkent',
-                  price: allAdsController
-                      .allAdsList()
-                      .data![index]
-                      .price
-                      .toString(),
-                  date: allAdsController.allAdsList().data![index].date!,
-                  imageUrl: allAdsController.allAdsList().data![index].photo!,
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+              child: GridView.builder(
+                controller: _scrollController,
+                padding: EdgeInsets.zero,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: allAdsController.allAdsList().data?.length ?? 0,
+                gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  // height: MediaQuery.of(context).size.height * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.3,
                 ),
-              );
-            },
-          ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () => Get.to(() => ProductDetailScreen(
+                        proId: allAdsController.allAdsList().data![index].id)),
+                    child: RecommandationItem(
+                      isFavorite: false,
+                      title: allAdsController.allAdsList().data?[index].title ??
+                          '',
+                      id: allAdsController.allAdsList().data![index].id!,
+                      city:
+                          allAdsController.allAdsList().data?[index].cityName ??
+                              'tashkent',
+                      price: allAdsController
+                          .allAdsList()
+                          .data![index]
+                          .price
+                          .toString(),
+                      date: allAdsController.allAdsList().data![index].date!,
+                      imageUrl:
+                          allAdsController.allAdsList().data![index].photo!,
+                    ),
+                  );
+                },
+              ),
+            ),
+            if (allAdsController.currentPage ==
+                allAdsController.allAdsList().mMeta!.pageCount)
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 15),
+                child: Text(
+                  'Больше объявлений не выявлено',
+                  style: TextStyle(fontSize: 20),
+                ),
+              )
+          ],
         );
 
         // allAdsController.currentPage <

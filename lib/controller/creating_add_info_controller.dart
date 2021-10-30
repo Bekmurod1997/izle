@@ -14,6 +14,11 @@ class CreatingAddInfoController extends GetxController {
   var price = 0.0.obs;
   var mainPhoto = 'nothing'.obs;
   var images = [].obs;
+  var messgeRoomId = 1.obs;
+
+  void changerRoomId(int roomId) {
+    messgeRoomId.value = roomId;
+  }
 
   void imagesChanger(List imagesC) {
     images.addAll(imagesC);

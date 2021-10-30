@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/ui/message/widgets/first_message.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CallChatButtons extends StatefulWidget {
   final int? userId;
@@ -26,10 +27,14 @@ class _CallChatButtonsState extends State<CallChatButtons> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
-          onTap: () {},
-          // onTap: () => setState(() {
-          //   _launched = _makePhoneCall('tel:+0090000');
-          // }),
+          // onTap: () {},
+          onTap: () {
+            print('phone call');
+            launch('tel: +${widget.userPhone}');
+            // setState(() {
+            //   _launched = _makePhoneCall('tel:+998908072526');
+            // });
+          },
           child: Container(
             width: MediaQuery.of(context).size.width / 2 - 50,
             padding: const EdgeInsets.symmetric(vertical: 9),
