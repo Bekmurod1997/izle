@@ -5,10 +5,10 @@ class MyPref {
   static final prefs = GetStorage();
 
   static String get token => prefs.read(SPKeys.token) ?? '';
-  static String get userName => prefs.read(SPKeys.userName);
+  static String get userName => prefs.read(SPKeys.userName) ?? '';
   static String get email => prefs.read(SPKeys.email);
   static String get code => prefs.read(SPKeys.code);
-  static String get phoneNumber => prefs.read(SPKeys.phoneNumber);
+  static String get phoneNumber => prefs.read(SPKeys.phoneNumber) ?? '';
   static String get userId => prefs.read(SPKeys.userId);
 
   static set token(String value) => prefs.write(SPKeys.token, value);

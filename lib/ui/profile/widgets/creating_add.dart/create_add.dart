@@ -51,21 +51,22 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
   }
 
   // final ImagePicker _myPicker = ImagePicker();
-  List<XFile>? _imageFileList = [];
+  // List<XFile> _imageFileList = [];
   // dynamic _pickImageError;
   final ImagePicker _picker = ImagePicker();
-  // void selectImages() async {
-  //   final List<XFile>? selectImages = await _picker.pickMultiImage();
-  //   if (selectImages!.isNotEmpty) {
-  //     _imageFileList!.addAll(selectImages);
-  //   }
-  //   print("Image list lengt" + _imageFileList!.length.toString());
-  //   for (var i = 0; i < _imageFileList!.length; i++) {
-  //     imageUrl.add('${_imageFileList![i].path}');
-  //   }
-  //   creatingAddInfoController.imagesChanger(imageUrl);
-  //   setState(() {});
-  // }
+  void selectImages() async {
+    final List<XFile>? selectImages = await _picker.pickMultiImage();
+    if (selectImages == null || selectImages.isEmpty) return;
+
+    // _imageFileList.addAll(selectImages);
+
+    print("Image list lengt" + selectImages.length.toString());
+    for (var i = 0; i < selectImages.length; i++) {
+      imageUrl.add(selectImages[i].path);
+    }
+    creatingAddInfoController.imagesChanger(imageUrl);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,26 +85,26 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
               SizedBox(height: 30),
               CreatAppBar(),
 
-              // ElevatedButton(
-              //   child: Text("Pick images"),
-              //   onPressed: () {
-              //     selectImages();
-              //   },
-              // ),
+              ElevatedButton(
+                child: Text("Pick images"),
+                onPressed: () {
+                  selectImages();
+                },
+              ),
 
-              // Container(
-              //   height: 100,
-              //   width: double.infinity,
-              //   child: ListView.separated(
-              //       scrollDirection: Axis.horizontal,
-              //       itemBuilder: (context, index) {
-              //         return Image.file(
-              //             File(_imageFileList![index].path));
-              //       },
-              //       separatorBuilder: (context, index) =>
-              //           SizedBox(width: 30),
-              //       itemCount: _imageFileList!.length),
-              // ),
+              Container(
+                height: 100,
+                width: double.infinity,
+                child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Image.file(
+                        File(imageUrl[index]),
+                      );
+                    },
+                    separatorBuilder: (context, index) => SizedBox(width: 30),
+                    itemCount: imageUrl.length),
+              ),
 
               // if (_imageFileList!.isEmpty)
 

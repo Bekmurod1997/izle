@@ -118,86 +118,108 @@ class AllServices {
         g.Get.find<CreatingAddInfoController>();
     final UserInfoController userInfoController =
         g.Get.find<UserInfoController>();
-    try {
-      // for(var i= 1; i<creatingAddInfoController.images.length; i++ ){
+    // try {
+    // for(var i= 1; i<creatingAddInfoController.images.length; i++ ){
 
-      //   }
-      FormData formData = FormData.fromMap({
-        'title': '${creatingAddInfoController.title}',
-        'category_id': '${creatingAddInfoController.subCategoryId}',
-        'price': '${creatingAddInfoController.price}',
-        'price_d': '2799',
-        'content': '${creatingAddInfoController.description}',
-        'city_id': '10',
-        'phone': '${MyPref.phoneNumber}',
-        'email': 'a@mail.ru',
-        'type': '1',
-        'address': '${creatingAddInfoController.locationInfo}',
-        'responsible_person': 'Дмитрий Мухамадиев',
-        'lat': '${creatingAddInfoController.lat}',
-        'lng': '${creatingAddInfoController.long}',
-        'name': '${MyPref.userName}'
-      });
-      String fileName = creatingAddInfoController.mainPhoto.value;
-      // List otherName = creatingAddInfoController.images;
-      // for (var i = 1; i < creatingAddInfoController.images.length; i++) {
-      //   otherName.add('gallery[$i]');
-      // }
-      formData.files.addAll([
-        MapEntry(
-          'photo',
-          await MultipartFile.fromFile(fileName,
-              filename: fileName.split('/').last),
-        ),
-      ]);
-      // // for (var i = 1; i < creatingAddInfoController.images.length; i++) {
-      // //   formData.files.addAll([
-      // //     MapEntry(
-      // //         'gallery[$i]',
-      // //         await MultipartFile.fromFile(otherName[i],
-      // //             filename: otherName[i].split('/').last)),
-      // //   ]);
-      // // }
-      // // formData.files.addAll()
-      var response = await dio.post(
-        ApiUrl.createAds,
-        data: formData,
-        options: Options(headers: {
-          HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}',
-          "Authorization": "Bearer ${MyPref.token}"
-        }),
-      );
-
-      // var response = await client.post(Uri.parse(ApiUrl.createAds), body: {
-      //   'title': '${creatingAddInfoController.title}',
-      //   'category_id': '${creatingAddInfoController.subCategoryId}',
-      //   'price': '${creatingAddInfoController.price}',
-      //   'price_d': '2799',
-      //   'content': '${creatingAddInfoController.description}',
-      //   'city_id': '10',
-      //   'phone': '${MyPref.phoneNumber}',
-      //   'email': 'a@mail.ru',
-      //   'type': '1',
-      //   'address': '${creatingAddInfoController.locationInfo}',
-      //   'responsible_person': 'Дмитрий Мухамадиев',
-      //   'lat': '${creatingAddInfoController.lat}',
-      //   'lng': '${creatingAddInfoController.long}',
-      //   'name': '${MyPref.userName}'
-      // }, headers: {
-      //   "Authorization": "Bearer ${MyPref.token}"
-      // });
-
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        print('success in creating ads');
-        creatingAddInfoController.allClear();
-        // print(response.body);
-        g.Get.to(() => ActiveProfileScreen());
+    //   }
+    FormData formData = FormData.fromMap({
+      'title': '${creatingAddInfoController.title}',
+      'category_id': '${creatingAddInfoController.subCategoryId}',
+      'price': '${creatingAddInfoController.price}',
+      'price_d': '2799',
+      'content': '${creatingAddInfoController.description}',
+      'city_id': '10',
+      'phone': '${MyPref.phoneNumber}',
+      'email': 'a@mail.ru',
+      'type': '1',
+      'address': '${creatingAddInfoController.locationInfo}',
+      'responsible_person': 'Дмитрий Мухамадиев',
+      'lat': '${creatingAddInfoController.lat}',
+      'lng': '${creatingAddInfoController.long}',
+      'name': '${MyPref.userName}'
+    });
+    // String fileName = creatingAddInfoController.mainPhoto.value;
+    // List otherName = creatingAddInfoController.images;
+    // for (var i = 1; i < creatingAddInfoController.images.length; i++) {
+    //   otherName.add('gallery[$i]');
+    // }
+    List photos = creatingAddInfoController.images;
+    print(photos);
+    for (var i = 0; i < photos.length; i++) {
+      var fileName = photos[i];
+      if (i == 0) {
+        formData.files.addAll([
+          MapEntry(
+            'photo',
+            await MultipartFile.fromFile(fileName,
+                filename: fileName.split('/').last),
+          ),
+        ]);
+      } else {
+        formData.files.addAll([
+          MapEntry(
+              'gallery[${i - 1}]',
+              await MultipartFile.fromFile(fileName,
+                  filename: fileName.split('/').last)),
+        ]);
       }
-    } catch (e) {
-      print('error in creating adds');
-      print(e);
     }
+
+    // formData.files.addAll([
+    //   MapEntry(
+    //     'photo',
+    //     await MultipartFile.fromFile(fileName,
+    //         filename: fileName.split('/').last),
+    //   ),
+    // ]);
+    // // for (var i = 1; i < creatingAddInfoController.images.length; i++) {
+    // formData.files.addAll([
+    //   MapEntry(
+    //       'gallery[$i]',
+    //       await MultipartFile.fromFile(otherName[i],
+    //           filename: otherName[i].split('/').last)),
+    // ]);
+    // // }
+    // // formData.files.addAll()
+    var response = await dio.post(
+      ApiUrl.createAds,
+      data: formData,
+      options: Options(headers: {
+        HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}',
+        "Authorization": "Bearer ${MyPref.token}"
+      }),
+    );
+
+    // var response = await client.post(Uri.parse(ApiUrl.createAds), body: {
+    //   'title': '${creatingAddInfoController.title}',
+    //   'category_id': '${creatingAddInfoController.subCategoryId}',
+    //   'price': '${creatingAddInfoController.price}',
+    //   'price_d': '2799',
+    //   'content': '${creatingAddInfoController.description}',
+    //   'city_id': '10',
+    //   'phone': '${MyPref.phoneNumber}',
+    //   'email': 'a@mail.ru',
+    //   'type': '1',
+    //   'address': '${creatingAddInfoController.locationInfo}',
+    //   'responsible_person': 'Дмитрий Мухамадиев',
+    //   'lat': '${creatingAddInfoController.lat}',
+    //   'lng': '${creatingAddInfoController.long}',
+    //   'name': '${MyPref.userName}'
+    // }, headers: {
+    //   "Authorization": "Bearer ${MyPref.token}"
+    // });
+    print(response.data);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print('success in creating ads');
+      creatingAddInfoController.allClear();
+      // print(response.body);
+      g.Get.to(() => ActiveProfileScreen());
+    }
+    // } catch (e) {
+    // print('error in creating adds');
+    // print(e);
+    // }
   }
 
   static Future editAd(int id) async {

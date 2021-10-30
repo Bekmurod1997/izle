@@ -32,7 +32,7 @@ abstract class ApiUrl {
   //Adds
 
   static const listOfAds = '${apiUrl}ads?category_id=';
-  static const listOfAllAds = '${apiUrl}ads/index?page=';
+  static const listOfAllAds = '${apiUrl}ads?page=';
   static const createAds = '${apiUrl}ads/create';
   static const editAds = '${apiUrl}ads/create?id=';
   static const deleteAds = '${apiUrl}ads/remove?id=';

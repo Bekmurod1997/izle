@@ -13,7 +13,8 @@ class AllAdsController extends GetxController {
     try {
       isLoading(true);
       var adsList = await AllServices.listOfAllAds(currentPage);
-      if (currentPage > adsList.mMeta.pageCount) {
+      int? pageCount = adsList?.mMeta?.pageCount;
+      if (pageCount == null || currentPage > pageCount) {
         return;
       }
       if (currentPage > 1) {
