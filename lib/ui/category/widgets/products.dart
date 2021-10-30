@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
 import 'package:izle/ui/category/widgets/product_item.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
@@ -52,7 +53,9 @@ class _ProductsState extends State<Products> {
     return Obx(() {
       if (advertismentSubCategoryController.isLoading.value) {
         return Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+          ),
         );
       } else {
         return Padding(

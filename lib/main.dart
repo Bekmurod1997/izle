@@ -8,11 +8,13 @@ import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/favorities_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/controller/product_detail_controller.dart';
+import 'package:izle/controller/single_chat_controller.dart';
 import 'package:izle/controller/sub_category_controller.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/pageview/my_pageview.dart';
 import 'package:get/get.dart';
 import 'package:izle/ui/nav.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 void main() async {
   await GetStorage.init();
@@ -37,14 +39,16 @@ class MyApp extends StatelessWidget {
       Get.put(SubCategoryController());
   final CreatingAddInfoController creatingAddInfoController =
       Get.put(CreatingAddInfoController());
+  final SingleChatController singleChatController =
+      Get.put(SingleChatController());
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: MyPageView()
-      home: NavScreen(),
+      home: MyPref.loginLanding == '' ? MyPageView() : NavScreen(),
+      // home: NavScreen(),
     );
   }
 }

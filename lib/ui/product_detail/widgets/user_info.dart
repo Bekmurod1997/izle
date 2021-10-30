@@ -8,10 +8,15 @@ class UserInfo extends StatelessWidget {
   final String userName;
   final String authorToken;
   final int userId;
-  UserInfo(
-      {required this.userName,
-      required this.authorToken,
-      required this.userId});
+  final String userImage;
+  final String userPhone;
+  UserInfo({
+    required this.userName,
+    required this.authorToken,
+    required this.userId,
+    required this.userImage,
+    required this.userPhone,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +54,8 @@ class UserInfo extends StatelessWidget {
                       SizedBox(height: 13),
                       GestureDetector(
                         onTap: () => Get.to(() => AdsByAuthor(
+                              userImage: userImage,
+                              userPhone: userPhone,
                               userId: userId,
                               authorToken: authorToken,
                               userName: userName,

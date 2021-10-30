@@ -31,7 +31,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       body: Obx(() {
         if (favoriteController.isLoading.value) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+            ),
           );
         } else if (favoriteController.favoriteList.isEmpty) {
           return Center(

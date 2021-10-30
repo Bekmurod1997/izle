@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/ui/category/all_category_screen.dart';
 import 'package:izle/ui/components/custom_bottomNavbar.dart';
@@ -42,8 +41,7 @@ class _NavScreenState extends State<NavScreen> {
   @override
   void initState() {
     activeTabIndex = 0;
-    print('tokeeen in nav');
-    print(MyPref.token);
+    MyPref.loginLanding = 'isset';
     super.initState();
   }
 

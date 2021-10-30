@@ -43,9 +43,15 @@ dependencies:
   image_picker: ^0.8.4+2
   geocoding: ^2.0.1
   geolocator: ^7.6.2
+  flutter_launcher_icons: "^0.9.2"
+  flutter_phone_direct_caller: ^2.0.0
+  url_launcher: ^6.0.12
 
   
-
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app-laucher.jpg"
 
 
 dev_dependencies:

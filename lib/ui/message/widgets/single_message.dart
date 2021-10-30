@@ -27,7 +27,7 @@ class SingleScreen extends StatefulWidget {
 
 class _SingleScreenState extends State<SingleScreen> {
   final SingleChatController singleChatController =
-      Get.put(SingleChatController());
+      Get.find<SingleChatController>();
   final PageNavigationController pageNavigationController =
       Get.find<PageNavigationController>();
   TextEditingController messageController = TextEditingController();
@@ -47,7 +47,9 @@ class _SingleScreenState extends State<SingleScreen> {
       body: Obx(() {
         if (singleChatController.isLoading.value) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+            ),
           );
         } else {
           return Stack(
@@ -408,7 +410,7 @@ class _SingleScreenState extends State<SingleScreen> {
                         // SizedBox(height: 10),
                         ),
                   ),
-                  SizedBox(height: 25),
+                  SizedBox(height: 55),
                   // SizedBox(height: 10),
                 ],
               ),

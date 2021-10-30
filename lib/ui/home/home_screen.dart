@@ -4,10 +4,12 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/search_controller.dart';
+import 'package:izle/ui/home/widgets/recommendation.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
 import 'package:izle/ui/home/widgets/search.dart';
-import 'package:izle/ui/product_detail/product_detail_screen.dart';
 import 'package:get/get.dart';
+import 'package:izle/ui/product_detail/product_detail_screen.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,8 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     adsController.fetchAllAds();
 
-    // print('my token');
-    // print(MyPref.token);
+    print('my token');
+    print(MyPref.token);
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -41,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
     });
+
     super.initState();
   }
 
@@ -78,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 20),
                 child: GridView.builder(
+                  // reverse: true,
                   // controller: _scrollController,
                   padding: EdgeInsets.zero,
                   physics: NeverScrollableScrollPhysics(),
@@ -120,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
 
-    // ListView(
+    //     ListView(
     //   padding: EdgeInsets.zero,
     //   controller: _scrollController,
     //   children: [
@@ -129,38 +133,54 @@ class _HomeScreenState extends State<HomeScreen> {
     //       mainAxisSize: MainAxisSize.min,
     //       children: [
     //         SizedBox(height: 20),
-    //         Obx(() {
-    //           if (adsController.isLoading.value) {
-    //             return Container();
-    //           } else {
-    //             return Search();
-    //           }
-    //         }),
-    //         Obx(() {
-    //           if (adsController.isLoading.value) {
-    //             return Container();
-    //           } else {
-    //             return Container(
-    //               // color: Colors.red,
-    //               padding: EdgeInsets.only(left: 15, top: 5, bottom: 10),
-    //               child: Text(
-    //                 'Рекомендованное вам',
-    //                 style: FontStyles.boldStyle(
-    //                   fontSize: 18,
-    //                   fontFamily: 'Lato',
-    //                   color: Colors.black,
-    //                 ),
-    //               ),
-    //             );
-    //           }
-    //         }),
+    //         Search(),
+    //         // Obx(() {
+    //         //   if (adsController.isLoading.value) {
+    //         //     return Container();
+    //         //   } else {
+    //         //     return Search();
+    //         //   }
+    //         // }),
+    //         // Obx(() {
+    //         //   if (adsController.isLoading.value) {
+    //         //     return Container();
+    //         //   } else {
+    //         //     return Container(
+    //         //       // color: Colors.red,
+    //         //       padding: EdgeInsets.only(left: 15, top: 5, bottom: 10),
+    //         //       child: Text(
+    //         //         'Рекомендованное вам',
+    //         //         style: FontStyles.boldStyle(
+    //         //           fontSize: 18,
+    //         //           fontFamily: 'Lato',
+    //         //           color: Colors.black,
+    //         //         ),
+    //         //       ),
+    //         //     );
+    //         //   }
+    //         // }),
+    //         Container(
+    //           // color: Colors.red,
+    //           padding: EdgeInsets.only(left: 15, top: 5, bottom: 10),
+    //           child: Text(
+    //             'Рекомендованное вам',
+    //             style: FontStyles.boldStyle(
+    //               fontSize: 18,
+    //               fontFamily: 'Lato',
+    //               color: Colors.black,
+    //             ),
+    //           ),
+    //         ),
 
     //         // Categories(),
 
     //         SizedBox(height: 10),
     //       ],
     //     ),
-    //     Recommendation(),
+    //     Recommendation(
+    //       scrollController: _scrollController,
+    //     ),
+    //     // Container(height: 20),
     //   ],
     // );
 

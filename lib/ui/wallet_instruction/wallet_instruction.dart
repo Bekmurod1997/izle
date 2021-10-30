@@ -28,13 +28,16 @@ class WalletInstruction extends StatelessWidget {
                   child: Row(
                     children: [
                       SizedBox(width: 10),
-                      GestureDetector(
-                        onTap: () => Get.back(),
-                        child: RotatedBox(
-                          quarterTurns: 2,
-                          child: SvgPicture.asset(
-                            'assets/icons/next-icon.svg',
-                            height: 20,
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: GestureDetector(
+                          onTap: () => Get.back(),
+                          child: RotatedBox(
+                            quarterTurns: 2,
+                            child: SvgPicture.asset(
+                              'assets/icons/next-icon.svg',
+                              height: 20,
+                            ),
                           ),
                         ),
                       ),

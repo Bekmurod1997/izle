@@ -42,10 +42,11 @@ class _ProductItemState extends State<ProductItem> {
           borderRadius: BorderRadius.circular(8),
           color: ColorPalate.addsBackgroundColor),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             width: double.infinity,
-            height: 120,
+            height: MediaQuery.of(context).size.height * 0.162,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: ColorPalate.addsBackgroundColor,
@@ -61,12 +62,14 @@ class _ProductItemState extends State<ProductItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
                       child: Text(
                         widget.title!,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                         style: FontStyles.semiBoldStyle(
                             fontSize: 13,
                             fontFamily: 'Lato',

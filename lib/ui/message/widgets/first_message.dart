@@ -4,25 +4,28 @@ import 'package:get/get.dart';
 import 'package:izle/constants/api.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
-import 'package:izle/services/all_services.dart';
-import 'package:izle/ui/message/message_screen.dart';
+import 'package:izle/controller/single_chat_controller.dart';
+import 'package:izle/ui/message/widgets/single_message.dart';
 
 class FirstMessageScreen extends StatefulWidget {
   final int? userId;
   final String? userPhone;
   final String? userName;
   final String? imageUrl;
+  final int? roomId;
   FirstMessageScreen({
     this.userId,
     this.userPhone,
     this.userName,
     this.imageUrl,
+    this.roomId,
   });
   @override
   _FirstMessageScreenState createState() => _FirstMessageScreenState();
 }
 
 class _FirstMessageScreenState extends State<FirstMessageScreen> {
+  SingleChatController singleChatController = Get.find<SingleChatController>();
   TextEditingController messageController = TextEditingController();
 
   @override
@@ -138,26 +141,26 @@ class _FirstMessageScreenState extends State<FirstMessageScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(width: 14),
-                  Container(
-                    width: 30,
-                    child: Icon(
-                      Icons.attach_file,
-                      color: Color(0xff112F2E),
-                    ),
-                  ),
-                  Container(
-                    width: 30,
-                    child: SvgPicture.asset(
-                      'assets/icons/maps-and-flags.svg',
-                      height: 20,
-                      color: Color(0xff112F2E),
-                    ),
-                  ),
+                  // Container(
+                  //   width: 30,
+                  //   child: Icon(
+                  //     Icons.attach_file,
+                  //     color: Color(0xff112F2E),
+                  //   ),
+                  // ),
+                  // Container(
+                  //   width: 30,
+                  //   child: SvgPicture.asset(
+                  //     'assets/icons/maps-and-flags.svg',
+                  //     height: 20,
+                  //     color: Color(0xff112F2E),
+                  //   ),
+                  // ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width - 120,
+                        width: MediaQuery.of(context).size.width - 70,
                         height: 30,
                         // color: Colors.yellow,
                         // decoration: BoxDecoration(
@@ -187,10 +190,19 @@ class _FirstMessageScreenState extends State<FirstMessageScreen> {
                       IconButton(
                         padding: const EdgeInsets.only(right: 10),
                         onPressed: () async {
-                          await AllServices.sendMessage(
-                              getterId: widget.userId.toString(),
-                              message: messageController.text);
-                          Get.to(() => MessageScreen());
+                          // await AllServices.sendMessage(
+                          //     getterId: widget.userId.toString(),
+                          //     message: messageController.text);
+                          await singleChatController.fetchFirstMessage(
+                              widget.userId.toString(), messageController.text);
+                          singleChatController.firstMessageList.first.room!.id!;
+                          // Get.to(() => MessageScreen());
+                          Get.off(() => SingleScreen(
+                              chatId: singleChatController
+                                  .firstMessageList.first.room!.id!,
+                              getterId: widget.userId!,
+                              userName: widget.userName!,
+                              imageUrl: widget.imageUrl!));
                         },
                         icon: Icon(
                           Icons.send,

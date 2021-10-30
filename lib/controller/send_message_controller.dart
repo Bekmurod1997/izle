@@ -2,10 +2,9 @@ import 'package:get/get.dart';
 import 'package:izle/services/all_services.dart';
 import 'package:izle/models/single_message_model.dart';
 
-class SingleChatController extends GetxController {
+class SendMessageController extends GetxController {
   var isLoading = true.obs;
   var singleChatList = <Data>[];
-  var firstMessageList = <Data>[];
   var messageRoomId = 1.obs;
 
   void fetchSingleChat(int chatId) async {
@@ -20,17 +19,13 @@ class SingleChatController extends GetxController {
     }
   }
 
-  Future<void> fetchFirstMessage(
-      // int roomId,
-      String gettedId,
-      String message) async {
+  void sendFirstMessage(int roomId, String gettedId, String message) async {
     try {
       isLoading(true);
       var fetchFirst =
           await AllServices.sendMessage(getterId: gettedId, message: message);
       if (fetchFirst != null) {
-        firstMessageList.assignAll(fetchFirst.data);
-        // messageRoomId.value = fetchFirst.data.room.id;
+        messageRoomId.value = fetchFirst.data.room.id;
       }
     } finally {
       isLoading(false);

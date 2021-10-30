@@ -86,7 +86,10 @@ class _EditSubCategoryListState extends State<EditSubCategoryList> {
             Obx(() {
               if (subCategoryController.isLoading.value) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+                  ),
                 );
               } else {
                 return ListView.separated(

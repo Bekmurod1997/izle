@@ -55,7 +55,10 @@ class _ResultAdsState extends State<ResultAds> {
         body: Obx(() {
           if (advertismentSubCategoryController.isLoading.value) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                valueColor:
+                    AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+              ),
             );
           } else {
             return ListView(

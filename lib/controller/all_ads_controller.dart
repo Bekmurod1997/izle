@@ -4,9 +4,10 @@ import 'package:izle/models/advertisement/advertisement_list_model.dart';
 
 class AllAdsController extends GetxController {
   var isLoading = true.obs;
+  var isLoadMore = false.obs;
   var allAdsList = AdvertisementListModel().obs;
   var currentPage = 1;
-
+  RxList<Data> allAdsList2 = <Data>[].obs;
   void fetchAllAds() async {
     print('fetching all ads in controller');
 
@@ -26,9 +27,30 @@ class AllAdsController extends GetxController {
       isLoading(false);
     }
   }
+
+//   void loadMoreAds() async {
+//     print('loadingMOre Ads function');
+//     isLoading(true);
+//     isLoadMore(true);
+//     try {
+//       var adsList = await AllServices.listOfAllAds(currentPage);
+//       if (currentPage > adsList.mMeta.pageCount) {
+//         return;
+//       }
+//       if (currentPage > 1) {
+//         allAdsList().data!.addAll(adsList.data);
+//         return;
+//       }
+//       allAdsList(adsList);
+//       print(adsList);
+//     } finally {
+//       isLoading(false);
+//     }
+//   }
+// }
   // void fetchAllAds() async {
   //   print('fetching all ads in controller');
-
+}
   //   try {
   //     isLoading(true);
   //     var adsList = await AllServices.listOfAllAds(currentPage);
@@ -41,7 +63,7 @@ class AllAdsController extends GetxController {
   //     isLoading(false);
   //   }
   // }
-}
+
 // class AllAdsController extends GetxController {
 //   var isLoading = true.obs;
 //   var allAdsList = <Data>[];

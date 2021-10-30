@@ -15,6 +15,7 @@ class AddsCard extends StatefulWidget {
   final String date;
   final String imageUrl;
   final int status;
+  // final int activeAds;
 
   AddsCard({
     required this.id,
@@ -23,6 +24,7 @@ class AddsCard extends StatefulWidget {
     required this.date,
     required this.imageUrl,
     required this.status,
+    // required this.activeAds,
   });
   @override
   State<AddsCard> createState() => _AddsCardState();
@@ -565,8 +567,6 @@ class _AddsCardState extends State<AddsCard> {
               ),
             ),
           )
-        : Center(
-            child: Text('Вы еще не добавили объявление'),
-          );
+        : Container();
   }
 }

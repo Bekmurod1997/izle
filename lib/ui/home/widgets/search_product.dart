@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/search_controller.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
@@ -47,69 +48,92 @@ class _SearchProductState extends State<SearchProduct> {
     return Obx(() {
       if (sController.isLoading.value) {
         return Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+          ),
         );
       } else {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Мы нашли ${sController.allSearchList().mMeta!.totalCount} объявлений',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-              child: GridView.builder(
-                padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: sController.allSearchList().data!.length,
-                gridDelegate:
-                    SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                ),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => Get.to(() => ProductDetailScreen(
-                        proId: sController.allSearchList().data![index].id!)),
-                    child: RecommandationItem(
-                      isFavorite: false,
-                      title: sController.allSearchList().data![index].title!,
-                      id: sController.allSearchList().data![index].id!,
-                      city: sController.allSearchList().data![index].cityName!,
-                      price: sController
-                          .allSearchList()
-                          .data![index]
-                          .price
-                          .toString(),
-                      date: sController.allSearchList().data![index].date!,
-                      imageUrl: sController.allSearchList().data![index].photo!,
+        return sController.allSearchList().mMeta?.totalCount == null
+            ? Center(
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/ss.png',
+                      fit: BoxFit.fitWidth,
                     ),
-                  );
-                },
-              ),
-            ),
-            // sController.currentPage <
-            //         sController.allSearchList().mMeta!.pageCount!
-            //     ? TextButton(
-            //         onPressed: () {
-            //           sController.currentPage++;
-            //           sController.fetchSearch(widget.searchTitle);
-            //         },
-            //         child: Text('loadmore'),
-            //       )
-            //     : Container(),
-          ],
-        );
+                    Text('К сожалению, мы не нашли ничего похожего...')
+                  ],
+                ),
+              )
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'Мы нашли ${sController.allSearchList().mMeta?.totalCount} объявлений',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: GridView.builder(
+                      padding: EdgeInsets.zero,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: sController.allSearchList().data?.length ?? 0,
+                      gridDelegate:
+                          SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 5,
+                        mainAxisSpacing: 5,
+                        height: MediaQuery.of(context).size.height * 0.3,
+                      ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () => Get.to(() => ProductDetailScreen(
+                              proId: sController
+                                  .allSearchList()
+                                  .data![index]
+                                  .id!)),
+                          child: RecommandationItem(
+                            isFavorite: false,
+                            title:
+                                sController.allSearchList().data![index].title!,
+                            id: sController.allSearchList().data![index].id!,
+                            city: sController
+                                .allSearchList()
+                                .data![index]
+                                .cityName!,
+                            price: sController
+                                .allSearchList()
+                                .data![index]
+                                .price
+                                .toString(),
+                            date:
+                                sController.allSearchList().data![index].date!,
+                            imageUrl:
+                                sController.allSearchList().data![index].photo!,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  // sController.currentPage <
+                  //         sController.allSearchList().mMeta!.pageCount!
+                  //     ? TextButton(
+                  //         onPressed: () {
+                  //           sController.currentPage++;
+                  //           sController.fetchSearch(widget.searchTitle);
+                  //         },
+                  //         child: Text('loadmore'),
+                  //       )
+                  //     : Container(),
+                ],
+              );
       }
     });
   }

@@ -51,9 +51,9 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
   }
 
   // final ImagePicker _myPicker = ImagePicker();
-  List<XFile>? _imageFileList = [];
+  // List<XFile>? _imageFileList = [];
   // dynamic _pickImageError;
-  final ImagePicker _picker = ImagePicker();
+  // final ImagePicker _picker = ImagePicker();
   // void selectImages() async {
   //   final List<XFile>? selectImages = await _picker.pickMultiImage();
   //   if (selectImages!.isNotEmpty) {
@@ -280,34 +280,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                         //   print('--------');
                         //   print(creatingAddInfoController.images[i].toString());
                         // }
-                        Get.dialog(
-                          Scaffold(
-                            backgroundColor: Colors.black.withOpacity(.1),
-                            body: Center(
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                color: Colors.white,
-                                width: double.infinity,
-                                height: 100.0,
-                                child: Row(
-                                  children: [
-                                    CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          ColorPalate.mainColor),
-                                    ),
-                                    SizedBox(
-                                      width: 30,
-                                    ),
-                                    Text('Подождите пожалуйста'),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
+
                         AllServices.createAd();
                         print('pressed');
                       },
