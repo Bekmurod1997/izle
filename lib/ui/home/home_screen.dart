@@ -4,7 +4,6 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/search_controller.dart';
-import 'package:izle/ui/home/widgets/recommendation.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
 import 'package:izle/ui/home/widgets/search.dart';
 import 'package:get/get.dart';
