@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
 import 'package:izle/controller/all_ads_controller.dart';
+import 'package:izle/controller/all_advertisements.dart';
 import 'package:izle/controller/all_categories.dart';
 import 'package:izle/controller/all_cities_controller.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
@@ -33,6 +34,8 @@ class MyApp extends StatelessWidget {
   final AllCityController allCityController = Get.put(AllCityController());
   final FavoriteController favoriteController = Get.put(FavoriteController());
   final AllAdsController allAdsController = Get.put(AllAdsController());
+  final AllAdvertisementsController allAdvertisementsController =
+      Get.put(AllAdvertisementsController());
   final AdvertismentSubCategoryController advertismentSubCategoryController =
       Get.put(AdvertismentSubCategoryController());
   final SubCategoryController subCategoryController =

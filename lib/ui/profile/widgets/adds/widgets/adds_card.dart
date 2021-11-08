@@ -56,7 +56,7 @@ class _AddsCardState extends State<AddsCard> {
                             color: ColorPalate.addsBackgroundColor,
                           ),
                           child: Image.network(
-                            'http://izle.selfieshop.uz/' + widget.imageUrl,
+                            'http://izle.uz/' + widget.imageUrl,
                             fit: BoxFit.contain,
                           ),
                         ),

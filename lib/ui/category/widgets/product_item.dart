@@ -52,7 +52,7 @@ class _ProductItemState extends State<ProductItem> {
               color: ColorPalate.addsBackgroundColor,
             ),
             child: Image.network(
-              'http://izle.selfieshop.uz/' + widget.imageUrl!,
+              'http://izle.uz/' + widget.imageUrl!,
               fit: BoxFit.cover,
             ),
           ),

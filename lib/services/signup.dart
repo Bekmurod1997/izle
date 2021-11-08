@@ -25,7 +25,7 @@ class SignUp {
         'Accept': 'application/json',
       }, body: {
         'name': phone,
-        // 'email': 'a@mail.ru',
+        'email': 'a@mail.ru',
         'phone': phone,
         'password': password,
       });
@@ -41,6 +41,7 @@ class SignUp {
         print(body.data!.code);
         MyPref.code = body.data!.code!;
         MyPref.token = body.data!.token!;
+
         // MyPref.userName = body.data!.ph;
         await Get.to(() => ConfirmScreen());
         // await CodeConfirm.codeConfirm(

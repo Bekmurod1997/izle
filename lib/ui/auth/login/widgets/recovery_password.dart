@@ -29,7 +29,9 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
               children: [
                 SizedBox(width: 20),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                  },
                   child: RotatedBox(
                     quarterTurns: 2,
                     child: SvgPicture.asset(

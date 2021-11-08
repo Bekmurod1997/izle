@@ -8,8 +8,8 @@ class SubCategoryService {
 
   static Future fetchSubCategories(int id) async {
     try {
-      var response = await client
-          .get(Uri.parse('http://izle.selfieshop.uz/api/category/sub?id=$id'));
+      var response =
+          await client.get(Uri.parse('http://izle.uz/api/category/sub?id=$id'));
       if (response.statusCode == 200) {
         var body = MainCategoriesModel.fromJson(json.decode(response.body));
         print(response.body);

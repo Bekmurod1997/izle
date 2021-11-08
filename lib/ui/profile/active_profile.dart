@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:izle/controller/my_ads_controller.dart';
+import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/components/cutome_button.dart';
@@ -11,6 +12,7 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/components/profile_listTile.dart';
 import 'package:izle/ui/favorites/favorite_screen.dart';
 import 'package:izle/ui/message/message_screen.dart';
+import 'package:izle/ui/nav.dart';
 import 'package:izle/ui/profile/widgets/adds/active_adds.dart';
 import 'package:izle/ui/profile/widgets/adds/non_active_adds.dart';
 import 'package:izle/ui/profile/widgets/settings/edit_profie.dart';
@@ -30,6 +32,8 @@ class ActiveProfileScreen extends StatefulWidget {
 class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
   final UserInfoController userInfoController = Get.find<UserInfoController>();
   final MyAdsController myAdsController = Get.put(MyAdsController());
+  static PageNavigationController pageNavigationController =
+      Get.find<PageNavigationController>();
 
   @override
   void initState() {
@@ -39,7 +43,21 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
 
     // });
     // fetchUser();
+    // print('my email');
+    // print(MyPref.email);
+    ffff();
     super.initState();
+  }
+
+  void ffff() async {
+    await userInfoController.fetchUserInfo(userToken: MyPref.token);
+    print('ss');
+
+    print(userInfoController.fetchUserInfoList.first.email);
+
+    if (userInfoController.fetchUserInfoList.first.email == 'a@mail.ru') {
+      myModal();
+    }
   }
 
   @override
@@ -126,30 +144,30 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: CutomeButton(
-                title: 'Опубликовать',
-                onpress: () => print('pressed'),
-                buttonColor: ColorPalate.lightGreen,
-                textColor: Colors.white,
-              ),
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: CutomeButton(
-                title: 'Купить пакет',
-                onpress: () => print('pressed'),
-                buttonColor: ColorPalate.lightGreen,
-                textColor: Colors.white,
-              ),
-            ),
+            // SizedBox(height: 10),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     horizontal: 20,
+            //   ),
+            //   child: CutomeButton(
+            //     title: 'Опубликовать',
+            //     onpress: () => print('pressed'),
+            //     buttonColor: ColorPalate.lightGreen,
+            //     textColor: Colors.white,
+            //   ),
+            // ),
+            // SizedBox(height: 10),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     horizontal: 20,
+            //   ),
+            //   child: CutomeButton(
+            //     title: 'Купить пакет',
+            //     onpress: () => print('pressed'),
+            //     buttonColor: ColorPalate.lightGreen,
+            //     textColor: Colors.white,
+            //   ),
+            // ),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -749,5 +767,80 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
 
       // bottomNavigationBar: CustomBottomNavBar(),
     );
+  }
+
+  void myModal() {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController nameController = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              backgroundColor: ColorPalate.mainPageColor,
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    // margin: const EdgeInsets.only(left: 0, right: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: new BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+                      child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'электронная почта'),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text('Пожалуйста, введите Ваше имя'),
+                  SizedBox(height: 20),
+                  Container(
+                    // margin: const EdgeInsets.only(left: 0, right: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: new BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+                      child: TextFormField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                            border: InputBorder.none, hintText: 'Имя'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              title: Text(
+                'Пожалуйста, введите ваш адрес электронной почты',
+                style: TextStyle(fontSize: 16),
+              ),
+
+              actions: [
+                TextButton(
+                  onPressed: () => Get.back(),
+                  child: Text('Отменить'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    print('pressed yes');
+                    await AllServices.editProfile(
+                        email: emailController.text, name: nameController.text);
+
+                    await Get.offAll(() => NavScreen());
+                    pageNavigationController.pageControllerChanger(4);
+                    pageNavigationController.tabIndexChanger(4);
+                  },
+                  child: Text('Редактировать'),
+                ),
+              ],
+              // content: Text('This is my content'),
+            ));
   }
 }

@@ -101,8 +101,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                   itemCount: subCategoryController.subCategoryList.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () {
-                        creatingAddInfoController.subCategoryChanger(
+                      onTap: () async {
+                        await creatingAddInfoController.subCategoryChanger(
                             subCategoryName:
                                 '${subCategoryController.subCategoryList[index].nameRu}',
                             id: subCategoryController

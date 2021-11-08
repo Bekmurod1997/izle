@@ -5,6 +5,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/nav.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class ConfirmToRecovery extends StatefulWidget {
   final String phoneNumber;
@@ -31,7 +32,9 @@ class _ConfirmToRecoveryState extends State<ConfirmToRecovery> {
               children: [
                 SizedBox(width: 20),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                  },
                   child: RotatedBox(
                     quarterTurns: 2,
                     child: SvgPicture.asset(
@@ -75,16 +78,27 @@ class _ConfirmToRecoveryState extends State<ConfirmToRecovery> {
               child: Padding(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: TextFormField(
+                  // validator: (value) {
+                  //   if (value != MyPref.code) {
+                  //     return 'Код указан неверно';
+                  //   }
+                  //   return '';
+                  // },
                   controller: code,
                   decoration: InputDecoration(
-                      border: InputBorder.none, hintText: 'vedite code'),
+                      border: InputBorder.none, hintText: 'ведите код'),
                 ),
               ),
             ),
             GestureDetector(
               onTap: () {
                 AllServices.recoveryCodePassword(widget.phoneNumber, code.text);
-                Get.to(() => NavScreen());
+                //  MyPref.code ==code.text?  Get.to(() => NavScreen());
+                if (MyPref.code == code.text) {
+                  Get.to(() => NavScreen());
+                } else {
+                  return;
+                }
               },
               // Get.to(
               //   () => CreatingAddScreen(),

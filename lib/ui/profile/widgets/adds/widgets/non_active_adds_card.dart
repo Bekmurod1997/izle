@@ -65,7 +65,7 @@ class NonActiveAddsCard extends StatelessWidget {
                             color: ColorPalate.addsBackgroundColor,
                           ),
                           child: Image.network(
-                            'http://izle.selfieshop.uz/' + imageUrl,
+                            'http://izle.uz/' + imageUrl,
                             fit: BoxFit.contain,
                           ),
                         ),

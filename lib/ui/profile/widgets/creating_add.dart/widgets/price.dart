@@ -155,6 +155,7 @@ class _CreatePriceState extends State<CreatePrice> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 15, right: 15, top: 5),
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
                     controller: priceController,
                     decoration: InputDecoration(
                       border: InputBorder.none,

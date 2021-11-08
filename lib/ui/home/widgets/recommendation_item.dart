@@ -46,7 +46,7 @@ class _RecommandationItemState extends State<RecommandationItem> {
               color: ColorPalate.addsBackgroundColor,
             ),
             child: Image.network(
-              'http://izle.selfieshop.uz/' + widget.imageUrl,
+              'http://izle.uz/' + widget.imageUrl,
               // 'assets/images/clothes.png',
               fit: BoxFit.cover,
             ),

@@ -34,7 +34,7 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE5E5E5),
+      backgroundColor: Colors.white,
       // appBar: PreferredSize(
       //   preferredSize: Size.fromHeight(30.0), // here the desired height
       //   child: AppBar(
@@ -228,91 +228,180 @@ class _MessageScreenState extends State<MessageScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 40),
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (context) {
-                          return StatefulBuilder(
-                              builder: (context, StateSetter state) {
-                            return FractionallySizedBox(
-                              heightFactor: 0.9,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () => Get.back(),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text('X',
-                                          style: TextStyle(
-                                            fontSize: 25,
-                                          )),
-                                    ),
-                                  ),
-                                  SizedBox(height: 15),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Text(
-                                      'Выберите собшения',
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 40),
-                                  Expanded(
-                                    child: ListView.builder(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      itemCount: titles.length,
-                                      itemBuilder: (context, index) =>
-                                          CustomListTile2(
-                                        istabed: istabed,
-                                        title: titles[index],
-                                        onpress: () {
-                                          print('tabed$index');
-                                          setState(() {
-                                            istabed = !istabed;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          });
-                        });
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.only(right: 20, top: 0),
-                    child: Text(
-                      'Фильтры',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
+                SizedBox(height: 30),
+                Divider(
+                  color: ColorPalate.mainPageColor,
+                  thickness: 3,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  height: 30,
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Сообщение',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      textAlign: TextAlign.right,
-                    ),
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) {
+                                return StatefulBuilder(
+                                    builder: (context, StateSetter state) {
+                                  return FractionallySizedBox(
+                                    heightFactor: 0.9,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () => Get.back(),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text('X',
+                                                style: TextStyle(
+                                                  fontSize: 25,
+                                                )),
+                                          ),
+                                        ),
+                                        SizedBox(height: 15),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Text(
+                                            'Выберите собшения',
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 40),
+                                        Expanded(
+                                          child: ListView.builder(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            itemCount: titles.length,
+                                            itemBuilder: (context, index) =>
+                                                CustomListTile2(
+                                              istabed: istabed,
+                                              title: titles[index],
+                                              onpress: () {
+                                                print('tabed$index');
+                                                setState(() {
+                                                  istabed = !istabed;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
+                              });
+                        },
+                        child: Icon(Icons.filter_alt_sharp),
+                      ),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    'Недавные',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                Divider(
+                  color: ColorPalate.mainPageColor,
+                  thickness: 3,
                 ),
-                SizedBox(height: 20),
+                // GestureDetector(
+                //   onTap: () {
+                //     showModalBottomSheet(
+                //         isScrollControlled: true,
+                //         context: context,
+                //         builder: (context) {
+                //           return StatefulBuilder(
+                //               builder: (context, StateSetter state) {
+                //             return FractionallySizedBox(
+                //               heightFactor: 0.9,
+                //               child: Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   GestureDetector(
+                //                     onTap: () => Get.back(),
+                //                     child: Padding(
+                //                       padding: const EdgeInsets.all(8.0),
+                //                       child: Text('X',
+                //                           style: TextStyle(
+                //                             fontSize: 25,
+                //                           )),
+                //                     ),
+                //                   ),
+                //                   SizedBox(height: 15),
+                //                   Padding(
+                //                     padding: const EdgeInsets.symmetric(
+                //                         horizontal: 10),
+                //                     child: Text(
+                //                       'Выберите собшения',
+                //                       style: TextStyle(
+                //                         fontSize: 30,
+                //                         fontWeight: FontWeight.bold,
+                //                       ),
+                //                     ),
+                //                   ),
+                //                   SizedBox(height: 40),
+                //                   Expanded(
+                //                     child: ListView.builder(
+                //                       padding: const EdgeInsets.symmetric(
+                //                           horizontal: 20),
+                //                       itemCount: titles.length,
+                //                       itemBuilder: (context, index) =>
+                //                           CustomListTile2(
+                //                         istabed: istabed,
+                //                         title: titles[index],
+                //                         onpress: () {
+                //                           print('tabed$index');
+                //                           setState(() {
+                //                             istabed = !istabed;
+                //                           });
+                //                         },
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //             );
+                //           });
+                //         });
+                //   },
+                //   child: Container(
+                //     width: double.infinity,
+                //     padding: const EdgeInsets.only(right: 20, top: 0),
+                //     child: Text(
+                //       'Фильтры',
+                //       style: TextStyle(
+                //         color: Colors.black,
+                //         fontSize: 15,
+                //       ),
+                //       textAlign: TextAlign.right,
+                //     ),
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 15),
+                //   child: Text(
+                //     'Сообщение',
+                //     style: TextStyle(
+                //       fontSize: 30,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
+
+                SizedBox(height: 5),
                 RefreshIndicator(
                   color: Colors.red,
                   onRefresh: () => allChatController.fetchAllChat(),

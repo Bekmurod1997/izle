@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:izle/constants/api.dart';
+import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/models/auth/code_confirm_model.dart';
 import 'package:izle/ui/nav.dart';
@@ -11,6 +12,8 @@ import 'package:izle/utils/my_prefs.dart';
 
 class CodeConfirm {
   static var client = http.Client();
+  static PageNavigationController pageNavigationController =
+      Get.find<PageNavigationController>();
 
   static Future codeConfirm({String? code, String? token}) async {
     final UserInfoController userInfoController =
@@ -34,14 +37,18 @@ class CodeConfirm {
         MyPref.token = body.data!.token!;
         MyPref.phoneNumber = body.data!.phone!;
         MyPref.userName = '${body.data!.phone!}';
+        MyPref.email = '${body.data!.email!}';
         print('-----');
         print(MyPref.token);
         print(MyPref.phoneNumber);
         print(MyPref.userName);
         print('MyPref toke');
         print(MyPref.token);
-        await Get.offAll(() => NavScreen());
+
+        pageNavigationController.pageControllerChanger(4);
+        pageNavigationController.tabIndexChanger(4);
         userInfoController.fetchUserInfo(userToken: MyPref.token);
+        Get.offAll(() => NavScreen());
       }
     } catch (e) {
       print('error in code confirm');

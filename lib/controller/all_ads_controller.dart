@@ -29,6 +29,22 @@ class AllAdsController extends GetxController {
     }
   }
 
+  void loadMore() async {
+    print('loading more data');
+    var adsList = await AllServices.listOfAllAds(currentPage);
+    int? pageCount = adsList?.mMeta?.pageCount;
+    if (pageCount == null || currentPage > pageCount) {
+      return;
+    }
+    if (currentPage > 1) {
+      allAdsList().data!.addAll(adsList.data);
+      return;
+    }
+    allAdsList(adsList);
+    print(adsList);
+  }
+}
+
 //   void loadMoreAds() async {
 //     print('loadingMOre Ads function');
 //     isLoading(true);
@@ -51,7 +67,7 @@ class AllAdsController extends GetxController {
 // }
   // void fetchAllAds() async {
   //   print('fetching all ads in controller');
-}
+
   //   try {
   //     isLoading(true);
   //     var adsList = await AllServices.listOfAllAds(currentPage);

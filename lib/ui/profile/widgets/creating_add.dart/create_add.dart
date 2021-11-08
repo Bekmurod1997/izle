@@ -51,21 +51,22 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
   }
 
   // final ImagePicker _myPicker = ImagePicker();
-  // List<XFile>? _imageFileList = [];
+  List<XFile>? _imageFileList = [];
   // dynamic _pickImageError;
-  // final ImagePicker _picker = ImagePicker();
-  // void selectImages() async {
-  //   final List<XFile>? selectImages = await _picker.pickMultiImage();
-  //   if (selectImages!.isNotEmpty) {
-  //     _imageFileList!.addAll(selectImages);
-  //   }
-  //   print("Image list lengt" + _imageFileList!.length.toString());
-  //   for (var i = 0; i < _imageFileList!.length; i++) {
-  //     imageUrl.add('${_imageFileList![i].path}');
-  //   }
-  //   creatingAddInfoController.imagesChanger(imageUrl);
-  //   setState(() {});
-  // }
+  final ImagePicker _picker = ImagePicker();
+  void selectImages() async {
+    final List<XFile>? selectImages = await _picker.pickMultiImage();
+    if (selectImages == null || selectImages.isEmpty) return;
+
+    // _imageFileList.addAll(selectImages);
+
+    print("Image list lengt" + selectImages.length.toString());
+    for (var i = 0; i < selectImages.length; i++) {
+      imageUrl.add(selectImages[i].path);
+    }
+    creatingAddInfoController.imagesChanger(imageUrl);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,19 +92,19 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
               //   },
               // ),
 
-              Container(
-                height: 100,
-                width: double.infinity,
-                child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Image.file(
-                        File(imageUrl[index]),
-                      );
-                    },
-                    separatorBuilder: (context, index) => SizedBox(width: 30),
-                    itemCount: imageUrl.length),
-              ),
+              // Container(
+              //   height: 100,
+              //   width: double.infinity,
+              //   child: ListView.separated(
+              //       scrollDirection: Axis.horizontal,
+              //       itemBuilder: (context, index) {
+              //         return Image.file(
+              //           File(imageUrl[index]),
+              //         );
+              //       },
+              //       separatorBuilder: (context, index) => SizedBox(width: 30),
+              //       itemCount: imageUrl.length),
+              // ),
 
               // if (_imageFileList!.isEmpty)
 
@@ -111,59 +112,83 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    Container(
-                      child: GestureDetector(
-                        onTap: () async {
-                          // selectImages();
-                          print('photo pressed');
-                          var source = ImageSource.gallery;
-                          XFile image = await imagePicker.pickImage(
-                            source: source,
-                            imageQuality: 50,
-                            // preferredCameraDevice: CameraDevice.front,
-                          );
-                          if (mounted)
-                            setState(() {
-                              _image = File(image.path);
-                            });
-                          // String fileName = image.path.split('/').last;
+                    imageUrl.length > 0
+                        ? Container(
+                            height: 100,
+                            width: double.infinity,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return Image.file(
+                                    File(
+                                      imageUrl[index],
+                                    ),
+                                    width: 50,
+                                    // fit: BoxFit.cover,
+                                  );
+                                },
+                                separatorBuilder: (context, index) =>
+                                    SizedBox(width: 10),
+                                itemCount: imageUrl.length),
+                          )
+                        : Container(
+                            child: GestureDetector(
+                              onTap: () {
+                                selectImages();
+                              },
+                              // onTap: () async {
 
-                          creatingAddInfoController
-                              .mainPhotoChanger(image.path);
-                        },
-                        child: _image != null
-                            ? Image.file(
-                                _image,
-                                width: 200.0,
-                                height: 200.0,
-                                fit: BoxFit.fitHeight,
-                              )
-                            : Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  SvgPicture.asset('assets/icons/upload_f.svg'),
-                                  Text('Добавить фото',
-                                      style: FontStyles.semiBoldStyle(
-                                        fontSize: 24,
-                                        fontFamily: 'Lato',
-                                        color: Colors.white,
-                                      ))
-                                ],
+                              //   // selectImages();
+                              //   print('photo pressed');
+                              //   var source = ImageSource.gallery;
+                              //   XFile image = await imagePicker.pickImage(
+                              //     source: source,
+                              //     imageQuality: 50,
+                              //     // preferredCameraDevice: CameraDevice.front,
+                              //   );
+                              //   if (mounted)
+                              //     setState(() {
+                              //       _image = File(image.path);
+                              //     });
+                              //   // String fileName = image.path.split('/').last;
+
+                              //   creatingAddInfoController
+                              //       .mainPhotoChanger(image.path);
+                              // },
+                              child: _image != null
+                                  ? Image.file(
+                                      _image,
+                                      width: 200.0,
+                                      height: 200.0,
+                                      fit: BoxFit.fitHeight,
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        SvgPicture.asset(
+                                            'assets/icons/upload_f.svg'),
+                                        Text('Добавить фото',
+                                            style: FontStyles.semiBoldStyle(
+                                              fontSize: 24,
+                                              fontFamily: 'Lato',
+                                              color: Colors.white,
+                                            ))
+                                      ],
+                                    ),
+                            ),
+                            width: double.infinity,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  'assets/images/wallet.png',
+                                ),
+                                fit: BoxFit.fill,
                               ),
-                      ),
-                      width: double.infinity,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/wallet.png',
+                            ),
                           ),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
 
                     CreateTitle(),
                     CategoryChoice(),
@@ -268,7 +293,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     CutomeButton(
                       title: 'Опубликовать',
                       onpress: () {
-                        print(_image);
+                        // print(_image);
                         // print(creatingAddInfoController.images);
                         // List imageeeee = [];
                         // for (var i = 0; i < imageUrl.length; i++) {

@@ -99,6 +99,26 @@ class AllServices {
     }
   }
 
+  static Future fetchAds({int? page}) async {
+    print('aaa');
+    print('http://izle.uz/api/ads/index?' + 'page=${page ?? ""}');
+    try {
+      var response = await client.get(
+          Uri.parse('http://izle.uz/api/ads/index?' + 'page=${page ?? ""}'),
+          headers: {
+            'Accept': 'application/json',
+          });
+      if (response.statusCode == 200) {
+        var body = AdvertisementListModel.fromJson(json.decode(response.body));
+        // print(response.body);
+        // print('this is list of all ads service');
+        return body;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   static Future listOfAllAds(int page) async {
     print('url link');
     print(ApiUrl.listOfAllAds + '$page');
@@ -122,6 +142,37 @@ class AllServices {
   }
 
   static Future createAd() async {
+    g.Get.dialog(
+      Scaffold(
+        backgroundColor: Colors.black.withOpacity(.1),
+        body: Center(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            color: Colors.white,
+            width: double.infinity,
+            height: 100.0,
+            child: Row(
+              children: [
+                CircularProgressIndicator(
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                Text('Подождите пожалуйста'),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
+    print('createing add url');
+    print(
+      ApiUrl.createAds,
+    );
     Dio dio = Dio();
     final CreatingAddInfoController creatingAddInfoController =
         g.Get.find<CreatingAddInfoController>();
@@ -153,6 +204,7 @@ class AllServices {
     //   otherName.add('gallery[$i]');
     // }
     List photos = creatingAddInfoController.images;
+    print('ssdid');
     print(photos);
     for (var i = 0; i < photos.length; i++) {
       var fileName = photos[i];
@@ -190,14 +242,32 @@ class AllServices {
     // ]);
     // // }
     // // formData.files.addAll()
-    var response = await dio.post(
-      ApiUrl.createAds,
-      data: formData,
-      options: Options(headers: {
-        HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}',
-        "Authorization": "Bearer ${MyPref.token}"
-      }),
-    );
+    try {
+      var response = await dio.post(
+        ApiUrl.createAds,
+        data: formData,
+        options: Options(headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}',
+          "Authorization": "Bearer ${MyPref.token}"
+        }),
+      );
+      print(response.data);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print('success in creating ads');
+        creatingAddInfoController.allClear();
+        // print(response.body);
+        // g.Get.to(() => ActiveProfileScreen());
+        pageNavigationController.pageControllerChanger(4);
+        pageNavigationController.tabIndexChanger(4);
+        g.Get.offAll(
+          () => NavScreen(),
+        );
+      }
+    } catch (e) {
+      print('error in creating adds');
+      print(e);
+    }
 
     // var response = await client.post(Uri.parse(ApiUrl.createAds), body: {
     //   'title': '${creatingAddInfoController.title}',
@@ -217,15 +287,9 @@ class AllServices {
     // }, headers: {
     //   "Authorization": "Bearer ${MyPref.token}"
     // });
-    print(response.data);
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print('success in creating ads');
-      creatingAddInfoController.allClear();
-      // print(response.body);
-      g.Get.to(() => ActiveProfileScreen());
-    }
-    // } catch (e) {
+
+    // }
+    // catch (e) {
     // print('error in creating adds');
     // print(e);
     // }
@@ -310,15 +374,9 @@ class AllServices {
   static Future authorOrders({int? userId, int? page}) async {
     try {
       print('url link');
-      print('http://izle.selfieshop.uz/api/ads/index?' +
-          '$userId' +
-          '&page=' +
-          '$page');
+      print('http://izle.uz/api/ads/index?' + '$userId' + '&page=' + '$page');
       var response = await client.get(Uri.parse(
-          'http://izle.selfieshop.uz/api/ads/index?' +
-              '$userId' +
-              '&page=' +
-              '$page'));
+          'http://izle.uz/api/ads/index?' + '$userId' + '&page=' + '$page'));
 
       if (response.statusCode == 200) {
         var body = AdvertisementListModel.fromJson(json.decode(response.body));
@@ -469,8 +527,36 @@ class AllServices {
         Uri.parse(ApiUrl.signin),
         body: {'phone': phoneNumber, 'password': password},
       );
+
       print(response.body);
       print('hereeeee' + '${response.statusCode}');
+      g.Get.dialog(
+        Scaffold(
+          backgroundColor: Colors.black.withOpacity(.1),
+          body: Center(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              color: Colors.white,
+              width: double.infinity,
+              height: 100.0,
+              child: Row(
+                children: [
+                  CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Text('Подождите пожалуйста'),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+      // g.Get.back();
       if (response.statusCode == 200) {
         var body = LoginModel.fromJson(json.decode(response.body));
         print('login successfully');
@@ -479,19 +565,21 @@ class AllServices {
         print(response.body);
         MyPref.token = body.token!;
         MyPref.phoneNumber = body.phone!;
-        MyPref.userName = body.phone!;
+        MyPref.userName = body.name!;
         MyPref.userId = '${body.id}';
 
         print('token in login');
         print(MyPref.token);
         await userInfoController.fetchUserInfo(userToken: MyPref.token);
-        pageNavigationController.pageControllerChanger(0);
-        pageNavigationController.tabIndexChanger(0);
+        pageNavigationController.pageControllerChanger(4);
+        pageNavigationController.tabIndexChanger(4);
 
         g.Get.offAll(
           () => NavScreen(),
         );
       } else if (response.statusCode == 422) {
+        g.Get.back();
+
         return g.Get.dialog(
           GestureDetector(
             onTap: () {
@@ -554,9 +642,9 @@ class AllServices {
       print(response.statusCode);
       if (response.statusCode == 200) {
         print('successfully logout');
-        await MyPref.clearAllll();
 
-        g.Get.offAll(() => NavScreen());
+        await MyPref.clearAllll();
+        await g.Get.offAll(() => NavScreen());
         pageNavigationController.pageControllerChanger(0);
         pageNavigationController.tabIndexChanger(0);
       }
@@ -621,6 +709,8 @@ class AllServices {
         var body = RecoveryPasswordModel.fromJson(json.decode(response.body));
         print(body.data?.code);
 
+        MyPref.code = '${body.data?.code}';
+
         print('success in sending phone to recovry');
         return body;
       }
@@ -643,6 +733,35 @@ class AllServices {
 
         print('success in sending phone to code to recory');
         return body;
+      } else if (response.statusCode == 422) {
+        // g.Get.back();
+
+        return g.Get.dialog(
+          GestureDetector(
+            onTap: () {
+              g.Get.back();
+            },
+            child: Scaffold(
+              backgroundColor: Colors.black.withOpacity(.1),
+              body: GestureDetector(
+                child: Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                    color: Colors.white,
+                    width: double.infinity,
+                    height: 100.0,
+                    child: Center(
+                      child: Text(
+                        'Код указан неверно ',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
       }
     } catch (e) {
       print('error in recovry passwrod sending code to recovery');

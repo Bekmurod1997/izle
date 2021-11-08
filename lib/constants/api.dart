@@ -1,10 +1,10 @@
 abstract class ApiUrl {
   //forImage
 
-  static const izleUrl = 'http://izle.selfieshop.uz/';
+  static const izleUrl = 'http://izle.uz/';
   //User
 
-  static const baseUrl = 'http://izle.selfieshop.uz/';
+  static const baseUrl = 'http://izle.uz/';
   static const apiUrl = '${baseUrl}api/';
   static const adsUrl = '${baseUrl}api/ads';
   static const signup = '${apiUrl}user/sign-up';

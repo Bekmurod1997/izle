@@ -69,7 +69,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         borderRadius: BorderRadius.circular(5)),
                                     height: 110,
                                     child: Image.network(
-                                      'http://izle.selfieshop.uz/' +
+                                      'http://izle.uz/' +
                                           favoriteController
                                               .favoriteList[index].photo!,
 
