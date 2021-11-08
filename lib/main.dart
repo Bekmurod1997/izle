@@ -18,6 +18,7 @@ import 'package:izle/ui/nav.dart';
 import 'package:izle/utils/my_prefs.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
 
   runApp(MyApp());
@@ -34,8 +35,8 @@ class MyApp extends StatelessWidget {
   final AllCityController allCityController = Get.put(AllCityController());
   final FavoriteController favoriteController = Get.put(FavoriteController());
   final AllAdsController allAdsController = Get.put(AllAdsController());
-  final AllAdvertisementsController allAdvertisementsController =
-      Get.put(AllAdvertisementsController());
+  // final AllAdvertisementsController allAdvertisementsController =
+  //     Get.put(AllAdvertisementsController());
   final AdvertismentSubCategoryController advertismentSubCategoryController =
       Get.put(AdvertismentSubCategoryController());
   final SubCategoryController subCategoryController =

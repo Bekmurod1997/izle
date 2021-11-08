@@ -119,7 +119,7 @@ class AllServices {
     }
   }
 
-  static Future listOfAllAds(int page) async {
+  static Future<AdvertisementListModel?> listOfAllAds(int page) async {
     print('url link');
     print(ApiUrl.listOfAllAds + '$page');
     try {
@@ -136,6 +136,7 @@ class AllServices {
         // print('this is list of all ads service');
         return body;
       }
+      return null;
     } catch (e) {
       print('error in auth');
     }

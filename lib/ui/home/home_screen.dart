@@ -30,30 +30,21 @@ class _HomeScreenState extends State<HomeScreen> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        // allAdsController.currentPage++;
-        // allAdsController.fetchAllAds();
-        _getMoreData();
-        if (adsController.currentPage <
-            adsController.allAdsList().mMeta!.pageCount!) {
-          adsController.currentPage++;
-          adsController.fetchAllAds();
-        } else {
-          print('nothing to scroll');
-        }
+        adsController.loadMore();
       }
     });
 
     super.initState();
   }
 
-  _getMoreData() {
-    print('end');
-  }
+  // _getMoreData() {
+  //   print('end');
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (adsController.isLoading.value) {
+      if (adsController.isLoading.value && !adsController.isLoadMore.value) {
         return Center(
           child: CircularProgressIndicator(
             color: ColorPalate.mainColor,
@@ -61,65 +52,65 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       } else {
         return ListView(
-            padding: EdgeInsets.zero,
-            controller: _scrollController,
-            children: [
-              Search(),
-              Container(
-                // color: Colors.red,
-                padding: EdgeInsets.only(left: 15, top: 5, bottom: 10),
-                child: Text(
-                  'Рекомендованное вам',
-                  style: FontStyles.boldStyle(
-                    fontSize: 18,
-                    fontFamily: 'Lato',
-                    color: Colors.black,
-                  ),
+          padding: EdgeInsets.zero,
+          controller: _scrollController,
+          children: [
+            Search(),
+            Container(
+              // color: Colors.red,
+              padding: EdgeInsets.only(left: 15, top: 5, bottom: 10),
+              child: Text(
+                'Рекомендованное вам',
+                style: FontStyles.boldStyle(
+                  fontSize: 18,
+                  fontFamily: 'Lato',
+                  color: Colors.black,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 20),
-                child: GridView.builder(
-                  // reverse: true,
-                  // controller: _scrollController,
-                  padding: EdgeInsets.zero,
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: adsController.allAdsList().data?.length ?? 0,
-                  gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 15,
-                    // height: MediaQuery.of(context).size.height * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                  ),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => Get.to(() => ProductDetailScreen(
-                          proId: adsController.allAdsList().data![index].id)),
-                      child: RecommandationItem(
-                        isFavorite: false,
-                        title:
-                            adsController.allAdsList().data?[index].title ?? '',
-                        id: adsController.allAdsList().data![index].id!,
-                        city:
-                            adsController.allAdsList().data?[index].cityName ??
-                                'tashkent',
-                        price: adsController
-                            .allAdsList()
-                            .data![index]
-                            .price
-                            .toString(),
-                        date: adsController.allAdsList().data![index].date!,
-                        imageUrl:
-                            adsController.allAdsList().data![index].photo!,
-                      ),
-                    );
-                  },
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(5, 0, 5, 20),
+              child: GridView.builder(
+                // reverse: true,
+                // controller: _scrollController,
+                padding: EdgeInsets.zero,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: adsController.adsList.length,
+                gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 15,
+                  // height: MediaQuery.of(context).size.height * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.3,
                 ),
+                itemBuilder: (context, index) {
+                  // if (index + 1 == adsController.adsList.length &&
+                  //       adsController.isLoadMore.value) {
+                  //     return Container(
+                  //       height: 60.0,
+                  //       child: CircularProgressIndicator(),
+                  //     );
+                  //   }
+                  return GestureDetector(
+                    onTap: () => Get.to(() => ProductDetailScreen(
+                        proId: adsController.adsList[index].id)),
+                    child: RecommandationItem(
+                      isFavorite: false,
+                      title: adsController.adsList[index].title ?? '',
+                      id: adsController.adsList[index].id!,
+                      city: adsController.adsList[index].cityName ?? 'tashkent',
+                      price: adsController.adsList[index].price.toString(),
+                      date: adsController.adsList[index].date!,
+                      imageUrl: adsController.adsList[index].photo!,
+                    ),
+                  );
+                },
               ),
-            ]);
+            ),
+          ],
+        );
       }
     });
 

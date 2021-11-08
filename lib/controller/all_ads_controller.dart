@@ -6,24 +6,27 @@ class AllAdsController extends GetxController {
   var isLoading = true.obs;
   var isLoadMore = false.obs;
   var allAdsList = AdvertisementListModel().obs;
+  var adsList = <Data>[];
   var currentPage = 1;
+  int _totalPage = 0;
   RxList<Data> allAdsList2 = <Data>[].obs;
   void fetchAllAds() async {
     print('fetching all ads in controller');
 
     try {
       isLoading(true);
-      var adsList = await AllServices.listOfAllAds(currentPage);
-      int? pageCount = adsList?.mMeta?.pageCount;
-      if (pageCount == null || currentPage > pageCount) {
-        return;
-      }
-      if (currentPage > 1) {
-        allAdsList().data!.addAll(adsList.data);
-        return;
-      }
-      allAdsList(adsList);
-      print(adsList);
+      var response = await AllServices.listOfAllAds(currentPage);
+      _totalPage = response?.mMeta?.pageCount ?? 0;
+      // int? pageCount = adsList?.mMeta?.pageCount;
+      // if (pageCount == null || currentPage > pageCount) {
+      //   return;
+      // }
+      // if (currentPage > 1) {
+      //   allAdsList().data!.addAll(adsList.data);
+      //   return;
+      // }
+      adsList = response?.data ?? [];
+      print(response);
     } finally {
       isLoading(false);
     }
@@ -31,19 +34,37 @@ class AllAdsController extends GetxController {
 
   void loadMore() async {
     print('loading more data');
-    var adsList = await AllServices.listOfAllAds(currentPage);
-    int? pageCount = adsList?.mMeta?.pageCount;
-    if (pageCount == null || currentPage > pageCount) {
-      return;
+    if (isLoadMore.value || currentPage >= _totalPage) return;
+    isLoadMore.value = true;
+    final nextPage = currentPage + 1;
+
+    try {
+      var response = await AllServices.listOfAllAds(nextPage);
+      var data = response?.data;
+      if (data == null) return;
+      adsList.addAll(data);
+      currentPage = response?.mMeta?.currentPage ?? 1;
+      _totalPage = response!.mMeta!.pageCount!;
+      isLoadMore.value = false;
+      allAdsList(response);
+      print(response);
+    } catch (_) {
+      isLoadMore.value = false;
     }
-    if (currentPage > 1) {
-      allAdsList().data!.addAll(adsList.data);
-      return;
-    }
-    allAdsList(adsList);
-    print(adsList);
+
+    // if (currentPage > 1) {
+    //   allAdsList().data!.addAll(adsList.data);
+    //   return;
+    // }
   }
+
+  // void showedAdsAtIndex(int index) {
+  //   if (index < allAdsList().data!.length - 1) return;
+  //   loadMore();
+  // }
 }
+
+
 
 //   void loadMoreAds() async {
 //     print('loadingMOre Ads function');
