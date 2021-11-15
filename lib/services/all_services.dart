@@ -12,8 +12,11 @@ import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/my_ads_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/controller/user_info.dart';
+import 'package:izle/models/ads_view_model.dart';
 import 'package:izle/models/all_message_model.dart';
+import 'package:izle/models/list_of_price_model.dart';
 import 'package:izle/models/login_model.dart';
+import 'package:izle/models/pay_model.dart';
 import 'package:izle/models/product_detail_model.dart';
 import 'package:izle/models/advertisement/advertisement_list_model.dart';
 import 'package:izle/models/city_model.dart';
@@ -22,7 +25,6 @@ import 'package:izle/models/recovery_password_model.dart';
 import 'package:izle/models/single_message_model.dart';
 import 'package:izle/models/user_info_model.dart';
 import 'package:izle/ui/nav.dart';
-import 'package:izle/ui/profile/active_profile.dart';
 import 'package:izle/utils/my_prefs.dart';
 import 'package:get/get.dart' as g;
 
@@ -195,6 +197,8 @@ class AllServices {
       'type': '1',
       'address': '${creatingAddInfoController.locationInfo}',
       'responsible_person': 'Дмитрий Мухамадиев',
+      // 'lat': '41.26465',
+      // 'lng': '69.21627',
       'lat': '${creatingAddInfoController.lat}',
       'lng': '${creatingAddInfoController.long}',
       'name': '${MyPref.userName}'
@@ -354,6 +358,20 @@ class AllServices {
     }
   }
 
+  static Future adView() async {
+    try {
+      print(ApiUrl.adsView);
+      var response = await client.get(Uri.parse(ApiUrl.adsView));
+      if (response.statusCode == 200) {
+        var body = AdsViewModel.fromJson(json.decode(response.body));
+        print(response.body);
+        return body;
+      }
+    } catch (e) {
+      print('error in adsview service');
+    }
+  }
+
   static Future myOrders() async {
     try {
       print('url link');
@@ -450,7 +468,29 @@ class AllServices {
     }
   }
 
-  static Future search(String search, int page) async {
+  static Future search({String? search, int? page}) async {
+    print('url link');
+    print(ApiUrl.search + '$search' + '&page=' + '$page');
+    try {
+      var response = await client.get(
+        Uri.parse(ApiUrl.search + '$search' + '&page=' + '$page'),
+      );
+      if (response.statusCode == 200) {
+        var body = AdvertisementListModel.fromJson(json.decode(response.body));
+        print(response.body);
+        print('this is list of all search ads service');
+        return body;
+      }
+    } catch (e) {
+      print('error in auth');
+    }
+  }
+
+  static Future searchComplex(
+      {String? search,
+      int? page,
+      required String catId,
+      String? cityId}) async {
     print('url link');
     print(ApiUrl.search + '$search' + '&page=' + '$page');
     try {
@@ -651,6 +691,39 @@ class AllServices {
       }
     } catch (e) {
       print('error in logout service');
+    }
+  }
+
+  static Future allPrice() async {
+    try {
+      var response = await client.get(Uri.parse(ApiUrl.listOfPrice));
+      if (response.statusCode == 200) {
+        var body = ListOfPricesModel.fromJson(json.decode(response.body));
+        print(body);
+        return body;
+      }
+    } catch (e) {
+      print('error in allPrice service');
+    }
+  }
+
+  static Future pay({required int id, required String type}) async {
+    try {
+      var response = await client.post(Uri.parse(ApiUrl.payPost), headers: {
+        "Authorization": "Bearer ${MyPref.token}",
+      }, body: {
+        'id': '${id}',
+        'type': type,
+      });
+      if (response.statusCode == 200) {
+        var body = PayModel.fromJson(json.decode(response.body));
+        MyPref.paymentLink = body.data!.link!;
+        print(MyPref.paymentLink);
+        return body;
+      }
+    } catch (e) {
+      print(e);
+      print('error in pay service');
     }
   }
 

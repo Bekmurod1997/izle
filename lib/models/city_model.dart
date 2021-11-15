@@ -1,13 +1,13 @@
 class CityModel {
-  List<Data>? data;
+  List<DataCity>? data;
 
   CityModel({this.data});
 
   CityModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <DataCity>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new DataCity.fromJson(v));
       });
     }
   }
@@ -21,7 +21,7 @@ class CityModel {
   }
 }
 
-class Data {
+class DataCity {
   int? id;
   String? nameRu;
   String? nameUz;
@@ -33,7 +33,7 @@ class Data {
   String? photo;
   int? main;
 
-  Data(
+  DataCity(
       {this.id,
       this.nameRu,
       this.nameUz,
@@ -45,7 +45,7 @@ class Data {
       this.photo,
       this.main});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataCity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nameRu = json['name_ru'];
     nameUz = json['name_uz'];

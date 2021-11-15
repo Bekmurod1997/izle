@@ -5,7 +5,6 @@ import 'package:izle/ui/category/all_category_screen.dart';
 import 'package:izle/ui/components/custom_bottomNavbar.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/ui/auth/auth_screen.dart';
-import 'package:izle/ui/home/home2_screen.dart';
 import 'package:izle/ui/home/home_screen.dart';
 import 'package:izle/ui/message/message_screen.dart';
 import 'package:izle/ui/message/unauth_message.dart';

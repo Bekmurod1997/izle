@@ -40,6 +40,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   ]) =>
       Container(
         // height: 45,
+
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -66,6 +67,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                     SizedBox(height: 3),
                     Text(
                       text,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 12,
                         color: pageNavigationController.tabIndex.value == index
@@ -103,212 +105,6 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    // return Container(
-    //   padding: const EdgeInsets.only(
-    //     left: 5,
-    //     right: 5,
-    //     bottom: 10,
-    //     top: 5,
-    //   ),
-    //   color: Colors.white,
-    //   child: Row(
-    //     children: [
-    //       GestureDetector(
-    //         onTap: () {
-    //           Get.offAll(() => NavScreen());
-    //           pageNavigationController.pageControllerChanger(0);
-    //           pageNavigationController.tabIndexChanger(0);
-    //         },
-    //         child: Container(
-    //           height: 45,
-    //           width: MediaQuery.of(context).size.width * 0.19,
-    //           child: Center(
-    //             child: Column(
-    //               mainAxisSize: MainAxisSize.min,
-    //               children: [
-    //                 SvgPicture.asset(
-    //                   'assets/icons/home3.svg',
-    //                   height: 25,
-    //                   color: pageNavigationController.tabIndex.value == 0
-    //                       ? Color(0xff2F80ED)
-    //                       : Colors.grey,
-    //                 ),
-    //                 SizedBox(
-    //                   height: 5,
-    //                 ),
-    //                 Text(
-    //                   'Главная',
-    //                   style: TextStyle(
-    //                     fontSize: 12,
-    //                     color: pageNavigationController.tabIndex.value == 0
-    //                         ? Color(0xff2F80ED)
-    //                         : Colors.grey,
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //       ////////////////////////
-    //       GestureDetector(
-    //         onTap: () {
-    //           Get.offAll(() => AllCategoryScreen());
-    //           pageNavigationController.pageControllerChanger(1);
-    //           pageNavigationController.tabIndexChanger(1);
-    //         },
-    //         child: Container(
-    //           height: 45,
-    //           width: MediaQuery.of(context).size.width * 0.19,
-    //           child: Center(
-    //             child: Column(
-    //               mainAxisSize: MainAxisSize.min,
-    //               children: [
-    //                 SvgPicture.asset(
-    //                   'assets/icons/1.svg',
-    //                   color: pageNavigationController.tabIndex.value == 1
-    //                       ? Color(0xff2F80ED)
-    //                       : Colors.grey,
-    //                 ),
-    //                 SizedBox(
-    //                   height: 5,
-    //                 ),
-    //                 Text(
-    //                   'Категории',
-    //                   style: TextStyle(
-    //                     fontSize: 12,
-    //                     color: pageNavigationController.tabIndex.value == 1
-    //                         ? Color(0xff2F80ED)
-    //                         : Colors.grey,
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //       ////////////////////////
-    //       GestureDetector(
-    //         onTap: () {
-    //           Get.offAll(
-    //             // () => CreatingAddScreen()
-    //             () => MyPref.token == '' ? AuthScreen() : CreatingAddScreen(),
-    //           );
-    //           pageNavigationController.pageControllerChanger(2);
-    //           pageNavigationController.tabIndexChanger(2);
-    //         },
-    //         child: Container(
-    //           height: 45,
-    //           width: MediaQuery.of(context).size.width * 0.19,
-    //           child: Center(
-    //             child: Column(
-    //               mainAxisSize: MainAxisSize.min,
-    //               children: [
-    //                 SvgPicture.asset(
-    //                   'assets/icons/sozdat.svg',
-    //                   color: pageNavigationController.tabIndex.value == 2
-    //                       ? Color(0xff2F80ED)
-    //                       : Colors.grey,
-    //                 ),
-    //                 SizedBox(
-    //                   height: 5,
-    //                 ),
-    //                 Text(
-    //                   'Создать',
-    //                   style: TextStyle(
-    //                     fontSize: 12,
-    //                     color: pageNavigationController.tabIndex.value == 2
-    //                         ? Color(0xff2F80ED)
-    //                         : Colors.grey,
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //       ////////////////////////
-    //       GestureDetector(
-    //         onTap: () {
-    //           Get.offAll(
-    //             () => MessageScreen(),
-    //           );
-    //           pageNavigationController.pageControllerChanger(3);
-    //           pageNavigationController.tabIndexChanger(3);
-    //         },
-    //         child: Container(
-    //           height: 45,
-    //           width: MediaQuery.of(context).size.width * 0.19,
-    //           child: Center(
-    //             child: Column(
-    //               mainAxisSize: MainAxisSize.min,
-    //               children: [
-    //                 SvgPicture.asset(
-    //                   'assets/icons/coolicon.svg',
-    //                   color: pageNavigationController.tabIndex.value == 3
-    //                       ? Color(0xff2F80ED)
-    //                       : Colors.grey,
-    //                 ),
-    //                 SizedBox(
-    //                   height: 5,
-    //                 ),
-    //                 Text(
-    //                   'Сообщения',
-    //                   style: TextStyle(
-    //                     fontSize: 12,
-    //                     color: pageNavigationController.tabIndex.value == 3
-    //                         ? Color(0xff2F80ED)
-    //                         : Colors.grey,
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //       ////////////////////////
-    //       GestureDetector(
-    //         onTap: () {
-    //           Get.offAll(() =>
-    //               MyPref.token == '' ? ProfileScreen() : ActiveProfileScreen());
-    //           pageNavigationController.pageControllerChanger(4);
-    //           pageNavigationController.tabIndexChanger(4);
-    //         },
-    //         child: Container(
-    //           height: 45,
-    //           width: MediaQuery.of(context).size.width * 0.19,
-    //           child: Center(
-    //             child: Column(
-    //               mainAxisSize: MainAxisSize.min,
-    //               children: [
-    //                 SvgPicture.asset(
-    //                   'assets/icons/profile_active.svg',
-    //                   color: pageNavigationController.tabIndex.value == 4
-    //                       ? Color(0xff2F80ED)
-    //                       : Colors.grey,
-    //                 ),
-    //                 SizedBox(
-    //                   height: 5,
-    //                 ),
-    //                 Text(
-    //                   'Профиль',
-    //                   style: TextStyle(
-    //                     fontSize: 12,
-    //                     color: pageNavigationController.tabIndex.value == 4
-    //                         ? Color(0xff2F80ED)
-    //                         : Colors.grey,
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //       ////////////////////////
-    //     ],
-    //   ),
-    // );
-
     return Obx(() {
       return Container(
         child: BottomNavigationBar(

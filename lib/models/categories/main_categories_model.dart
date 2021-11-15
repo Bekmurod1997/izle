@@ -1,13 +1,13 @@
 class MainCategoriesModel {
-  List<Data>? data;
+  List<DataCategory>? data;
 
   MainCategoriesModel({this.data});
 
   MainCategoriesModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <DataCategory>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new DataCategory.fromJson(v));
       });
     }
   }
@@ -21,7 +21,7 @@ class MainCategoriesModel {
   }
 }
 
-class Data {
+class DataCategory {
   int? id;
   String? nameRu;
   String? nameUz;
@@ -33,7 +33,7 @@ class Data {
   String? photo;
   int? main;
 
-  Data(
+  DataCategory(
       {this.id,
       this.nameRu,
       this.nameUz,
@@ -45,7 +45,7 @@ class Data {
       this.photo,
       this.main});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nameRu = json['name_ru'];
     nameUz = json['name_uz'];

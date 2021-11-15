@@ -27,13 +27,22 @@ class _SearchState extends State<Search> {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: TextField(
+        textInputAction: TextInputAction.go,
+        onSubmitted: (value) {
+          print('entered');
+          sController.searchTitleChanger(sTitle: searchController.text);
+          Get.to(() => SearchResult(
+              // searchResult: sController.searchTitle.toString(),
+              ));
+          // pageController.pageControllerChanger(6);
+        },
         controller: searchController,
         decoration: InputDecoration(
           prefixIcon: GestureDetector(
               onTap: () {
                 sController.searchTitleChanger(sTitle: searchController.text);
                 Get.to(() => SearchResult(
-                      searchResult: sController.searchTitle.toString(),
+                    // searchResult: sController.searchTitle.toString(),
                     ));
                 // pageController.pageControllerChanger(6);
               },

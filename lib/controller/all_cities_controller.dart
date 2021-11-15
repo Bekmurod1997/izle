@@ -4,7 +4,7 @@ import 'package:izle/services/all_services.dart';
 
 class AllCityController extends GetxController {
   var isLoading = true.obs;
-  var cityList = <Data>[];
+  var cityList = <DataCity>[];
   @override
   void onInit() {
     fetchMainCategries();

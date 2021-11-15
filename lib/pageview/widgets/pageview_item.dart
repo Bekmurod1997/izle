@@ -12,7 +12,7 @@ class PageViewItem extends StatelessWidget {
         Container(height: 40),
         Container(
             width: MediaQuery.of(context).size.width * 0.9,
-            child: Image.asset(imageUrl)),
+            child: Image.network('http://izle.uz' + imageUrl)),
         Container(height: 40),
         Center(
             child: Text(

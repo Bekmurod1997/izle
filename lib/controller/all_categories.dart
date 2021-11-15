@@ -4,7 +4,7 @@ import 'package:izle/services/main_categories_servies.dart';
 
 class MainCategories extends GetxController {
   var isLoading = true.obs;
-  var categoriesList = <Data>[];
+  var categoriesList = <DataCategory>[];
   @override
   void onInit() {
     fetchMainCategries();

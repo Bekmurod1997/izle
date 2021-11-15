@@ -1,14 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
+
 import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
+import 'package:izle/controller/all_cities_controller.dart';
+import 'package:izle/controller/for_cat_controller.dart';
+import 'package:izle/controller/sub_category_controller.dart';
+import 'package:izle/models/city_model.dart';
+import 'package:izle/ui/category/widgets/black_sapce.dart';
 import 'package:izle/ui/category/widgets/product_item.dart';
+import 'package:izle/ui/home/home_screen.dart';
+
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
+import 'package:izle/models/categories/main_categories_model.dart';
+
+//type
+
+var TYPE1 = {
+  "id": 854,
+  "name_ru": "Кормление",
+  "name_uz": "Oziqlantirish",
+  "name_en": "Feeding",
+  "description_ru": "",
+  "description_uz": "",
+  "description_en": "",
+  "photo_id": null,
+  "photo": "/assets_files/no-image.jpg",
+  "main": 0,
+};
+
+class CategoryOption {
+  final int id;
+  final String name;
+  CategoryOption({required this.id, required this.name});
+}
 
 class ResultAds extends StatefulWidget {
-  final String catId;
-  ResultAds({required this.catId});
+  final int catId;
+  final String catName;
+  final String imgUrl;
+  ResultAds({required this.catId, required this.catName, required this.imgUrl});
 
   @override
   _ResultAdsState createState() => _ResultAdsState();
@@ -18,31 +51,51 @@ class _ResultAdsState extends State<ResultAds> {
   final AdvertismentSubCategoryController advertismentSubCategoryController =
       Get.find<AdvertismentSubCategoryController>();
   ScrollController _scrollController = ScrollController();
+  final SubCategoryController subCategoryController =
+      Get.find<SubCategoryController>();
+  final ForSubCategoryController forSubCategoryController =
+      Get.find<ForSubCategoryController>();
+  final AllCityController allCityController = Get.put(AllCityController());
+
+  bool cityPressed = false;
+  bool categoryPressed = false;
+  bool isFilter = false;
+  bool forCityFilter = false;
+  String dropdownvalue = 'Все';
+  String dropdownvalue2 = 'Hammasi';
+
+  List<DataCategory> subCatList = [];
+  List<DataCity> cityList = [];
+
+  List<String?> subCatStringList = [];
+  List<String?> cityStringList = [];
+
+  int currentIndex = 0;
+  String firstValue = '-1';
+  var dropDown = [
+    'AllCity',
+    'city',
+    'city2',
+    'city3',
+    'city4',
+  ];
   @override
   void initState() {
-    advertismentSubCategoryController.fetchAdsSubCat(catId: widget.catId);
+    setState(() {
+      currentIndex = widget.catId;
+    });
+    advertismentSubCategoryController.fetchAdsSubCat(
+        catId: widget.catId.toString());
+    subCategoryController.fetchSubCategries(widget.catId);
     print(widget.catId);
-    print('this is initstate in products');
-    print(advertismentSubCategoryController.adSubCatList);
-
-    print('///////////');
-    // print(advertismentSubCategoryController.adSubCatList[0].title);
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        // allAdsController.currentPage++;
-        // allAdsController.fetchAllAds();
-
-        if (advertismentSubCategoryController.currentPage <
-            advertismentSubCategoryController
-                .adSubCatList()
-                .mMeta!
-                .pageCount!) {
-          advertismentSubCategoryController.currentPage++;
-          advertismentSubCategoryController.adSubCatList();
-        } else {
-          print('nothing to scroll');
-        }
+        advertismentSubCategoryController.loadMore(
+            catId: widget.catId.toString());
+        print(
+          advertismentSubCategoryController.adsSubList.length,
+        );
       }
     });
     super.initState();
@@ -53,32 +106,280 @@ class _ResultAdsState extends State<ResultAds> {
     return Scaffold(
         backgroundColor: ColorPalate.mainPageColor,
         body: Obx(() {
-          if (advertismentSubCategoryController.isLoading.value) {
+          if (advertismentSubCategoryController.isLoading.value &&
+              !advertismentSubCategoryController.isLoadMore.value &&
+              subCategoryController.isLoading.value &&
+              allCityController.isLoading.value) {
             return Center(
               child: CircularProgressIndicator(
-                valueColor:
-                    AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
+                color: ColorPalate.mainColor,
               ),
             );
           } else {
+            subCatList = subCategoryController.subCategoryList;
+            subCatList = [
+              new DataCategory(
+                  id: forSubCategoryController.mainCatId.value, nameRu: "Все"),
+              ...subCatList
+            ];
+            subCatStringList = subCatList.map((e) => e.nameRu).toList();
+
+            cityStringList = cityList.map((e) => e.nameRu).toList();
             return ListView(
               controller: _scrollController,
               children: [
-                SizedBox(height: 30),
-                // Products(
-                //   catId: widget.catId,
+                // Container(
+                //   width: 50,
+                //   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                //   color: Colors.white,
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     children: [
+                //       Container(
+                //         width: MediaQuery.of(context).size.width * 0.75,
+                //         margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                //         decoration: BoxDecoration(
+                //             color: Colors.white,
+                //             borderRadius: BorderRadius.circular(10)),
+                //         child: TextField(
+                //           decoration: InputDecoration(
+                //             prefixIcon: IconButton(
+                //               onPressed: () {},
+                //               icon: Icon(Icons.search),
+                //             ),
+                //             border: InputBorder.none,
+                //             hintText: 'Что вы ищете?',
+                //           ),
+                //         ),
+                //       ),
+                //       RotatedBox(
+                //         quarterTurns: 1,
+                //         child: GestureDetector(
+                //           onTap: () {
+                //             setState(() {
+                //               isFilter = !isFilter;
+                //             });
+                //           },
+                //           child: Container(
+                //             width: MediaQuery.of(context).size.width * 0.1,
+                //             padding: const EdgeInsets.symmetric(
+                //                 vertical: 13, horizontal: 11),
+                //             decoration: BoxDecoration(
+                //               color: Colors.white,
+                //               borderRadius: BorderRadius.circular(10),
+                //             ),
+                //             child: SvgPicture.asset(
+                //               'assets/icons/f.svg',
+                //               color: ColorPalate.mainColor,
+                //               height: 22,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
                 // ),
+
+                //mana ochirdim
+
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(() => BlackSpaceSCreen());
+                        },
+                        child: Container(
+                          child: RotatedBox(
+                            quarterTurns: 1,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.1,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 13, horizontal: 11),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: SvgPicture.asset(
+                                'assets/icons/f.svg',
+                                color: ColorPalate.mainColor,
+                                height: 22,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                    Stack(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 20),
+                          color: Colors.white,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          width: 100,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              isExpanded: true,
+                              value: firstValue,
+                              // icon: Icon(Icons.keyboard_arrow_down),
+                              icon: Visibility(
+                                  visible: false,
+                                  child: Icon(Icons.arrow_downward)),
+                              items: [
+                                new DataCity(id: -1, nameRu: "Город"),
+                                ...allCityController.cityList
+                              ]
+                                  .map((e) => DropdownMenuItem(
+                                      value: e.id.toString(),
+                                      child: Text(
+                                        e.nameRu.toString(),
+                                        style: TextStyle(fontSize: 12),
+                                        overflow: TextOverflow.ellipsis,
+                                      )))
+                                  .toList(),
+                              onChanged: (String? value) {
+                                setState(() {
+                                  firstValue = value.toString();
+                                  firstValue == '-1'
+                                      ? advertismentSubCategoryController
+                                          .fetchAdsSubCat(
+                                              catId: forSubCategoryController
+                                                  .mainCatId.value
+                                                  .toString())
+                                      : advertismentSubCategoryController
+                                          .fetchAdsSubCatWithCityId(
+                                              catId: forSubCategoryController
+                                                  .mainCatId.value
+                                                  .toString(),
+                                              cityId: int.parse(firstValue));
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        if (firstValue != '-1')
+                          Positioned(
+                              right: 5,
+                              top: 0,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    firstValue = '-1';
+                                  });
+                                  advertismentSubCategoryController
+                                      .fetchAdsSubCat(
+                                          catId: widget.catId.toString());
+                                },
+                                child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    child: GestureDetector(
+                                      child: Icon(
+                                        Icons.cancel,
+                                      ),
+                                    )),
+                              ))
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Stack(
+                      children: [
+                        Container(
+                            width: 140,
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            color: Colors.white,
+                            child: Center(
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  isExpanded: true,
+                                  value: dropdownvalue,
+                                  // icon: Icon(Icons.keyboard_arrow_down),
+                                  icon: Visibility(
+                                      visible: false,
+                                      child: Icon(Icons.arrow_downward)),
+                                  items: subCatStringList
+                                      .map((e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Text(
+                                            e.toString(),
+                                            style: TextStyle(fontSize: 12),
+                                            overflow: TextOverflow.ellipsis,
+                                          )))
+                                      .toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      dropdownvalue = value.toString();
+                                    });
+                                    print(subCatList
+                                        .firstWhere((element) =>
+                                            element.nameRu == value)
+                                        .id);
+                                    dynamic iii = -1;
+                                    iii = subCatList
+                                        .firstWhere(
+                                            (element) =>
+                                                element.nameRu == value,
+                                            orElse: () => new DataCategory(
+                                                id: forSubCategoryController
+                                                    .mainCatId.value))
+                                        .id!;
+                                    print({iii});
+                                    if (iii ==
+                                        forSubCategoryController
+                                            .mainCatId.value) {
+                                      advertismentSubCategoryController
+                                          .fetchAdsSubCat(
+                                              catId: forSubCategoryController
+                                                  .mainCatId.value
+                                                  .toString());
+                                    } else {
+                                      advertismentSubCategoryController
+                                          .fetchAdsSubCat(
+                                              catId: iii.toString());
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            alignment: Alignment.center),
+                        if (dropdownvalue != 'Все' && categoryPressed == false)
+                          Positioned(
+                              right: 5,
+                              top: 0,
+                              child: Container(
+                                  width: 20,
+                                  height: 20,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        categoryPressed = true;
+                                      });
+                                      advertismentSubCategoryController
+                                          .fetchAdsSubCat(
+                                              catId: forSubCategoryController
+                                                  .mainCatId.value
+                                                  .toString());
+                                    },
+                                    child: Icon(
+                                      Icons.cancel,
+                                    ),
+                                  )))
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                   child: GridView.builder(
                     padding: EdgeInsets.zero,
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: advertismentSubCategoryController
-                            .adSubCatList()
-                            .data
-                            ?.length ??
-                        0,
+                    itemCount:
+                        advertismentSubCategoryController.adsSubList.length,
                     gridDelegate:
                         SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
                       crossAxisCount: 2,
@@ -90,36 +391,26 @@ class _ResultAdsState extends State<ResultAds> {
                       return GestureDetector(
                         onTap: () => Get.to(() => ProductDetailScreen(
                               proId: advertismentSubCategoryController
-                                  .adSubCatList()
-                                  .data![index]
-                                  .id,
+                                  .adsSubList[index].id,
                             )),
                         child: ProductItem(
                             cityName: advertismentSubCategoryController
-                                .adSubCatList()
-                                .data![index]
-                                .cityName,
+                                    .adsSubList[index].cityName ??
+                                '',
                             date: advertismentSubCategoryController
-                                .adSubCatList()
-                                .data![index]
-                                .date,
+                                    .adsSubList[index].date ??
+                                '',
                             imageUrl: advertismentSubCategoryController
-                                .adSubCatList()
-                                .data![index]
-                                .photo,
+                                    .adsSubList[index].photo ??
+                                '',
                             price: advertismentSubCategoryController
-                                .adSubCatList()
-                                .data![index]
-                                .price
+                                .adsSubList[index].price
                                 .toString(),
                             title: advertismentSubCategoryController
-                                .adSubCatList()
-                                .data![index]
-                                .title,
+                                    .adsSubList[index].title ??
+                                '',
                             id: advertismentSubCategoryController
-                                .adSubCatList()
-                                .data![index]
-                                .id!,
+                                .adsSubList[index].id!,
                             isFavorite: false),
                       );
                     },
@@ -129,75 +420,5 @@ class _ResultAdsState extends State<ResultAds> {
             );
           }
         }));
-  }
-}
-
-class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight
-    extends SliverGridDelegate {
-  /// Creates a delegate that makes grid layouts with a fixed number of tiles in
-  /// the cross axis.
-  ///
-  /// All of the arguments must not be null. The `mainAxisSpacing` and
-  /// `crossAxisSpacing` arguments must not be negative. The `crossAxisCount`
-  /// and `childAspectRatio` arguments must be greater than zero.
-  const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight({
-    // ignore: invalid_required_named_param
-    @required this.crossAxisCount = 2,
-    this.mainAxisSpacing = 0.0,
-    this.crossAxisSpacing = 0.0,
-    this.height = 56.0,
-    // ignore: unnecessary_null_comparison
-  })  : assert(crossAxisCount != null && crossAxisCount > 0),
-        // ignore: unnecessary_null_comparison
-        assert(mainAxisSpacing != null && mainAxisSpacing >= 0),
-        // ignore: unnecessary_null_comparison
-        assert(crossAxisSpacing != null && crossAxisSpacing >= 0),
-        // ignore: unnecessary_null_comparison
-        assert(height != null && height > 0);
-
-  /// The number of children in the cross axis.
-  final int crossAxisCount;
-
-  /// The number of logical pixels between each child along the main axis.
-  final double mainAxisSpacing;
-
-  /// The number of logical pixels between each child along the cross axis.
-  final double crossAxisSpacing;
-
-  /// The height of the crossAxis.
-  final double height;
-
-  bool _debugAssertIsValid() {
-    assert(crossAxisCount > 0);
-    assert(mainAxisSpacing >= 0.0);
-    assert(crossAxisSpacing >= 0.0);
-    assert(height > 0.0);
-    return true;
-  }
-
-  @override
-  SliverGridLayout getLayout(SliverConstraints constraints) {
-    assert(_debugAssertIsValid());
-    final double usableCrossAxisExtent =
-        constraints.crossAxisExtent - crossAxisSpacing * (crossAxisCount - 1);
-    final double childCrossAxisExtent = usableCrossAxisExtent / crossAxisCount;
-    final double childMainAxisExtent = height;
-    return SliverGridRegularTileLayout(
-      crossAxisCount: crossAxisCount,
-      mainAxisStride: childMainAxisExtent + mainAxisSpacing,
-      crossAxisStride: childCrossAxisExtent + crossAxisSpacing,
-      childMainAxisExtent: childMainAxisExtent,
-      childCrossAxisExtent: childCrossAxisExtent,
-      reverseCrossAxis: axisDirectionIsReversed(constraints.crossAxisDirection),
-    );
-  }
-
-  @override
-  bool shouldRelayout(
-      SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight oldDelegate) {
-    return oldDelegate.crossAxisCount != crossAxisCount ||
-        oldDelegate.mainAxisSpacing != mainAxisSpacing ||
-        oldDelegate.crossAxisSpacing != crossAxisSpacing ||
-        oldDelegate.height != height;
   }
 }

@@ -6,6 +6,7 @@ class MyPref {
 
   static String get token => prefs.read(SPKeys.token) ?? '';
   static String get userName => prefs.read(SPKeys.userName) ?? '';
+  static String get paymentLink => prefs.read(SPKeys.paymentLink) ?? '';
   static String get email => prefs.read(SPKeys.email);
   static String get code => prefs.read(SPKeys.code);
   static String get phoneNumber => prefs.read(SPKeys.phoneNumber) ?? '';
@@ -14,6 +15,8 @@ class MyPref {
 
   static set token(String value) => prefs.write(SPKeys.token, value);
   static set userName(String value) => prefs.write(SPKeys.userName, value);
+  static set paymentLink(String value) =>
+      prefs.write(SPKeys.paymentLink, value);
   static set email(String value) => prefs.write(SPKeys.email, value);
   static set code(String value) => prefs.write(SPKeys.code, value);
   static set userId(String value) => prefs.write(SPKeys.code, value);
@@ -27,6 +30,7 @@ class MyPref {
   static clearEmail() => prefs.remove(SPKeys.email);
   static clearCode() => prefs.remove(SPKeys.code);
   static clearUserName() => prefs.remove(SPKeys.userName);
+  static clearPaymentLink() => prefs.remove(SPKeys.paymentLink);
   static clearUserId() => prefs.remove(SPKeys.userId);
   static clearPhoneNumber() => prefs.remove(SPKeys.phoneNumber);
   static clearloginLanding() => prefs.remove(SPKeys.loginLanding);
@@ -39,5 +43,6 @@ class MyPref {
     prefs.remove(SPKeys.phoneNumber);
     prefs.remove(SPKeys.userId);
     prefs.remove(SPKeys.loginLanding);
+    prefs.remove(SPKeys.paymentLink);
   }
 }

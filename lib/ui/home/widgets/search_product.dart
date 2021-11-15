@@ -8,6 +8,7 @@ import 'package:izle/ui/product_detail/product_detail_screen.dart';
 
 class SearchProduct extends StatefulWidget {
   final String searchTitle;
+
   SearchProduct({required this.searchTitle});
 
   @override
@@ -18,27 +19,38 @@ class _SearchProductState extends State<SearchProduct> {
   // final AllAdsController allAdsController = Get.find<AllAdsController>();
   // final FavoriteController favoriteController = Get.find<FavoriteController>();
   final SearchController sController = Get.find<SearchController>();
-  var currentPage = 1;
+  ScrollController _scrollController = ScrollController();
+
+  // var currentPage = 1;
   // List<AdvertisementListModel> addds = [];
+
   @override
   void initState() {
-    print('this is search product init');
-    print('---------');
-    print(sController.searchTitle.value);
-    print('---------');
-    // sController.fetchSearch(widget.searchTitle);
+    sController.fetchSearch(widget.searchTitle);
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        sController.loadMore(search: widget.searchTitle);
+        print('scrolling');
+      }
+    });
 
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      sController.fetchSearch(widget.searchTitle);
-    });
   }
 
   // @override
-  // void didChangeDependencies() {
-  //   print('calling didchangeDepande');
-  //   sController.fetchSearch(widget.searchTitle);
-  //   super.didChangeDependencies();
+  // void initState() {
+  //   print('this is search product init');
+  //   print('---------');
+  //   print(sController.searchTitle.value);
+  //   print('---------');
+  //   // sController.fetchSearch(widget.searchTitle);
+
+  //   super.initState();
+  //   WidgetsBinding.instance!.addPostFrameCallback((_) {
+  //     sController.fetchSearch(widget.searchTitle);
+  //   });
   // }
 
   @override
@@ -46,14 +58,16 @@ class _SearchProductState extends State<SearchProduct> {
     // var mmm = allAdsController.allAdsList().data.;
 
     return Obx(() {
-      if (sController.isLoading.value) {
+      if (sController.isLoading.value && !sController.isLoadMore.value) {
         return Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(ColorPalate.mainColor),
           ),
         );
       } else {
-        return sController.allSearchList().mMeta?.totalCount == null
+        print(widget.searchTitle);
+
+        return sController.searchList.length == 0
             ? Center(
                 child: Column(
                   children: [
@@ -72,6 +86,7 @@ class _SearchProductState extends State<SearchProduct> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       'Мы нашли ${sController.allSearchList().mMeta?.totalCount} объявлений',
+                      // 'Мы нашли ${sController.allSearchList().mMeta?.totalCount} объявлений',
                       style: TextStyle(
                         fontSize: 18,
                       ),
@@ -84,7 +99,7 @@ class _SearchProductState extends State<SearchProduct> {
                       padding: EdgeInsets.zero,
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: sController.allSearchList().data?.length ?? 0,
+                      itemCount: sController.searchList.length,
                       gridDelegate:
                           SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
                         crossAxisCount: 2,
@@ -95,28 +110,16 @@ class _SearchProductState extends State<SearchProduct> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () => Get.to(() => ProductDetailScreen(
-                              proId: sController
-                                  .allSearchList()
-                                  .data![index]
-                                  .id!)),
+                              proId: sController.searchList[index].id!)),
                           child: RecommandationItem(
                             isFavorite: false,
-                            title:
-                                sController.allSearchList().data![index].title!,
-                            id: sController.allSearchList().data![index].id!,
-                            city: sController
-                                .allSearchList()
-                                .data![index]
-                                .cityName!,
-                            price: sController
-                                .allSearchList()
-                                .data![index]
-                                .price
-                                .toString(),
-                            date:
-                                sController.allSearchList().data![index].date!,
-                            imageUrl:
-                                sController.allSearchList().data![index].photo!,
+                            title: sController.searchList[index].title!,
+                            id: sController.searchList[index].id!,
+                            city: sController.searchList[index].cityName!,
+                            price:
+                                sController.searchList[index].price.toString(),
+                            date: sController.searchList[index].date!,
+                            imageUrl: sController.searchList[index].photo!,
                           ),
                         );
                       },

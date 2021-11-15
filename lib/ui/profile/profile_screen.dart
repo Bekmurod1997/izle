@@ -7,10 +7,19 @@ import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
 
 import 'package:marquee/marquee.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
   final PageNavigationController pageNavigationController =
       Get.find<PageNavigationController>();
+  _launchURLApp() async {
+    String url = 'https://izle.uz/';
+    if (await canLaunch(url)) {
+      await launch(url, forceSafariVC: true, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,23 +102,53 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(height: 30),
               CustomListTile(
                 title: 'Настройки',
-                onpress: () => print('pressed button'),
+                onpress: () => showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                          content: Stack(
+                            overflow: Overflow.visible,
+                            children: [
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                                Image.asset(
+                                  'assets/images/izle.png',
+                                  width: 130,
+                                  height: 100,
+                                ),
+                                Text(
+                                    'Пожалуйста, сначала авторизуйтесь, чтобы использовать эту функцию'),
+                              ]),
+                              Positioned(
+                                top: -10,
+                                right: -10,
+                                child: GestureDetector(
+                                  onTap: () => Get.back(),
+                                  child: Icon(
+                                    Icons.cancel_sharp,
+                                    color: ColorPalate.mainColor,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+
+                          // content: Text('This is my content'),
+                        )),
               ),
-              CustomListTile(
-                title: 'Выбрать',
-                onpress: () => print('pressed button'),
-              ),
+              // CustomListTile(
+              //   title: 'Выбрать',
+              //   onpress: () =>
+              // ),
               CustomListTile(
                 title: 'Условия использования',
-                onpress: () => print('pressed button'),
+                onpress: _launchURLApp,
               ),
               CustomListTile(
                 title: 'Политика конфиденциальности',
-                onpress: () => print('pressed button'),
+                onpress: _launchURLApp,
               ),
               CustomListTile(
                 title: 'О приложении',
-                onpress: () => print('pressed button'),
+                onpress: _launchURLApp,
               ),
             ],
           ),

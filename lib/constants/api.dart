@@ -14,6 +14,13 @@ abstract class ApiUrl {
   static const recoverPassword = '${apiUrl}user/recover-password';
   static const recoverCode = '${apiUrl}user/accept-recover-code';
 
+  //Payment
+
+  static const listOfPrice = '${apiUrl}payment/';
+  static const payPost = '${apiUrl}payment/send';
+  static const listOfTarifes = '${apiUrl}payment/tariff';
+  static const buyTarif = '${apiUrl}payment/tariff-buy';
+
   //List of category
   static const allCategories = '${apiUrl}category';
   static const mainCategories = '${apiUrl}category?type=main';
@@ -32,6 +39,7 @@ abstract class ApiUrl {
   //Adds
 
   static const listOfAds = '${apiUrl}ads?category_id=';
+  static const subCategory = '${apiUrl}ads/index?category_id=';
   static const listOfAllAds = '${apiUrl}ads?page=';
   static const createAds = '${apiUrl}ads/create';
   static const editAds = '${apiUrl}ads/create?id=';
@@ -40,6 +48,7 @@ abstract class ApiUrl {
   static const adsByUser = '${apiUrl}ads?user_id=4';
   static const search = '${apiUrl}ads/index?search=';
   static const myAds = '${apiUrl}ads/mine';
+  static const adsView = '${apiUrl}advertisment';
   static const allFav = '${apiUrl}ads/favorites';
   static const addAndDeleteFavorite = '${apiUrl}ads/add-favorite?id=';
   static const favorites = '${apiUrl}ads/favorites?id=';

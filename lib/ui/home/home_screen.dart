@@ -22,10 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    // Firebase.initializeApp();
     adsController.fetchAllAds();
-
+    // configureFCM();
     print('my token');
     print(MyPref.token);
+    print('home init state');
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -36,10 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     super.initState();
   }
-
-  // _getMoreData() {
-  //   print('end');
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Search(),
             Container(
-              // color: Colors.red,
               padding: EdgeInsets.only(left: 15, top: 5, bottom: 10),
               child: Text(
                 'Рекомендованное вам',
@@ -71,8 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 5, 20),
               child: GridView.builder(
-                // reverse: true,
-                // controller: _scrollController,
                 padding: EdgeInsets.zero,
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -82,17 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 15,
-                  // height: MediaQuery.of(context).size.height * 0.4,
-                  height: MediaQuery.of(context).size.height * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.32,
                 ),
                 itemBuilder: (context, index) {
-                  // if (index + 1 == adsController.adsList.length &&
-                  //       adsController.isLoadMore.value) {
-                  //     return Container(
-                  //       height: 60.0,
-                  //       child: CircularProgressIndicator(),
-                  //     );
-                  //   }
                   return GestureDetector(
                     onTap: () => Get.to(() => ProductDetailScreen(
                         proId: adsController.adsList[index].id)),
@@ -113,125 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       }
     });
-
-    //     ListView(
-    //   padding: EdgeInsets.zero,
-    //   controller: _scrollController,
-    //   children: [
-    //     Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       mainAxisSize: MainAxisSize.min,
-    //       children: [
-    //         SizedBox(height: 20),
-    //         Search(),
-    //         // Obx(() {
-    //         //   if (adsController.isLoading.value) {
-    //         //     return Container();
-    //         //   } else {
-    //         //     return Search();
-    //         //   }
-    //         // }),
-    //         // Obx(() {
-    //         //   if (adsController.isLoading.value) {
-    //         //     return Container();
-    //         //   } else {
-    //         //     return Container(
-    //         //       // color: Colors.red,
-    //         //       padding: EdgeInsets.only(left: 15, top: 5, bottom: 10),
-    //         //       child: Text(
-    //         //         'Рекомендованное вам',
-    //         //         style: FontStyles.boldStyle(
-    //         //           fontSize: 18,
-    //         //           fontFamily: 'Lato',
-    //         //           color: Colors.black,
-    //         //         ),
-    //         //       ),
-    //         //     );
-    //         //   }
-    //         // }),
-    //         Container(
-    //           // color: Colors.red,
-    //           padding: EdgeInsets.only(left: 15, top: 5, bottom: 10),
-    //           child: Text(
-    //             'Рекомендованное вам',
-    //             style: FontStyles.boldStyle(
-    //               fontSize: 18,
-    //               fontFamily: 'Lato',
-    //               color: Colors.black,
-    //             ),
-    //           ),
-    //         ),
-
-    //         // Categories(),
-
-    //         SizedBox(height: 10),
-    //       ],
-    //     ),
-    //     Recommendation(
-    //       scrollController: _scrollController,
-    //     ),
-    //     // Container(height: 20),
-    //   ],
-    // );
-
-    // SingleChildScrollView(
-    //   // physics: ScrollPhysics(),
-    //   child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     mainAxisSize: MainAxisSize.min,
-    //     children: [
-    //       SizedBox(height: 20),
-    //       Obx(() {
-    //         if (adsController.isLoading.value) {
-    //           return Container();
-    //         } else {
-    //           return Search();
-    //         }
-    //       }),
-    //       Obx(() {
-    //         if (adsController.isLoading.value) {
-    //           return Container();
-    //         } else {
-    //           return Container(
-    //             // color: Colors.red,
-    //             padding: EdgeInsets.only(left: 15, top: 5, bottom: 0),
-    //             child: Text(
-    //               'Рекомендованное вам',
-    //               style: FontStyles.regularStyle(
-    //                 fontSize: 18,
-    //                 fontFamily: 'Lato',
-    //                 color: Colors.black,
-    //               ),
-    //             ),
-    //           );
-    //         }
-    //       }),
-    //       // Categories(),
-
-    //       SizedBox(height: 10),
-    //       Flexible(
-    //         fit: FlexFit.loose,
-    //         child: GestureDetector(
-    //           // onTap: () => Get.to(() => ProductDetailScreen()),
-    //           child: Recommendation(),
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }
 
 class SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight
     extends SliverGridDelegate {
-  /// Creates a delegate that makes grid layouts with a fixed number of tiles in
-  /// the cross axis.
-  ///
-  /// All of the arguments must not be null. The `mainAxisSpacing` and
-  /// `crossAxisSpacing` arguments must not be negative. The `crossAxisCount`
-  /// and `childAspectRatio` arguments must be greater than zero.
   const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight({
-    // ignore: invalid_required_named_param
     @required this.crossAxisCount = 2,
     this.mainAxisSpacing = 0.0,
     this.crossAxisSpacing = 0.0,

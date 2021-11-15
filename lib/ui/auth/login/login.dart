@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/user_info.dart';
+import 'package:izle/mask/mask_format.dart';
 import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/auth/login/widgets/recovery_password.dart';
 
@@ -16,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
+  String errorMessage = '';
   void _toggle() {
     setState(() {
       _obscureText = !_obscureText;
@@ -57,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: TextFormField(
                   keyboardType: TextInputType.phone,
+                  inputFormatters: [InputMask.maskPhoneNumber],
                   controller: phoneNumber,
                   decoration: InputDecoration(
                       border: InputBorder.none, hintText: '998'),
@@ -125,35 +128,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             GestureDetector(
               onTap: () {
-                // var phone = phoneNumber.text;
-                // Get.dialog(
-                //   Scaffold(
-                //     backgroundColor: Colors.black.withOpacity(.1),
-                //     body: Center(
-                //       child: Container(
-                //         margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                //         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                //         color: Colors.white,
-                //         width: double.infinity,
-                //         height: 100.0,
-                //         child: Row(
-                //           children: [
-                //             CircularProgressIndicator(
-                //               valueColor: AlwaysStoppedAnimation<Color>(
-                //                   ColorPalate.mainColor),
-                //             ),
-                //             SizedBox(
-                //               width: 30,
-                //             ),
-                //             Text('Подождите пожалуйста'),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // );
+                // print(phoneNumber.text);
+                // print(phoneNumber.text.length);
 
-                AllServices.login(phoneNumber.text, password.text);
+                // print(phoneNumber.text.replaceAll(' ', ''));
+                AllServices.login(
+                    phoneNumber.text.replaceAll(' ', ''), password.text);
                 // userInfoController.fetchUserInfo(userToken: MyPref.token);
               },
               // Get.to(

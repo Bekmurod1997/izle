@@ -4,7 +4,7 @@ import 'package:izle/services/sub_category.dart';
 
 class SubCategoryController extends GetxController {
   var isLoading = true.obs;
-  var subCategoryList = <Data>[];
+  var subCategoryList = <DataCategory>[];
   @override
   void onInit() {
     // fetchSubCategries(id);

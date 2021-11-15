@@ -7,8 +7,13 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/product_detail_controller.dart';
 import 'package:izle/ui/product_detail/map.dart';
+import 'package:izle/ui/product_detail/widgets/address.dart';
+import 'package:izle/ui/product_detail/widgets/app_bar.dart';
+import 'package:izle/ui/product_detail/widgets/date.dart';
 import 'package:izle/ui/product_detail/widgets/gallery_example_item.dart';
 import 'package:izle/ui/product_detail/widgets/gallr.dart';
+import 'package:izle/ui/product_detail/widgets/price.dart';
+import 'package:izle/ui/product_detail/widgets/title.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -35,14 +40,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       Get.find<ProductDetailController>();
   final PageController _pageController = PageController(initialPage: 0);
 
-  // @override
-  // void initState() {
-  //   productDetailController.fetchProductDetail(widget.proId!);
-  //   print(productDetailController.productDetailList);
-  //   print('id');
-  //   print(widget.proId);
-  //   super.initState();
-  // }
   @override
   void initState() {
     productDetailController.fetchProductDetail(widget.proId!);
@@ -53,14 +50,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     super.initState();
   }
 
-  // @override
-  // void didChangeDependencies() async {
-  //   await productDetailController.fetchProductDetail(widget.proId!);
-  //   print(productDetailController.productDetailList!.data.title);
-  //   print('id');
-  //   print(widget.proId);
-  //   super.didChangeDependencies();
-  // }
   int currentPage = 0;
   bool verticalGallery = false;
   var allImages = [];
@@ -69,26 +58,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          child: AppBar(
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            leading: IconButton(
-              icon: RotatedBox(
-                quarterTurns: 2,
-                child: SvgPicture.asset(
-                  'assets/icons/next-icon.svg',
-                  height: 20,
-                ),
-              ),
-              onPressed: () => Get.back(),
-            ),
-            actions: [
-              MoreVertical(),
-            ],
-          ),
-          preferredSize: Size.fromHeight(40)),
+      appBar: detailAppBar(),
       body: Obx(() {
         if (productDetailController.isLoading.value) {
           return Center(
@@ -97,18 +67,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           );
         } else {
-          // var allImages = new List<String?>.from(
-          //     productDetailController.productDetailList?.data.gallery)
-          //   ..add(productDetailController.productDetailList?.data.photo);
           allImages = [
             productDetailController.productDetailList?.data.photo,
             ...productDetailController.productDetailList?.data.gallery ?? []
           ];
-
-          print('leee');
-          print(allImages.length);
-          // print(productDetailController
-          //     .productDetailList.first.similar?.first.cityName);
           return Stack(
             children: [
               ListView(
@@ -126,9 +88,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           HeroPhotoViewRouteWrapper(
-                                        imageProvider: NetworkImage(
-                                          'http://izle.uz/' + e.toString(),
-                                        ),
+                                        imageProviders: allImages
+                                            .map((e) => NetworkImage(
+                                                'http://izle.uz/' +
+                                                    e.toString()))
+                                            .toList(),
                                       ),
                                     ),
                                   );
@@ -196,38 +160,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${productDetailController.productDetailList?.data.title}',
-                          style: FontStyles.regularStyle(
-                            fontSize: 24,
-                            fontFamily: 'Lato',
-                          ),
-                        ),
+                        title(
+                            title:
+                                '${productDetailController.productDetailList?.data.title}'),
                         SizedBox(height: 10),
-                        Text(
-                          '${productDetailController.productDetailList?.data.price} сум',
-                          style: FontStyles.blackStyle(
-                              fontSize: 24, fontFamily: 'Lato', letterSpace: 2),
-                        ),
+                        price(
+                            price:
+                                '${productDetailController.productDetailList?.data.price}'),
+                        SizedBox(height: 14),
+                        date(
+                            date:
+                                '${productDetailController.productDetailList?.data.date}'),
                         SizedBox(height: 4),
-                        SizedBox(height: 10),
-                        Text(
-                          '${productDetailController.productDetailList?.data.date}',
-                          style: FontStyles.regularStyle(
-                            fontSize: 12,
-                            fontFamily: 'Lato',
-                            color: Color(0xff7F807F),
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          '${productDetailController.productDetailList?.data.address}',
-                          style: FontStyles.regularStyle(
-                            fontSize: 18,
-                            fontFamily: 'Lato',
-                            color: Color(0xff7F807F),
-                          ),
-                        ),
+                        address(
+                            address:
+                                '${productDetailController.productDetailList?.data.address}'),
                         SizedBox(height: 10),
                         GestureDetector(
                           onTap: () => Get.to(() => MyMaps(
@@ -250,7 +197,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ],
                     ),
                   ),
-
                   SizedBox(height: 5),
                   Divider(),
                   SizedBox(height: 7),
@@ -262,7 +208,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     proDesc:
                         '${productDetailController.productDetailList?.data.description}',
                   ),
-                  SizedBox(height: 0),
+
                   Center(
                     child: GestureDetector(
                       onTap: () => Get.to(
@@ -278,9 +224,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                   ),
-
-                  // Divider(),
-
                   UserInfo(
                     userName:
                         '${productDetailController.productDetailList?.data.user.name}',
@@ -294,17 +237,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         '${productDetailController.productDetailList!.data.user.phone}',
                   ),
                   SizedBox(height: 20),
-                  // Text(
-                  //     productDetailController.productDetailList?.similar),
-                  // Divider(),
-                  // SizedBox(height: 20),
-                  // MyMaps(),
                   SimilarAdds(
                     myList: productDetailController.productDetailList?.similar,
                   ),
                   SizedBox(height: 10),
-
-                  // CallChatButtons(),
                 ],
               ),
               Positioned(
@@ -352,31 +288,69 @@ void open(BuildContext context, final int index) {
 
 class HeroPhotoViewRouteWrapper extends StatelessWidget {
   const HeroPhotoViewRouteWrapper({
-    required this.imageProvider,
+    required this.imageProviders,
     this.backgroundDecoration,
     this.minScale,
     this.maxScale,
   });
 
-  final ImageProvider imageProvider;
+  final List<ImageProvider> imageProviders;
   final BoxDecoration? backgroundDecoration;
   final dynamic minScale;
   final dynamic maxScale;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints.expand(
-        height: MediaQuery.of(context).size.height,
-      ),
-      child: PhotoView(
-        imageProvider: imageProvider,
-        backgroundDecoration: backgroundDecoration,
-        minScale: minScale,
-        maxScale: maxScale,
-        heroAttributes: const PhotoViewHeroAttributes(tag: "someTag"),
+    return Scaffold(
+      body: Stack(
+        children: [
+          PhotoViewGallery.builder(
+            scrollPhysics: const BouncingScrollPhysics(),
+            builder: (BuildContext context, int index) {
+              return PhotoViewGalleryPageOptions(
+                imageProvider: imageProviders[index],
+                initialScale: PhotoViewComputedScale.contained * 0.8,
+                minScale: PhotoViewComputedScale.contained * 0.8,
+                maxScale: PhotoViewComputedScale.covered * 1.1,
+              );
+            },
+            itemCount: imageProviders.length,
+            loadingBuilder: (context, progress) => Center(
+              child: Container(
+                width: 20.0,
+                height: 20.0,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 40,
+            left: 20,
+            child: IconButton(
+                onPressed: () => Get.back(),
+                icon: RotatedBox(
+                  quarterTurns: 2,
+                  child: SvgPicture.asset(
+                    'assets/icons/next-icon.svg',
+                    color: Colors.white,
+                    height: 20,
+                  ),
+                )),
+          )
+        ],
       ),
     );
+    //  Container(
+    //   constraints: BoxConstraints.expand(
+    //     height: MediaQuery.of(context).size.height,
+    //   ),
+    //   child: PhotoView(
+    //     imageProvider: imageProvider,
+    //     backgroundDecoration: backgroundDecoration,
+    //     minScale: minScale,
+    //     maxScale: maxScale,
+    //     heroAttributes: const PhotoViewHeroAttributes(tag: "someTag"),
+    //   ),
+    // );
   }
 }
 

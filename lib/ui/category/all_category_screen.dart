@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
 import 'package:izle/controller/all_categories.dart';
+import 'package:izle/controller/for_cat_controller.dart';
 import 'package:izle/controller/sub_category_controller.dart';
+import 'package:izle/ui/category/result_ads.dart';
 import 'package:izle/ui/category/sub_categories.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,8 @@ class AllCategoryScreen extends StatefulWidget {
 }
 
 class _AllCategoryScreenState extends State<AllCategoryScreen> {
+  final ForSubCategoryController forSubCategoryController =
+      Get.put(ForSubCategoryController());
   final AdvertismentSubCategoryController advertismentSubCategoryController =
       Get.find<AdvertismentSubCategoryController>();
 
@@ -54,11 +58,21 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
             itemCount: mainCategories.categoriesList.length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () => Get.to(() => SubCategories(
-                      id: mainCategories.categoriesList[index].id!,
-                      catName: mainCategories.categoriesList[index].nameRu!,
-                      imgUrl: mainCategories.categoriesList[index].photo!,
-                    )),
+                onTap: () {
+                  forSubCategoryController
+                      .mainCatId(mainCategories.categoriesList[index].id);
+                  Get.to(() => ResultAds(
+                        catId: mainCategories.categoriesList[index].id!,
+                        catName: mainCategories.categoriesList[index].nameRu
+                            .toString(),
+                        imgUrl: mainCategories.categoriesList[index].photo!,
+                      ));
+                },
+                // onTap: () => Get.to(() => SubCategories(
+                //       id: mainCategories.categoriesList[index].id!,
+                //       catName: mainCategories.categoriesList[index].nameRu!,
+                //       imgUrl: mainCategories.categoriesList[index].photo!,
+                //     )),
                 child: Card(
                   color: ColorPalate.addsBackgroundColor,
                   child: ListTile(

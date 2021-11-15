@@ -34,7 +34,7 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorPalate.mainPageColor,
       // appBar: PreferredSize(
       //   preferredSize: Size.fromHeight(30.0), // here the desired height
       //   child: AppBar(
@@ -235,7 +235,7 @@ class _MessageScreenState extends State<MessageScreen> {
                 ),
                 Container(
                   padding: const EdgeInsets.only(left: 15, right: 15),
-                  height: 30,
+                  height: 50,
                   color: Colors.white,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -403,7 +403,7 @@ class _MessageScreenState extends State<MessageScreen> {
 
                 SizedBox(height: 5),
                 RefreshIndicator(
-                  color: Colors.red,
+                  // color: Colors.red,
                   onRefresh: () => allChatController.fetchAllChat(),
                   child: allChatController.chatList.length == 0
                       ? Container(

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/mask/mask_format.dart';
 import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/auth/login/widgets/confirm_to_recovery.dart';
 
@@ -75,6 +76,7 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
               child: Padding(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: TextFormField(
+                  inputFormatters: [InputMask.maskPhoneNumber],
                   keyboardType: TextInputType.phone,
                   controller: phoneNumber,
                   decoration: InputDecoration(
@@ -84,7 +86,8 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
             ),
             GestureDetector(
               onTap: () async {
-                await AllServices.recoveryPassword(phoneNumber.text);
+                await AllServices.recoveryPassword(
+                    phoneNumber.text.replaceAll(' ', ''));
                 Get.to(() => ConfirmToRecovery(phoneNumber: phoneNumber.text));
               },
               // Get.to(

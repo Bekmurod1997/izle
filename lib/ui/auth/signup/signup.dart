@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/mask/mask_format.dart';
 import 'package:izle/services/signup.dart';
 import 'package:izle/utils/my_prefs.dart';
 
@@ -59,6 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Container(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: TextFormField(
+                  inputFormatters: [InputMask.maskPhoneNumber],
                   keyboardType: TextInputType.number,
                   controller: phoneController,
                   decoration: InputDecoration(
@@ -137,7 +139,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             GestureDetector(
               onTap: () {
-                print('aaaa');
                 MyPref.phoneNumber = phoneController.text;
                 print(MyPref.phoneNumber);
                 // Get.dialog(
@@ -170,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 // );
 
                 SignUp.signUpUser(
-                  phone: phoneController.text,
+                  phone: phoneController.text.replaceAll(' ', ''),
                   password: passwordController.text,
                 );
                 // print(MyPref.token);

@@ -9,6 +9,7 @@ import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/ui/profile/widgets/creating_add.dart/preview.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/appbar.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/category_choice.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/description.dart';
@@ -19,6 +20,7 @@ import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/user_info.dart
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:izle/utils/my_prefs.dart';
+import 'package:intl/intl.dart';
 
 class CreatingAddScreen extends StatefulWidget {
   @override
@@ -37,7 +39,9 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
 
   var _image;
   var imagePicker;
-  List<String> imageUrl = [];
+  List<XFile> imageUrlObject = [];
+  List<String> imageUrlList = [];
+
   @override
   void initState() {
     // imagePicker = new ImagePicker();
@@ -62,9 +66,18 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
 
     print("Image list lengt" + selectImages.length.toString());
     for (var i = 0; i < selectImages.length; i++) {
-      imageUrl.add(selectImages[i].path);
+      imageUrlObject.add(selectImages[i]);
+      print('imaaaaaaa');
+      print(selectImages[i]);
     }
-    creatingAddInfoController.imagesChanger(imageUrl);
+    // imageUrlObject=await Future.wait( imageUrlObject.map((e) async=> {
+    // var bytes= await File(e.path).readAsBytes();
+    // e.bytes=bytes
+    // return e
+    // }
+    // )).asStream().toList();
+    imageUrlList = imageUrlObject.map((e) => e.path).toList();
+    creatingAddInfoController.imagesChanger(imageUrlList);
     setState(() {});
   }
 
@@ -79,40 +92,23 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         child: SingleChildScrollView(child: g.Obx(() {
+          if (userInfoController.isLoading.value) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: ColorPalate.mainColor,
+              ),
+            );
+          }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 30),
               CreatAppBar(),
-
-              // ElevatedButton(
-              //   child: Text("Pick images"),
-              //   onPressed: () {
-              //     selectImages();
-              //   },
-              // ),
-
-              // Container(
-              //   height: 100,
-              //   width: double.infinity,
-              //   child: ListView.separated(
-              //       scrollDirection: Axis.horizontal,
-              //       itemBuilder: (context, index) {
-              //         return Image.file(
-              //           File(imageUrl[index]),
-              //         );
-              //       },
-              //       separatorBuilder: (context, index) => SizedBox(width: 30),
-              //       itemCount: imageUrl.length),
-              // ),
-
-              // if (_imageFileList!.isEmpty)
-
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    imageUrl.length > 0
+                    imageUrlList.length > 0
                         ? Container(
                             height: 100,
                             width: double.infinity,
@@ -121,7 +117,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                 itemBuilder: (context, index) {
                                   return Image.file(
                                     File(
-                                      imageUrl[index],
+                                      imageUrlList[index],
                                     ),
                                     width: 50,
                                     // fit: BoxFit.cover,
@@ -129,7 +125,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                 },
                                 separatorBuilder: (context, index) =>
                                     SizedBox(width: 10),
-                                itemCount: imageUrl.length),
+                                itemCount: imageUrlList.length),
                           )
                         : Container(
                             child: GestureDetector(
@@ -258,14 +254,38 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     // if (userInfoController.fetchUserInfoList.first.name != null)
                     UserInfo(
                         title: 'Электронная почта*',
-                        userInfo: 'azizakbarov@gmail.com'),
+                        userInfo: userInfoController
+                            .fetchUserInfoList.first.email
+                            .toString()),
                     UserInfo(title: 'Телефон', userInfo: MyPref.phoneNumber
                         // userInfoController.fetchUserInfoList.first.phone
                         //     .toString(),
                         ),
                     SizedBox(height: 30),
                     GestureDetector(
-                      onTap: () => g.Get.back(),
+                      onTap: () => Get.to(() => PreviewScreen(
+                            imageList: imageUrlObject,
+                            lat: creatingAddInfoController.lat.value.toString(),
+                            lng:
+                                creatingAddInfoController.long.value.toString(),
+                            userName: userInfoController
+                                .fetchUserInfoList.first.name
+                                .toString(),
+                            datee: DateFormat.yMMMMEEEEd()
+                                .format(DateTime.now())
+                                .toString(),
+                            titlee: creatingAddInfoController.title.value,
+                            addresss:
+                                creatingAddInfoController.locationInfo.value,
+                            categoryy:
+                                creatingAddInfoController.mainCategory.value +
+                                    '/' +
+                                    creatingAddInfoController.subCategory.value,
+                            descriptionn:
+                                creatingAddInfoController.description.value,
+                            pricee: creatingAddInfoController.price.value
+                                .toString(),
+                          )),
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(vertical: 14),

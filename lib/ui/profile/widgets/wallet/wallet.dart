@@ -7,6 +7,9 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/profile/widgets/wallet/fill_up_wallet.dart';
 
 class WalletScreen extends StatelessWidget {
+  final int balance;
+
+  WalletScreen({required this.balance});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +50,8 @@ class WalletScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '25 500 UZS:',
+                        balance.toString(),
+                        // '25 500 UZS:',
                         style: FontStyles.mediumStyle(
                           fontSize: 24,
                           fontFamily: 'Lato',
