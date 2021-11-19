@@ -5,7 +5,6 @@ import 'package:izle/controller/all_categories.dart';
 import 'package:izle/controller/for_cat_controller.dart';
 import 'package:izle/controller/sub_category_controller.dart';
 import 'package:izle/ui/category/result_ads.dart';
-import 'package:izle/ui/category/sub_categories.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';

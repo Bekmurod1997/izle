@@ -3,7 +3,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
 import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/all_categories.dart';
-import 'package:izle/controller/all_cities_controller.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/favorities_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
