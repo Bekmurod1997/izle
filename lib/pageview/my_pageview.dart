@@ -51,29 +51,29 @@ class _MyPageViewState extends State<MyPageView> {
                           currentPage = page;
                         });
                       },
-                      children: _adsViewController.adsViewList
-                          .map(
-                            (e) => PageViewItem(
-                              imageUrl: e.photo!,
-                              titile: e.name.toString(),
-                              // titile: 'Мгновенная связь с поставщиком',
-                            ),
-                          )
-                          .toList(),
-                      // children: [
-                      //   PageViewItem(
-                      //     imageUrl: 'assets/images/4.jpg',
-                      //     titile: 'Мгновенная связь с поставщиком',
-                      //   ),
-                      //   PageViewItem(
-                      //     imageUrl: 'assets/images/2.png',
-                      //     titile: 'Поиск продукции в онлайн режиме',
-                      //   ),
-                      //   PageViewItem(
-                      //     imageUrl: 'assets/images/3.png',
-                      //     titile: 'Платформа бесплатных объявлений',
-                      //   ),
-                      // ],
+                      // children: _adsViewController.adsViewList
+                      //     .map(
+                      //       (e) => PageViewItem(
+                      //         imageUrl: e.photo!,
+                      //         titile: e.name.toString(),
+                      //         // titile: 'Мгновенная связь с поставщиком',
+                      //       ),
+                      //     )
+                      //     .toList(),
+                      children: [
+                        PageViewItem(
+                          imageUrl: 'assets/images/4.jpg',
+                          titile: 'Мгновенная связь с поставщиком',
+                        ),
+                        PageViewItem(
+                          imageUrl: 'assets/images/2.png',
+                          titile: 'Поиск продукции в онлайн режиме',
+                        ),
+                        PageViewItem(
+                          imageUrl: 'assets/images/3.png',
+                          titile: 'Платформа бесплатных объявлений',
+                        ),
+                      ],
                     ),
                   ),
                   Expanded(

@@ -27,7 +27,7 @@ import 'package:izle/models/user_info_model.dart';
 import 'package:izle/ui/nav.dart';
 import 'package:izle/utils/my_prefs.dart';
 import 'package:get/get.dart' as g;
-
+import 'package:izle/models/all_regions_model.dart';
 class AllServices {
   static PageNavigationController pageNavigationController =
       g.Get.find<PageNavigationController>();
@@ -51,7 +51,21 @@ class AllServices {
       print(e);
     }
   }
-
+static Future allRegions() async{
+    print('url link');
+    print(ApiUrl.allCities);
+    try{
+      var response = await client.get(Uri.parse(ApiUrl.allCities));
+      if(response.statusCode ==200){
+        var body = AllRegionsModel.fromJson(json.decode(response.body));
+        print(response.body);
+        return body;
+      }
+    }catch (e) {
+      print('error in allRegions services');
+      print(e);
+    }
+}
   static Future singleMessage({int? messageId}) async {
     print('url link');
     print(ApiUrl.chatId + '$messageId');
