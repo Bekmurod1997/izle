@@ -12,8 +12,8 @@ class SubCategoryService {
           await client.get(Uri.parse('http://izle.uz/api/category/sub?id=$id'));
       if (response.statusCode == 200) {
         var body = MainCategoriesModel.fromJson(json.decode(response.body));
-        print(response.body);
-        print('subCategory service');
+        // print(response.body);
+        // print('subCategory service');
         return body;
       } else {
         print('error in all products services');

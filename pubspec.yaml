@@ -44,7 +44,7 @@ dependencies:
   geocoding: ^2.0.1
   geolocator: ^7.6.2
   flutter_launcher_icons: "^0.9.2"
-  flutter_phone_direct_caller: ^2.0.0
+  # flutter_phone_direct_caller: ^2.0.0
   url_launcher: ^6.0.12
   # flutter_swiper: ^1.1.6
   carousel_slider: ^4.0.0

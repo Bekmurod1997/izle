@@ -62,6 +62,8 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                   forSubCategoryController
                       .mainCatId(mainCategories.categoriesList[index].id);
                   Get.to(() => ResultAds(
+                        mainCategoryId:
+                            mainCategories.categoriesList[index].id!,
                         catId: mainCategories.categoriesList[index].id!,
                         catName: mainCategories.categoriesList[index].nameRu
                             .toString(),
@@ -95,7 +97,7 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                       ),
                     ),
                     subtitle: Text(
-                      '42345 объявлений',
+                      mainCategories.categoriesList[index].adsCount.toString(),
                       style: FontStyles.regularStyle(
                         fontSize: 10,
                         fontFamily: 'Lato',

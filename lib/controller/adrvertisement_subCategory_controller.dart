@@ -19,15 +19,16 @@ class AdvertismentSubCategoryController extends GetxController {
 
   void fetchAdsSubCat({
     required String catId,
+    int? cityId,
   }) async {
     print('this is fetchAdsSubCat in controller');
     try {
       isLoading(true);
       var response = await AdvertisementListService.fetchSubCategoryProducts(
-          catId: catId, page: currentPage);
+          cityId: cityId, catId: catId, page: currentPage);
       _totalPage = response?.mMeta?.pageCount ?? 0;
       adsSubList = response?.data ?? [];
-      print(response);
+      // print(response);
     } finally {
       isLoading(false);
     }

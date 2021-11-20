@@ -20,43 +20,48 @@ class BlackSpaceSCreen extends StatefulWidget {
 }
 
 class _BlackSpaceSCreenState extends State<BlackSpaceSCreen> {
-  final AllRegionsController allRegionsController = Get.put(AllRegionsController());
+  final AllRegionsController allRegionsController =
+      Get.put(AllRegionsController());
   @override
   void initState() {
     allRegionsController.fetchAllRegions();
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
-      body: Center(
-        child: GestureDetector(
-          onTap: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ResultAds(catId: 796, catName: 'my category', imgUrl: 'asfdasd'))),
+        // body: Center(
+        //   child: GestureDetector(
+        //       // onTap: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ResultAds(catId: 796, catName: 'my category', imgUrl: 'asfdasd'))),
 
-            child: Obx((){
-              if(allRegionsController.isLoading.value){
-                return Center(child:CircularProgressIndicator());
-              }else{
-                return ListView.builder(
-                    itemCount: allRegionsController.allRegionsList.length,
-                    itemBuilder:(context, index)=>Column(
-                      children: [
-                        Text(allRegionsController.allRegionsList[index].nameRu!),
-                        // Text(allRegionsController.allRegionsList[index].childs![0].nameRu!),
-                        Container(
-                            height: 100,
-                            child: ListView.builder(
-                                itemCount: allRegionsController.allRegionsList[index].childs?.length ?? 0,
-                                itemBuilder: (context, indx)=>Text(allRegionsController.allRegionsList[index].childs![indx].nameRu!)))
-                      ],
-                    )  );
-              }
-            })
-        ),
-      ),
-    );
+        //       child: Obx(() {
+        //     if (allRegionsController.isLoading.value) {
+        //       return Center(child: CircularProgressIndicator());
+        //     } else {
+        //       return ListView.builder(
+        //           itemCount: allRegionsController.allRegionsList.length,
+        //           itemBuilder: (context, index) => Column(
+        //                 children: [
+        //                   Text(
+        //                       allRegionsController.allRegionsList[index].nameRu!),
+        //                   // Text(allRegionsController.allRegionsList[index].childs![0].nameRu!),
+        //                   Container(
+        //                       height: 100,
+        //                       child: ListView.builder(
+        //                           itemCount: allRegionsController
+        //                                   .allRegionsList[index].childs?.length ??
+        //                               0,
+        //                           itemBuilder: (context, indx) => Text(
+        //                               allRegionsController.allRegionsList[index]
+        //                                   .childs![indx].nameRu!)))
+        //                 ],
+        //               ));
+        //     }
+        //   })),
+        // ),
+
+        );
   }
 }

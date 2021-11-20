@@ -10,11 +10,20 @@ class AdvertisementListService {
   static Future fetchSubCategoryProducts({
     required String catId,
     required int page,
+    int? cityId,
   }) async {
-    print(Uri.parse(ApiUrl.subCategory + catId + '&page=$page'));
+    print(
+      Uri.parse(ApiUrl.subCategory +
+          catId +
+          '&page=$page' +
+          '&city_id=${cityId ?? ""}'),
+    );
     try {
       var response = await client.get(
-        Uri.parse(ApiUrl.subCategory + catId + '&page=$page'),
+        Uri.parse(ApiUrl.subCategory +
+            catId +
+            '&page=$page' +
+            '&city_id=${cityId ?? ""}'),
       );
       if (response.statusCode == 200) {
         var body = AdvertisementListModel.fromJson(json.decode(response.body));
