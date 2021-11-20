@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:galleryimage/galleryimage.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
@@ -11,7 +10,6 @@ import 'package:izle/ui/product_detail/widgets/address.dart';
 import 'package:izle/ui/product_detail/widgets/app_bar.dart';
 import 'package:izle/ui/product_detail/widgets/date.dart';
 import 'package:izle/ui/product_detail/widgets/gallery_example_item.dart';
-import 'package:izle/ui/product_detail/widgets/gallr.dart';
 import 'package:izle/ui/product_detail/widgets/price.dart';
 import 'package:izle/ui/product_detail/widgets/title.dart';
 import 'package:photo_view/photo_view.dart';
@@ -20,8 +18,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'widgets/call_chat_buttons.dart';
 import 'widgets/complain.dart';
 import 'widgets/discription.dart';
-import 'widgets/main_image.dart';
-import 'widgets/more_vertical.dart';
+
 import 'widgets/similar_adds.dart';
 import 'widgets/type_buttons.dart';
 import 'widgets/user_info.dart';
