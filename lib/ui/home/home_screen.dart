@@ -36,6 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
     print(MyPref.token);
     print('home init state');
 
+    print('my fcm token is');
+    print(MyPref.fcmToken);
+
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {

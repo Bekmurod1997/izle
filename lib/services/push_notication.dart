@@ -3,10 +3,22 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:izle/utils/my_prefs.dart';
 
 class PushNotificationService {
+  static FirebaseMessaging messaging = FirebaseMessaging.instance;
+
   static String? token;
 
   static Future initializeApp() async {
     await Firebase.initializeApp();
+
+    await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
     token = await FirebaseMessaging.instance.getToken();
     MyPref.fcmToken = token!;
 
