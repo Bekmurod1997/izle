@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:io';
 import 'package:izle/controller/list_of_prices_controller.dart';
 import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/components/custom_appbar.dart';
@@ -7,9 +8,9 @@ import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/home/home_screen.dart';
-import 'package:izle/ui/profile/widgets/wallet/widget.dart/payment_link.dart';
 import 'package:izle/utils/my_prefs.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class FillUpWallet extends StatefulWidget {
   const FillUpWallet({Key? key}) : super(key: key);
@@ -45,7 +46,34 @@ class _FillUpWalletState extends State<FillUpWallet> {
   void initState() {
     listOfPriceController.fetchPrices();
     print(listOfPriceController.listOfPrice);
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+
     super.initState();
+  }
+
+  Future<void> _launchInWebViewWithJavaScript(String url) async {
+    if (!await launch(
+      url,
+      forceSafariVC: true,
+      forceWebView: true,
+      enableJavaScript: true,
+    )) {
+      throw 'Could not launch $url';
+    }
+  }
+
+  Future<void> _launchUniversalLinkIos(String url) async {
+    final bool nativeAppLaunchSucceeded = await launch(
+      url,
+      forceSafariVC: false,
+      universalLinksOnly: true,
+    );
+    if (!nativeAppLaunchSucceeded) {
+      await launch(
+        url,
+        forceSafariVC: true,
+      );
+    }
   }
 
   @override
@@ -154,6 +182,7 @@ class _FillUpWalletState extends State<FillUpWallet> {
                         );
                       },
                     ),
+
                     SizedBox(height: 20),
                     Text(
                       'Как вы хотите оплатить?',
@@ -227,6 +256,7 @@ class _FillUpWalletState extends State<FillUpWallet> {
                                     id: paymentId,
                                     type: paymentType == 1 ? 'payme' : 'click');
                                 // Get.to(() => PaymentLinkScreen());
+                                // ignore: unused_element
                                 _launchURLBrowser() async {
                                   const url = 'https://flutterdevs.com/';
                                   if (await canLaunch(url)) {
@@ -236,18 +266,22 @@ class _FillUpWalletState extends State<FillUpWallet> {
                                   }
                                 }
 
-                                _launchURLApp() async {
-                                  String url = '${MyPref.paymentLink}';
-                                  if (await canLaunch(url)) {
-                                    await launch(url,
-                                        forceSafariVC: true,
-                                        forceWebView: true);
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
-                                }
-
-                                _launchURLApp();
+                                // _launchURLApp() async {
+                                //   String url = '${MyPref.paymentLink}';
+                                //   if (await canLaunch(url)) {
+                                //     await launch(url,
+                                //         forceSafariVC: true,
+                                //         forceWebView: true);
+                                //   } else {
+                                //     throw 'Could not launch $url';
+                                //   }
+                                // }
+                                String url = '${MyPref.paymentLink}';
+                                print('the url');
+                                print(url);
+                                _launchUniversalLinkIos(url);
+                                // _launchInWebViewWithJavaScript(url);
+                                // _launchURLApp();
                               } else {
                                 return showDialog(
                                     context: context,

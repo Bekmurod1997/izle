@@ -51,6 +51,9 @@ class SimilarAdds extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.44,
                     height: 250,
                     child: RecommandationItem(
+                      top: myList[index].top,
+                      premium: myList[index].premium,
+                      typeAd: '${myList[index].typeAd}',
                       city: '${myList[index].cityName}',
                       date: '${myList[index].date}',
                       id: myList[index].id,

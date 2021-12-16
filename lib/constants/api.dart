@@ -8,8 +8,16 @@ abstract class ApiUrl {
   static const apiUrl = '${baseUrl}api/';
   static const adsUrl = '${baseUrl}api/ads';
   static const signup = '${apiUrl}user/sign-up';
+  static const removeUser = '${apiUrl}user/remove';
+  static const resumeUpload = '${apiUrl}user/upload-cv';
+  static const resumeRemove = '${apiUrl}user/remove-cv';
   static const confirmCod = '${apiUrl}user/send-code';
   static const signin = '${apiUrl}user/sign-in';
+  static const blockUser = '${apiUrl}chat/set-block';
+  static const deleteMessage = '${apiUrl}chat/remove';
+  static const unreadMessage = '${apiUrl}chat/users?type=unreaded';
+  static const setArchive = '${apiUrl}chat/set-archive';
+  static const setImportant = '${apiUrl}chat/set-important';
   static const logout = '${apiUrl}user/log-out';
   static const recoverPassword = '${apiUrl}user/recover-password';
   static const recoverCode = '${apiUrl}user/accept-recover-code';
@@ -18,7 +26,7 @@ abstract class ApiUrl {
 
   static const listOfPrice = '${apiUrl}payment/';
   static const payPost = '${apiUrl}payment/send';
-  static const listOfTarifes = '${apiUrl}payment/tariff';
+
   static const buyTarif = '${apiUrl}payment/tariff-buy';
 
   //List of category
@@ -41,6 +49,7 @@ abstract class ApiUrl {
   static const listOfAds = '${apiUrl}ads?category_id=';
   static const subCategory = '${apiUrl}ads/index?category_id=';
   static const listOfAllAds = '${apiUrl}ads?page=';
+  static const listOfTariffs = '${apiUrl}payment/tariff';
   static const createAds = '${apiUrl}ads/create';
   static const editAds = '${apiUrl}ads/create?id=';
   static const deleteAds = '${apiUrl}ads/remove?id=';
@@ -53,10 +62,11 @@ abstract class ApiUrl {
   static const addAndDeleteFavorite = '${apiUrl}ads/add-favorite?id=';
   static const favorites = '${apiUrl}ads/favorites?id=';
   static const productDetail = '${apiUrl}ads/view?id=';
+  static const changeStatus = '${apiUrl}ads/change-status';
 
   //chat/////
 
-  static const allChat = '${apiUrl}chat/users';
+  static const allChat = '${apiUrl}chat/users?type=';
   static const chatId = '${apiUrl}chat/messages?id=';
   static const sendMessage = '${apiUrl}chat/send';
 }

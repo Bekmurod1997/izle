@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/controller/page_navgation_controller.dart';
 
 class CreatAppBar extends StatelessWidget {
+  static PageNavigationController pageNavigationController =
+      Get.find<PageNavigationController>();
   const CreatAppBar({Key? key}) : super(key: key);
 
   @override
@@ -19,7 +22,10 @@ class CreatAppBar extends StatelessWidget {
             children: [
               SizedBox(width: 10),
               GestureDetector(
-                onTap: () => Get.back(),
+                onTap: () {
+                  pageNavigationController.pageControllerChanger(0);
+                  pageNavigationController.tabIndexChanger(0);
+                },
                 child: RotatedBox(
                   quarterTurns: 2,
                   child: SvgPicture.asset(

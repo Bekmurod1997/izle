@@ -26,7 +26,9 @@ class _SearchProductState extends State<SearchProduct> {
 
   @override
   void initState() {
-    sController.fetchSearch(widget.searchTitle);
+    sController.fetchSearch(
+      search: widget.searchTitle,
+    );
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -112,7 +114,11 @@ class _SearchProductState extends State<SearchProduct> {
                           onTap: () => Get.to(() => ProductDetailScreen(
                               proId: sController.searchList[index].id!)),
                           child: RecommandationItem(
+                            premium: sController.searchList[index].premium!,
+                            top: sController.searchList[index].top!,
                             isFavorite: false,
+                            typeAd:
+                                sController.searchList[index].typeAd ?? 'price',
                             title: sController.searchList[index].title!,
                             id: sController.searchList[index].id!,
                             city: sController.searchList[index].cityName!,

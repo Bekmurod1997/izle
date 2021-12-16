@@ -72,7 +72,9 @@ class MessageItem extends StatelessWidget {
                       ),
                       Text(
                         // 'Sorry, I’m unlisting it',
-                        lastMessage!,
+                        lastMessage!.contains('/')
+                            ? lastMessage!.split("/").last
+                            : lastMessage ?? 'Фото',
                         style: FontStyles.regularStyle(
                           fontSize: 14,
                           fontFamily: 'Roboto',
@@ -107,7 +109,7 @@ class MessageItem extends StatelessWidget {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            '4:12',
+                            date!.substring(date!.length - 8),
                             // date!,
                             style: FontStyles.thinStyle(
                               fontSize: 12,

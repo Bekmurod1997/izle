@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
+import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
@@ -15,6 +16,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   final PageNavigationController pageNavigationController =
       Get.find<PageNavigationController>();
+  final CreatingAddInfoController creatingAddInfoController =
+      Get.find<CreatingAddInfoController>();
 
   void _onItemTapped(int index) {
     pageNavigationController.pageControler.value = index;
@@ -83,9 +86,11 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 if (index == 0) {
                   // Get.offAll(() => NavScreen());
                   pageNavigationController.pageControllerChanger(0);
+                  creatingAddInfoController.resetAll();
                 } else if (index == 1) {
                   // Get.offAll(() => AllCategoryScreen());
                   pageNavigationController.pageControllerChanger(1);
+                  creatingAddInfoController.resetAll();
                 } else if (index == 2) {
                   // Get.offAll(
                   //   () =>
@@ -95,6 +100,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 } else if (index == 3) {
                   // Get.offAll(() => MessageScreen());
                   pageNavigationController.pageControllerChanger(3);
+                  creatingAddInfoController.resetAll();
                 } else if (index == 4) {
                   // Get.offAll(() => ActiveProfileScreen());
                   pageNavigationController.pageControllerChanger(4);

@@ -35,13 +35,13 @@ class CategoryChoice extends StatelessWidget {
             child: Obx(() {
               return ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(creatingAddInfoController.mainCategory.value ==
-                            'nothing' &&
-                        creatingAddInfoController.subCategory.value == 'nothing'
-                    ? 'выберите категорию'
-                    : creatingAddInfoController.mainCategory.value +
-                        '/' +
-                        creatingAddInfoController.subCategory.value),
+                title: Text(
+                    creatingAddInfoController.mainCategory.value.isEmpty &&
+                            creatingAddInfoController.subCategory.value.isEmpty
+                        ? 'выберите категорию'
+                        : creatingAddInfoController.mainCategory.value +
+                            '/' +
+                            creatingAddInfoController.subCategory.value),
                 trailing: Icon(Icons.navigate_next),
                 onTap: () => Get.to(
                   () => CategoryList(),
@@ -50,7 +50,6 @@ class CategoryChoice extends StatelessWidget {
             }),
           ),
         ),
-        SizedBox(height: 15),
       ],
     );
   }

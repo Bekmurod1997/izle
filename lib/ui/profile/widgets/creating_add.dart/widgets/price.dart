@@ -21,6 +21,14 @@ class _CreatePriceState extends State<CreatePrice> {
   bool status1 = false;
 
   @override
+  void initState() {
+    setState(() {
+      selectedIndex = 1;
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,9 +40,10 @@ class _CreatePriceState extends State<CreatePrice> {
               onTap: () {
                 setState(() {
                   selectedIndex = 1;
+                  creatingAddInfoController.type_ad.value = 'price';
                 });
-                creatingAddInfoController.typeIdChanger(1);
-                print('typeId ${creatingAddInfoController.typeId.value}');
+                // creatingAddInfoController.typeIdChanger(1);
+                print('typeId ${creatingAddInfoController.type_ad.value}');
               },
               child: Container(
                 width: 101,
@@ -67,9 +76,11 @@ class _CreatePriceState extends State<CreatePrice> {
               onTap: () {
                 setState(() {
                   selectedIndex = 2;
+                  creatingAddInfoController.type_ad.value = 'free';
                 });
                 creatingAddInfoController.typeIdChanger(2);
-                print('typeId ${creatingAddInfoController.typeId.value}');
+
+                print('typeId ${creatingAddInfoController.type_ad.value}');
               },
               child: Container(
                 width: 101,
@@ -102,9 +113,10 @@ class _CreatePriceState extends State<CreatePrice> {
               onTap: () {
                 setState(() {
                   selectedIndex = 3;
+                  creatingAddInfoController.type_ad.value = 'exchange';
                 });
-                creatingAddInfoController.typeIdChanger(3);
-                print('typeId ${creatingAddInfoController.typeId.value}');
+                // creatingAddInfoController.typeIdChanger(3);
+                print('typeId ${creatingAddInfoController.type_ad.value}');
               },
               child: Container(
                 width: 101,
@@ -166,47 +178,54 @@ class _CreatePriceState extends State<CreatePrice> {
                           color: Color(0xff616161)),
                     ),
                     onChanged: (String value) {
-                      creatingAddInfoController
-                          .priceChanger(double.parse(value));
+                      creatingAddInfoController.priceChanger(
+                          double.parse(value.replaceAll(' ', '')));
                       print(creatingAddInfoController.price);
                     },
                   ),
                 ),
               )
             : Container(),
-        selectedIndex == 1
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Radio(
-                    value: 1,
-                    groupValue: val,
-                    onChanged: (a) {
-                      setState(() {
-                        val = 1;
-                      });
-                    },
-                    activeColor: Colors.black,
-                  ),
-                  Text(
-                    'UZS',
-                  ),
-                  Radio(
-                    value: 2,
-                    groupValue: val,
-                    onChanged: (a) {
-                      setState(() {
-                        val = 2;
-                      });
-                    },
-                    activeColor: Colors.black,
-                  ),
-                  Text(
-                    'USD',
-                  ),
-                ],
+        creatingAddInfoController.priceCheck.value == false &&
+                creatingAddInfoController.pCheck.value == true
+            ? Text(
+                'Пожалуйста, укажите цену',
+                style: TextStyle(color: Colors.red),
               )
             : Container(),
+        // selectedIndex == 1
+        //     ? Row(
+        //         mainAxisAlignment: MainAxisAlignment.start,
+        //         children: [
+        //           Radio(
+        //             value: 1,
+        //             groupValue: val,
+        //             onChanged: (a) {
+        //               setState(() {
+        //                 val = 1;
+        //               });
+        //             },
+        //             activeColor: Colors.black,
+        //           ),
+        //           Text(
+        //             'UZS',
+        //           ),
+        //           Radio(
+        //             value: 2,
+        //             groupValue: val,
+        //             onChanged: (a) {
+        //               setState(() {
+        //                 val = 2;
+        //               });
+        //             },
+        //             activeColor: Colors.black,
+        //           ),
+        //           Text(
+        //             'USD',
+        //           ),
+        //         ],
+        //       )
+        //     : Container(),
         selectedIndex == 1
             ? ListTile(
                 onTap: () => setState(() {
@@ -230,12 +249,19 @@ class _CreatePriceState extends State<CreatePrice> {
                       setState(() {
                         status1 = val;
                       });
+                      if (status1 == true) {
+                        creatingAddInfoController.type_ad.value = 'negotiable';
+                      } else {
+                        creatingAddInfoController.type_ad.value = 'price';
+                      }
+                      print('switch value');
+                      print(creatingAddInfoController.type_ad.value);
                     },
                   ),
                 ),
               )
             : Container(),
-        SizedBox(height: 45),
+        SizedBox(height: 15),
       ],
     );
   }

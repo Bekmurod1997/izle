@@ -8,6 +8,7 @@ class PaymentLinkScreen extends StatefulWidget {
 }
 
 class _PaymentLinkScreenState extends State<PaymentLinkScreen> {
+  // ignore: unused_element
   _launchURLBrowser() async {
     const url = 'https://flutterdevs.com/';
     if (await canLaunch(url)) {

@@ -23,12 +23,57 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  String passwordError = '';
+  String phoneNumbeError = '';
 
   @override
   void initState() {
     print('aaaaa');
     print(MyPref.token);
     super.initState();
+  }
+
+  void checkingValidation() {
+    if (passwordController.text.length > 5 &&
+        phoneController.text.length > 15) {
+      SignUp.signUpUser(
+        phone: phoneController.text.replaceAll(' ', ''),
+        password: passwordController.text,
+      );
+      // AllServices.login(phoneNumber.text.replaceAll(' ', ''), password.text);
+    }
+
+    if (passwordController.text.length < 6 &&
+        passwordController.text.length > 0) {
+      setState(() {
+        passwordError = 'Длина пароля должна быть больше 6';
+      });
+    }
+    if (passwordController.text.length == 0) {
+      setState(() {
+        passwordError = 'Пожалуйста, заполните поле пароля';
+      });
+    }
+    if (phoneController.text.length > 0 && phoneController.text.length < 16) {
+      setState(() {
+        phoneNumbeError = 'Введён неверный номер телефона';
+      });
+    }
+    if (phoneController.text.length == 0) {
+      setState(() {
+        phoneNumbeError = 'Пожалуйста, заполните поле для номера телефона';
+      });
+    }
+    if (phoneController.text.length == 16) {
+      setState(() {
+        phoneNumbeError = '';
+      });
+    }
+    if (passwordController.text.length > 5) {
+      setState(() {
+        passwordError = '';
+      });
+    }
   }
 
   @override
@@ -68,6 +113,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     border: InputBorder.none,
                   ),
                 ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                phoneNumbeError,
+                style: TextStyle(fontSize: 11, color: Colors.red),
               ),
             ),
             Container(
@@ -115,6 +167,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             ),
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                passwordError,
+                style: TextStyle(fontSize: 11, color: Colors.red),
+              ),
+            ),
             SizedBox(height: 40),
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
@@ -141,6 +200,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onTap: () {
                 MyPref.phoneNumber = phoneController.text;
                 print(MyPref.phoneNumber);
+                print(phoneController.text.replaceAll(' ', ''));
+                checkingValidation();
                 // Get.dialog(
                 //   Scaffold(
                 //     backgroundColor: Colors.black.withOpacity(.1),
@@ -170,10 +231,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 //   ),
                 // );
 
-                SignUp.signUpUser(
-                  phone: phoneController.text.replaceAll(' ', ''),
-                  password: passwordController.text,
-                );
+                // SignUp.signUpUser(
+                //   phone: phoneController.text.replaceAll(' ', ''),
+                //   password: passwordController.text,
+                // );
                 // print(MyPref.token);
               },
               // onTap: () => Get.to(

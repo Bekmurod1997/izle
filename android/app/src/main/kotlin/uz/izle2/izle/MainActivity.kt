@@ -1,4 +1,4 @@
-package uz.izle.app
+package uz.izle2.izle
 
 import io.flutter.embedding.android.FlutterActivity
 

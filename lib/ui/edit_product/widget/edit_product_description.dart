@@ -20,6 +20,7 @@ class _EditCreateDescriptionState extends State<EditCreateDescription> {
   @override
   void initState() {
     itemDec.text = widget.content;
+    workdCount = widget.content;
     super.initState();
   }
 

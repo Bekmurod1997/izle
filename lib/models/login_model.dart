@@ -1,6 +1,7 @@
 class LoginModel {
   int? id;
   String? token;
+  String? deviceId;
   String? name;
   String? phone;
   String? email;
@@ -12,6 +13,7 @@ class LoginModel {
   LoginModel(
       {this.id,
       this.token,
+      this.deviceId,
       this.name,
       this.phone,
       this.email,
@@ -22,6 +24,7 @@ class LoginModel {
 
   LoginModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    deviceId = json['device_id'];
     token = json['token'];
     name = json['name'];
     phone = json['phone'];
@@ -35,6 +38,8 @@ class LoginModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['device_id'] = this.deviceId;
+
     data['token'] = this.token;
     data['name'] = this.name;
     data['phone'] = this.phone;

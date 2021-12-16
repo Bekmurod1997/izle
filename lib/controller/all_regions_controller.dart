@@ -4,7 +4,7 @@ import 'package:izle/models/all_regions_model.dart';
 
 class AllRegionsController extends GetxController{
   var isLoading = true.obs;
-  var allRegionsList = <Data>[];
+  var allRegionsList = <DataRegions>[];
 
   void fetchAllRegions() async {
     try{

@@ -25,7 +25,7 @@ class Similar {
   String? description;
   String? content;
   String? address;
-  int? price;
+  dynamic? price;
   int? priceD;
   int? status;
   String? lng;
@@ -33,6 +33,7 @@ class Similar {
   int? views;
   int? viewPhone;
   int? premium;
+  int? top;
   int? favorites;
   String? date;
   String? dateExpire;
@@ -60,6 +61,7 @@ class Similar {
       this.views,
       this.viewPhone,
       this.premium,
+      this.top,
       this.favorites,
       this.date,
       this.dateExpire,
@@ -93,6 +95,7 @@ class DataModel {
   int? views;
   int? viewPhone;
   int? premium;
+  int? top;
   int? favorites;
   String? date;
   String? dateExpire;
@@ -121,6 +124,7 @@ class DataModel {
       this.views,
       this.viewPhone,
       this.premium,
+      this.top,
       this.favorites,
       this.date,
       this.dateExpire,

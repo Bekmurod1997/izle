@@ -20,7 +20,7 @@ PreferredSize detailAppBar() {
           onPressed: () => Get.back(),
         ),
         actions: [
-          MoreVertical(),
+          // MoreVertical(),
         ],
       ),
       preferredSize: Size.fromHeight(40));

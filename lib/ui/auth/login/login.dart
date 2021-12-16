@@ -28,6 +28,46 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController password = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
+  String passwordError = '';
+  String phoneNumbeError = '';
+
+  void checkingValidation() {
+    if (password.text.length > 5 && phoneNumber.text.length > 15) {
+      AllServices.login(phoneNumber.text.replaceAll(' ', ''), password.text);
+    }
+
+    if (password.text.length < 6 && password.text.length > 0) {
+      setState(() {
+        passwordError = 'Длина пароля должна быть больше 6';
+      });
+    }
+    if (password.text.length == 0) {
+      setState(() {
+        passwordError = 'Пожалуйста, заполните поле пароля';
+      });
+    }
+    if (phoneNumber.text.length > 0 && phoneNumber.text.length < 16) {
+      setState(() {
+        phoneNumbeError = 'Пожалуйста, проверьте свой номер телефона правильно';
+      });
+    }
+    if (phoneNumber.text.length == 0) {
+      setState(() {
+        phoneNumbeError = 'Пожалуйста, заполните поле для номера телефона';
+      });
+    }
+    if (phoneNumber.text.length == 16) {
+      setState(() {
+        phoneNumbeError = '';
+      });
+    }
+    if (password.text.length > 5) {
+      setState(() {
+        passwordError = '';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -58,12 +98,22 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Padding(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: TextFormField(
-                  keyboardType: TextInputType.phone,
-                  inputFormatters: [InputMask.maskPhoneNumber],
-                  controller: phoneNumber,
-                  decoration: InputDecoration(
-                      border: InputBorder.none, hintText: '998'),
-                ),
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: [InputMask.maskPhoneNumber],
+                    controller: phoneNumber,
+                    onChanged: (vale) {
+                      print(vale.length);
+                    },
+                    decoration: InputDecoration(
+                        border: InputBorder.none, hintText: '998'),
+                    validator: (value) {}),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                phoneNumbeError,
+                style: TextStyle(fontSize: 11, color: Colors.red),
               ),
             ),
             Container(
@@ -112,6 +162,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                passwordError,
+                style: TextStyle(fontSize: 11, color: Colors.red),
+              ),
+            ),
             GestureDetector(
               onTap: () => Get.to(() => RecovryPasswordScreen()),
               child: Container(
@@ -132,8 +189,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 // print(phoneNumber.text.length);
 
                 // print(phoneNumber.text.replaceAll(' ', ''));
-                AllServices.login(
-                    phoneNumber.text.replaceAll(' ', ''), password.text);
+                print(phoneNumber.text.replaceAll(' ', ''));
+                print(password.text);
+                checkingValidation();
+                print(passwordError);
+                print(phoneNumbeError);
+                // AllServices.login(
+                //     phoneNumber.text.replaceAll(' ', ''), password.text);
                 // userInfoController.fetchUserInfo(userToken: MyPref.token);
               },
               // Get.to(

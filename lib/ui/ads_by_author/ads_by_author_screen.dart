@@ -4,23 +4,25 @@ import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/author_ads_controller.dart';
+import 'package:izle/ui/auth/auth_screen.dart';
 import 'package:izle/ui/message/widgets/first_message.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
 import 'package:izle/ui/profile/widgets/adds/author_ads_card.dart';
+import 'package:izle/utils/my_prefs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AdsByAuthor extends StatefulWidget {
-  final String authorToken;
-  final String userName;
+  final String? authorToken;
+  final String? userName;
   final int? userId;
   final String? userPhone;
   final String? userImage;
   AdsByAuthor({
-    required this.authorToken,
-    required this.userName,
-    required this.userId,
-    required this.userPhone,
-    required this.userImage,
+    this.authorToken,
+    this.userName,
+    this.userId,
+    this.userPhone,
+    this.userImage,
   });
   @override
   _AdsByAuthorState createState() => _AdsByAuthorState();
@@ -67,12 +69,16 @@ class _AdsByAuthorState extends State<AdsByAuthor> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: 30),
+            Divider(
+              thickness: 4,
+            ),
+            // SizedBox(height: 30),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 3),
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -84,18 +90,11 @@ class _AdsByAuthorState extends State<AdsByAuthor> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.userName,
+                              widget.userName ?? 'user',
                               style: FontStyles.semiBoldStyle(
                                 fontSize: 24,
                                 fontFamily: 'Lato',
                               ),
-                            ),
-                            Text(
-                              'был(а) вчера 19:35',
-                              style: FontStyles.semiBoldStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'Lato',
-                                  color: Color(0xff616161)),
                             ),
                           ],
                         ),
@@ -114,12 +113,14 @@ class _AdsByAuthorState extends State<AdsByAuthor> {
                         SizedBox(width: 30),
                         GestureDetector(
                           onTap: () {
-                            Get.to(() => FirstMessageScreen(
-                                  imageUrl: widget.userImage,
-                                  userId: widget.userId,
-                                  userName: widget.userName,
-                                  userPhone: widget.userPhone,
-                                ));
+                            Get.to(() => MyPref.token == ''
+                                ? AuthScreen()
+                                : FirstMessageScreen(
+                                    imageUrl: widget.userImage,
+                                    userId: widget.userId,
+                                    userName: widget.userName,
+                                    userPhone: widget.userPhone,
+                                  ));
                           },
                           child: SvgPicture.asset(
                             'assets/images/sms.svg',
@@ -131,7 +132,10 @@ class _AdsByAuthorState extends State<AdsByAuthor> {
                 ),
               ),
             ),
-            SizedBox(height: 15),
+            Divider(
+              thickness: 4,
+            ),
+
             ListView.separated(
                 shrinkWrap: true,
                 // controller: _scrollController,
@@ -150,6 +154,16 @@ class _AdsByAuthorState extends State<AdsByAuthor> {
                               .allAuthorAdsList()
                               .data![index]
                               .title!,
+                          premium: adsController
+                                  .allAuthorAdsList()
+                                  .data![index]
+                                  .premium ??
+                              0,
+                          top: adsController
+                                  .allAuthorAdsList()
+                                  .data![index]
+                                  .top ??
+                              0,
                           price: adsController
                               .allAuthorAdsList()
                               .data![index]

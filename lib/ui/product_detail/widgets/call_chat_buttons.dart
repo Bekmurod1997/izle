@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
+import 'package:izle/ui/auth/auth_screen.dart';
 import 'package:izle/ui/message/widgets/first_message.dart';
+import 'package:izle/utils/my_prefs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CallChatButtons extends StatefulWidget {
@@ -60,12 +62,14 @@ class _CallChatButtonsState extends State<CallChatButtons> {
         ),
         GestureDetector(
           onTap: () {
-            Get.to(() => FirstMessageScreen(
-                  imageUrl: widget.imageUrl,
-                  userId: widget.userId,
-                  userName: widget.userName,
-                  userPhone: widget.userPhone,
-                ));
+            Get.to(() => MyPref.token == ''
+                ? AuthScreen()
+                : FirstMessageScreen(
+                    imageUrl: widget.imageUrl,
+                    userId: widget.userId,
+                    userName: widget.userName,
+                    userPhone: widget.userPhone,
+                  ));
           },
           child: Container(
             width: MediaQuery.of(context).size.width / 2 - 50,

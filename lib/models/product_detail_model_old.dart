@@ -39,7 +39,7 @@ class DataModel {
   String? description;
   String? content;
   String? address;
-  int? price;
+  dynamic? price;
   int? priceD;
   int? status;
   String? lng;
@@ -47,6 +47,7 @@ class DataModel {
   int? views;
   int? viewPhone;
   int? premium;
+  int? top;
   int? favorites;
   String? date;
   String? dateExpire;
@@ -75,6 +76,7 @@ class DataModel {
       this.views,
       this.viewPhone,
       this.premium,
+      this.top,
       this.favorites,
       this.date,
       this.dateExpire,
@@ -103,6 +105,7 @@ class DataModel {
     views = json['views'];
     viewPhone = json['view_phone'];
     premium = json['premium'];
+    top = json['top'];
     favorites = json['favorites'];
     date = json['date'];
     dateExpire = json['date_expire'];
@@ -145,6 +148,7 @@ class DataModel {
     data['views'] = this.views;
     data['view_phone'] = this.viewPhone;
     data['premium'] = this.premium;
+    data['top'] = this.top;
     data['favorites'] = this.favorites;
     data['date'] = this.date;
     data['date_expire'] = this.dateExpire;
@@ -231,6 +235,7 @@ class Similar {
   int? views;
   int? viewPhone;
   int? premium;
+  int? top;
   int? favorites;
   String? date;
   String? dateExpire;
@@ -259,6 +264,7 @@ class Similar {
       this.views,
       this.viewPhone,
       this.premium,
+      this.top,
       this.favorites,
       this.date,
       this.dateExpire,
@@ -287,6 +293,7 @@ class Similar {
     views = json['views'];
     viewPhone = json['view_phone'];
     premium = json['premium'];
+    top = json['top'];
     favorites = json['favorites'];
     date = json['date'];
     dateExpire = json['date_expire'];
@@ -322,6 +329,7 @@ class Similar {
     data['views'] = this.views;
     data['view_phone'] = this.viewPhone;
     data['premium'] = this.premium;
+    data['top'] = this.top;
     data['favorites'] = this.favorites;
     data['date'] = this.date;
     data['date_expire'] = this.dateExpire;

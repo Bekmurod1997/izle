@@ -83,7 +83,7 @@ class BottomNav extends StatelessWidget {
           ),
           onTap: () {
             pageNavigationController.pageControler.value != 4
-                ? Get.offAll(() => MessageScreen())
+                ? Get.offAll(() => MessageScreen(''))
                 : print('printed');
             pageNavigationController.pageControllerChanger(4);
           },

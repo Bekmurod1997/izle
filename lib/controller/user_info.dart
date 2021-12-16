@@ -3,6 +3,7 @@ import 'package:izle/models/user_info_model.dart';
 import 'package:izle/services/all_services.dart';
 
 class UserInfoController extends GetxController {
+  var resume = ''.obs;
   var isLoading = true.obs;
   var fetchUserInfoList = <UserInfoModel>[];
 

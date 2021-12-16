@@ -7,6 +7,7 @@ import 'package:izle/controller/favorities_controller.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
 
+// ignore: must_be_immutable
 class Recommendation extends StatefulWidget {
   ScrollController scrollController;
   Recommendation({required this.scrollController});
@@ -58,10 +59,17 @@ class _RecommendationState extends State<Recommendation> {
                     onTap: () => Get.to(() => ProductDetailScreen(
                         proId: allAdsController.allAdsList().data![index].id)),
                     child: RecommandationItem(
+                      premium:
+                          allAdsController.allAdsList().data?[index].premium ??
+                              0,
+                      top: allAdsController.allAdsList().data?[index].top ?? 0,
                       isFavorite: false,
                       title: allAdsController.allAdsList().data?[index].title ??
                           '',
                       id: allAdsController.allAdsList().data![index].id!,
+                      typeAd:
+                          allAdsController.allAdsList().data![index].typeAd ??
+                              'price',
                       city:
                           allAdsController.allAdsList().data?[index].cityName ??
                               'tashkent',

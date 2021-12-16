@@ -28,6 +28,10 @@ class Data {
   String? photo;
   int? messages;
   String? lastMessage;
+  int? lastMessageId;
+  int? status;
+  int? archiveStatus;
+  int? importantStatus;
   String? date;
 
   Data(
@@ -37,15 +41,23 @@ class Data {
       this.photo,
       this.messages,
       this.lastMessage,
+      this.lastMessageId,
+      this.status,
+      this.archiveStatus,
+      this.importantStatus,
       this.date});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
-    name = json['name'] ?? '';
+    name = json['name'];
     photo = json['photo'];
     messages = json['messages'];
     lastMessage = json['last_message'];
+    lastMessageId = json['last_message_id'];
+    status = json['status'];
+    archiveStatus = json['archive_status'];
+    importantStatus = json['important_status'];
     date = json['date'];
   }
 
@@ -57,6 +69,10 @@ class Data {
     data['photo'] = this.photo;
     data['messages'] = this.messages;
     data['last_message'] = this.lastMessage;
+    data['last_message_id'] = this.lastMessageId;
+    data['status'] = this.status;
+    data['archive_status'] = this.archiveStatus;
+    data['important_status'] = this.importantStatus;
     data['date'] = this.date;
     return data;
   }

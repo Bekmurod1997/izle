@@ -20,6 +20,8 @@ class CodeConfirm {
         Get.find<UserInfoController>();
 
     try {
+      print('code: $code');
+      print('token: $token');
       var response = await client.post(Uri.parse(ApiUrl.confirmCod), headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token'
       }, body: {
@@ -32,12 +34,12 @@ class CodeConfirm {
         print('token:');
         print(body.data!.token);
         print(body.data!.phone);
-        print(body.data!.name);
-        print(body.data!.email);
+        // print(body.data!.name);
+        // print(body.data!.email);
         MyPref.token = body.data!.token!;
         MyPref.phoneNumber = body.data!.phone!;
         MyPref.userName = '${body.data!.phone!}';
-        MyPref.email = '${body.data!.email!}';
+        // MyPref.email = '${body.data!.email!}';
         print('-----');
         print(MyPref.token);
         print(MyPref.phoneNumber);
@@ -49,8 +51,12 @@ class CodeConfirm {
         pageNavigationController.tabIndexChanger(4);
         userInfoController.fetchUserInfo(userToken: MyPref.token);
         Get.offAll(() => NavScreen());
+      } else {
+        print('else statement codeconfiem');
+        print(response.statusCode);
       }
     } catch (e) {
+      print(e);
       print('error in code confirm');
     }
   }

@@ -14,7 +14,6 @@ class MyPageView extends StatefulWidget {
 class _MyPageViewState extends State<MyPageView> {
   final AdsViewController _adsViewController = Get.put(AdsViewController());
 
-  var exampleText = ['hello1', 'bye2', 'something3', 'okayy4'];
   int currentPage = 0;
   final PageController _pageController = PageController(initialPage: 0);
   //NavScreen
@@ -37,7 +36,6 @@ class _MyPageViewState extends State<MyPageView> {
               ),
             );
           } else {
-            print(_adsViewController.adsViewList.length);
             return Container(
               child: Column(
                 children: [
@@ -50,6 +48,7 @@ class _MyPageViewState extends State<MyPageView> {
                         setState(() {
                           currentPage = page;
                         });
+                        print(currentPage);
                       },
                       // children: _adsViewController.adsViewList
                       //     .map(
@@ -81,7 +80,7 @@ class _MyPageViewState extends State<MyPageView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                        _adsViewController.adsViewList.length,
+                        3,
                         (index) => buildDots(index: index),
                       ),
                     ),
@@ -95,7 +94,7 @@ class _MyPageViewState extends State<MyPageView> {
                       elevation: 0,
                       color: ColorPalate.mainColor,
                       onPressed: () {
-                        currentPage == _adsViewController.adsViewList.length - 1
+                        currentPage == 2
                             ? Get.to(() => NavScreen())
                             : _pageController.nextPage(
                                 duration: Duration(milliseconds: 500),

@@ -12,6 +12,8 @@ class ProductItem extends StatefulWidget {
   String? title;
   String? price;
   String? date;
+  final int top;
+  final int premium;
   int id;
 
   ProductItem({
@@ -19,6 +21,8 @@ class ProductItem extends StatefulWidget {
     required this.price,
     required this.cityName,
     required this.imageUrl,
+    required this.top,
+    required this.premium,
     required this.date,
     required this.isFavorite,
     required this.id,
@@ -29,7 +33,6 @@ class ProductItem extends StatefulWidget {
 }
 
 class _ProductItemState extends State<ProductItem> {
-  Set<int> favoriteIndex = Set<int>();
   @override
   void initState() {
     super.initState();
@@ -44,17 +47,43 @@ class _ProductItemState extends State<ProductItem> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.162,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: ColorPalate.addsBackgroundColor,
-            ),
-            child: Image.network(
-              'http://izle.uz/' + widget.imageUrl!,
-              fit: BoxFit.cover,
-            ),
+          Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.162,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: ColorPalate.addsBackgroundColor,
+                ),
+                child: Image.network(
+                  'http://izle.uz/' + widget.imageUrl!,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              widget.premium == 1 || widget.top == 1
+                  ? Positioned(
+                      right: 0,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: widget.premium == 1
+                              ? Color(0xffF7D501)
+                              : ColorPalate.mainColor,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(15),
+                          ),
+                        ),
+                        child: Text(widget.premium == 1 ? 'Премиум' : 'Топ',
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 13.0)),
+                      ))
+                  : Container(),
+            ],
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),

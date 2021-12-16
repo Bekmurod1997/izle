@@ -37,7 +37,7 @@ class CreateTitle extends StatelessWidget {
               },
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: creatingAddInfoController.title.value == 'nothing'
+                hintText: creatingAddInfoController.title.value.isEmpty
                     ? 'Например: Велосипед SKILLMAX'
                     : creatingAddInfoController.title.value,
                 hintStyle: FontStyles.regularStyle(
@@ -46,7 +46,6 @@ class CreateTitle extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 15),
       ],
     );
   }

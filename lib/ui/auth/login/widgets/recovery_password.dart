@@ -14,6 +14,30 @@ class RecovryPasswordScreen extends StatefulWidget {
 
 class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
   final TextEditingController phoneNumber = TextEditingController();
+  String errorMessage = '';
+  void validatePhoneNumber() async {
+    if (phoneNumber.text.length > 15) {
+      await AllServices.recoveryPassword(phoneNumber.text.replaceAll(' ', ''));
+      // Get.to(() =>
+      //     ConfirmToRecovery(phoneNumber: phoneNumber.text.replaceAll(' ', '')));
+    }
+    if (phoneNumber.text.length > 0 && phoneNumber.text.length < 16) {
+      setState(() {
+        errorMessage = 'Введён неверный номер телефона';
+      });
+    }
+    if (phoneNumber.text.length == 0) {
+      setState(() {
+        errorMessage = 'Пожалуйста, заполните поле для номера телефона';
+      });
+    }
+    if (phoneNumber.text.length == 16) {
+      setState(() {
+        errorMessage = '';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +100,9 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
               child: Padding(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 5),
                 child: TextFormField(
+                  onChanged: (value) {
+                    print(value.length);
+                  },
                   inputFormatters: [InputMask.maskPhoneNumber],
                   keyboardType: TextInputType.phone,
                   controller: phoneNumber,
@@ -84,11 +111,20 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
                 ),
               ),
             ),
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                errorMessage,
+                style: TextStyle(fontSize: 11, color: Colors.red),
+              ),
+            ),
             GestureDetector(
-              onTap: () async {
-                await AllServices.recoveryPassword(
-                    phoneNumber.text.replaceAll(' ', ''));
-                Get.to(() => ConfirmToRecovery(phoneNumber: phoneNumber.text));
+              onTap: () {
+                validatePhoneNumber();
+                // await AllServices.recoveryPassword(
+                //     phoneNumber.text.replaceAll(' ', ''));
+                // Get.to(() => ConfirmToRecovery(
+                //     phoneNumber: phoneNumber.text.replaceAll(' ', '')));
               },
               // Get.to(
               //   () => CreatingAddScreen(),

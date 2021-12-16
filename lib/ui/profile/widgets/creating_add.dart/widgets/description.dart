@@ -49,8 +49,8 @@ class _CreateDescriptionState extends State<CreateDescription> {
                   maxLines: 8,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: creatingAddInfoController.description.value ==
-                            'nothing'
+                    hintText: creatingAddInfoController
+                            .description.value.isEmpty
                         ? 'Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание.'
                         : creatingAddInfoController.description.value,
                     hintStyle: FontStyles.regularStyle(
@@ -73,7 +73,6 @@ class _CreateDescriptionState extends State<CreateDescription> {
             ),
           ],
         ),
-        SizedBox(height: 25),
       ],
     );
   }

@@ -22,7 +22,7 @@ class CityChoice extends StatefulWidget {
 
 class _CityChoiceState extends State<CityChoice> {
   final AllRegionsController allRegionsController =
-      Get.put(AllRegionsController());
+      Get.find<AllRegionsController>();
   @override
   void initState() {
     allRegionsController.fetchAllRegions();

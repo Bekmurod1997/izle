@@ -3,6 +3,7 @@ import 'package:izle/services/all_services.dart';
 import 'package:izle/models/single_message_model.dart';
 
 class SingleChatController extends GetxController {
+  var file = ''.obs;
   var isLoading = true.obs;
   var singleChatList = <Data>[];
   var firstMessageList = <Data>[];

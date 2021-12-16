@@ -8,6 +8,7 @@ class UserInfoModel {
   String? date;
   String? city;
   int? balance;
+  String? filePath;
 
   UserInfoModel(
       {this.id,
@@ -18,6 +19,7 @@ class UserInfoModel {
       this.photo,
       this.date,
       this.city,
+      this.filePath,
       this.balance});
 
   UserInfoModel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class UserInfoModel {
     photo = json['photo'];
     date = json['date'];
     city = json['city'];
+    filePath = json['file_path'];
     balance = json['balance'];
   }
 
@@ -43,6 +46,8 @@ class UserInfoModel {
     data['date'] = this.date;
     data['city'] = this.city;
     data['balance'] = this.balance;
+    data['file_path'] = this.filePath;
+
     return data;
   }
 }

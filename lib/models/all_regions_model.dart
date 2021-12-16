@@ -1,13 +1,13 @@
 class AllRegionsModel {
-  List<Data>? data;
+  List<DataRegions>? data;
 
   AllRegionsModel({this.data});
 
   AllRegionsModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data =  <Data>[];
+      data =  <DataRegions>[];
       json['data'].forEach((v) {
-        data?.add(new Data.fromJson(v));
+        data?.add(new DataRegions.fromJson(v));
       });
     }
   }
@@ -21,7 +21,7 @@ class AllRegionsModel {
   }
 }
 
-class Data {
+class DataRegions {
   int? id;
   String? nameRu;
   String? nameUz;
@@ -34,7 +34,7 @@ class Data {
   int? main;
   List<Childs>? childs;
 
-  Data(
+  DataRegions(
       {this.id,
         this.nameRu,
         this.nameUz,
@@ -47,7 +47,7 @@ class Data {
         this.main,
         this.childs});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataRegions.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nameRu = json['name_ru'];
     nameUz = json['name_uz'];

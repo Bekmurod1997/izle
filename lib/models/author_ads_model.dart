@@ -34,17 +34,20 @@ class AdsByAuthorModel {
 class Data {
   int? id;
   String? photo;
+  String? typeAd;
   String? phone;
   String? email;
   String? responsiblePerson;
   String? cityName;
+  int? categoryId;
+
   String? categoryName;
   int? type;
   String? title;
   String? description;
   String? content;
   String? address;
-  int? price;
+  num? price;
   int? priceD;
   int? status;
   String? lng;
@@ -52,6 +55,8 @@ class Data {
   int? views;
   int? viewPhone;
   int? premium;
+  int? top;
+
   int? favorites;
   String? date;
   String? dateExpire;
@@ -62,10 +67,12 @@ class Data {
   Data(
       {this.id,
       this.photo,
+      this.typeAd,
       this.phone,
       this.email,
       this.responsiblePerson,
       this.cityName,
+      this.categoryId,
       this.categoryName,
       this.type,
       this.title,
@@ -80,6 +87,7 @@ class Data {
       this.views,
       this.viewPhone,
       this.premium,
+      this.top,
       this.favorites,
       this.date,
       this.dateExpire,
@@ -89,11 +97,13 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    typeAd = json['type_ad'];
     photo = json['photo'];
     phone = json['phone'];
     email = json['email'];
     responsiblePerson = json['responsible_person'];
     cityName = json['city_name'];
+    categoryId = json['category_id'];
     categoryName = json['category_name'];
     type = json['type'];
     title = json['title'];
@@ -108,6 +118,7 @@ class Data {
     views = json['views'];
     viewPhone = json['view_phone'];
     premium = json['premium'];
+    top = json['top'];
     favorites = json['favorites'];
     date = json['date'];
     dateExpire = json['date_expire'];
@@ -125,10 +136,13 @@ class Data {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['photo'] = this.photo;
+    data['type_ad'] = this.typeAd;
     data['phone'] = this.phone;
     data['email'] = this.email;
     data['responsible_person'] = this.responsiblePerson;
     data['city_name'] = this.cityName;
+    data['category_id'] = this.categoryId;
+
     data['category_name'] = this.categoryName;
     data['type'] = this.type;
     data['title'] = this.title;
@@ -143,6 +157,7 @@ class Data {
     data['views'] = this.views;
     data['view_phone'] = this.viewPhone;
     data['premium'] = this.premium;
+    data['top'] = this.top;
     data['favorites'] = this.favorites;
     data['date'] = this.date;
     data['date_expire'] = this.dateExpire;

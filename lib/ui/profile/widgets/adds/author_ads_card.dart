@@ -5,6 +5,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/services/all_services.dart';
 
+// ignore: must_be_immutable
 class AuthorAdsCard extends StatefulWidget {
   final int id;
   final String title;
@@ -12,6 +13,9 @@ class AuthorAdsCard extends StatefulWidget {
   final String date;
   final String imageUrl;
   final int status;
+  final int top;
+  final int premium;
+
   bool isFavorite;
 
   AuthorAdsCard({
@@ -21,6 +25,8 @@ class AuthorAdsCard extends StatefulWidget {
     required this.date,
     required this.imageUrl,
     required this.status,
+    required this.top,
+    required this.premium,
     required this.isFavorite,
   });
   @override
@@ -50,9 +56,40 @@ class _AuthorAdsCardState extends State<AuthorAdsCard> {
                             borderRadius: BorderRadius.circular(8),
                             color: ColorPalate.addsBackgroundColor,
                           ),
-                          child: Image.network(
-                            'http://izle.uz/' + widget.imageUrl,
-                            fit: BoxFit.contain,
+                          child: Stack(
+                            children: [
+                              Image.network(
+                                'http://izle.uz/' + widget.imageUrl,
+                                fit: BoxFit.contain,
+                              ),
+                              widget.premium == 1 || widget.top == 1
+                                  ? Positioned(
+                                      left: 0,
+                                      bottom: 0,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 5,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: widget.premium == 1
+                                              ? Color(0xffF7D501)
+                                              : ColorPalate.mainColor,
+                                          borderRadius: const BorderRadius.only(
+                                            bottomLeft: Radius.circular(0),
+                                          ),
+                                        ),
+                                        child: Text(
+                                            widget.premium == 1
+                                                ? 'Премиум'
+                                                : 'Топ',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 13.0)),
+                                      ))
+                                  : Container(),
+                            ],
                           ),
                         ),
                       ),
@@ -77,7 +114,7 @@ class _AuthorAdsCardState extends State<AuthorAdsCard> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                widget.price + 'сум',
+                                widget.price + ' сум',
                                 // '190 000 сум',
                                 style: FontStyles.boldStyle(
                                   fontSize: 18,

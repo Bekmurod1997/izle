@@ -44,13 +44,13 @@ class UserInfo extends StatelessWidget {
                           fontFamily: 'Lato',
                         ),
                       ),
-                      Text(
-                        'был(а) вчера 19:35',
-                        style: FontStyles.semiBoldStyle(
-                            fontSize: 12,
-                            fontFamily: 'Lato',
-                            color: Color(0xff616161)),
-                      ),
+                      // Text(
+                      //   'был(а) вчера 19:35',
+                      //   style: FontStyles.semiBoldStyle(
+                      //       fontSize: 12,
+                      //       fontFamily: 'Lato',
+                      //       color: Color(0xff616161)),
+                      // ),
                       SizedBox(height: 13),
                       GestureDetector(
                         onTap: () => Get.to(() => AdsByAuthor(

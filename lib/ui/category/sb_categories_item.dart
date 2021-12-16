@@ -69,7 +69,7 @@ class _SbCategoriesItemState extends State<SbCategoriesItem> {
                         // );
 
                         // Get.back();
-                        // Get.to(() => SearchResult(
+                        // Get.to(() => lt(
                         //     // searchResult:
                         //     //     sController.searchTitle.toString(),
                         //     ));

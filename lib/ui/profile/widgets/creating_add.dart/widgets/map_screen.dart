@@ -53,14 +53,23 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> getAddressFromLatLong(double? lat, double? long) async {
-    List<Placemark> placemarks = await placemarkFromCoordinates(lat!, long!);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(lat!, long!, localeIdentifier: "ru");
     print(placemarks);
     Placemark place = placemarks[0];
-    address =
-        '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+    // address = (place.subLocality!.isNotEmpty
+    //     ? place.subLocality
+    //     : place.locality!.isNotEmpty
+    //         ? place.locality
+    //         : place.subAdministrativeArea!.isNotEmpty
+    //             ? place.subAdministrativeArea
+    //             : place.administrativeArea)!;
+    address = place.name!;
+    creatingAddInfoController.cityId.value = address;
+
     print('-------------------' + address);
-    creatingAddInfoController.locationInfoChanger(
-        '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}');
+
+    creatingAddInfoController.locationInfoChanger(' ${address}');
     print('locationInfo controller');
     print(creatingAddInfoController.locationInfo);
   }

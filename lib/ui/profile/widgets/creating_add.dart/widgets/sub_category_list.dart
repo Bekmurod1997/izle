@@ -101,16 +101,21 @@ class _SubCategoryListState extends State<SubCategoryList> {
                   itemCount: subCategoryController.subCategoryList.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () async {
-                        await creatingAddInfoController.subCategoryChanger(
-                            subCategoryName:
-                                '${subCategoryController.subCategoryList[index].nameRu}',
-                            id: subCategoryController
-                                .subCategoryList[index].id!);
+                      onTap: () {
+                        // await creatingAddInfoController.subCategoryChanger(
+                        //     subCategoryName:
+                        //         '${subCategoryController.subCategoryList[index].nameRu}',
+                        //     id: subCategoryController
+                        //         .subCategoryList[index].id!);
+                        creatingAddInfoController.subCategoryId.value =
+                            subCategoryController.subCategoryList[index].id!;
+                        creatingAddInfoController.subCategory.value =
+                            subCategoryController
+                                .subCategoryList[index].nameRu!;
                         print('pressed sub category id and name');
-                        print(creatingAddInfoController.subCategory);
-                        print(creatingAddInfoController.subCategoryId);
-                        print(subCategoryController.subCategoryList[index].id);
+                        print(creatingAddInfoController.subCategory.value);
+                        print(creatingAddInfoController.subCategoryId.value);
+                        // print(subCategoryController.subCategoryList[index].id);
 
                         Navigator.pop(context);
                         Navigator.pop(context);

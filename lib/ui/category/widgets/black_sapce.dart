@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:izle/ui/category/result_ads.dart';
 import 'package:get/get.dart';
 import 'package:izle/controller/all_regions_controller.dart';
 

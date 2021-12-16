@@ -39,9 +39,8 @@ class EditCategoryChoice extends StatelessWidget {
                 return ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(creatingAddInfoController.mainCategory.value ==
-                                'nothing' &&
-                            creatingAddInfoController.subCategory.value ==
-                                'nothing'
+                                '' &&
+                            creatingAddInfoController.subCategory.value == ''
                         ? category
                         : creatingAddInfoController.mainCategory.value +
                             '/' +

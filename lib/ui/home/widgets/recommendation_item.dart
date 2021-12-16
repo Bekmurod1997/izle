@@ -8,16 +8,22 @@ import 'package:izle/services/all_services.dart';
 class RecommandationItem extends StatefulWidget {
   bool isFavorite;
   final String title;
+  final String typeAd;
   final String price;
   final String city;
   final String date;
   final String imageUrl;
   final int id;
+  final int top;
+  final int premium;
   RecommandationItem({
     required this.isFavorite,
     required this.title,
+    required this.typeAd,
     required this.price,
     required this.date,
+    required this.top,
+    required this.premium,
     required this.city,
     required this.imageUrl,
     required this.id,
@@ -38,18 +44,45 @@ class _RecommandationItemState extends State<RecommandationItem> {
           color: ColorPalate.addsBackgroundColor),
       child: Column(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.162,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: ColorPalate.addsBackgroundColor,
-            ),
-            child: Image.network(
-              'http://izle.uz/' + widget.imageUrl,
-              // 'assets/images/clothes.png',
-              fit: BoxFit.cover,
-            ),
+          Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.152,
+                width: double.infinity,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: ColorPalate.addsBackgroundColor,
+                ),
+                child: Image.network(
+                  'http://izle.uz/' + widget.imageUrl,
+                  // 'assets/images/clothes.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              widget.premium == 1 || widget.top == 1
+                  ? Positioned(
+                      right: 0,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: widget.premium == 1
+                              ? Color(0xffF7D501)
+                              : ColorPalate.mainColor,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(15),
+                          ),
+                        ),
+                        child: Text(widget.premium == 1 ? 'Премиум' : 'Топ',
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 13.0)),
+                      ))
+                  : Container(),
+            ],
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -105,7 +138,22 @@ class _RecommandationItemState extends State<RecommandationItem> {
                 Padding(
                   padding: const EdgeInsets.only(left: 0),
                   child: Text(
-                    '${widget.price} сум',
+                    widget.typeAd == 'free'
+                        ? 'бесплатно'
+                        : widget.typeAd == 'negotiable'
+                            ? 'договорная'
+                            : widget.typeAd == 'exchange'
+                                ? 'обмен'
+                                : '${widget.price}',
+
+                    // widget.typeAd == 'price'
+                    //     ? '${widget.price} '
+                    //     : widget.typeAd == 'exchange'
+                    //         ? 'обмен'
+                    //         : widget.typeAd == 'negotiable'
+                    //             ? 'договорная'
+                    //             : 'бесплатно',
+
                     style: FontStyles.blackStyle(
                         fontSize: 14,
                         fontFamily: 'Lato',
@@ -129,6 +177,7 @@ class _RecommandationItemState extends State<RecommandationItem> {
                     color: Colors.black,
                   ),
                 ),
+                SizedBox(height: 20),
               ],
             ),
           ),

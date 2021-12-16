@@ -5,7 +5,7 @@ Widget title({required String title}) {
   return Text(
     title,
     style: FontStyles.regularStyle(
-      fontSize: 24,
+      fontSize: 20,
       fontFamily: 'Lato',
     ),
   );

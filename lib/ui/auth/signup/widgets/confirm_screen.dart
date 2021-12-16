@@ -3,9 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/services/code_confirm.dart';
+import 'package:izle/services/signup.dart';
 import 'package:izle/utils/my_prefs.dart';
 
 class ConfirmScreen extends StatefulWidget {
+  final String phoneNumber;
+  final String password;
+
+  ConfirmScreen({required this.password, required this.phoneNumber});
   @override
   _ConfirmScreenState createState() => _ConfirmScreenState();
 }
@@ -19,12 +24,14 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     final FormState? form = _formKey.currentState;
     if (form!.validate()) {
       if (codeController.text == MyPref.code) {
+        print('this is if statement');
         CodeConfirm.codeConfirm(code: codeController.text, token: MyPref.token);
         // ConfirmCode.codeConfirmFunction(code: codeController.text);
         // Get.offAll(HomeScreen());
 
         // Get.offAll(HomeScreen());
       } else {
+        // SignUp.signUpUser(password: widget.password, phone: widget.phoneNumber);
         print('hatolik');
       }
     }
@@ -94,19 +101,28 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     if (value!.isEmpty) {
                       setState(() {
                         errorMessage = 'Поле не может быть пустым';
+                        print(value);
+                        print(codeController.text);
                       });
                       return '';
                     } else if (value.length < 6) {
                       setState(() {
                         errorMessage = 'Поле не может быть меньше 6 числа';
+                        print(value);
+                        print(codeController.text);
                       });
                       return '';
                     } else if (value != MyPref.code) {
                       setState(() {
                         errorMessage = 'Пожалуйста, введите правильный код';
+                        print(value);
+                        print(codeController.text);
                       });
                       return '';
                     }
+                    print(value);
+                    print(codeController.text);
+
                     return null;
                   },
                 ),

@@ -23,15 +23,17 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.fromLTRB(20, 40, 20, 15),
+      margin: EdgeInsets.fromLTRB(5, 40, 5, 15),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: TextField(
         textInputAction: TextInputAction.go,
         onSubmitted: (value) {
+          // search: searchController.text,
           print('entered');
           sController.searchTitleChanger(sTitle: searchController.text);
           Get.to(() => SearchResult(
+              // search: searchController.text,
               // searchResult: sController.searchTitle.toString(),
               ));
           // pageController.pageControllerChanger(6);
@@ -42,6 +44,8 @@ class _SearchState extends State<Search> {
               onTap: () {
                 sController.searchTitleChanger(sTitle: searchController.text);
                 Get.to(() => SearchResult(
+                    // search: searchController.text,
+                    // search: searchController.text,
                     // searchResult: sController.searchTitle.toString(),
                     ));
                 // pageController.pageControllerChanger(6);
@@ -50,16 +54,6 @@ class _SearchState extends State<Search> {
                 Icons.search,
                 size: 25,
               )),
-          // prefixIcon: IconButton(
-          //   onPressed: () {
-          //     sController.searchTitleChanger(sTitle: searchController.text);
-          //     Get.to(() => SearchResult(
-          //           searchResult: sController.searchTitle.toString(),
-          //         ));
-          //     pageController.pageControllerChanger(6);
-          //   },
-          //   icon: Icon(Icons.search),
-          // ),
           border: InputBorder.none,
           hintText: 'Что вы ищете?',
           hintStyle: FontStyles.regularStyle(

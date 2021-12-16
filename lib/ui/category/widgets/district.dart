@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
+import 'package:izle/controller/fitler_detal_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
 import 'package:izle/ui/category/result_ads.dart';
 
@@ -23,10 +24,11 @@ class DistrictScreen extends StatefulWidget {
 }
 
 class _DistrictScreenState extends State<DistrictScreen> {
+  final FilterDetalController filterDetalController =
+      Get.find<FilterDetalController>();
   List<Childs> districts = [];
   @override
   void initState() {
-    // TODO: implement initState
     districts = widget.districts;
     super.initState();
   }
@@ -39,13 +41,16 @@ class _DistrictScreenState extends State<DistrictScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 30),
-          Container(
-            color: ColorPalate.lightGreen,
+          Card(
             child: ListTile(
                 title: Text('Весь ' + widget.mainCityName),
                 onTap: () {
+                  filterDetalController.changerCityName(
+                      cityNamee: widget.mainCityName);
+
                   Get.back();
                   Get.back();
+                  filterDetalController.cityId.value = widget.mainCityId;
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -53,8 +58,9 @@ class _DistrictScreenState extends State<DistrictScreen> {
                                 mainCategoryId: widget.mainCategoryId,
                                 catId: widget.mainCatId,
                                 catName: widget.mainCategoryName,
-                                cityId: widget.mainCityId,
-                                cityName: widget.mainCityName,
+                                cityId: widget.mainCityId.toString(),
+                                cityName:
+                                    filterDetalController.cityName.toString(),
                               )));
                 }),
           ),
@@ -66,17 +72,24 @@ class _DistrictScreenState extends State<DistrictScreen> {
               padding: EdgeInsets.zero,
               itemCount: districts.length,
               itemBuilder: (context, index) => Container(
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                  color: Colors.black,
+                  width: 0.4,
+                ))),
                 child: ListTile(
-                    trailing: Text(districts[index].id.toString()),
+                    trailing:
+                        Icon(Icons.arrow_forward, color: ColorPalate.mainColor),
                     title: Text(districts[index].nameRu!),
-                    // trailing: Icon(Icons.arrow_forward, color:ColorPalate.mainColor),
-                    // onTap: () {
-                    //   print(districts[index].id!);
-                    // },
-
                     onTap: () {
                       Get.back();
                       Get.back();
+                      filterDetalController.cityName.value =
+                          widget.mainCityName;
+                      filterDetalController.districtName.value =
+                          districts[index].nameRu!;
+                      filterDetalController.cityId.value = districts[index].id!;
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -84,8 +97,9 @@ class _DistrictScreenState extends State<DistrictScreen> {
                                     mainCategoryId: widget.mainCategoryId,
                                     catId: widget.mainCatId,
                                     catName: widget.mainCategoryName,
-                                    cityId: districts[index].id,
-                                    cityName: widget.mainCityName,
+                                    cityId: districts[index].id.toString(),
+                                    cityName: filterDetalController.cityName
+                                        .toString(),
                                   )));
                     }),
               ),
@@ -94,8 +108,5 @@ class _DistrictScreenState extends State<DistrictScreen> {
         ],
       ),
     );
-    // return ListView.builder(
-    //     itemCount:recieveData,
-    //     itemBuilder: (context, index)=>Text(recieveData[0].nameRu));
   }
 }

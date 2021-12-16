@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
 import 'package:izle/controller/all_categories.dart';
+import 'package:izle/controller/fitler_detal_controller.dart';
 import 'package:izle/controller/for_cat_controller.dart';
 import 'package:izle/controller/sub_category_controller.dart';
 import 'package:izle/ui/category/result_ads.dart';
@@ -23,7 +24,9 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
   final MainCategories mainCategories = Get.find<MainCategories>();
 
   final SubCategoryController subCategoryController =
-      Get.put(SubCategoryController());
+      Get.find<SubCategoryController>();
+  final FilterDetalController filterDetalController =
+      Get.put(FilterDetalController());
 
   @override
   void initState() {
@@ -60,6 +63,13 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                 onTap: () {
                   forSubCategoryController
                       .mainCatId(mainCategories.categoriesList[index].id);
+                  filterDetalController.changerMainCategoryId(
+                      mainCategoryIdd:
+                          mainCategories.categoriesList[index].id!);
+
+                  filterDetalController.changerMainCategoryName(
+                      catName: mainCategories.categoriesList[index].nameRu!);
+                  print(filterDetalController.mainCategoryName.value);
                   Get.to(() => ResultAds(
                         mainCategoryId:
                             mainCategories.categoriesList[index].id!,

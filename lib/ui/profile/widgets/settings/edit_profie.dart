@@ -4,7 +4,6 @@ import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/components/custom_appbar.dart';
 import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/utils/my_prefs.dart';
@@ -16,6 +15,13 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   bool status1 = false;
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  bool _obscureText = true;
   late String n;
   late String e;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -23,7 +29,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final UserInfoController userInfoController = Get.find<UserInfoController>();
 
   TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -31,19 +37,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       // executes after build
       userInfoController.fetchUserInfo(userToken: MyPref.token);
       print(userInfoController.fetchUserInfoList);
+      print(MyPref.password);
+      passwordController.text = MyPref.password;
       if (userInfoController.fetchUserInfoList.first.name == null ||
           userInfoController.fetchUserInfoList.first.name == '') {
         nameController.text = '';
       } else {
         nameController.text = userInfoController.fetchUserInfoList.first.name!;
       }
-      if (userInfoController.fetchUserInfoList.first.email == null ||
-          userInfoController.fetchUserInfoList.first.email == '') {
-        emailController.text = '';
-      } else {
-        emailController.text =
-            userInfoController.fetchUserInfoList.first.email!;
-      }
+
+      // if (userInfoController.fetchUserInfoList.first.email == null ||
+      //     userInfoController.fetchUserInfoList.first.email == '') {
+      //   passwordController.text = '';
+      // } else {
+      //   emailController.text =
+      //       userInfoController.fetchUserInfoList.first.email!;
+      // }
     });
 
     super.initState();
@@ -101,7 +110,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'Ваше новая электронная почта',
+                    'Изминить пароль',
                     style: FontStyles.regularStyle(
                       fontSize: 16,
                       fontFamily: 'Lato',
@@ -115,55 +124,81 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       borderRadius: new BorderRadius.circular(10.0),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.only(left: 15, right: 15, top: 5),
-                      child: TextFormField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          hintText: 'Например: Велосипед SKILLMAX',
-                          hintStyle: FontStyles.regularStyle(
-                              fontSize: 16,
-                              fontFamily: 'Lato',
-                              color: Color(0xff616161)),
-                          border: InputBorder.none,
+                        padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+                        child: TextField(
+                          controller: passwordController,
+                          style: TextStyle(fontSize: 16.0),
+                          obscureText: _obscureText,
+                          decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            suffixIcon: Padding(
+                              padding: EdgeInsets.only(top: 10),
+                              child: InkWell(
+                                onTap: _toggle,
+                                child: Text(
+                                  _obscureText ? 'показать ' : 'скрыть',
+                                  style: TextStyle(
+                                    color: Color(0xff635757),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                        // TextFormField(
+                        //   controller: passwordController,
+                        //   decoration: InputDecoration(
+                        //     hintText: 'Например: Велосипед SKILLMAX',
+                        //     hintStyle: FontStyles.regularStyle(
+                        //         fontSize: 16,
+                        //         fontFamily: 'Lato',
+                        //         color: Color(0xff616161)),
+                        //     border: InputBorder.none,
+                        //   ),
+                        // ),
                         ),
-                      ),
-                    ),
                   ),
                   SizedBox(height: 45),
-                  ListTile(
-                    onTap: () => setState(() {
-                      status1 = !status1;
-                    }),
-                    title: Text(
-                      'Показать мое фото',
-                      style: FontStyles.regularStyle(
-                        fontSize: 18,
-                        fontFamily: 'Lato',
-                        color: Colors.black87,
-                      ),
-                    ),
-                    trailing: Container(
-                      width: 45,
-                      height: 25,
-                      child: FlutterSwitch(
-                        activeColor: ColorPalate.mainColor,
-                        value: status1,
-                        onToggle: (val) {
-                          setState(() {
-                            status1 = val;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
+                  // ListTile(
+                  //   onTap: () => setState(() {
+                  //     status1 = !status1;
+                  //   }),
+                  //   title: Text(
+                  //     'Показать мое фото',
+                  //     style: FontStyles.regularStyle(
+                  //       fontSize: 18,
+                  //       fontFamily: 'Lato',
+                  //       color: Colors.black87,
+                  //     ),
+                  //   ),
+                  //   trailing: Container(
+                  //     width: 45,
+                  //     height: 25,
+                  //     child: FlutterSwitch(
+                  //       activeColor: ColorPalate.mainColor,
+                  //       value: status1,
+                  //       onToggle: (val) {
+                  //         setState(() {
+                  //           status1 = val;
+                  //         });
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
+
                   Spacer(),
+
                   CutomeButton(
                     title: 'Сохранить',
                     onpress: () {
                       MyPref.userName = nameController.text;
-                      MyPref.email = emailController.text;
+                      MyPref.password = passwordController.text;
                       AllServices.editProfile(
-                          email: emailController.text,
+                          password: passwordController.text,
                           name: nameController.text);
                       // Get.back();
                       // userInfoController.fetchUserInfo();

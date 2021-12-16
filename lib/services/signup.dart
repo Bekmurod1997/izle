@@ -13,24 +13,29 @@ class SignUp {
   PageNavigationController pageNavigationController =
       Get.find<PageNavigationController>();
   static Future signUpUser({
-    String? phone,
-    String? password,
-    String? name,
-    String? email,
+    required String phone,
+    required String password,
+
+    // String? email,
   }) async {
     // UserInfoController userInfoController = Get.find<UserInfoController>();
 
     try {
+      print('this is post');
+      print(phone);
+
       var response = await client.post(Uri.parse(ApiUrl.signup), headers: {
         'Accept': 'application/json',
       }, body: {
         'name': phone,
-        'email': 'a@mail.ru',
+        // 'email': 'a@mail.ru',
         'phone': phone,
         'password': password,
+        'device_id': MyPref.fcmToken,
       });
       print(response.statusCode);
       if (response.statusCode == 200) {
+        MyPref.password = password;
         var body = SignUpModel.fromJson(json.decode(response.body));
         print(response.body);
         print('this is signup service');
@@ -43,7 +48,10 @@ class SignUp {
         MyPref.token = body.data!.token!;
 
         // MyPref.userName = body.data!.ph;
-        await Get.to(() => ConfirmScreen());
+        await Get.to(() => ConfirmScreen(
+              password: password,
+              phoneNumber: phone,
+            ));
         // await CodeConfirm.codeConfirm(
         //     code: body.data!.code, token: body.data!.token);
         print('password');

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:izle/controller/fitler_detal_controller.dart';
 import 'package:izle/controller/sub_category_controller.dart';
 import 'package:izle/models/categories/main_categories_model.dart';
 import 'package:izle/ui/category/result_ads.dart';
@@ -14,12 +14,12 @@ class SubCategories extends StatefulWidget {
   final String catName;
   final String imgUrl;
   final String? cityName;
-  final int? cityId;
+  final String? cityId;
   final List<DataCategory> subCategories;
   SubCategories(
-      {required this.id,
-      required this.catName,
+      {required this.catName,
       required this.subCategories,
+      required this.id,
       required this.mainCategoryId,
       this.cityId,
       this.cityName,
@@ -32,10 +32,14 @@ class SubCategories extends StatefulWidget {
 class _SubCategoriesState extends State<SubCategories> {
   final SubCategoryController subCategoryController =
       Get.find<SubCategoryController>();
+  FilterDetalController filterDetalController =
+      Get.find<FilterDetalController>();
   List<DataCategory> subCats = [];
   @override
   void initState() {
+    print('init state');
     subCats = widget.subCategories;
+    print(subCats.length);
     // subCategoryController.fetchSubCategries(widget.id);
     // print(widget.id);
     // print('this is sub cate iniit');
@@ -52,45 +56,6 @@ class _SubCategoriesState extends State<SubCategories> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Container(
-          //   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          //   margin: EdgeInsets.only(top: 5),
-          //   width: double.infinity,
-          //   color: Colors.white,
-          //   child: GestureDetector(
-          //     // onTap: () {
-          //     //   Get.to(() => ResultAds(
-          //     //         catId: widget.id.toString(),
-          //     //       ));
-          //     // },
-          //     child: Row(
-          //       children: [
-          //         Container(
-          //           padding: EdgeInsets.all(10),
-          //           height: 50,
-          //           width: 50,
-          //           decoration: BoxDecoration(
-          //               color: ColorPalate.categoryBackground,
-          //               shape: BoxShape.circle),
-          //           child: Center(
-          //             child: SvgPicture.network(
-          //                 'http://izle.loko.uz/' + widget.imgUrl),
-          //           ),
-          //         ),
-
-          //         SizedBox(width: 15),
-          //         Text(
-          //           widget.catName,
-          //           style: FontStyles.semiBoldStyle(
-          //             fontSize: 18,
-          //             fontFamily: 'Lato',
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-
           Expanded(
             child: ListView.separated(
               separatorBuilder: (context, index) => SizedBox(
@@ -100,8 +65,10 @@ class _SubCategoriesState extends State<SubCategories> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    print(subCats[index].nameRu);
-                    print(subCats[index].id);
+                    filterDetalController.subCategoryName.value =
+                        subCats[index].nameRu!;
+                    filterDetalController.subCategoryId.value =
+                        subCats[index].id!;
                     Get.back();
                     Navigator.pushReplacement(
                         context,
@@ -114,13 +81,6 @@ class _SubCategoriesState extends State<SubCategories> {
                                   cityName: widget.cityName,
                                 )));
                   },
-                  // onTap: () {
-                  //   Get.to(() => ResultAds(
-                  //         catId: subCategoryController
-                  //             .subCategoryList[index].id
-                  //             .toString(),
-                  //       ));
-                  // },
                   child: Container(
                     color: ColorPalate.addsBackgroundColor,
                     padding: const EdgeInsets.symmetric(

@@ -6,10 +6,11 @@ class ProductDetailController extends GetxController {
   var isLoading = true.obs;
   ProductDetailModel? productDetailList;
 
-  Future<void> fetchProductDetail(int proId) async {
+  Future<void> fetchProductDetail(int proId, String? currencyType) async {
     try {
       isLoading(true);
-      var proList = await AllServices.productDetail(proId);
+      var proList = await AllServices.productDetail(
+          prodId: proId, currencyType: currencyType);
       if (proList != null) {
         productDetailList = proList;
         print('this is controller product detail');

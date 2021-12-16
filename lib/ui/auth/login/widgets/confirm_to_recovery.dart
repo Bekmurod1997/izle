@@ -92,6 +92,7 @@ class _ConfirmToRecoveryState extends State<ConfirmToRecovery> {
             ),
             GestureDetector(
               onTap: () {
+                print('pressed confirm to recovery');
                 AllServices.recoveryCodePassword(widget.phoneNumber, code.text);
                 //  MyPref.code ==code.text?  Get.to(() => NavScreen());
                 if (MyPref.code == code.text) {

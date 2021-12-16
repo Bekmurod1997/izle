@@ -6,9 +6,9 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 
 class EditPrice extends StatefulWidget {
-  final String type;
+  final String type_ad;
   final String price;
-  EditPrice({required this.type, required this.price});
+  EditPrice({required this.type_ad, required this.price});
   @override
   _EditPriceState createState() => _EditPriceState();
 }
@@ -24,7 +24,25 @@ class _EditPriceState extends State<EditPrice> {
   @override
   void initState() {
     priceController.text = widget.price;
-    selectedIndex = int.parse(widget.type);
+    if (widget.type_ad == 'free') {
+      setState(() {
+        selectedIndex = 2;
+      });
+    } else if (widget.type_ad == 'exchange') {
+      setState(() {
+        selectedIndex = 3;
+      });
+    } else if (widget.type_ad == 'price') {
+      setState(() {
+        selectedIndex = 1;
+      });
+    } else {
+      setState(() {
+        selectedIndex = 1;
+        status1 = true;
+      });
+    }
+    // selectedIndex = int.parse(widget.type_ad);
     super.initState();
   }
 
@@ -40,9 +58,10 @@ class _EditPriceState extends State<EditPrice> {
               onTap: () {
                 setState(() {
                   selectedIndex = 1;
+                  creatingAddInfoController.type_ad.value = 'price';
                 });
-                creatingAddInfoController.typeIdChanger(1);
-                print('typeId ${creatingAddInfoController.typeId.value}');
+                // creatingAddInfoController.typeIdChanger(1);
+                // print('typeId ${creatingAddInfoController.typeId.value}');
               },
               child: Container(
                 width: 101,
@@ -75,9 +94,10 @@ class _EditPriceState extends State<EditPrice> {
               onTap: () {
                 setState(() {
                   selectedIndex = 2;
+                  creatingAddInfoController.type_ad.value = 'free';
                 });
-                creatingAddInfoController.typeIdChanger(2);
-                print('typeId ${creatingAddInfoController.typeId.value}');
+                // creatingAddInfoController.typeIdChanger(2);
+                // print('typeId ${creatingAddInfoController.typeId.value}');
               },
               child: Container(
                 width: 101,
@@ -110,9 +130,10 @@ class _EditPriceState extends State<EditPrice> {
               onTap: () {
                 setState(() {
                   selectedIndex = 3;
+                  creatingAddInfoController.type_ad.value = 'exchange';
                 });
-                creatingAddInfoController.typeIdChanger(3);
-                print('typeId ${creatingAddInfoController.typeId.value}');
+                // creatingAddInfoController.typeIdChanger(3);
+                // print('typeId ${creatingAddInfoController.typeId.value}');
               },
               child: Container(
                 width: 101,
@@ -173,47 +194,47 @@ class _EditPriceState extends State<EditPrice> {
                           color: Color(0xff616161)),
                     ),
                     onChanged: (String value) {
-                      creatingAddInfoController
-                          .priceChanger(double.parse(value));
+                      creatingAddInfoController.priceChanger(
+                          double.parse(value.replaceAll(' ', '')));
                       print(creatingAddInfoController.price);
                     },
                   ),
                 ),
               )
             : Container(),
-        selectedIndex == 1
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Radio(
-                    value: 1,
-                    groupValue: val,
-                    onChanged: (a) {
-                      setState(() {
-                        val = 1;
-                      });
-                    },
-                    activeColor: Colors.black,
-                  ),
-                  Text(
-                    'UZS',
-                  ),
-                  Radio(
-                    value: 2,
-                    groupValue: val,
-                    onChanged: (a) {
-                      setState(() {
-                        val = 2;
-                      });
-                    },
-                    activeColor: Colors.black,
-                  ),
-                  Text(
-                    'USD',
-                  ),
-                ],
-              )
-            : Container(),
+        // selectedIndex == 1
+        //     ? Row(
+        //         mainAxisAlignment: MainAxisAlignment.start,
+        //         children: [
+        //           Radio(
+        //             value: 1,
+        //             groupValue: val,
+        //             onChanged: (a) {
+        //               setState(() {
+        //                 val = 1;
+        //               });
+        //             },
+        //             activeColor: Colors.black,
+        //           ),
+        //           Text(
+        //             'UZS',
+        //           ),
+        //           Radio(
+        //             value: 2,
+        //             groupValue: val,
+        //             onChanged: (a) {
+        //               setState(() {
+        //                 val = 2;
+        //               });
+        //             },
+        //             activeColor: Colors.black,
+        //           ),
+        //           Text(
+        //             'USD',
+        //           ),
+        //         ],
+        //       )
+        //     : Container(),
         selectedIndex == 1
             ? ListTile(
                 onTap: () => setState(() {
@@ -237,12 +258,19 @@ class _EditPriceState extends State<EditPrice> {
                       setState(() {
                         status1 = val;
                       });
+                      if (status1 == true) {
+                        creatingAddInfoController.type_ad.value = 'negotiable';
+                      } else {
+                        creatingAddInfoController.type_ad.value = 'price';
+                      }
+                      print('switch value');
+                      print(creatingAddInfoController.type_ad.value);
                     },
                   ),
                 ),
               )
             : Container(),
-        SizedBox(height: 45),
+        SizedBox(height: 15),
       ],
     );
   }

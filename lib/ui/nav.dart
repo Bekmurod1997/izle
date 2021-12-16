@@ -1,5 +1,7 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/ui/category/all_category_screen.dart';
 import 'package:izle/ui/components/custom_bottomNavbar.dart';
@@ -12,9 +14,13 @@ import 'package:izle/ui/profile/active_profile.dart';
 import 'package:izle/ui/profile/profile_screen.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
 import 'package:izle/utils/my_prefs.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NavScreen extends StatefulWidget {
-  const NavScreen({Key? key}) : super(key: key);
+  final String? messageType;
+  NavScreen({this.messageType});
 
   @override
   _NavScreenState createState() => _NavScreenState();
@@ -23,8 +29,14 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> {
   final PageNavigationController pageNavigationController =
       Get.find<PageNavigationController>();
+  final CreatingAddInfoController creatingAddInfoController =
+      Get.find<CreatingAddInfoController>();
   // ignore: unused_field
   int _selectedIndex = 0;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  late AndroidNotificationChannel channel;
+
   // ignore: unused_field
   static const TextStyle optionStyle = TextStyle(
     fontSize: 30,
@@ -35,14 +47,52 @@ class _NavScreenState extends State<NavScreen> {
     HomeScreen(),
     AllCategoryScreen(),
     MyPref.token == '' ? AuthScreen() : CreatingAddScreen(),
-    MyPref.token == '' ? UnAuthMessageScreen() : MessageScreen(),
+    MyPref.token == '' ? UnAuthMessageScreen() : MessageScreen(''),
     MyPref.token == '' ? ProfileScreen() : ActiveProfileScreen(),
   ];
   late int activeTabIndex;
   @override
   void initState() {
+    print('my fcm token is');
+    print(MyPref.fcmToken);
     activeTabIndex = 0;
     MyPref.loginLanding = 'isset';
+    _firebaseMessaging.getNotificationSettings();
+    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+        badge: true, alert: true, sound: true);
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+
+      // if (notification != null && android != null) {
+      //   flutterLocalNotificationsPlugin.show(
+      //     notification.hashCode,
+      //     notification.title,
+      //     notification.body,
+      //     NotificationDetails(
+      //       android: AndroidNotificationDetails(
+      //         channel.id,
+      //         channel.name,
+
+      //         // TODO add a proper drawable resource to android, for now using
+      //         //      one that already exists in example app.
+      //         icon: 'launch_background',
+      //       ),
+      //     ),
+      //   );
+      // }
+      print('navvvvv');
+      print(message.notification!.title);
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage messag) {
+      Get.to(
+        () => MessageScreen(''),
+      );
+      pageNavigationController.pageControllerChanger(3);
+      pageNavigationController.tabIndexChanger(3);
+    });
+
     super.initState();
   }
 
@@ -60,15 +110,21 @@ class _NavScreenState extends State<NavScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Scaffold(
-        backgroundColor: ColorPalate.mainPageColor,
-        body: tabContents[pageNavigationController.pageControler.value],
-        // child: HomeScreen(),
+    return WillPopScope(
+      onWillPop: () async {
+        creatingAddInfoController.resetAll();
+        return true;
+      },
+      child: Obx(() {
+        return Scaffold(
+          backgroundColor: ColorPalate.mainPageColor,
+          body: tabContents[pageNavigationController.pageControler.value],
+          // child: HomeScreen(),
 
-        bottomNavigationBar: CustomBottomNavBar(),
-      );
-    });
+          bottomNavigationBar: CustomBottomNavBar(),
+        );
+      }),
+    );
   }
 
   // Widget bottomNavigationBar() {

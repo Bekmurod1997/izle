@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/product_detail_controller.dart';
@@ -10,10 +11,12 @@ import 'package:izle/ui/product_detail/widgets/address.dart';
 import 'package:izle/ui/product_detail/widgets/app_bar.dart';
 import 'package:izle/ui/product_detail/widgets/date.dart';
 import 'package:izle/ui/product_detail/widgets/gallery_example_item.dart';
+import 'package:izle/ui/product_detail/widgets/more_vertical.dart';
 import 'package:izle/ui/product_detail/widgets/price.dart';
 import 'package:izle/ui/product_detail/widgets/title.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'widgets/call_chat_buttons.dart';
 import 'widgets/complain.dart';
@@ -26,7 +29,8 @@ import 'package:carousel_slider/carousel_controller.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final int? proId;
-  ProductDetailScreen({required this.proId});
+  final String? currencySort;
+  ProductDetailScreen({this.currencySort, required this.proId});
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -35,15 +39,28 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final ProductDetailController productDetailController =
       Get.find<ProductDetailController>();
-  final PageController _pageController = PageController(initialPage: 0);
+  // final PageController _pageController = PageController(initialPage: 0);
+  final formatCurrency = NumberFormat.decimalPattern();
 
   @override
   void initState() {
-    productDetailController.fetchProductDetail(widget.proId!);
-    // print(productDetailController.productDetailList?.data.title);
-    print('id');
-    print(widget.proId);
-    print('------');
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      print('currencySort');
+      print(widget.currencySort);
+      print('the id of product');
+      print(widget.proId.toString());
+      productDetailController.fetchProductDetail(
+        widget.proId!,
+        widget.currencySort == null || widget.currencySort == ''
+            ? ''
+            : widget.currencySort,
+      );
+      print(productDetailController.productDetailList?.data.price);
+      print('id');
+      print(widget.proId);
+      print('------');
+    });
+
     super.initState();
   }
 
@@ -55,7 +72,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: detailAppBar(),
+      // appBar: detailAppBar(),
       body: Obx(() {
         if (productDetailController.isLoading.value) {
           return Center(
@@ -65,13 +82,48 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           );
         } else {
           allImages = [
-            productDetailController.productDetailList?.data.photo,
+            // productDetailController.productDetailList?.data.photo,
             ...productDetailController.productDetailList?.data.gallery ?? []
           ];
           return Stack(
             children: [
               ListView(
                 children: [
+                  Container(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: RotatedBox(
+                            quarterTurns: 2,
+                            child: SvgPicture.asset(
+                              'assets/icons/next-icon.svg',
+                              height: 20,
+                            ),
+                          ),
+                          onPressed: () => Get.back(),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Share.share(
+                                'https://izle.uz/ads/view?id=${widget.proId}',
+                                subject:
+                                    '${productDetailController.productDetailList?.data.title}, \n' +
+                                        '${productDetailController.productDetailList?.data.price}');
+                          },
+                          child: SvgPicture.asset(
+                            'assets/icons/share.svg',
+                            height: 20,
+                            color: ColorPalate.mainColor,
+                          ),
+                        ),
+                        // MoreVertical(
+                        //   productId: widget.proId!,
+                        // ),
+                      ],
+                    ),
+                  ),
                   GestureDetector(
                     onTap: () {},
                     child: CarouselSlider(
@@ -162,8 +214,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 '${productDetailController.productDetailList?.data.title}'),
                         SizedBox(height: 10),
                         price(
-                            price:
-                                '${productDetailController.productDetailList?.data.price}'),
+                            typeAd:
+                                '${productDetailController.productDetailList?.data.typeAd}',
+                            price: widget.currencySort == null ||
+                                    widget.currencySort == ''
+                                ? '${formatCurrency.format(productDetailController.productDetailList?.data.price).replaceAll(',', ' ')} сум '
+                                : '${formatCurrency.format(productDetailController.productDetailList?.data.price).replaceAll(',', ' ')} y.e '),
                         SizedBox(height: 14),
                         date(
                             date:
@@ -203,13 +259,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   SizedBox(height: 0),
                   ProductDesciption(
                     proDesc:
-                        '${productDetailController.productDetailList?.data.description}',
+                        '${productDetailController.productDetailList?.data.content}',
                   ),
 
                   Center(
                     child: GestureDetector(
                       onTap: () => Get.to(
-                        () => ComplainScreen(),
+                        () => ComplainScreen(
+                          id: widget.proId!,
+                        ),
                       ),
                       child: Text(
                         'Пожаловаться',
@@ -221,19 +279,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 10),
                   UserInfo(
-                    userName:
-                        '${productDetailController.productDetailList?.data.user.name}',
-                    authorToken:
-                        '${productDetailController.productDetailList?.data.user.token}',
-                    userId:
-                        productDetailController.productDetailList!.data.user.id,
-                    userImage:
-                        '${productDetailController.productDetailList?.data.user.photo}',
-                    userPhone:
-                        '${productDetailController.productDetailList!.data.user.phone}',
-                  ),
-                  SizedBox(height: 20),
+                      userName:
+                          '${productDetailController.productDetailList?.data.user.name}',
+                      authorToken:
+                          '${productDetailController.productDetailList?.data.user.token}',
+                      userId: productDetailController
+                              .productDetailList?.data.user.id ??
+                          0,
+                      userImage:
+                          '${productDetailController.productDetailList?.data.user.photo}',
+                      userPhone: '999999'
+                      // productDetailController
+                      //         .productDetailList!.data.user.phone ??
+                      //     '',
+                      ),
+                  SizedBox(height: 50),
                   SimilarAdds(
                     myList: productDetailController.productDetailList?.similar,
                   ),
