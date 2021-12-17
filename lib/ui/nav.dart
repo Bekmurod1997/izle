@@ -86,9 +86,9 @@ class _NavScreenState extends State<NavScreen> {
       print(message.notification!.title);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage messag) {
-      Get.to(
-        () => MessageScreen(''),
-      );
+      // Get.to(
+      //   () => MyPref.token == '' ? UnAuthMessageScreen() : MessageScreen(''),
+      // );
       pageNavigationController.pageControllerChanger(3);
       pageNavigationController.tabIndexChanger(3);
     });

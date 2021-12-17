@@ -6,6 +6,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/my_ads_active_controller.dart';
 import 'package:izle/ui/profile/widgets/adds/widgets/adds_card.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class ActiveAdds extends StatefulWidget {
   @override
@@ -21,6 +22,8 @@ class _ActiveAddsState extends State<ActiveAdds> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       myAdsActiveController.fetchMyActiveOrders();
+      initializeDateFormatting();
+      Intl.defaultLocale = 'ru_RU';
     });
     super.initState();
   }
@@ -94,6 +97,13 @@ class _ActiveAddsState extends State<ActiveAdds> {
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+                        var giventDate = DateTime.parse(
+                          myAdsActiveController
+                              .allMyAdsList()
+                              .data![index]
+                              .date!,
+                        );
+                        var format = DateFormat("MMMMEEEEd");
                         return AddsCard(
                           premium: myAdsActiveController
                                   .allMyAdsList()
@@ -183,10 +193,11 @@ class _ActiveAddsState extends State<ActiveAdds> {
                               .allMyAdsList()
                               .data![index]
                               .title!,
-                          date: myAdsActiveController
-                              .allMyAdsList()
-                              .data![index]
-                              .date!,
+                          date: format.format(giventDate),
+                          // date: myAdsActiveController
+                          //     .allMyAdsList()
+                          //     .data![index]
+                          //     .date!,
                           imageUrl: myAdsActiveController
                               .allMyAdsList()
                               .data![index]

@@ -6,6 +6,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/my_ads_onmoderation_controller.dart';
 import 'package:izle/ui/profile/widgets/adds/widgets/moderation_card.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class Moderation extends StatefulWidget {
   @override
@@ -21,6 +22,8 @@ class _ModerationState extends State<Moderation> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       myAdsOnModerationController.fetchMyOnModerationOrders();
+      initializeDateFormatting();
+      Intl.defaultLocale = 'ru_RU';
     });
     super.initState();
   }
@@ -100,6 +103,13 @@ class _ModerationState extends State<Moderation> {
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+                        var giventDate = DateTime.parse(
+                          myAdsOnModerationController
+                              .allMyAdsList()
+                              .data![index]
+                              .date!,
+                        );
+                        var format = DateFormat("MMMMEEEEd");
                         // int nonActiveAds = 0;
                         // int numberTotalAds =
                         //     myAdsController.allMyAdsList().mMeta?.pageCount ?? 0;
@@ -175,14 +185,12 @@ class _ModerationState extends State<Moderation> {
                               .allMyAdsList()
                               .data![index]
                               .id!,
+
                           title: myAdsOnModerationController
                               .allMyAdsList()
                               .data![index]
                               .title!,
-                          date: myAdsOnModerationController
-                              .allMyAdsList()
-                              .data![index]
-                              .date!,
+                          date: format.format(giventDate),
                           imageUrl: myAdsOnModerationController
                               .allMyAdsList()
                               .data![index]

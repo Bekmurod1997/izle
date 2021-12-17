@@ -64,7 +64,19 @@ class _MapScreenState extends State<MapScreen> {
     //         : place.subAdministrativeArea!.isNotEmpty
     //             ? place.subAdministrativeArea
     //             : place.administrativeArea)!;
-    address = place.name!;
+    // address = place.subLocality!;
+    if (address.contains(RegExp(r'[0-9]')) || address == '') {
+      setState(() {
+        address = place.subLocality!;
+        creatingAddInfoController.locationInfoChanger(' ${address}');
+      });
+    } else {
+      setState(() {
+        address = place.name!;
+        creatingAddInfoController.locationInfoChanger(' ${address}');
+      });
+    }
+    // place.subLocality.contains(RegExp(r'[0-9]'))? address= place.name!:place.subLocality!;
     creatingAddInfoController.cityId.value = address;
 
     print('-------------------' + address);
@@ -126,8 +138,8 @@ class _MapScreenState extends State<MapScreen> {
                     Marker(
                       onTap: () => print('tapeed one1'),
                       infoWindow: InfoWindow(
-                        title: 'InfoWindowText 1',
-                      ),
+                          // title: 'InfoWindowText 1',
+                          ),
                       markerId: MarkerId('current'),
                       position: LatLng(lat, long),
                     ),

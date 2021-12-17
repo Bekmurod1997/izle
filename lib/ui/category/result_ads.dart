@@ -21,6 +21,7 @@ import 'package:izle/ui/home/home_screen.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
 import 'package:izle/models/categories/main_categories_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 //type
 
@@ -103,6 +104,8 @@ class _ResultAdsState extends State<ResultAds> {
       print('id of category');
       print(widget.catId);
       print('this is intistate in results');
+      initializeDateFormatting();
+      Intl.defaultLocale = 'ru_RU';
 
       print('currency sort');
       print(widget.currencySort);
@@ -1018,6 +1021,10 @@ class _ResultAdsState extends State<ResultAds> {
                                       MediaQuery.of(context).size.height * 0.33,
                                 ),
                                 itemBuilder: (context, index) {
+                                  var giventDate = DateTime.parse(
+                                      advertismentSubCategoryController
+                                          .adsSubList[index].date!);
+                                  var format = DateFormat("MMMMEEEEd");
                                   return GestureDetector(
                                     onTap: () =>
                                         Get.to(() => ProductDetailScreen(
@@ -1030,16 +1037,20 @@ class _ResultAdsState extends State<ResultAds> {
                                                       .adsSubList[index].id,
                                             )),
                                     child: ProductItem(
-                                        premium: advertismentSubCategoryController
-                                            .adsSubList[index].premium!,
+                                        premium:
+                                            advertismentSubCategoryController
+                                                .adsSubList[index].premium!,
                                         top: advertismentSubCategoryController
                                             .adsSubList[index].top!,
-                                        cityName: advertismentSubCategoryController
-                                                .adsSubList[index].cityName ??
-                                            '',
-                                        date: advertismentSubCategoryController
-                                                .adsSubList[index].date ??
-                                            '',
+                                        cityName:
+                                            advertismentSubCategoryController
+                                                    .adsSubList[index]
+                                                    .cityName ??
+                                                '',
+                                        date: format.format(giventDate),
+                                        // date: advertismentSubCategoryController
+                                        //         .adsSubList[index].date ??
+
                                         imageUrl:
                                             advertismentSubCategoryController
                                                     .adsSubList[index].photo ??

@@ -13,6 +13,7 @@ import 'package:izle/ui/home/widgets/search_all_categories.dart';
 import 'package:izle/ui/home/widgets/search_city.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
 import '../home_screen.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class SearchResult extends StatefulWidget {
   final String? cityId;
@@ -96,6 +97,8 @@ class _SearchResultState extends State<SearchResult> {
             priceStart: widget.priceStart,
           );
           print('scrolling');
+          initializeDateFormatting();
+          Intl.defaultLocale = 'ru_RU';
         }
       });
     });
@@ -1142,6 +1145,9 @@ class _SearchResultState extends State<SearchResult> {
                                               0.34,
                                     ),
                                     itemBuilder: (context, index) {
+                                      var giventDate = DateTime.parse(
+                                          sController.searchList[index].date!);
+                                      var format = DateFormat("MMMMEEEEd");
                                       return GestureDetector(
                                         onTap: () => Get.to(() =>
                                             ProductDetailScreen(
@@ -1179,9 +1185,7 @@ class _SearchResultState extends State<SearchResult> {
                                                       .replaceAll(',', ' ')
                                                       .toString() +
                                                   ' сум',
-                                          date: sController
-                                                  .searchList[index].date ??
-                                              '',
+                                          date: format.format(giventDate),
                                           imageUrl: sController
                                                   .searchList[index].photo ??
                                               '',

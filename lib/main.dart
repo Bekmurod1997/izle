@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/date_symbol_data_file.dart';
 import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
 import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/all_categories.dart';

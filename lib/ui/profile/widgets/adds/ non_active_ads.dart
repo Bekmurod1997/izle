@@ -6,6 +6,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/my_ads_inactive_controller.dart';
 import 'package:izle/ui/profile/widgets/adds/widgets/in_active_ads_cart.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class NonActiveAdsScreen extends StatefulWidget {
   const NonActiveAdsScreen({Key? key}) : super(key: key);
@@ -23,6 +24,8 @@ class _NonActiveAdsScreenState extends State<NonActiveAdsScreen> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       myAdsInActiveController.fetchMyInActiveOrders();
+      initializeDateFormatting();
+      Intl.defaultLocale = 'ru_RU';
     });
     super.initState();
   }
@@ -97,6 +100,13 @@ class _NonActiveAdsScreenState extends State<NonActiveAdsScreen> {
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+                        var giventDate = DateTime.parse(
+                          myAdsInActiveController
+                              .allMyAdsList()
+                              .data![index]
+                              .date!,
+                        );
+                        var format = DateFormat("MMMMEEEEd");
                         return InActiveCard(
                           gallery: myAdsInActiveController
                               .allMyAdsList()
@@ -156,10 +166,7 @@ class _NonActiveAdsScreenState extends State<NonActiveAdsScreen> {
                               .allMyAdsList()
                               .data![index]
                               .title!,
-                          date: myAdsInActiveController
-                              .allMyAdsList()
-                              .data![index]
-                              .date!,
+                          date: format.format(giventDate),
                           imageUrl: myAdsInActiveController
                               .allMyAdsList()
                               .data![index]

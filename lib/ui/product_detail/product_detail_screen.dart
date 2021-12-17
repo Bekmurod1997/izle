@@ -26,6 +26,7 @@ import 'widgets/similar_adds.dart';
 import 'widgets/type_buttons.dart';
 import 'widgets/user_info.dart';
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final int? proId;
@@ -59,6 +60,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       print('id');
       print(widget.proId);
       print('------');
+      initializeDateFormatting();
+      Intl.defaultLocale = 'ru_RU';
     });
 
     super.initState();
@@ -81,6 +84,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           );
         } else {
+          var giventDate = DateTime.parse(
+              productDetailController.productDetailList!.data.date!);
+          var format = DateFormat("MMMMEEEEd");
           allImages = [
             // productDetailController.productDetailList?.data.photo,
             ...productDetailController.productDetailList?.data.gallery ?? []
@@ -221,9 +227,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ? '${formatCurrency.format(productDetailController.productDetailList?.data.price).replaceAll(',', ' ')} сум '
                                 : '${formatCurrency.format(productDetailController.productDetailList?.data.price).replaceAll(',', ' ')} y.e '),
                         SizedBox(height: 14),
-                        date(
-                            date:
-                                '${productDetailController.productDetailList?.data.date}'),
+                        date(date: '${format.format(giventDate)}'),
                         SizedBox(height: 4),
                         address(
                             address:

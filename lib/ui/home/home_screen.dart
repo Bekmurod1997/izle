@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
 import 'package:izle/utils/my_prefs.dart';
 import 'package:izle/models/advertisement/advertisement_list_model.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -25,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    initializeDateFormatting();
+    Intl.defaultLocale = 'ru_RU';
     adsController.currentPagePremium = 1;
     adsController.currentPageTop = 1;
     // Firebase.initializeApp();
@@ -52,12 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (adsController.isLoading.value &&
-          adsController.isLoading2.value &&
-          adsController.isLoading3.value &&
-          !adsController.isLoadMore.value &&
-          !adsController.isLoadMore3.value &&
-          !adsController.isLoadMore2.value) {
+      if (adsController.isLoading.value && !adsController.isLoadMore.value) {
         return Center(
           child: CircularProgressIndicator(
             color: ColorPalate.mainColor,
@@ -231,6 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 5, 20),
               child: GridView.builder(
@@ -246,6 +246,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: MediaQuery.of(context).size.height * 0.34,
                 ),
                 itemBuilder: (context, index) {
+                  var giventDate =
+                      DateTime.parse(adsController.adsList[index].date!);
+                  var format = DateFormat("MMMMEEEEd");
+                  print('converting dateTime');
+                  print(format.format(giventDate));
+
                   return GestureDetector(
                     onTap: () => Get.to(() => ProductDetailScreen(
                         currencySort: '',
@@ -262,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               .format(adsController.adsList[index].price)
                               .replaceAll(',', ' ') +
                           ' сум',
-                      date: adsController.adsList[index].date!,
+                      date: format.format(giventDate),
                       imageUrl: adsController.adsList[index].photo!,
                     ),
                   );

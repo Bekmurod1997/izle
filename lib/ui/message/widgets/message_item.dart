@@ -31,9 +31,9 @@ class MessageItem extends StatelessWidget {
         // pageNavigationController.pageControllerChanger(7);
         Get.to(() => SingleScreen(
               chatId: id!,
-              getterId: getterId!,
-              userName: userName!,
-              imageUrl: imageUrl!,
+              getterId: getterId ?? 0,
+              userName: userName ?? '',
+              imageUrl: imageUrl ?? '',
             ));
       },
       child: Container(
@@ -64,7 +64,7 @@ class MessageItem extends StatelessWidget {
                     children: [
                       Text(
                         // 'Шахзод',
-                        userName!,
+                        userName ?? 'user',
                         style: FontStyles.regularStyle(
                           fontSize: 16,
                           fontFamily: 'Roboto',

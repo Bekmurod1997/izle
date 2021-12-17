@@ -23,6 +23,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:izle/utils/my_prefs.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class CreatingAddScreen extends StatefulWidget {
@@ -37,7 +38,6 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
 
   TextEditingController phoneNumber = TextEditingController();
   String phoneNumbeError = '';
-
   // bool _value = false;
 
   var _image;
@@ -48,8 +48,9 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
 
   @override
   void initState() {
-    ;
     super.initState();
+    initializeDateFormatting();
+    Intl.defaultLocale = 'ru_RU';
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       imagePicker = new ImagePicker();
       userInfoController.fetchUserInfo(userToken: MyPref.token);
@@ -62,6 +63,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
   var removedIndex = 0;
   // dynamic _pickImageError;
   final ImagePicker _picker = ImagePicker();
+
   void selectImages() async {
     final List<XFile>? selectImages = await _picker.pickMultiImage();
     if (selectImages == null || selectImages.isEmpty) return;
@@ -440,6 +442,10 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                         SizedBox(height: 30),
                         GestureDetector(
                           onTap: () {
+                            DateTime now = DateTime.now();
+
+                            var format = DateFormat("yMMMMEEEEd");
+                            print(format.format(now));
                             if (phoneNumber.text.length < 16) {
                               setState(() {
                                 phoneNumbeError =
@@ -521,33 +527,36 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                 creatingAddInfoController.long.value != 0.0) {
                               print(creatingAddInfoController
                                   .phoneNumber.value.length);
-                              Get.to(() => PreviewScreen(
-                                    typeAd:
-                                        creatingAddInfoController.type_ad.value,
-                                    imageList: creatingAddInfoController.images,
-                                    lat: creatingAddInfoController.lat.value
-                                        .toString(),
-                                    lng: creatingAddInfoController.long.value
-                                        .toString(),
-                                    userName: userInfoController
-                                        .fetchUserInfoList.first.name
-                                        .toString(),
-                                    datee: DateTime.now().toString(),
-                                    titlee:
-                                        creatingAddInfoController.title.value,
-                                    addresss: creatingAddInfoController
-                                        .locationInfo.value,
-                                    categoryy: creatingAddInfoController
-                                            .mainCategory.value +
-                                        '/' +
-                                        creatingAddInfoController
-                                            .subCategory.value,
-                                    descriptionn: creatingAddInfoController
-                                        .description.value,
-                                    pricee: creatingAddInfoController
-                                        .price.value
-                                        .toString(),
-                                  ));
+                              Get.to(
+                                () => PreviewScreen(
+                                  typeAd:
+                                      creatingAddInfoController.type_ad.value,
+                                  imageList: creatingAddInfoController.images,
+                                  lat: creatingAddInfoController.lat.value
+                                      .toString(),
+                                  lng: creatingAddInfoController.long.value
+                                      .toString(),
+                                  userName: userInfoController
+                                      .fetchUserInfoList.first.name
+                                      .toString(),
+                                  datee: format.format(now),
+                                  // datee: DateFormat('EEEEE')
+                                  //     .format(now)
+                                  //     .toString(),
+                                  titlee: creatingAddInfoController.title.value,
+                                  addresss: creatingAddInfoController
+                                      .locationInfo.value,
+                                  categoryy: creatingAddInfoController
+                                          .mainCategory.value +
+                                      '/' +
+                                      creatingAddInfoController
+                                          .subCategory.value,
+                                  descriptionn: creatingAddInfoController
+                                      .description.value,
+                                  pricee: creatingAddInfoController.price.value
+                                      .toString(),
+                                ),
+                              );
                             } else {
                               print(creatingAddInfoController
                                   .phoneNumber.value.length);
