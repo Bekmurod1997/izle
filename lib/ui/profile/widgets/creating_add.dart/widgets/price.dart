@@ -166,22 +166,37 @@ class _CreatePriceState extends State<CreatePrice> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.only(left: 15, right: 15, top: 5),
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    controller: priceController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '100 000',
-                      hintStyle: FontStyles.regularStyle(
-                          fontSize: 16,
-                          fontFamily: 'Lato',
-                          color: Color(0xff616161)),
-                    ),
-                    onChanged: (String value) {
-                      creatingAddInfoController.priceChanger(
-                          double.parse(value.replaceAll(' ', '')));
-                      print(creatingAddInfoController.price);
-                    },
+                  child: Stack(
+                    children: [
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: priceController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: '100 000',
+                          hintStyle: FontStyles.regularStyle(
+                              fontSize: 16,
+                              fontFamily: 'Lato',
+                              color: Color(0xff616161)),
+                        ),
+                        onChanged: (String value) {
+                          creatingAddInfoController.priceChanger(
+                              double.parse(value.replaceAll(' ', '')));
+                          print(creatingAddInfoController.price);
+                        },
+                      ),
+                      Positioned(
+                        right: 0,
+                        top: 9,
+                        child: Text(
+                          'сум',
+                          style: FontStyles.regularStyle(
+                              fontSize: 20,
+                              fontFamily: 'Lato',
+                              color: Color(0xff616161)),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               )
@@ -193,39 +208,6 @@ class _CreatePriceState extends State<CreatePrice> {
                 style: TextStyle(color: Colors.red),
               )
             : Container(),
-        // selectedIndex == 1
-        //     ? Row(
-        //         mainAxisAlignment: MainAxisAlignment.start,
-        //         children: [
-        //           Radio(
-        //             value: 1,
-        //             groupValue: val,
-        //             onChanged: (a) {
-        //               setState(() {
-        //                 val = 1;
-        //               });
-        //             },
-        //             activeColor: Colors.black,
-        //           ),
-        //           Text(
-        //             'UZS',
-        //           ),
-        //           Radio(
-        //             value: 2,
-        //             groupValue: val,
-        //             onChanged: (a) {
-        //               setState(() {
-        //                 val = 2;
-        //               });
-        //             },
-        //             activeColor: Colors.black,
-        //           ),
-        //           Text(
-        //             'USD',
-        //           ),
-        //         ],
-        //       )
-        //     : Container(),
         selectedIndex == 1
             ? ListTile(
                 onTap: () => setState(() {

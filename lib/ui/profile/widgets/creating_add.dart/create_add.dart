@@ -377,31 +377,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                               )
                             : Container(),
                         SizedBox(height: 13),
-                        ////////////////////////////////
-                        ////////////////////////////////
-                        //checking for null name //////
-                        ////////////////////////////////
-                        ////////////////////////////////
-                        // if (userInfoController.fetchUserInfoList.first.name != null)
-                        // UserInfo(
-                        //   title: 'Контактное лицо*', userInfo: MyPref.userName,
-                        //   // '${userInfoController.fetchUserInfoList.first.name}',
-                        // ),
-                        ////////////////////////////////
-                        ////////////////////////////////
-                        //checking for null email //////
-                        ////////////////////////////////
-                        ////////////////////////////////
-                        // if (userInfoController.fetchUserInfoList.first.name != null)
-                        // UserInfo(
-                        //     title: 'Электронная почта*',
-                        //     userInfo: userInfoController
-                        //         .fetchUserInfoList.first.email
-                        //         .toString()),
-                        // UserInfo(title: 'Телефон', userInfo: MyPref.phoneNumber
-                        //     // userInfoController.fetchUserInfoList.first.phone
-                        //     //     .toString(),
-                        //     ),
+
                         Text(
                           'Телефон',
                           style: FontStyles.regularStyle(
@@ -484,9 +460,14 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                     false;
 
                             //price
+                            print('price type');
+                            print(creatingAddInfoController.type_ad.value);
                             creatingAddInfoController.price.value == 0.0 &&
+                                        creatingAddInfoController
+                                                .type_ad.value ==
+                                            'price' ||
                                     creatingAddInfoController.type_ad.value ==
-                                        'price'
+                                        'negotiable'
                                 ? creatingAddInfoController.pCheck.value = true
                                 : creatingAddInfoController.pCheck.value =
                                     false;
@@ -504,17 +485,22 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                             if (creatingAddInfoController
                                     .title.value.isNotEmpty &&
                                 ((creatingAddInfoController.type_ad.value !=
-                                        'price') ||
-                                    (creatingAddInfoController
-                                                .type_ad.value ==
                                             'price' &&
+                                        creatingAddInfoController
+                                                .type_ad.value !=
+                                            'negotiable') ||
+                                    ((creatingAddInfoController
+                                                    .type_ad.value ==
+                                                'price' ||
+                                            creatingAddInfoController
+                                                    .type_ad.value ==
+                                                'negotiable') &&
                                         creatingAddInfoController
                                                 .price.value !=
                                             0.0)) &&
                                 creatingAddInfoController
                                     .description.value.isNotEmpty &&
-                                creatingAddInfoController
-                                        .subCategoryId.value !=
+                                creatingAddInfoController.subCategoryId.value !=
                                     0 &&
                                 // creatingAddInfoController.price.value != 0.0 &&
                                 creatingAddInfoController.images.isNotEmpty &&
@@ -537,8 +523,8 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                   lng: creatingAddInfoController.long.value
                                       .toString(),
                                   userName: userInfoController
-                                      .fetchUserInfoList.first.name
-                                      .toString(),
+                                          .fetchUserInfoList.first.name ??
+                                      'user',
                                   datee: format.format(now),
                                   // datee: DateFormat('EEEEE')
                                   //     .format(now)

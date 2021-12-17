@@ -8,6 +8,8 @@ import 'package:izle/services/all_services.dart';
 class ProductItem extends StatefulWidget {
   bool isFavorite;
   String? imageUrl;
+  String typeAd;
+
   String? cityName;
   String? title;
   String? price;
@@ -19,6 +21,7 @@ class ProductItem extends StatefulWidget {
   ProductItem({
     required this.title,
     required this.price,
+    required this.typeAd,
     required this.cityName,
     required this.imageUrl,
     required this.top,
@@ -131,16 +134,51 @@ class _ProductItemState extends State<ProductItem> {
                   ],
                 ),
                 SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.only(left: 0),
-                  child: Text(
-                    widget.price!,
-                    style: FontStyles.blackStyle(
-                        fontSize: 14,
-                        fontFamily: 'Lato',
-                        color: Colors.black87),
-                  ),
+                // (widget.typeAd == 'negotiable') &&
+                //         (widget.price != '0.0 сум' || widget.price != '0 сум')
+                //     ? Text(
+                //         widget.price == '0 сум' || widget.price == '0.0 сум'
+                //             ? ''
+                //             : widget.price!,
+                //         style: TextStyle(
+                //           fontSize: widget.price == '0 сум' ||
+                //                   widget.price == '0.0 сум'
+                //               ? 0
+                //               : 14,
+                //         ),
+                //       )
+                //     : Text(
+                //         '',
+                //         style: TextStyle(fontSize: 0),
+                //       ),
+                Text(
+                  widget.typeAd == 'free'
+                      ? 'бесплатно'
+                      : widget.typeAd == 'exchange'
+                          ? 'обмен'
+                          : '${widget.price}',
+                  style: widget.typeAd == 'free' || widget.typeAd == 'exchange'
+                      ? FontStyles.blackStyle(
+                          fontSize: 14,
+                          fontFamily: 'Lato',
+                          color: Colors.black87)
+                      : FontStyles.mediumStyle(
+                          fontSize: 14,
+                          fontFamily: 'Lato',
+                          color: Colors.black87),
                 ),
+                // Text(
+                //   widget.typeAd == 'free'
+                //       ? 'бесплатно'
+                //       : widget.typeAd == 'negotiable'
+                //           ? 'договорная'
+                //           : widget.typeAd == 'exchange'
+                //               ? 'обмен'
+                //               : '${widget.price}',
+                //   style: FontStyles.blackStyle(
+                //       fontSize: 14, fontFamily: 'Lato', color: Colors.black87),
+                // ),
+
                 SizedBox(height: 14),
                 Text(
                   widget.cityName!,

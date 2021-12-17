@@ -1037,24 +1037,23 @@ class _ResultAdsState extends State<ResultAds> {
                                                       .adsSubList[index].id,
                                             )),
                                     child: ProductItem(
-                                        premium:
-                                            advertismentSubCategoryController
-                                                .adsSubList[index].premium!,
+                                        typeAd: advertismentSubCategoryController
+                                                .adsSubList[index].typeAd ??
+                                            'price',
+                                        premium: advertismentSubCategoryController
+                                            .adsSubList[index].premium!,
                                         top: advertismentSubCategoryController
                                             .adsSubList[index].top!,
-                                        cityName:
-                                            advertismentSubCategoryController
-                                                    .adsSubList[index]
-                                                    .cityName ??
-                                                '',
+                                        cityName: advertismentSubCategoryController
+                                                .adsSubList[index].cityName ??
+                                            '',
                                         date: format.format(giventDate),
                                         // date: advertismentSubCategoryController
                                         //         .adsSubList[index].date ??
 
-                                        imageUrl:
-                                            advertismentSubCategoryController
-                                                    .adsSubList[index].photo ??
-                                                '',
+                                        imageUrl: advertismentSubCategoryController
+                                                .adsSubList[index].photo ??
+                                            '',
                                         //               formatCurrency
                                         // .format(adsController.adsList[index].price)
                                         // .replaceAll(',', ' ')

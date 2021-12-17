@@ -137,27 +137,60 @@ class _RecommandationItemState extends State<RecommandationItem> {
                 SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.only(left: 0),
-                  child: Text(
-                    widget.typeAd == 'free'
-                        ? 'бесплатно'
-                        : widget.typeAd == 'negotiable'
-                            ? 'договорная'
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // (widget.typeAd == 'negotiable') &&
+                      //         (widget.price != '0.0 сум' ||
+                      //             widget.price != '0 сум')
+                      //     ? Text(
+                      //         widget.price == '0 сум' ||
+                      //                 widget.price == '0.0 сум'
+                      //             ? ''
+                      //             : widget.price,
+                      //         style: TextStyle(
+                      //           fontSize: widget.price == '0 сум' ||
+                      //                   widget.price == '0.0 сум'
+                      //               ? 0
+                      //               : 14,
+                      //         ),
+                      //       )
+                      //     : Text(
+                      //         '',
+                      //         style: TextStyle(fontSize: 0),
+                      //       ),
+
+                      Text(
+                        widget.typeAd == 'free'
+                            ? 'бесплатно'
                             : widget.typeAd == 'exchange'
                                 ? 'обмен'
                                 : '${widget.price}',
-
-                    // widget.typeAd == 'price'
-                    //     ? '${widget.price} '
-                    //     : widget.typeAd == 'exchange'
-                    //         ? 'обмен'
-                    //         : widget.typeAd == 'negotiable'
-                    //             ? 'договорная'
-                    //             : 'бесплатно',
-
-                    style: FontStyles.blackStyle(
-                        fontSize: 14,
-                        fontFamily: 'Lato',
-                        color: Colors.black87),
+                        style: widget.typeAd == 'free' ||
+                                widget.typeAd == 'exchange'
+                            ? FontStyles.boldStyle(
+                                fontSize: 14,
+                                fontFamily: 'Lato',
+                                color: Colors.black87)
+                            : FontStyles.mediumStyle(
+                                fontSize: 14,
+                                fontFamily: 'Lato',
+                                color: Colors.black87),
+                      ),
+                      // Text(
+                      //   widget.typeAd == 'free'
+                      //       ? 'бесплатно'
+                      //       : widget.typeAd == 'negotiable'
+                      //           ? 'договорная'
+                      //           : widget.typeAd == 'exchange'
+                      //               ? 'обмен'
+                      //               : '${widget.price}',
+                      //   style: FontStyles.mediumStyle(
+                      //       fontSize: 14,
+                      //       fontFamily: 'Lato',
+                      //       color: Colors.black87),
+                      // ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 14),

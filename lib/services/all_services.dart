@@ -635,9 +635,7 @@ class AllServices {
     FormData formData = FormData.fromMap({
       'title': '${creatingAddInfoController.title.value}',
       'category_id': '${creatingAddInfoController.subCategoryId.value}',
-      'price': creatingAddInfoController.type_ad.value == 'price'
-          ? '${creatingAddInfoController.price.value}'
-          : '0',
+      'price': '${creatingAddInfoController.price.value}',
       'price_d': '2799',
       'content': '${creatingAddInfoController.description.value}',
       'city_id': '${creatingAddInfoController.cityId.value}',
