@@ -552,6 +552,7 @@ class _SearchResultState extends State<SearchResult> {
                                           borderRadius:
                                               BorderRadius.circular(5),
                                         ),
+                                        // sdf
                                         child: Row(
                                           children: [
                                             Text(
