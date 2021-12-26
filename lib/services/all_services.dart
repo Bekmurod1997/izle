@@ -632,6 +632,11 @@ class AllServices {
     // for(var i= 1; i<creatingAddInfoController.images.length; i++ ){
 
     //   }
+    print('my sending city id');
+    print(creatingAddInfoController.cityId.value);
+
+    print('my sending city name');
+    print(creatingAddInfoController.cityName.value);
     FormData formData = FormData.fromMap({
       'title': '${creatingAddInfoController.title.value}',
       'category_id': '${creatingAddInfoController.subCategoryId.value}',
@@ -639,6 +644,7 @@ class AllServices {
       'price_d': '2799',
       'content': '${creatingAddInfoController.description.value}',
       'city_id': '${creatingAddInfoController.cityId.value}',
+      'city_name': '${creatingAddInfoController.cityName.value}',
       'phone': '${creatingAddInfoController.phoneNumber.value}',
       'email': 'a@mail.ru',
       'type': '1',
@@ -712,35 +718,58 @@ class AllServices {
                 ),
               ),
             );
-      var response = await dio.post(ApiUrl.createAds,
+      if (creatingAddInfoController.images.length == 0 ||
+          creatingAddInfoController.images.isEmpty) {
+        var response = await dio.post(
+          ApiUrl.createAds,
           data: formData,
           options: Options(headers: {
             HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}',
             "Authorization": "Bearer ${MyPref.token}"
-          }), onSendProgress: (int sent, int total) {
-        creatingAddInfoController.sendMegabay.value = sent / 1000000;
-        creatingAddInfoController.totalMegabayt.value = total / 1000000;
-        creatingAddInfoController.totalUploadChanger(
-            (creatingAddInfoController.sendMegabay.value /
-                    creatingAddInfoController.totalMegabayt.value *
-                    100)
-                .round());
+          }),
+        );
+        print(response.data);
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          print('succes in creating ads');
 
-        var senMeg = sent / 1000000;
-        var totalMeg = total / 1000000;
+          print('success in creating ads');
+          creatingAddInfoController.allClear();
+          creatingAddInfoController.resetAll();
+          g.Get.offAll(() => NavScreen());
+          pageNavigationController.pageControllerChanger(4);
+          pageNavigationController.tabIndexChanger(4);
+        }
+      } else {
+        var response = await dio.post(ApiUrl.createAds,
+            data: formData,
+            options: Options(headers: {
+              HttpHeaders.authorizationHeader: 'Bearer ${MyPref.token}',
+              "Authorization": "Bearer ${MyPref.token}"
+            }), onSendProgress: (int sent, int total) {
+          creatingAddInfoController.sendMegabay.value = sent / 1000000;
+          creatingAddInfoController.totalMegabayt.value = total / 1000000;
+          creatingAddInfoController.totalUploadChanger(
+              (creatingAddInfoController.sendMegabay.value /
+                      creatingAddInfoController.totalMegabayt.value *
+                      100)
+                  .round());
 
-        print('in controleer perce ');
-        print(creatingAddInfoController.uploadingPercentage.value);
-      });
+          var senMeg = sent / 1000000;
+          var totalMeg = total / 1000000;
 
-      print(response.data);
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        print('succes in creating ads');
+          print('in controleer perce ');
+          print(creatingAddInfoController.uploadingPercentage.value);
+        });
+        print(response.data);
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          print('succes in creating ads');
 
-        print('success in creating ads');
-        creatingAddInfoController.allClear();
-        creatingAddInfoController.resetAll();
+          print('success in creating ads');
+          creatingAddInfoController.allClear();
+          creatingAddInfoController.resetAll();
+        }
       }
     } catch (e) {
       print('error in creating adds');
@@ -770,6 +799,7 @@ class AllServices {
       'price_d': '2799',
       'content': '${creatingAddInfoController.description.value}',
       'city_id': '${creatingAddInfoController.cityId.value}',
+      'city_name': '${creatingAddInfoController.cityName.value}',
       'phone': '${creatingAddInfoController.phoneNumber.value}',
       'email': 'a@mail.ru',
       'type': '1',
@@ -786,23 +816,6 @@ class AllServices {
     print(photos);
     for (var i = 0; i < photos.length; i++) {
       var fileName = photos[i];
-
-      // if (i == 0) {
-      //   if (!photos[i].toString().endsWith("jpg") &&
-      //       !photos[i].toString().endsWith("png")) {
-      //     Uint8List bytes = base64.decode(photos[i]);
-      //     formData.files.add(MapEntry("photo",
-      //         await MultipartFile.fromBytes(bytes, filename: "file.jpg")));
-      //     continue;
-      //   } else
-      //     formData.files.addAll([
-      //       MapEntry(
-      //         'photo',
-      //         await MultipartFile.fromFile(fileName,
-      //             filename: fileName.split('/').last),
-      //       ),
-      //     ]);
-      // } else {
       if (!photos[i].toString().endsWith("jpg") &&
           !photos[i].toString().endsWith("png")) {
         Uint8List bytes = base64.decode(photos[i]);
@@ -816,7 +829,6 @@ class AllServices {
               await MultipartFile.fromFile(fileName,
                   filename: fileName.split('/').last)),
         ]);
-      // }
     }
 
     try {

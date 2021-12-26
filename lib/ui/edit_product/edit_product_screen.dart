@@ -85,14 +85,15 @@ class _EditProductSceenState extends State<EditProductSceen> {
   String phoneNumbeError = '';
   List<String> toContain = [];
   bool circularLoader = true;
-  String editPriceValue = '0';
+  // String editPriceValue = '0';
   @override
   void initState() {
-    editPriceValue = widget.price!;
+    // editPriceValue = widget.price!;
     // creatingAddInfoController.images.value = widget.imageGallry!;
     // creatingAddInfoController.images.value = widget.imageGallry!;
     print('the length of ');
     print(creatingAddInfoController.images.length);
+    creatingAddInfoController.price.value = double.parse(widget.price!);
     creatingAddInfoController.titleChanger(titlee: widget.title);
     creatingAddInfoController.cityName.value = widget.adderss!;
     creatingAddInfoController.descriptionChanger(
@@ -557,10 +558,7 @@ class _EditProductSceenState extends State<EditProductSceen> {
                                   creatingAddInfoController.description.value);
                               print(
                                   creatingAddInfoController.phoneNumber.value);
-                              print(
-                                  creatingAddInfoController.locationInfo.value);
-                              print(creatingAddInfoController.lat.value);
-                              print(creatingAddInfoController.long.value);
+
                               // creatingAddInfoController.images.length == 0
                               //     ? creatingAddInfoController.phCheck.value = true
                               //     : creatingAddInfoController.phCheck.value = false;

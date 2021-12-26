@@ -60,15 +60,16 @@ class _SubRegionChoiceState extends State<SubRegionChoice> {
                         Icon(Icons.arrow_forward, color: ColorPalate.mainColor),
                     title: Text(districts[index].nameRu!),
                     onTap: () {
-                      creatingAddInfoController.cityName.value =
-                          widget.mainCityName;
+                      // creatingAddInfoController.cityName.value =
+                      //     widget.mainCityName;
                       creatingAddInfoController.cityId.value =
                           districts[index].id!.toString();
-                      creatingAddInfoController.cityName.value =
-                          districts[index].nameRu!;
+
+                      print('my city id');
                       print(creatingAddInfoController.cityId.value);
                       creatingAddInfoController.cityName.value =
                           districts[index].nameRu!;
+                      print('my city name ');
                       print(creatingAddInfoController.cityName.value);
                       Get.back();
                       Get.back();
