@@ -23,7 +23,7 @@ class _FillUpWalletState extends State<FillUpWallet> {
   final ListOfPriceController listOfPriceController =
       Get.put(ListOfPriceController());
 
-  int selectedButton = 0;
+  int selectedButton = -1;
   int priceAmount = 0;
   int paymentType = 0;
   int paymentId = 0;
@@ -74,6 +74,26 @@ class _FillUpWalletState extends State<FillUpWallet> {
         forceSafariVC: true,
       );
     }
+  }
+
+  void paymentMethod() async {
+    await AllServices.pay(
+        id: paymentId, type: paymentType == 1 ? 'payme' : 'click');
+    // Get.to(() => PaymentLinkScreen());
+    // ignore: unused_element
+    _launchURLBrowser() async {
+      const url = 'https://flutterdevs.com/';
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
+    String url = '${MyPref.paymentLink}';
+    print('the url');
+    print(url);
+    _launchUniversalLinkIos(url);
   }
 
   @override
@@ -182,7 +202,6 @@ class _FillUpWalletState extends State<FillUpWallet> {
                         );
                       },
                     ),
-
                     SizedBox(height: 20),
                     Text(
                       'Как вы хотите оплатить?',
@@ -193,10 +212,16 @@ class _FillUpWalletState extends State<FillUpWallet> {
                     ),
                     SizedBox(height: 20),
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         setState(() {
                           paymentType = 1;
                         });
+
+                        toPay
+                            ? paymentMethod()
+                            : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                    "Пожалуйста, выберите цены, указанные выше")));
                       },
                       child: Container(
                         height: 60,
@@ -212,25 +237,18 @@ class _FillUpWalletState extends State<FillUpWallet> {
                         ),
                       ),
                     ),
-                    // SizedBox(height: 20),
-                    // Container(
-                    //   height: 60,
-                    //   width: double.infinity,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(8),
-                    //     color: Colors.white,
-                    //   ),
-                    //   child: Center(
-                    //     child: Image.asset('assets/images/paynet.png'),
-                    //   ),
-                    // ),
-
                     SizedBox(height: 20),
                     GestureDetector(
                       onTap: () {
                         setState(() {
                           paymentType = 2;
                         });
+                        toPay
+                            ? paymentMethod()
+                            : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                    "Пожалуйста, выберите цены, указанные выше")));
+                        // toPay ?
                       },
                       child: Container(
                         height: 60,
@@ -246,60 +264,50 @@ class _FillUpWalletState extends State<FillUpWallet> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 90),
-                    toPay
-                        ? CutomeButton(
-                            title: 'Оплатить ' + '${priceAmount}',
-                            onpress: () async {
-                              if (paymentType != 0) {
-                                await AllServices.pay(
-                                    id: paymentId,
-                                    type: paymentType == 1 ? 'payme' : 'click');
-                                // Get.to(() => PaymentLinkScreen());
-                                // ignore: unused_element
-                                _launchURLBrowser() async {
-                                  const url = 'https://flutterdevs.com/';
-                                  if (await canLaunch(url)) {
-                                    await launch(url);
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
-                                }
+                    // SizedBox(height: 90),
+                    // toPay
+                    //     ? CutomeButton(
+                    //         title: 'Оплатить ' + '${priceAmount}',
+                    //         onpress: () async {
+                    //           if (paymentType != 0) {
+                    //             await AllServices.pay(
+                    //                 id: paymentId,
+                    //                 type: paymentType == 1 ? 'payme' : 'click');
+                    //             // Get.to(() => PaymentLinkScreen());
+                    //             // ignore: unused_element
+                    //             _launchURLBrowser() async {
+                    //               const url = 'https://flutterdevs.com/';
+                    //               if (await canLaunch(url)) {
+                    //                 await launch(url);
+                    //               } else {
+                    //                 throw 'Could not launch $url';
+                    //               }
+                    //             }
 
-                                // _launchURLApp() async {
-                                //   String url = '${MyPref.paymentLink}';
-                                //   if (await canLaunch(url)) {
-                                //     await launch(url,
-                                //         forceSafariVC: true,
-                                //         forceWebView: true);
-                                //   } else {
-                                //     throw 'Could not launch $url';
-                                //   }
-                                // }
-                                String url = '${MyPref.paymentLink}';
-                                print('the url');
-                                print(url);
-                                _launchUniversalLinkIos(url);
-                                // _launchInWebViewWithJavaScript(url);
-                                // _launchURLApp();
-                              } else {
-                                return showDialog(
-                                    context: context,
-                                    builder: (_) => AlertDialog(
-                                          title: Text(
-                                            'Пожалуйста, выберите способ оплаты',
-                                            style: TextStyle(fontSize: 16),
-                                          ),
+                    //             String url = '${MyPref.paymentLink}';
+                    //             print('the url');
+                    //             print(url);
+                    //             _launchUniversalLinkIos(url);
+                    //             // _launchInWebViewWithJavaScript(url);
+                    //             // _launchURLApp();
+                    //           } else {
+                    //             return showDialog(
+                    //                 context: context,
+                    //                 builder: (_) => AlertDialog(
+                    //                       title: Text(
+                    //                         'Пожалуйста, выберите способ оплаты',
+                    //                         style: TextStyle(fontSize: 16),
+                    //                       ),
 
-                                          // content: Text('This is my content'),
-                                        ));
-                              }
-                            },
-                            buttonColor: ColorPalate.mainColor,
-                            textColor: Colors.white,
-                          )
-                        : Container(),
-                    SizedBox(height: 30),
+                    //                       // content: Text('This is my content'),
+                    //                     ));
+                    //           }
+                    //         },
+                    //         buttonColor: ColorPalate.mainColor,
+                    //         textColor: Colors.white,
+                    //       )
+                    //     : Container(),
+                    // SizedBox(height: 30),
                   ],
                 ),
               ),

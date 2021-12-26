@@ -233,34 +233,34 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             address:
                                 '${productDetailController.productDetailList?.data.address}'),
                         SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () => Get.to(() => MyMaps(
-                                lat: productDetailController
-                                        .productDetailList?.data.lat ??
-                                    '',
-                                lng: productDetailController
-                                        .productDetailList?.data.lng ??
-                                    '',
-                              )),
-                          child: Text(
-                            'Показать на карте',
-                            style: FontStyles.regularStyle(
-                              fontSize: 13,
-                              fontFamily: 'Lato',
-                              color: Color(0xff0081BB),
-                            ),
-                          ),
-                        )
+                        // GestureDetector(
+                        //   onTap: () => Get.to(() => MyMaps(
+                        //         lat: productDetailController
+                        //                 .productDetailList?.data.lat ??
+                        //             '',
+                        //         lng: productDetailController
+                        //                 .productDetailList?.data.lng ??
+                        //             '',
+                        //       )),
+                        //   child: Text(
+                        //     'Показать на карте',
+                        //     style: FontStyles.regularStyle(
+                        //       fontSize: 13,
+                        //       fontFamily: 'Lato',
+                        //       color: Color(0xff0081BB),
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Divider(),
+                  // SizedBox(height: 5),
+                  // Divider(),
+                  // SizedBox(height: 7),
+                  // TypeButtons(),
                   SizedBox(height: 7),
-                  TypeButtons(),
-                  SizedBox(height: 7),
                   Divider(),
-                  SizedBox(height: 0),
+
                   ProductDesciption(
                     proDesc:
                         '${productDetailController.productDetailList?.data.content}',

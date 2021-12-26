@@ -54,16 +54,20 @@ class _NavScreenState extends State<NavScreen> {
   @override
   void initState() {
     print('my fcm token is');
-    print(MyPref.fcmToken);
-    activeTabIndex = 0;
-    MyPref.loginLanding = 'isset';
-    _firebaseMessaging.getNotificationSettings();
-    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-        badge: true, alert: true, sound: true);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      print(MyPref.fcmToken);
+      activeTabIndex = 0;
+      MyPref.loginLanding = 'isset';
+      _firebaseMessaging.getNotificationSettings();
+      FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+          badge: true, alert: true, sound: true);
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        RemoteNotification? notification = message.notification;
+        AndroidNotification? android = message.notification?.android;
+        print('navvvvv');
+        print(message.notification!.title);
+      });
 
       // if (notification != null && android != null) {
       //   flutterLocalNotificationsPlugin.show(
@@ -82,8 +86,6 @@ class _NavScreenState extends State<NavScreen> {
       //     ),
       //   );
       // }
-      print('navvvvv');
-      print(message.notification!.title);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage messag) {
       // Get.to(

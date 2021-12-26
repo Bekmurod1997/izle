@@ -18,6 +18,7 @@ import 'package:izle/ui/edit_product/widget/app_bar_edit.dart';
 import 'package:izle/ui/edit_product/widget/edit_category_choice.dart';
 import 'package:izle/ui/edit_product/widget/edit_price.dart';
 import 'package:izle/ui/edit_product/widget/edit_product_description.dart';
+import 'package:izle/ui/edit_product/widget/edit_region_choice.dart';
 import 'package:izle/ui/edit_product/widget/edit_title.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/preview.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/map_screen.dart';
@@ -35,12 +36,13 @@ class EditProductSceen extends StatefulWidget {
   final int? categoryId;
   final String? description;
   final String? type;
-  final String? locationTitle;
+  // final String? locationTitle;
   final String? userName;
   final String? email;
   final String? price;
-  final String? lat;
-  final String? long;
+  final String? adderss;
+  // final String? lat;
+  // final String? long;
   final String? dateTime;
   final String? phoneNumber;
   final String? content;
@@ -48,6 +50,7 @@ class EditProductSceen extends StatefulWidget {
   EditProductSceen({
     this.id,
     this.type_ad,
+    this.adderss,
     this.title,
     this.imageGallry,
     this.price,
@@ -56,14 +59,14 @@ class EditProductSceen extends StatefulWidget {
     this.description,
     this.email,
     this.imageUrl,
-    this.locationTitle,
+    // this.locationTitle,
     this.phoneNumber,
     this.dateTime,
     this.type,
     this.userName,
     this.content,
-    this.lat,
-    this.long,
+    // this.lat,
+    // this.long,
     // required this.status,
   });
   @override
@@ -82,20 +85,23 @@ class _EditProductSceenState extends State<EditProductSceen> {
   String phoneNumbeError = '';
   List<String> toContain = [];
   bool circularLoader = true;
+  String editPriceValue = '0';
   @override
   void initState() {
+    editPriceValue = widget.price!;
     // creatingAddInfoController.images.value = widget.imageGallry!;
     // creatingAddInfoController.images.value = widget.imageGallry!;
     print('the length of ');
     print(creatingAddInfoController.images.length);
     creatingAddInfoController.titleChanger(titlee: widget.title);
+    creatingAddInfoController.cityName.value = widget.adderss!;
     creatingAddInfoController.descriptionChanger(
         descriptionn: '${widget.content}');
     // creatingAddInfoController.typeIdChanger(int.parse(widget.type!));
-    creatingAddInfoController.lat.value = double.parse(widget.lat!);
-    creatingAddInfoController.long.value = double.parse(widget.long!);
-    creatingAddInfoController.priceChanger(double.parse(widget.price!));
-    creatingAddInfoController.locationInfoChanger(widget.locationTitle!);
+    // creatingAddInfoController.lat.value = double.parse(widget.lat!);
+    // creatingAddInfoController.long.value = double.parse(widget.long!);
+    // creatingAddInfoController.priceChanger(double.parse(widget.price!));
+    // creatingAddInfoController.locationInfoChanger(widget.locationTitle!);
     creatingAddInfoController.type_ad.value = widget.type_ad!;
     creatingAddInfoController.phoneNumber.value = widget.phoneNumber!;
 
@@ -323,6 +329,42 @@ class _EditProductSceenState extends State<EditProductSceen> {
                           ),
 
                           EditCategoryChoice(category: '${widget.category}'),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Местоположение*',
+                                style: FontStyles.regularStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Lato',
+                                ),
+                              ),
+                              SizedBox(height: 11),
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: new BorderRadius.circular(10.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 15,
+                                    right: 15,
+                                  ),
+                                  child: ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text(creatingAddInfoController
+                                        .cityName.value),
+                                    trailing: Icon(Icons.navigate_next),
+                                    onTap: () => Get.to(
+                                      () => EditRegionChoice(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
                           EditCreateDescription(content: '${widget.content}'),
                           EditPrice(
                             price: '${widget.price}',
@@ -338,43 +380,43 @@ class _EditProductSceenState extends State<EditProductSceen> {
                             ),
                           ),
                           SizedBox(height: 15),
-                          Text(
-                            'Местоположения*',
-                            style: FontStyles.regularStyle(
-                                fontSize: 16, fontFamily: 'Lato'),
-                          ),
-                          SizedBox(height: 10),
-                          GestureDetector(
-                            onTap: () => g.Get.to(() => MapScreen()),
-                            child: Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 17, vertical: 15),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      // creatingAddInfoController.locationInfo.value ==
-                                      //         'nowhere'
-                                      // ?
-                                      '${widget.locationTitle}',
-                                      // : creatingAddInfoController.locationInfo.value,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                  SvgPicture.asset(
-                                      'assets/icons/next-icon.svg'),
-                                ],
-                              ),
-                            ),
-                          ),
+                          // Text(
+                          //   'Местоположения*',
+                          //   style: FontStyles.regularStyle(
+                          //       fontSize: 16, fontFamily: 'Lato'),
+                          // ),
+                          // SizedBox(height: 10),
+                          // GestureDetector(
+                          //   onTap: () => g.Get.to(() => MapScreen()),
+                          //   child: Container(
+                          //     width: double.infinity,
+                          //     padding: const EdgeInsets.symmetric(
+                          //         horizontal: 17, vertical: 15),
+                          //     decoration: BoxDecoration(
+                          //       borderRadius: BorderRadius.circular(10),
+                          //       color: Colors.white,
+                          //     ),
+                          //     child: Row(
+                          //       mainAxisAlignment:
+                          //           MainAxisAlignment.spaceBetween,
+                          //       children: [
+                          //         Flexible(
+                          //           child: Text(
+                          //             // creatingAddInfoController.locationInfo.value ==
+                          //             //         'nowhere'
+                          //             // ?
+                          //             '${widget.locationTitle}',
+                          //             // : creatingAddInfoController.locationInfo.value,
+                          //             overflow: TextOverflow.ellipsis,
+                          //             maxLines: 1,
+                          //           ),
+                          //         ),
+                          //         SvgPicture.asset(
+                          //             'assets/icons/next-icon.svg'),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                           SizedBox(height: 10),
                           UserInfo(
                             title: 'Контактное лицо*',
@@ -525,30 +567,40 @@ class _EditProductSceenState extends State<EditProductSceen> {
                               // if()
                               // await AllServices.editAd(widget.id!);
                               // g.Get.to(() => NonActiveAdds());
-                              if (creatingAddInfoController
-                                      .title.value.isNotEmpty &&
-                                  ((creatingAddInfoController.type_ad.value !=
-                                          'price') ||
-                                      (creatingAddInfoController
-                                                  .type_ad.value ==
-                                              'price' &&
+                              if ((creatingAddInfoController
+                                              .title.value.isNotEmpty &&
                                           creatingAddInfoController
-                                                  .price.value !=
-                                              0.0)) &&
-                                  creatingAddInfoController
-                                      .description.value.isNotEmpty &&
-                                  creatingAddInfoController
-                                          .subCategoryId.value !=
-                                      0 &&
-                                  // creatingAddInfoController.price.value != 0.0 &&
-                                  creatingAddInfoController.images.isNotEmpty &&
-                                  creatingAddInfoController
-                                          .phoneNumber.value.length >
-                                      11 &&
-                                  creatingAddInfoController
-                                      .locationInfo.value.isNotEmpty &&
-                                  creatingAddInfoController.lat.value != 0.0 &&
-                                  creatingAddInfoController.long.value != 0.0) {
+                                                  .title.value.length >
+                                              9) &&
+                                      ((creatingAddInfoController
+                                                  .type_ad.value !=
+                                              'price') ||
+                                          (creatingAddInfoController
+                                                      .type_ad.value ==
+                                                  'price' &&
+                                              creatingAddInfoController
+                                                      .price.value !=
+                                                  0.0)) &&
+                                      (creatingAddInfoController
+                                              .description.value.isNotEmpty &&
+                                          creatingAddInfoController
+                                                  .description.value.length >
+                                              10) &&
+                                      creatingAddInfoController
+                                              .subCategoryId.value !=
+                                          0 &&
+                                      // creatingAddInfoController.price.value != 0.0 &&
+                                      // creatingAddInfoController.images.isNotEmpty &&
+                                      creatingAddInfoController
+                                              .phoneNumber.value.length >
+                                          11
+                                  //  &&
+                                  // creatingAddInfoController
+                                  //     .locationInfo.value.isNotEmpty
+                                  //  &&
+                                  // creatingAddInfoController.lat.value != 0.0 &&
+                                  // creatingAddInfoController.long.value != 0.0
+                                  ) {
                                 AllServices.editAd2(
                                   context: context,
                                   id: widget.id!,

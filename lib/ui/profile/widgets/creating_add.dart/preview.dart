@@ -22,8 +22,8 @@ class PreviewScreen extends StatefulWidget {
   final String pricee;
   final String addresss;
   final String datee;
-  final String lat;
-  final String lng;
+  // final String lat;
+  // final String lng;
   final String userName;
   final List imageList;
 
@@ -34,8 +34,8 @@ class PreviewScreen extends StatefulWidget {
       required this.descriptionn,
       required this.addresss,
       required this.datee,
-      required this.lat,
-      required this.lng,
+      // required this.lat,
+      // required this.lng,
       required this.userName,
       required this.imageList,
       required this.pricee});
@@ -81,8 +81,10 @@ class _PreviewScreenState extends State<PreviewScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                widget.imageList.isEmpty
-                    ? Text('empty')
+                widget.imageList.isEmpty || widget.imageList.length == 0
+                    ? Center(
+                        child: Image.asset('assets/images/no-image.jpeg'),
+                      )
                     : CarouselSlider(
                         carouselController: _controller,
                         items: widget.imageList
@@ -128,21 +130,21 @@ class _PreviewScreenState extends State<PreviewScreen> {
                 SizedBox(height: 4),
                 address(address: widget.addresss),
 
-                SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () => Get.to(() => MyMaps(
-                        lat: widget.lat,
-                        lng: widget.lng,
-                      )),
-                  child: Text(
-                    'Показать на карте',
-                    style: FontStyles.regularStyle(
-                      fontSize: 13,
-                      fontFamily: 'Lato',
-                      color: Color(0xff0081BB),
-                    ),
-                  ),
-                ),
+                // SizedBox(height: 10),
+                // GestureDetector(
+                //   onTap: () => Get.to(() => MyMaps(
+                //         lat: widget.lat,
+                //         lng: widget.lng,
+                //       )),
+                //   child: Text(
+                //     'Показать на карте',
+                //     style: FontStyles.regularStyle(
+                //       fontSize: 13,
+                //       fontFamily: 'Lato',
+                //       color: Color(0xff0081BB),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: 5),
                 Divider(),
                 ProductDesciption(proDesc: widget.descriptionn),

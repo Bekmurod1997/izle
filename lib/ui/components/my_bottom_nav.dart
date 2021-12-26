@@ -5,13 +5,14 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 
-class CustomBottomNavBar extends StatefulWidget {
+import '../nav.dart';
+
+class MyBottomNav extends StatefulWidget {
   @override
-  State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
+  _MyBottomNavState createState() => _MyBottomNavState();
 }
 
-class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
-  // ignore: unused_field
+class _MyBottomNavState extends State<MyBottomNav> {
   int _selectedIndex = 0; //New
 
   final PageNavigationController pageNavigationController =
@@ -76,31 +77,38 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
               onTap: () {
                 _onItemTapped(index);
                 if (index == 0) {
-                  // Get.offAll(() => NavScreen());
+                  Get.offAll(() => NavScreen());
                   pageNavigationController.pageControllerChanger(0);
                   creatingAddInfoController.resetAll();
                 } else if (index == 1) {
+                  Get.offAll(() => NavScreen());
                   // Get.offAll(() => AllCategoryScreen());
                   pageNavigationController.pageControllerChanger(1);
                   creatingAddInfoController.resetAll();
                 } else if (index == 2) {
-                  // Get.offAll(
-                  //   () =>
-                  //       MyPref.token == '' ? AuthScreen() : CreatingAddScreen(),
-                  // );
+                  Get.offAll(() => NavScreen()
+                      // MyPref.token == '' ? AuthScreen() : CreatingAddScreen(),
+                      );
                   pageNavigationController.pageControllerChanger(2);
                 } else if (index == 3) {
-                  // Get.offAll(() => MessageScreen());
+                  Get.offAll(() => NavScreen()
+                      // MyPref.token == ''
+                      // ? UnAuthMessageScreen()
+                      // : MessageScreen(''),
+                      );
                   pageNavigationController.pageControllerChanger(3);
                   creatingAddInfoController.resetAll();
                 } else if (index == 4) {
-                  // Get.offAll(() => ActiveProfileScreen());
+                  Get.offAll(() => NavScreen()
+                      // MyPref.token == ''
+                      //     ? ProfileScreen()
+                      //     : ActiveProfileScreen(),
+                      );
                   pageNavigationController.pageControllerChanger(4);
                 }
               }),
         ),
       );
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {

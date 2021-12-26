@@ -51,6 +51,7 @@ class CreatingAddInfoController extends GetxController {
   var messgeRoomId = 1.obs;
   var type_ad = 'price'.obs;
   var cityId = ''.obs;
+  var cityName = ''.obs;
 
   void messageUploadingPercentageChanger(int itsPercentage) {
     print('this is in if');
@@ -118,6 +119,7 @@ class CreatingAddInfoController extends GetxController {
 
   void resetAll() {
     cityId.value = '';
+    cityName.value = '';
     mainCategory.value = '';
     subCategory.value = '';
     subCategoryId.value = 1;

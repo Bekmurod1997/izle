@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' as g;
@@ -8,7 +6,6 @@ import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/mask/mask_format.dart';
 import 'package:izle/services/all_services.dart';
-import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/preview.dart';
@@ -17,14 +14,13 @@ import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/category_choic
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/description.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/map_screen.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/price.dart';
+import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/region_choice.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/title.dart';
-import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/user_info.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:izle/utils/my_prefs.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class CreatingAddScreen extends StatefulWidget {
   @override
@@ -38,12 +34,9 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
 
   TextEditingController phoneNumber = TextEditingController();
   String phoneNumbeError = '';
-  // bool _value = false;
 
   var _image;
   var imagePicker;
-  // List<XFile> imageUrlObject = [];
-  // List<String> imageUrlList = [];
   var limitSize = 0;
 
   @override
@@ -68,19 +61,13 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
     final List<XFile>? selectImages = await _picker.pickMultiImage();
     if (selectImages == null || selectImages.isEmpty) return;
 
-    // _imageFileList.addAll(selectImages);
-
     print("Image list lengt" + selectImages.length.toString());
     setState(() {
       limitSize = selectImages.length > 8 ? 8 : selectImages.length;
     });
     var lim = 8 - creatingAddInfoController.images.length;
-    // var realLimit = min(lim, selectImages.length);
     for (var i = 0; i < lim; i++) {
-      // imageUrlObject.add(selectImages[i]);
       print('imaaaaaaa');
-      //print(selectImages[removedIndex]);
-
       print('removedIndex value is');
       print(removedIndex);
       creatingAddInfoController.images.add(selectImages[i].path);
@@ -90,14 +77,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
       print('after setState remove value is ');
       print(removedIndex);
     });
-
-    // imageUrlList = imageUrlObject.map((e) => e.path).toList();
     print('this is imageUrlList');
-    // print(imageUrlList);
-    // print(imageUrlList[0]);
-    // creatingAddInfoController.imagesChanger(imageUrlList);
-    setState(() {});
-
     print('the length of controller image');
     print(creatingAddInfoController.images.length);
   }
@@ -111,10 +91,6 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
       },
       child: Scaffold(
         backgroundColor: ColorPalate.mainPageColor,
-        // appBar: customAppBar1(
-        //   context,
-        //   title: '  Создать объявления  ',
-        // ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
           child: g.Obx(() {
@@ -281,11 +257,11 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                 ),
                               ),
 
-                        creatingAddInfoController.photoCheck.value == false &&
-                                creatingAddInfoController.phCheck.value == true
-                            ? Text('Вы не добавили фотографии ',
-                                style: TextStyle(color: Colors.red))
-                            : Container(),
+                        // creatingAddInfoController.photoCheck.value == false &&
+                        //         creatingAddInfoController.phCheck.value == true
+                        //     ? Text('Вы не добавили фотографии ',
+                        //         style: TextStyle(color: Colors.red))
+                        //     : Container(),
                         CreateTitle(),
                         creatingAddInfoController.titleCheck.value == false &&
                                 creatingAddInfoController.tCheck.value == true
@@ -296,6 +272,48 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                             : Container(),
                         SizedBox(height: 13),
                         CategoryChoice(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Местоположение*',
+                              style: FontStyles.regularStyle(
+                                fontSize: 16,
+                                fontFamily: 'Lato',
+                              ),
+                            ),
+                            SizedBox(height: 11),
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: new BorderRadius.circular(10.0),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: 15,
+                                  right: 15,
+                                ),
+                                child: ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text(creatingAddInfoController
+                                              .cityName.value.isEmpty ||
+                                          creatingAddInfoController
+                                                  .cityName.value ==
+                                              ''
+                                      ? 'Выберите место'
+                                      : creatingAddInfoController
+                                          .cityName.value),
+                                  trailing: Icon(Icons.navigate_next),
+                                  onTap: () => Get.to(
+                                    () => RegionChoice(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
                         creatingAddInfoController.categoryCheck.value ==
                                     false &&
                                 creatingAddInfoController.cCheck.value == true
@@ -322,7 +340,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                         //         'Пожалуйста, укажите цену',
                         //         style: TextStyle(color: Colors.red),
                         //       )
-                        //     : Container(),
+                        //     : Container(),d
                         Center(
                           child: Text(
                             'Ваши контактные данные',
@@ -332,51 +350,51 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
-                        Text(
-                          'Местоположения*',
-                          style: FontStyles.regularStyle(
-                              fontSize: 16, fontFamily: 'Lato'),
-                        ),
-                        SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () => Get.to(() => MapScreen()),
-                          child: Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 17, vertical: 15),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    creatingAddInfoController
-                                            .locationInfo.value.isEmpty
-                                        ? 'Вы не выбрали'
-                                        : creatingAddInfoController
-                                            .locationInfo.value,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                                SvgPicture.asset('assets/icons/next-icon.svg'),
-                              ],
-                            ),
-                          ),
-                        ),
-                        creatingAddInfoController.locationCheck.value ==
-                                    false &&
-                                creatingAddInfoController.lCheck.value == true
-                            ? Text(
-                                'Поле обязательно для заполнения',
-                                style: TextStyle(color: Colors.red),
-                              )
-                            : Container(),
-                        SizedBox(height: 13),
+                        // SizedBox(height: 15),
+                        // Text(
+                        //   'Местоположения*',
+                        //   style: FontStyles.regularStyle(
+                        //       fontSize: 16, fontFamily: 'Lato'),
+                        // ),
+                        // SizedBox(height: 10),
+                        // GestureDetector(
+                        //   onTap: () => Get.to(() => MapScreen()),
+                        //   child: Container(
+                        //     width: double.infinity,
+                        //     padding: const EdgeInsets.symmetric(
+                        //         horizontal: 17, vertical: 15),
+                        //     decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       color: Colors.white,
+                        //     ),
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //       children: [
+                        //         Flexible(
+                        //           child: Text(
+                        //             creatingAddInfoController
+                        //                     .locationInfo.value.isEmpty
+                        //                 ? 'Вы не выбрали'
+                        //                 : creatingAddInfoController
+                        //                     .locationInfo.value,
+                        //             overflow: TextOverflow.ellipsis,
+                        //             maxLines: 1,
+                        //           ),
+                        //         ),
+                        //         SvgPicture.asset('assets/icons/next-icon.svg'),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // creatingAddInfoController.locationCheck.value ==
+                        //             false &&
+                        //         creatingAddInfoController.lCheck.value == true
+                        //     ? Text(
+                        //         'Поле обязательно для заполнения',
+                        //         style: TextStyle(color: Colors.red),
+                        //       )
+                        //     : Container(),
+                        // SizedBox(height: 13),
 
                         Text(
                           'Телефон',
@@ -472,56 +490,59 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                 : creatingAddInfoController.pCheck.value =
                                     false;
                             //location
-                            creatingAddInfoController.lat.value == 0.0
-                                ? creatingAddInfoController.lCheck.value = true
-                                : creatingAddInfoController.lCheck.value =
-                                    false;
+                            // creatingAddInfoController.lat.value == 0.0
+                            //     ? creatingAddInfoController.lCheck.value = true
+                            //     : creatingAddInfoController.lCheck.value =
+                            //         false;
 
                             //photo
                             creatingAddInfoController.images.isEmpty
                                 ? creatingAddInfoController.phCheck.value = true
                                 : creatingAddInfoController.phCheck.value =
                                     false;
-                            if (creatingAddInfoController
-                                    .title.value.isNotEmpty &&
-                                ((creatingAddInfoController.type_ad.value !=
-                                            'price' &&
+                            if ((creatingAddInfoController
+                                            .title.value.isNotEmpty &&
                                         creatingAddInfoController
-                                                .type_ad.value !=
-                                            'negotiable') ||
-                                    ((creatingAddInfoController
+                                                .title.value.length >
+                                            9) &&
+                                    ((creatingAddInfoController.type_ad.value !=
+                                            'price') ||
+                                        (creatingAddInfoController
                                                     .type_ad.value ==
-                                                'price' ||
+                                                'price' &&
                                             creatingAddInfoController
-                                                    .type_ad.value ==
-                                                'negotiable') &&
+                                                    .price.value !=
+                                                0.0)) &&
+                                    (creatingAddInfoController
+                                            .description.value.isNotEmpty &&
                                         creatingAddInfoController
-                                                .price.value !=
-                                            0.0)) &&
-                                creatingAddInfoController
-                                    .description.value.isNotEmpty &&
-                                creatingAddInfoController.subCategoryId.value !=
-                                    0 &&
-                                // creatingAddInfoController.price.value != 0.0 &&
-                                creatingAddInfoController.images.isNotEmpty &&
-                                creatingAddInfoController
-                                        .phoneNumber.value.length >
-                                    11 &&
-                                creatingAddInfoController
-                                    .locationInfo.value.isNotEmpty &&
-                                creatingAddInfoController.lat.value != 0.0 &&
-                                creatingAddInfoController.long.value != 0.0) {
-                              print(creatingAddInfoController
-                                  .phoneNumber.value.length);
+                                                .description.value.length >
+                                            10) &&
+                                    creatingAddInfoController
+                                            .subCategoryId.value !=
+                                        0 &&
+                                    // creatingAddInfoController.price.value != 0.0 &&
+                                    // creatingAddInfoController.images.isNotEmpty &&
+                                    creatingAddInfoController
+                                            .phoneNumber.value.length >
+                                        11
+                                // &&
+                                // creatingAddInfoController
+                                //     .locationInfo.value.isNotEmpty &&
+                                // creatingAddInfoController.lat.value != 0.0 &&
+                                // creatingAddInfoController.long.value != 0.0
+                                ) {
+                              print('the length of image');
+                              print(creatingAddInfoController.images.length);
                               Get.to(
                                 () => PreviewScreen(
                                   typeAd:
                                       creatingAddInfoController.type_ad.value,
                                   imageList: creatingAddInfoController.images,
-                                  lat: creatingAddInfoController.lat.value
-                                      .toString(),
-                                  lng: creatingAddInfoController.long.value
-                                      .toString(),
+                                  // lat: creatingAddInfoController.lat.value
+                                  //     .toString(),
+                                  // lng: creatingAddInfoController.long.value
+                                  //     .toString(),
                                   userName: userInfoController
                                           .fetchUserInfoList.first.name ??
                                       'user',
@@ -544,6 +565,9 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                 ),
                               );
                             } else {
+                              print('not enough');
+                              print(userInfoController
+                                  .fetchUserInfoList.first.name);
                               print(creatingAddInfoController
                                   .phoneNumber.value.length);
                               print(creatingAddInfoController.images.length);
@@ -632,10 +656,10 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                 : creatingAddInfoController.pCheck.value =
                                     false;
                             //location
-                            creatingAddInfoController.lat.value == 0.0
-                                ? creatingAddInfoController.lCheck.value = true
-                                : creatingAddInfoController.lCheck.value =
-                                    false;
+                            // creatingAddInfoController.lat.value == 0.0
+                            //     ? creatingAddInfoController.lCheck.value = true
+                            //     : creatingAddInfoController.lCheck.value =
+                            //         false;
 
                             //photo
                             creatingAddInfoController.images.value.isEmpty
@@ -643,33 +667,38 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                 : creatingAddInfoController.phCheck.value =
                                     false;
                             if ((creatingAddInfoController
-                                        .title.value.isNotEmpty &&
+                                            .title.value.isNotEmpty &&
+                                        creatingAddInfoController
+                                                .title.value.length >
+                                            9) &&
+                                    ((creatingAddInfoController.type_ad.value !=
+                                            'price') ||
+                                        (creatingAddInfoController
+                                                    .type_ad.value ==
+                                                'price' &&
+                                            creatingAddInfoController
+                                                    .price.value !=
+                                                0.0)) &&
+                                    (creatingAddInfoController
+                                            .description.value.isNotEmpty &&
+                                        creatingAddInfoController
+                                                .description.value.length >
+                                            10) &&
                                     creatingAddInfoController
-                                            .title.value.length >
-                                        9) &&
-                                ((creatingAddInfoController.type_ad.value !=
-                                        'price') ||
-                                    (creatingAddInfoController.type_ad.value ==
-                                            'price' &&
-                                        creatingAddInfoController.price.value !=
-                                            0.0)) &&
-                                (creatingAddInfoController
-                                        .description.value.isNotEmpty &&
+                                            .subCategoryId.value !=
+                                        0 &&
+                                    // creatingAddInfoController.price.value != 0.0 &&
+                                    // creatingAddInfoController.images.isNotEmpty &&
                                     creatingAddInfoController
-                                            .description.value.length >
-                                        10) &&
-                                creatingAddInfoController
-                                        .subCategoryId.value !=
-                                    0 &&
-                                // creatingAddInfoController.price.value != 0.0 &&
-                                creatingAddInfoController.images.isNotEmpty &&
-                                creatingAddInfoController
-                                        .phoneNumber.value.length >
-                                    11 &&
-                                creatingAddInfoController
-                                    .locationInfo.value.isNotEmpty &&
-                                creatingAddInfoController.lat.value != 0.0 &&
-                                creatingAddInfoController.long.value != 0.0) {
+                                            .phoneNumber.value.length >
+                                        11
+                                //  &&
+                                // creatingAddInfoController
+                                //     .locationInfo.value.isNotEmpty
+                                //  &&
+                                // creatingAddInfoController.lat.value != 0.0 &&
+                                // creatingAddInfoController.long.value != 0.0
+                                ) {
                               print('++++++++');
                               print(creatingAddInfoController.title.value);
                               print(creatingAddInfoController

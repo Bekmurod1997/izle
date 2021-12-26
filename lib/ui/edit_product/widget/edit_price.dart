@@ -8,7 +8,11 @@ import 'package:izle/controller/creating_add_info_controller.dart';
 class EditPrice extends StatefulWidget {
   final String type_ad;
   final String price;
-  EditPrice({required this.type_ad, required this.price});
+
+  EditPrice({
+    required this.type_ad,
+    required this.price,
+  });
   @override
   _EditPriceState createState() => _EditPriceState();
 }
@@ -23,6 +27,8 @@ class _EditPriceState extends State<EditPrice> {
   bool status1 = false;
   @override
   void initState() {
+    print('the price');
+    print(widget.price);
     priceController.text = widget.price;
     if (widget.type_ad == 'free') {
       setState(() {

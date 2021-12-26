@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/edit_product/edit_product_screen.dart';
@@ -17,17 +18,19 @@ class ModerationCard extends StatelessWidget {
   final String locationTitle;
   final String userName;
   final String email;
-  final String price;
+  final int price;
   final String phoneNumber;
   final String date;
   final String content;
   final int status;
   final String lat;
   final String long;
+  final String address;
   // final int nonActiveAds;
 
   ModerationCard({
     required this.id,
+    required this.address,
     required this.type_ad,
     required this.categoryId,
     required this.gallery,
@@ -48,6 +51,7 @@ class ModerationCard extends StatelessWidget {
     required this.long,
     // required this.nonActiveAds,
   });
+  final formatCurrency = NumberFormat.decimalPattern();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -92,7 +96,7 @@ class ModerationCard extends StatelessWidget {
                         SizedBox(height: 5),
                         Text(
                           type_ad == 'price'
-                              ? '$price сум'
+                              ? '${formatCurrency.format(price).replaceAll(',', ' ')} сум'
                               : type_ad == 'exchange'
                                   ? 'обмен'
                                   : type_ad == 'negotiable'
@@ -121,89 +125,18 @@ class ModerationCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 15),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     Row(
-            //       children: [
-            //         SvgPicture.asset('assets/icons/view.svg'),
-            //         SizedBox(
-            //           width: 10,
-            //         ),
-            //         Text(
-            //           '123',
-            //           style: TextStyle(
-            //             fontSize: 14,
-            //             color: Color(0xff7F807F),
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //     Row(
-            //       children: [
-            //         SvgPicture.asset('assets/icons/Vector.svg'),
-            //         SizedBox(
-            //           width: 10,
-            //         ),
-            //         Text(
-            //           '15',
-            //           style: TextStyle(
-            //             fontSize: 14,
-            //             color: Color(0xff7F807F),
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //     Row(
-            //       children: [
-            //         SvgPicture.asset('assets/icons/message_grey.svg'),
-            //         SizedBox(
-            //           width: 10,
-            //         ),
-            //         Text(
-            //           '15',
-            //           style: TextStyle(
-            //             fontSize: 14,
-            //             color: Color(0xff7F807F),
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //   ],
-            // ),
 
-            // SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // GestureDetector(
-                //   onTap: () {},
-                //   child: Container(
-                //     width: MediaQuery.of(context).size.width / 2 - 40,
-                //     padding: const EdgeInsets.symmetric(vertical: 8),
-                //     decoration: BoxDecoration(
-                //       color: ColorPalate.mainColor,
-                //       borderRadius: new BorderRadius.circular(10.0),
-                //     ),
-                //     child: Center(
-                //       child: Text(
-                //         'Активировать',
-                //         style: TextStyle(
-                //           fontSize: 14,
-                //           color: Colors.white,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-
                 GestureDetector(
                   onTap: () {
                     Get.to(() => EditProductSceen(
                           categoryId: categoryId,
-                          lat: lat,
-                          long: long,
+                          // lat: lat,
+                          // long: long,
                           dateTime: date,
+                          adderss: address,
                           imageGallry: gallery,
                           type_ad: type_ad,
                           id: id,
@@ -211,9 +144,9 @@ class ModerationCard extends StatelessWidget {
                           description: description,
                           email: email,
                           imageUrl: imageUrl,
-                          locationTitle: locationTitle,
+                          // locationTitle: locationTitle,
                           phoneNumber: phoneNumber,
-                          price: price,
+                          price: price.toString(),
                           title: title,
                           type: type,
                           userName: userName,

@@ -661,8 +661,8 @@ class _AddsCardState extends State<AddsCard> {
                                                               id: widget.id,
                                                               imageGallry: widget
                                                                   .imageGallery,
-                                                              lat: widget.lat,
-                                                              long: widget.long,
+                                                              // lat: widget.lat,
+                                                              // long: widget.long,
                                                               phoneNumber: widget
                                                                   .phoneNumber,
                                                               price:
@@ -673,8 +673,8 @@ class _AddsCardState extends State<AddsCard> {
                                                                   widget.title,
                                                               userName: widget
                                                                   .userName,
-                                                              locationTitle: widget
-                                                                  .locationTitle,
+                                                              // locationTitle: widget
+                                                              //     .locationTitle,
                                                             ));
                                                       },
                                                       child: Container(

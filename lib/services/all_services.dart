@@ -642,10 +642,10 @@ class AllServices {
       'phone': '${creatingAddInfoController.phoneNumber.value}',
       'email': 'a@mail.ru',
       'type': '1',
-      'address': '${creatingAddInfoController.locationInfo.value}',
+      'address': '${creatingAddInfoController.cityName.value}',
       'responsible_person': 'Дмитрий Мухамадиев',
-      'lat': '${creatingAddInfoController.lat.value}',
-      'lng': '${creatingAddInfoController.long.value}',
+      'lat': '37.4219481',
+      'lng': '-122.0835072',
       'name': '${MyPref.userName}',
       'type_ad': '${creatingAddInfoController.type_ad.value}',
     });
@@ -674,75 +674,44 @@ class AllServices {
     }
 
     try {
-      g.Get.dialog(
-        Scaffold(
-          backgroundColor: Colors.black.withOpacity(.1),
-          body: Center(
-            child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                color: Colors.white,
-                width: double.infinity,
-                height: 100.0,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(height: 30),
-                    g.Obx(
-                      () => Text(
-                        'Загрузка ваших фото ' +
-                            creatingAddInfoController.uploadingPercentage.value
-                                .toString() +
-                            '%',
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    g.Obx(() => LinearProgressIndicator(
-                          value: creatingAddInfoController
-                              .uploadingPercentage.value
-                              .toDouble(),
-                        )),
-                    SizedBox(height: 30),
-                  ],
-                )),
-          ),
-        ),
-      );
-      // showDialog(
-      //     context: context,
-      //     builder: (context) {
-      //       return Center(
-      //         child: Container(
-      //             margin: const EdgeInsets.symmetric(horizontal: 20.0),
-      //             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      //             color: Colors.white,
-      //             width: double.infinity,
-      //             height: 100.0,
-      //             child: Column(
-      //               mainAxisSize: MainAxisSize.min,
-      //               children: [
-      //                 SizedBox(height: 30),
-      //                 g.Obx(
-      //                   () => Text(
-      //                     'Загрузка ваших фото ' +
-      //                         creatingAddInfoController
-      //                             .uploadingPercentage.value
-      //                             .toString() +
-      //                         '%',
-      //                     textAlign: TextAlign.center,
-      //                   ),
-      //                 ),
-      //                 g.Obx(() => LinearProgressIndicator(
-      //                       value: creatingAddInfoController
-      //                           .uploadingPercentage.value
-      //                           .toDouble(),
-      //                     )),
-      //                 SizedBox(height: 30),
-      //               ],
-      //             )),
-      //       );
-      //     });
-
+      creatingAddInfoController.images.length == 0 ||
+              creatingAddInfoController.images.isEmpty
+          ? print('empty images')
+          : g.Get.dialog(
+              Scaffold(
+                backgroundColor: Colors.black.withOpacity(.1),
+                body: Center(
+                  child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      color: Colors.white,
+                      width: double.infinity,
+                      height: 100.0,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(height: 30),
+                          g.Obx(
+                            () => Text(
+                              'Загрузка ваших фото ' +
+                                  creatingAddInfoController
+                                      .uploadingPercentage.value
+                                      .toString() +
+                                  '%',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          g.Obx(() => LinearProgressIndicator(
+                                value: creatingAddInfoController
+                                    .uploadingPercentage.value
+                                    .toDouble(),
+                              )),
+                          SizedBox(height: 30),
+                        ],
+                      )),
+                ),
+              ),
+            );
       var response = await dio.post(ApiUrl.createAds,
           data: formData,
           options: Options(headers: {
@@ -759,10 +728,6 @@ class AllServices {
 
         var senMeg = sent / 1000000;
         var totalMeg = total / 1000000;
-        // print('sent $senMeg');
-        // print('total $totalMeg');
-        // var percentage = senMeg / totalMeg * 100;
-        // print('$percentage');
 
         print('in controleer perce ');
         print(creatingAddInfoController.uploadingPercentage.value);
@@ -771,49 +736,16 @@ class AllServices {
       print(response.data);
       print(response.statusCode);
       if (response.statusCode == 200) {
-        // creatingAddInfoController.sendMegabay.value = 0.0;
-        // creatingAddInfoController.totalMegabayt.value = 0.0;
-        // creatingAddInfoController.uploadingPercentage.value = 0;
-        // creatingAddInfoController.isLoading.value = false;
         print('succes in creating ads');
 
         print('success in creating ads');
         creatingAddInfoController.allClear();
         creatingAddInfoController.resetAll();
-        // print(response.body);
-        // g.Get.to(() => ActiveProfileScreen());
-        // pageNavigationController.pageControllerChanger(4);
-        // pageNavigationController.tabIndexChanger(4);
       }
     } catch (e) {
       print('error in creating adds');
       print(e);
     }
-
-    // var response = await client.post(Uri.parse(ApiUrl.createAds), body: {
-    //   'title': '${creatingAddInfoController.title}',
-    //   'category_id': '${creatingAddInfoController.subCategoryId}',
-    //   'price': '${creatingAddInfoController.price}',
-    //   'price_d': '2799',
-    //   'content': '${creatingAddInfoController.description}',
-    //   'city_id': '10',
-    //   'phone': '${MyPref.phoneNumber}',
-    //   'email': 'a@mail.ru',
-    //   'type': '1',
-    //   'address': '${creatingAddInfoController.locationInfo}',
-    //   'responsible_person': 'Дмитрий Мухамадиев',
-    //   'lat': '${creatingAddInfoController.lat}',
-    //   'lng': '${creatingAddInfoController.long}',
-    //   'name': '${MyPref.userName}'
-    // }, headers: {
-    //   "Authorization": "Bearer ${MyPref.token}"
-    // });
-
-    // }
-    // catch (e) {
-    // print('error in creating adds');
-    // print(e);
-    // }
   }
 
   static Future editAd2(
@@ -841,10 +773,10 @@ class AllServices {
       'phone': '${creatingAddInfoController.phoneNumber.value}',
       'email': 'a@mail.ru',
       'type': '1',
-      'address': '${creatingAddInfoController.locationInfo.value}',
+      'address': '${creatingAddInfoController.cityName.value}',
       'responsible_person': 'Дмитрий Мухамадиев',
-      'lat': '${creatingAddInfoController.lat.value}',
-      'lng': '${creatingAddInfoController.long.value}',
+      'lat': '37.4219481',
+      'lng': '-122.0835072',
       'name': '${MyPref.userName}',
       'type_ad': '${creatingAddInfoController.type_ad.value}',
     });

@@ -6,6 +6,7 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/filter_search_controller.dart';
 import 'package:izle/controller/search_controller.dart';
 import 'package:izle/constants/colors.dart';
+import 'package:izle/ui/components/my_bottom_nav.dart';
 import 'package:izle/ui/home/widgets/filter_page.dart';
 import 'package:flutter/rendering.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
@@ -145,6 +146,11 @@ class _SearchResultState extends State<SearchResult> {
                   },
                   decoration: InputDecoration(
                     prefixIcon: IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(Icons.arrow_back)),
+                    suffixIcon: IconButton(
                       onPressed: () {
                         sController.currentPage.value = 1;
                         sController.searchTitleChanger(
@@ -549,7 +555,7 @@ class _SearchResultState extends State<SearchResult> {
                                         child: Row(
                                           children: [
                                             Text(
-                                              'Филтры',
+                                              'Фильтры',
                                             ),
                                             Container(
                                               padding: const EdgeInsets.only(
@@ -1203,6 +1209,7 @@ class _SearchResultState extends State<SearchResult> {
             ],
           ),
         ),
+        bottomNavigationBar: MyBottomNav(),
       ),
     );
   }
