@@ -84,39 +84,48 @@ class _RegionChoiceState extends State<RegionChoice> {
               );
             } else {
               return Expanded(
-                child: ListView.builder(
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(height: 4),
                   // physics: NeverScrollableScrollPhysics(),
                   // shrinkWrap: true,
                   itemCount: allRegionsController.allRegionsList.length,
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text(
-                        allRegionsController.allRegionsList[index].nameRu!),
-                    trailing:
-                        Icon(Icons.arrow_forward, color: ColorPalate.mainColor),
-                    onTap: () {
-                      Get.to(() => SubRegionChoice(
-                          districts: allRegionsController
-                                  .allRegionsList[index].childs ??
-                              <Childs>[],
-                          mainCityId:
-                              allRegionsController.allRegionsList[index].id!,
-                          mainCityName: allRegionsController
-                              .allRegionsList[index].nameRu!));
-                      // Get.to(
-                      //   () => DistrictScreen(
-                      //     // mainCategoryId: widget.mainCategoryId,
-                      //     // mainCategoryName: widget.mainCategoryName,
-                      //     mainCityId:
-                      //         allRegionsController.allRegionsList[index].id!,
-                      //     // mainCatId: widget.mainCategoryId,
-                      //     mainCityName: allRegionsController
-                      //         .allRegionsList[index].nameRu!,
-                      //     districts: allRegionsController
-                      //             .allRegionsList[index].childs ??
-                      //         <Childs>[],
-                      //   ),
-                      // );
-                    },
+                  itemBuilder: (context, index) => Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                      color: Colors.black,
+                      width: 0.4,
+                    ))),
+                    child: ListTile(
+                      title: Text(
+                          allRegionsController.allRegionsList[index].nameRu!),
+                      trailing: Icon(Icons.arrow_forward,
+                          color: ColorPalate.mainColor),
+                      onTap: () {
+                        Get.to(() => SubRegionChoice(
+                            districts: allRegionsController
+                                    .allRegionsList[index].childs ??
+                                <Childs>[],
+                            mainCityId:
+                                allRegionsController.allRegionsList[index].id!,
+                            mainCityName: allRegionsController
+                                .allRegionsList[index].nameRu!));
+                        // Get.to(
+                        //   () => DistrictScreen(
+                        //     // mainCategoryId: widget.mainCategoryId,
+                        //     // mainCategoryName: widget.mainCategoryName,
+                        //     mainCityId:
+                        //         allRegionsController.allRegionsList[index].id!,
+                        //     // mainCatId: widget.mainCategoryId,
+                        //     mainCityName: allRegionsController
+                        //         .allRegionsList[index].nameRu!,
+                        //     districts: allRegionsController
+                        //             .allRegionsList[index].childs ??
+                        //         <Childs>[],
+                        //   ),
+                        // );
+                      },
+                    ),
                   ),
                 ),
               );

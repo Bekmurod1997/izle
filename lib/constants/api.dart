@@ -35,7 +35,7 @@ abstract class ApiUrl {
   static const subCategories = '${apiUrl}category/sub?id=796';
   static const allCities = '${apiUrl}category?type=city';
   static const services = '${apiUrl}category?type=service';
-  static const filter = '${apiUrl}category/filter?id=796';
+  static const filter = '${apiUrl}category/filter?id=';
 
   //Businesss
 

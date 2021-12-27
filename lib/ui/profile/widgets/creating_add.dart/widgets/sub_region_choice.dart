@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
+import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
-import 'package:izle/controller/filter_search_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
-import 'package:izle/ui/home/widgets/search_reasult.dart';
 
 class SubRegionChoice extends StatefulWidget {
   final bool isDetailed;
@@ -21,9 +21,6 @@ class SubRegionChoice extends StatefulWidget {
 }
 
 class _SubRegionChoiceState extends State<SubRegionChoice> {
-  // final FilterDetalController filterDetalController =
-  //     Get.find<FilterDetalController>();
-
   final CreatingAddInfoController creatingAddInfoController =
       Get.find<CreatingAddInfoController>();
   List<Childs> districts = [];
@@ -33,7 +30,6 @@ class _SubRegionChoiceState extends State<SubRegionChoice> {
     super.initState();
   }
 
-  // final recieveData =Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +37,38 @@ class _SubRegionChoiceState extends State<SubRegionChoice> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 30),
+          Container(
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    // color: Colors.red,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                    child: RotatedBox(
+                      quarterTurns: 2,
+                      child: SvgPicture.asset(
+                        'assets/icons/next-icon.svg',
+                        height: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Text(
+                  widget.mainCityName,
+                  style: FontStyles.boldStyle(
+                    fontSize: 20,
+                    fontFamily: 'Lato',
+                    color: Color(0xff4B4F5F),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: ListView.separated(
               separatorBuilder: (context, index) => SizedBox(
@@ -64,6 +92,9 @@ class _SubRegionChoiceState extends State<SubRegionChoice> {
                       //     widget.mainCityName;
                       creatingAddInfoController.cityId.value =
                           districts[index].id!.toString();
+
+                      creatingAddInfoController.districtName.value =
+                          widget.mainCityName;
 
                       print('my city id');
                       print(creatingAddInfoController.cityId.value);

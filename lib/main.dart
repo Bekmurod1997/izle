@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:intl/date_symbol_data_file.dart';
 import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
 import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/all_categories.dart';
 import 'package:izle/controller/all_regions_controller.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/favorities_controller.dart';
+import 'package:izle/controller/filter_category_controller.dart';
 import 'package:izle/controller/filter_search_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/controller/product_detail_controller.dart';
@@ -52,6 +52,8 @@ class MyApp extends StatelessWidget {
   //     Get.put(FilterDetalController());
   final AllRegionsController allRegionsController =
       Get.put(AllRegionsController());
+  final FilterCategoryController filterCategoryController =
+      Get.put(FilterCategoryController());
   // This widget is the root of your application.`
   @override
   Widget build(BuildContext context) {

@@ -19,6 +19,7 @@ import 'package:izle/models/all_categories_model.dart';
 import 'package:izle/models/all_message_model.dart';
 import 'package:izle/models/all_transaction_model.dart';
 import 'package:izle/models/complain_model.dart';
+import 'package:izle/models/filter_model.dart';
 import 'package:izle/models/list_of_price_model.dart';
 import 'package:izle/models/list_of_tarrifs_model.dart';
 import 'package:izle/models/login_model.dart';
@@ -637,6 +638,8 @@ class AllServices {
 
     print('my sending city name');
     print(creatingAddInfoController.cityName.value);
+    Map<int, dynamic> myFilterData = creatingAddInfoController.myFileter;
+
     FormData formData = FormData.fromMap({
       'title': '${creatingAddInfoController.title.value}',
       'category_id': '${creatingAddInfoController.subCategoryId.value}',
@@ -655,6 +658,12 @@ class AllServices {
       'name': '${MyPref.userName}',
       'type_ad': '${creatingAddInfoController.type_ad.value}',
     });
+    if (myFilterData.isNotEmpty) {
+      myFilterData.forEach((key, value) {
+        print('showing my map values');
+        formData.fields.addAll({MapEntry('filter[$key]', value)});
+      });
+    }
 
     List photos = creatingAddInfoController.images;
     print('ssdid');
@@ -1317,6 +1326,23 @@ class AllServices {
       }
     } catch (e) {
       print('error in sending complatin');
+      print(e);
+    }
+  }
+
+  static Future filterService({required String id}) async {
+    print('the url');
+    print(Uri.parse(ApiUrl.filter + id));
+    try {
+      var response = await client.get(Uri.parse(ApiUrl.filter + id));
+      if (response.statusCode == 200) {
+        var body = FilterModel.fromJson(json.decode(response.body));
+        print('this is filter service');
+        print(body);
+        return body;
+      }
+    } catch (e) {
+      print('error in filterService');
       print(e);
     }
   }

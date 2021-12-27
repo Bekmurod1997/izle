@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
+import 'package:izle/controller/filter_category_controller.dart';
 import 'package:izle/controller/sub_category_controller.dart';
 import 'package:izle/ui/components/custom_appbar.dart';
 import 'package:izle/constants/colors.dart';
@@ -28,6 +29,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
   final CreatingAddInfoController creatingAddInfoController =
       Get.find<CreatingAddInfoController>();
 
+  final FilterCategoryController filterCategoryController =
+      Get.find<FilterCategoryController>();
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
@@ -101,7 +104,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                   itemCount: subCategoryController.subCategoryList.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         // await creatingAddInfoController.subCategoryChanger(
                         //     subCategoryName:
                         //         '${subCategoryController.subCategoryList[index].nameRu}',
@@ -115,8 +118,9 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         print('pressed sub category id and name');
                         print(creatingAddInfoController.subCategory.value);
                         print(creatingAddInfoController.subCategoryId.value);
-                        // print(subCategoryController.subCategoryList[index].id);
 
+                        await filterCategoryController.fetchFilterCategories(
+                            id: widget.id.toString());
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },

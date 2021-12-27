@@ -52,7 +52,8 @@ class CreatingAddInfoController extends GetxController {
   var type_ad = 'price'.obs;
   var cityId = ''.obs;
   var cityName = ''.obs;
-
+  var districtName = ''.obs;
+  var myFileter = <int, dynamic>{}.obs;
   void messageUploadingPercentageChanger(int itsPercentage) {
     print('this is in if');
     print(messageUploadingPercentage.value == 100);
@@ -118,6 +119,7 @@ class CreatingAddInfoController extends GetxController {
   }
 
   void resetAll() {
+    districtName.value = '';
     cityId.value = '';
     cityName.value = '';
     mainCategory.value = '';

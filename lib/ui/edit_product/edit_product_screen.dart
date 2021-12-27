@@ -355,7 +355,14 @@ class _EditProductSceenState extends State<EditProductSceen> {
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
                                     title: Text(creatingAddInfoController
-                                        .cityName.value),
+                                                .districtName.value.isEmpty ||
+                                            creatingAddInfoController
+                                                    .districtName.value ==
+                                                ''
+                                        ? ''
+                                        : '${creatingAddInfoController.districtName.value} / ' +
+                                            creatingAddInfoController
+                                                .cityName.value),
                                     trailing: Icon(Icons.navigate_next),
                                     onTap: () => Get.to(
                                       () => EditRegionChoice(),

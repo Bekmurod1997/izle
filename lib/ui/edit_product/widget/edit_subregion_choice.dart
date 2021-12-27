@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/colors.dart';
+import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/filter_search_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
@@ -41,6 +43,38 @@ class _EditSubRegionChoiceState extends State<EditSubRegionChoice> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 30),
+          Container(
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    // color: Colors.red,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                    child: RotatedBox(
+                      quarterTurns: 2,
+                      child: SvgPicture.asset(
+                        'assets/icons/next-icon.svg',
+                        height: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Text(
+                  widget.mainCityName,
+                  style: FontStyles.boldStyle(
+                    fontSize: 20,
+                    fontFamily: 'Lato',
+                    color: Color(0xff4B4F5F),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: ListView.separated(
               separatorBuilder: (context, index) => SizedBox(
@@ -60,6 +94,8 @@ class _EditSubRegionChoiceState extends State<EditSubRegionChoice> {
                         Icon(Icons.arrow_forward, color: ColorPalate.mainColor),
                     title: Text(districts[index].nameRu!),
                     onTap: () {
+                      creatingAddInfoController.districtName.value =
+                          widget.mainCityName;
                       creatingAddInfoController.cityName.value =
                           widget.mainCityName;
                       creatingAddInfoController.cityId.value =
