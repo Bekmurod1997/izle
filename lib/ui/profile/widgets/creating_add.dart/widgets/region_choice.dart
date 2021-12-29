@@ -5,7 +5,6 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/all_regions_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
-import 'package:izle/ui/home/widgets/search_district.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/sub_region_choice.dart';
 
 // ignore: must_be_immutable

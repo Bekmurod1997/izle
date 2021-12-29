@@ -130,6 +130,16 @@ class _ModerationState extends State<Moderation> {
                               .allMyAdsList()
                               .data![index]
                               .address!,
+                          cityId: myAdsOnModerationController
+                              .allMyAdsList()
+                              .data![index]
+                              .cityId
+                              .toString(),
+                          cityName: myAdsOnModerationController
+                              .allMyAdsList()
+                              .data![index]
+                              .cityName
+                              .toString(),
                           // nonActiveAds: nonActiveAds,
                           gallery: myAdsOnModerationController
                               .allMyAdsList()

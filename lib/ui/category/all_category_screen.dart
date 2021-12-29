@@ -107,6 +107,7 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                     ),
                     subtitle: Text(
                       mainCategories.categoriesList[index].adsCount.toString(),
+                      // mainCategories.categoriesList[index].adsCount.toString(),
                       style: FontStyles.regularStyle(
                         fontSize: 10,
                         fontFamily: 'Lato',

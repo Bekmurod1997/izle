@@ -108,8 +108,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         SizedBox(height: 12),
                                         Text(
                                           // 'Ташкент',
-                                          favoriteController
-                                              .favoriteList[index].cityName!,
+                                          favoriteController.favoriteList[index]
+                                                  .address ??
+                                              'Tashkent',
                                           style: FontStyles.regularStyle(
                                             fontSize: 12,
                                             fontFamily: 'Lato',

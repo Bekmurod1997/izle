@@ -227,6 +227,24 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ? '${formatCurrency.format(productDetailController.productDetailList?.data.price).replaceAll(',', ' ')} сум '
                                 : '${formatCurrency.format(productDetailController.productDetailList?.data.price).replaceAll(',', ' ')} y.e '),
                         SizedBox(height: 14),
+                        Wrap(
+                          spacing: 10,
+                          runSpacing: 10,
+                          children: List.generate(
+                            productDetailController
+                                .productDetailList!.data.filter.length,
+                            (idx) => Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 5),
+                              decoration:
+                                  BoxDecoration(border: Border.all(width: 0.4)),
+                              child: Text(
+                                  '${productDetailController.productDetailList!.data.filter[idx].name}:  ${productDetailController.productDetailList!.data.filter[idx].value}'),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 14),
                         date(date: '${format.format(giventDate)}'),
                         SizedBox(height: 4),
                         address(

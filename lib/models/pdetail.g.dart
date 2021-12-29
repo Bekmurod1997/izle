@@ -37,7 +37,7 @@ Similar _$SimilarFromJson(Map<String, dynamic> json) => Similar(
       description: json['description'] as String?,
       content: json['content'] as String?,
       address: json['address'] as String?,
-      price: json['price'] as dynamic?,
+      price: json['price'],
       priceD: json['priceD'] as int?,
       status: json['status'] as int?,
       lng: json['lng'] as String?,

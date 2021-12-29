@@ -104,7 +104,6 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
           return ListView(
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 30),
               CreatAppBar(),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),

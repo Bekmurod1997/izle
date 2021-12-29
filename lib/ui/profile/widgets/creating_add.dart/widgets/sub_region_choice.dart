@@ -26,6 +26,7 @@ class _SubRegionChoiceState extends State<SubRegionChoice> {
   List<Childs> districts = [];
   @override
   void initState() {
+    creatingAddInfoController.mainCity.value = widget.mainCityName;
     districts = widget.districts;
     super.initState();
   }
@@ -100,8 +101,11 @@ class _SubRegionChoiceState extends State<SubRegionChoice> {
                       print(creatingAddInfoController.cityId.value);
                       creatingAddInfoController.cityName.value =
                           districts[index].nameRu!;
-                      print('my city name ');
-                      print(creatingAddInfoController.cityName.value);
+
+                      creatingAddInfoController.address.value =
+                          creatingAddInfoController.mainCity.value +
+                              '  ${districts[index].nameRu}';
+                      print(creatingAddInfoController.address.value);
                       Get.back();
                       Get.back();
                       // Navigator.pushReplacement(

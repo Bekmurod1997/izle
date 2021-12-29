@@ -10,8 +10,6 @@ import 'package:izle/ui/home/widgets/search.dart';
 import 'package:get/get.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
 import 'package:izle/utils/my_prefs.dart';
-import 'package:izle/models/advertisement/advertisement_list_model.dart';
-import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -249,8 +247,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   var giventDate =
                       DateTime.parse(adsController.adsList[index].date!);
                   var format = DateFormat("MMMMEEEEd");
-                  print('converting dateTime');
-                  print(format.format(giventDate));
+                  // print('converting dateTime');
+                  // print(format.format(giventDate));
 
                   return GestureDetector(
                     onTap: () => Get.to(() => ProductDetailScreen(
@@ -263,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       isFavorite: false,
                       title: adsController.adsList[index].title ?? '',
                       id: adsController.adsList[index].id!,
-                      city: adsController.adsList[index].cityName ?? 'tashkent',
+                      city: adsController.adsList[index].address ?? 'tashkent',
                       price: formatCurrency
                               .format(adsController.adsList[index].price)
                               .replaceAll(',', ' ') +

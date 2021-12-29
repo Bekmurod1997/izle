@@ -533,7 +533,7 @@ class AllServices {
       }
       return null;
     } catch (e) {
-      print('error in listofAllADs');
+      print('error in listOfAllPremiumAds');
       print(e);
     }
   }
@@ -557,7 +557,7 @@ class AllServices {
       }
       return null;
     } catch (e) {
-      print('error in listofAllADs');
+      print('error in listOfAllTopAds');
       print(e);
     }
   }
@@ -651,7 +651,7 @@ class AllServices {
       'phone': '${creatingAddInfoController.phoneNumber.value}',
       'email': 'a@mail.ru',
       'type': '1',
-      'address': '${creatingAddInfoController.cityName.value}',
+      'address': '${creatingAddInfoController.address.value}',
       'responsible_person': 'Дмитрий Мухамадиев',
       'lat': '37.4219481',
       'lng': '-122.0835072',

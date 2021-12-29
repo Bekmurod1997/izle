@@ -55,7 +55,7 @@ class _CategoryFiltersState extends State<CategoryFilters> {
                                   color: filterCategoryController
                                               .filterList[index]
                                               .childs?[childIndex]
-                                              .id
+                                              .value
                                               .toString() ==
                                           options?[filterCategoryController
                                               .filterList[index].id!]
@@ -102,7 +102,7 @@ class _CategoryFiltersState extends State<CategoryFilters> {
                                           () => filterCategoryController
                                               .filterList[index]
                                               .childs![childIndex]
-                                              .id!
+                                              .value!
                                               .toString());
                                     } else {
                                       options?.putIfAbsent(
@@ -111,7 +111,7 @@ class _CategoryFiltersState extends State<CategoryFilters> {
                                           () => filterCategoryController
                                               .filterList[index]
                                               .childs![childIndex]
-                                              .id!
+                                              .value
                                               .toString());
                                     }
                                     creatingAddInfoController.myFileter.value =
@@ -150,7 +150,7 @@ class _CategoryFiltersState extends State<CategoryFilters> {
                                       color: filterCategoryController
                                                   .filterList[index]
                                                   .childs?[childIndex]
-                                                  .id
+                                                  .value
                                                   .toString() ==
                                               options?[filterCategoryController
                                                   .filterList[index].id!]

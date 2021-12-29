@@ -26,6 +26,8 @@ class ModerationCard extends StatelessWidget {
   final String lat;
   final String long;
   final String address;
+  final String cityId;
+  final String cityName;
   // final int nonActiveAds;
 
   ModerationCard({
@@ -47,6 +49,8 @@ class ModerationCard extends StatelessWidget {
     required this.userName,
     required this.date,
     required this.status,
+    required this.cityId,
+    required this.cityName,
     required this.lat,
     required this.long,
     // required this.nonActiveAds,
@@ -132,6 +136,8 @@ class ModerationCard extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Get.to(() => EditProductSceen(
+                          cityId: cityId,
+                          cityName: cityName,
                           categoryId: categoryId,
                           // lat: lat,
                           // long: long,

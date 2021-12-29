@@ -53,6 +53,8 @@ class CreatingAddInfoController extends GetxController {
   var cityId = ''.obs;
   var cityName = ''.obs;
   var districtName = ''.obs;
+  var address = ''.obs;
+  var mainCity = ''.obs;
   var myFileter = <int, dynamic>{}.obs;
   void messageUploadingPercentageChanger(int itsPercentage) {
     print('this is in if');
@@ -119,6 +121,8 @@ class CreatingAddInfoController extends GetxController {
   }
 
   void resetAll() {
+    address.value = '';
+    mainCity.value = '';
     districtName.value = '';
     cityId.value = '';
     cityName.value = '';

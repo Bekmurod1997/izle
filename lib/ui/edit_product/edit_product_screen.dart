@@ -14,16 +14,12 @@ import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/mask/mask_format.dart';
 import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/components/cutome_button.dart';
-import 'package:izle/ui/edit_product/widget/app_bar_edit.dart';
 import 'package:izle/ui/edit_product/widget/edit_category_choice.dart';
 import 'package:izle/ui/edit_product/widget/edit_price.dart';
 import 'package:izle/ui/edit_product/widget/edit_product_description.dart';
 import 'package:izle/ui/edit_product/widget/edit_region_choice.dart';
 import 'package:izle/ui/edit_product/widget/edit_title.dart';
-import 'package:izle/ui/profile/widgets/creating_add.dart/preview.dart';
-import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/map_screen.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/user_info.dart';
-import 'package:izle/utils/my_prefs.dart';
 import 'package:http/http.dart' as http;
 
 class EditProductSceen extends StatefulWidget {
@@ -36,6 +32,8 @@ class EditProductSceen extends StatefulWidget {
   final int? categoryId;
   final String? description;
   final String? type;
+  final String? cityId;
+  final String? cityName;
   // final String? locationTitle;
   final String? userName;
   final String? email;
@@ -58,6 +56,8 @@ class EditProductSceen extends StatefulWidget {
     this.category,
     this.description,
     this.email,
+    this.cityName,
+    this.cityId,
     this.imageUrl,
     // this.locationTitle,
     this.phoneNumber,
@@ -95,7 +95,10 @@ class _EditProductSceenState extends State<EditProductSceen> {
     print(creatingAddInfoController.images.length);
     creatingAddInfoController.price.value = double.parse(widget.price!);
     creatingAddInfoController.titleChanger(titlee: widget.title);
-    creatingAddInfoController.cityName.value = widget.adderss!;
+    // creatingAddInfoController.cityName.value = widget.adderss!;
+    creatingAddInfoController.cityName.value = widget.cityName!;
+    creatingAddInfoController.cityId.value = widget.cityId!;
+
     creatingAddInfoController.descriptionChanger(
         descriptionn: '${widget.content}');
     // creatingAddInfoController.typeIdChanger(int.parse(widget.type!));
@@ -190,41 +193,13 @@ class _EditProductSceenState extends State<EditProductSceen> {
       print(removedIndex);
     });
 
-    // imageUrlList = imageUrlObject.map((e) => e.path).toList();
     print('this is imageUrlList');
-    // print(imageUrlList);
-    // print(imageUrlList[0]);
-    // creatingAddInfoController.imagesChanger(imageUrlList);
+
     setState(() {});
 
     print('the length of controller image');
     print(creatingAddInfoController.images.length);
   }
-  // void selectImages() async {
-  //   final List<XFile>? selectImages = await _picker.pickMultiImage();
-  //   if (selectImages == null || selectImages.isEmpty) return;
-
-  //   // _imageFileList.addAll(selectImages);
-
-  //   print("Image list lengt" + selectImages.length.toString());
-  //   for (var i = 0; i < selectImages.length; i++) {
-  //     imageUrlObject.add(selectImages[i]);
-  //     print('imaaaaaaa');
-  //     print(selectImages[i]);
-  //   }
-  //   // imageUrlObject=await Future.wait( imageUrlObject.map((e) async=> {
-  //   // var bytes= await File(e.path).readAsBytes();
-  //   // e.bytes=bytes
-  //   // return e
-  //   // }
-  //   // )).asStream().toList();
-  //   imageUrlList = imageUrlObject.map((e) => e.path).toList();
-  //   print('this is imageUrlList');
-  //   print(imageUrlList);
-  //   print(imageUrlList[0]);
-  //   creatingAddInfoController.imagesChanger(imageUrlList);
-  //   setState(() {});
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -354,12 +329,19 @@ class _EditProductSceenState extends State<EditProductSceen> {
                                   ),
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(creatingAddInfoController
-                                                .districtName.value.isEmpty ||
-                                            creatingAddInfoController
-                                                    .districtName.value ==
-                                                ''
-                                        ? ''
+                                    title: Text((creatingAddInfoController
+                                                    .districtName
+                                                    .value
+                                                    .isEmpty ||
+                                                creatingAddInfoController
+                                                        .districtName.value ==
+                                                    '') ||
+                                            (creatingAddInfoController
+                                                    .cityName.value.isEmpty ||
+                                                creatingAddInfoController
+                                                        .cityName.value ==
+                                                    '')
+                                        ? widget.cityName.toString()
                                         : '${creatingAddInfoController.districtName.value} / ' +
                                             creatingAddInfoController
                                                 .cityName.value),
@@ -425,12 +407,12 @@ class _EditProductSceenState extends State<EditProductSceen> {
                           //     ),
                           //   ),
                           // ),
-                          SizedBox(height: 10),
-                          UserInfo(
-                            title: 'Контактное лицо*',
-                            userInfo: '${widget.userName}',
-                            // '${userInfoController.fetchUserInfoList.first.name}',
-                          ),
+                          // SizedBox(height: 10),
+                          // UserInfo(
+                          //   title: 'Контактное лицо*',
+                          //   userInfo: '${widget.userName}',
+                          //   // '${userInfoController.fetchUserInfoList.first.name}',
+                          // ),
                           // UserInfo(
                           //     title: 'Электронная почта*', userInfo: '${widget.email}'),
                           // UserInfo(title: 'Телефон', userInfo: '+' + '${widget.phoneNumber}'

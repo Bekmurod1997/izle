@@ -120,7 +120,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         print(creatingAddInfoController.subCategoryId.value);
 
                         await filterCategoryController.fetchFilterCategories(
-                            id: widget.id.toString());
+                            id: subCategoryController.subCategoryList[index].id
+                                .toString());
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },

@@ -41,6 +41,7 @@ class Data {
   String? email;
   String? responsiblePerson;
   String? cityName;
+  int? cityId;
   int? categoryId;
 
   String? categoryName;
@@ -74,6 +75,7 @@ class Data {
       this.email,
       this.responsiblePerson,
       this.cityName,
+      this.cityId,
       this.categoryId,
       this.categoryName,
       this.type,
@@ -106,6 +108,7 @@ class Data {
     email = json['email'];
     responsiblePerson = json['responsible_person'];
     cityName = json['city_name'];
+    cityId = json['city_id'];
     categoryId = json['category_id'];
 
     categoryName = json['category_name'];
@@ -146,6 +149,7 @@ class Data {
     data['email'] = this.email;
     data['responsible_person'] = this.responsiblePerson;
     data['city_name'] = this.cityName;
+    data['city_id'] = this.cityId;
     data['category_id'] = this.categoryId;
 
     data['category_name'] = this.categoryName;

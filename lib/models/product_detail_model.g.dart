@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element
-
 part of 'product_detail_model.dart';
 
 // **************************************************************************
@@ -31,7 +29,7 @@ Ad _$AdFromJson(Map<String, dynamic> json) => Ad(
       responsiblePerson: json['responsible_person'] as String?,
       cityName: json['city_name'] as String?,
       categoryId: json['category_id'] as int?,
-      categoryName: json['category_name'] as String,
+      categoryName: json['category_name'] as String?,
       type: json['type'] as int?,
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -91,20 +89,21 @@ Map<String, dynamic> _$AdToJson(Ad instance) => <String, dynamic>{
 
 Similar _$SimilarFromJson(Map<String, dynamic> json) => Similar(
       id: json['id'] as int,
-      photo: json['photo'] as String?,
       typeAd: json['type_ad'] as String?,
+      photo: json['photo'] as String?,
       phone: json['phone'] as String?,
       email: json['email'] as String?,
-      categoryId: json['category_id'] as int?,
       responsiblePerson: json['responsible_person'] as String?,
       cityName: json['city_name'] as String?,
       categoryName: json['category_name'] as String?,
+      categoryId: json['category_id'] as int?,
       type: json['type'] as int?,
       title: json['title'] as String?,
       description: json['description'] as String?,
       content: json['content'] as String?,
+      top: json['top'] as int?,
       address: json['address'] as String?,
-      price: json['price'] as dynamic?,
+      price: json['price'],
       priceD: json['price_d'] as int?,
       status: json['status'] as int?,
       lng: json['lng'] as String?,
@@ -112,7 +111,6 @@ Similar _$SimilarFromJson(Map<String, dynamic> json) => Similar(
       views: json['views'] as int?,
       viewPhone: json['view_phone'] as int?,
       premium: json['premium'] as int?,
-      top: json['top'] as int?,
       favorites: json['favorites'] as int?,
       date: json['date'] as String?,
       dateExpire: json['date_expire'] as String?,
@@ -132,8 +130,8 @@ Map<String, dynamic> _$SimilarToJson(Similar instance) => <String, dynamic>{
       'email': instance.email,
       'responsible_person': instance.responsiblePerson,
       'city_name': instance.cityName,
-      'category_id': instance.categoryId,
       'category_name': instance.categoryName,
+      'category_id': instance.categoryId,
       'type': instance.type,
       'title': instance.title,
       'description': instance.description,
