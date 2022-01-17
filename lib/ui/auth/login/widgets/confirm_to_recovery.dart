@@ -45,7 +45,7 @@ class _ConfirmToRecoveryState extends State<ConfirmToRecovery> {
                 ),
                 SizedBox(width: 20),
                 Text(
-                  'Восстановление пароля',
+                  'recoveryPassowrd'.tr,
                   style: FontStyles.boldStyle(
                     fontSize: 24,
                     fontFamily: 'Lato',
@@ -60,7 +60,7 @@ class _ConfirmToRecoveryState extends State<ConfirmToRecovery> {
             Container(
               margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
               child: Text(
-                'Введите свой code*',
+                'enterYourCode'.tr,
                 style: FontStyles.regularStyle(
                   fontSize: 16,
                   fontFamily: 'Lato',
@@ -86,7 +86,7 @@ class _ConfirmToRecoveryState extends State<ConfirmToRecovery> {
                   // },
                   controller: code,
                   decoration: InputDecoration(
-                      border: InputBorder.none, hintText: 'ведите код'),
+                      border: InputBorder.none, hintText: 'enterYourCode'.tr),
                 ),
               ),
             ),
@@ -118,7 +118,7 @@ class _ConfirmToRecoveryState extends State<ConfirmToRecovery> {
                 ),
                 child: Center(
                   child: Text(
-                    'Подтверждать',
+                    'comfirm'.tr,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,

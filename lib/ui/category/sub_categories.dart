@@ -7,6 +7,7 @@ import 'package:izle/ui/components/custom_appbar.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:get/get.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class SubCategories extends StatefulWidget {
   final int mainCategoryId;
@@ -51,7 +52,7 @@ class _SubCategoriesState extends State<SubCategories> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalate.mainPageColor,
-      appBar: customAppBar1(context, title: 'Категории'),
+      appBar: customAppBar1(context, title: 'categoryy'.tr),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -66,7 +67,11 @@ class _SubCategoriesState extends State<SubCategories> {
                 return GestureDetector(
                   onTap: () {
                     filterDetalController.subCategoryName.value =
-                        subCats[index].nameRu!;
+                        MyPref.lang == 'kr'
+                            ? subCats[index].nameEn!
+                            : MyPref.lang == 'uz'
+                                ? subCats[index].nameUz!
+                                : subCats[index].nameRu!;
                     filterDetalController.subCategoryId.value =
                         subCats[index].id!;
                     Get.back();
@@ -76,7 +81,11 @@ class _SubCategoriesState extends State<SubCategories> {
                             builder: (BuildContext context) => ResultAds(
                                   mainCategoryId: widget.mainCategoryId,
                                   catId: subCats[index].id!,
-                                  catName: subCats[index].nameRu!,
+                                  catName: MyPref.lang == 'kr'
+                                      ? subCats[index].nameEn!
+                                      : MyPref.lang == 'uz'
+                                          ? subCats[index].nameUz!
+                                          : subCats[index].nameRu!,
                                   cityId: widget.cityId,
                                   cityName: widget.cityName,
                                 )));
@@ -90,7 +99,11 @@ class _SubCategoriesState extends State<SubCategories> {
                       children: [
                         Text(
                           // 'Все в Детский мир',
-                          subCats[index].nameRu.toString(),
+                          MyPref.lang == 'kr'
+                              ? subCats[index].nameEn.toString()
+                              : MyPref.lang == 'uz'
+                                  ? subCats[index].nameUz.toString()
+                                  : subCats[index].nameRu.toString(),
                           style: FontStyles.regularStyle(
                             fontSize: 16,
                             fontFamily: 'Lato',

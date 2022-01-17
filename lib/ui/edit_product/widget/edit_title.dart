@@ -28,7 +28,7 @@ class _EditTitleState extends State<EditTitle> {
       children: [
         SizedBox(height: 20),
         Text(
-          'Заголовок объявления*',
+          'headlineTitle'.tr + '*',
           style: FontStyles.regularStyle(
             fontSize: 16,
             fontFamily: 'Lato',
@@ -53,7 +53,7 @@ class _EditTitleState extends State<EditTitle> {
                 hintText:
                     // creatingAddInfoController.title.value == 'nothing'
                     // ?
-                    'Например: Велосипед SKILLMAX',
+                    'exampleSkil'.tr,
                 // : creatingAddInfoController.title.value,
                 hintStyle: FontStyles.regularStyle(
                     fontSize: 16, fontFamily: 'Lato', color: Color(0xff616161)),

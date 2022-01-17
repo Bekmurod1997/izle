@@ -6,6 +6,7 @@ import 'package:izle/ui/components/custom_appbar.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:get/get.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class EditSubCategoryList extends StatefulWidget {
   final int id;
@@ -43,7 +44,7 @@ class _EditSubCategoryListState extends State<EditSubCategoryList> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalate.mainPageColor,
-      appBar: customAppBar1(context, title: 'Категории'),
+      appBar: customAppBar1(context, title: 'subCategory'),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
         child: Column(
@@ -104,7 +105,7 @@ class _EditSubCategoryListState extends State<EditSubCategoryList> {
                       onTap: () async {
                         await creatingAddInfoController.subCategoryChanger(
                             subCategoryName:
-                                '${subCategoryController.subCategoryList[index].nameRu}',
+                                '${MyPref.lang == 'kr' ? subCategoryController.subCategoryList[index].nameEn : MyPref.lang == 'uz' ? subCategoryController.subCategoryList[index].nameUz : subCategoryController.subCategoryList[index].nameRu!}',
                             id: subCategoryController
                                 .subCategoryList[index].id!);
                         print('pressed sub category id and name');
@@ -124,9 +125,15 @@ class _EditSubCategoryListState extends State<EditSubCategoryList> {
                           children: [
                             Text(
                               // 'Все в Детский мир',
-                              subCategoryController
-                                  .subCategoryList[index].nameRu
-                                  .toString(),
+
+                              MyPref.lang == 'kr'
+                                  ? subCategoryController
+                                      .subCategoryList[index].nameEn!
+                                  : MyPref.lang == 'uz'
+                                      ? subCategoryController
+                                          .subCategoryList[index].nameUz!
+                                      : subCategoryController
+                                          .subCategoryList[index].nameRu!,
                               style: FontStyles.regularStyle(
                                 fontSize: 16,
                                 fontFamily: 'Lato',

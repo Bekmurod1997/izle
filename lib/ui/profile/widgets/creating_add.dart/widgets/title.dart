@@ -16,7 +16,7 @@ class CreateTitle extends StatelessWidget {
       children: [
         SizedBox(height: 20),
         Text(
-          'Заголовок объявления*',
+          'headlineTitle'.tr,
           style: FontStyles.regularStyle(
             fontSize: 16,
             fontFamily: 'Lato',
@@ -38,7 +38,7 @@ class CreateTitle extends StatelessWidget {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: creatingAddInfoController.title.value.isEmpty
-                    ? 'Например: Велосипед SKILLMAX'
+                    ? 'exampleSkil'.tr
                     : creatingAddInfoController.title.value,
                 hintStyle: FontStyles.regularStyle(
                     fontSize: 16, fontFamily: 'Lato', color: Color(0xff616161)),

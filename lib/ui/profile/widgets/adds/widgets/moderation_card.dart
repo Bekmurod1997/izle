@@ -4,8 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/edit_product/edit_product_screen.dart';
+import 'package:izle/utils/my_prefs.dart';
 
-class ModerationCard extends StatelessWidget {
+class ModerationCard extends StatefulWidget {
   final List<String>? gallery;
   final int? categoryId;
   final int id;
@@ -55,7 +56,153 @@ class ModerationCard extends StatelessWidget {
     required this.long,
     // required this.nonActiveAds,
   });
+
+  @override
+  State<ModerationCard> createState() => _ModerationCardState();
+}
+
+class _ModerationCardState extends State<ModerationCard> {
   final formatCurrency = NumberFormat.decimalPattern();
+  String? day;
+  String? month;
+
+  String _dateChanger(String datee) {
+    var parts = datee.split(',');
+    setState(() {
+      day = parts[0].trim();
+      // monthh = parts[1].trim();
+    });
+    if (day!.contains('понедельник')) {
+      setState(() {
+        MyPref.lang == 'uz'
+            ? day!.replaceAll('понедельник', 'dushanba')
+            : MyPref.lang == 'kr'
+                ? day!.replaceAll('понедельник', 'dúyshembi')
+                : day!;
+      });
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('понедельник', 'dushanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('понедельник', 'dúyshembi')
+              : day!;
+    } else if (day!.contains('вторник')) {
+      setState(() {
+        MyPref.lang == 'uz'
+            ? day!.replaceAll('вторник', 'seshanba')
+            : MyPref.lang == 'kr'
+                ? day!.replaceAll('вторник', 'siyshembi')
+                : day!;
+      });
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('вторник', 'seshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('вторник', 'siyshembi')
+              : day!;
+    } else if (day!.contains('среда')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('среда', 'chorshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('среда', 'sa\'rshembi')
+              : day!;
+    } else if (day!.contains('четверг')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('четверг', 'payshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('четверг', 'piyshembi')
+              : day!;
+    } else if (day!.contains('пятница')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('пятница', 'juma')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('пятница', 'juma')
+              : day!;
+    } else if (day!.contains('суббота')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('суббота', 'shanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('суббота', 'shembi')
+              : day!;
+    } else {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('воскресенье', 'yakshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('воскресенье', 'ekshembi')
+              : day!;
+    }
+  }
+
+  String monthChanger(String monthh) {
+    var parts = monthh.split(',');
+    setState(() {
+      month = parts[1].trim();
+      // monthh = parts[1].trim();
+    });
+    // setState(() {
+    //   month = parts[1].trim();
+    // });
+    if (month!.contains('января')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('января', 'yanvar')
+          : month!;
+    } else if (month!.contains('февраля')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('февраля', 'fevral')
+          : month!;
+    } else if (month!.contains('марта')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('марта', 'mart')
+          : month!;
+    } else if (month!.contains('апреля')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('апреля', 'aprel')
+          : month!;
+    } else if (month!.contains('мая')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('мая', 'may')
+          : month!;
+    } else if (month!.contains('июня')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('июня', 'iyun')
+          : month!;
+    } else if (month!.contains('июля')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('июля', 'iyul')
+          : month!;
+    } else if (month!.contains('августа')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('августа', 'avgust')
+          : month!;
+    } else if (month!.contains('сентября')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('сентября', 'sentyabr')
+          : month!;
+    } else if (month!.contains('октября')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('октября', 'oktyabr')
+          : month!;
+    } else if (month!.contains('ноября')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('ноября', 'noyabr')
+          : month!;
+    }
+    setState(() {});
+
+    return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+        ? month!.replaceAll('декабря', 'dekabr')
+        : month!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -77,7 +224,7 @@ class ModerationCard extends StatelessWidget {
                       color: ColorPalate.addsBackgroundColor,
                     ),
                     child: Image.network(
-                      'http://izle.uz/' + imageUrl,
+                      'http://izle.uz/' + widget.imageUrl,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -90,7 +237,7 @@ class ModerationCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          title,
+                          widget.title,
                           style: FontStyles.semiBoldStyle(
                             fontSize: 18,
                             fontFamily: 'Lato',
@@ -99,13 +246,14 @@ class ModerationCard extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          type_ad == 'price'
-                              ? '${formatCurrency.format(price).replaceAll(',', ' ')} сум'
-                              : type_ad == 'exchange'
-                                  ? 'обмен'
-                                  : type_ad == 'negotiable'
-                                      ? 'договорная'
-                                      : 'бесплатно',
+                          widget.type_ad == 'price'
+                              ? '${formatCurrency.format(widget.price).replaceAll(',', ' ')} ' +
+                                  'sum'.tr
+                              : widget.type_ad == 'exchange'
+                                  ? 'exchange'.tr
+                                  : widget.type_ad == 'negotiable'
+                                      ? 'negotiable'.tr
+                                      : 'free'.tr,
                           style: FontStyles.boldStyle(
                             fontSize: 18,
                             fontFamily: 'Lato',
@@ -115,7 +263,9 @@ class ModerationCard extends StatelessWidget {
                         SizedBox(height: 3),
                         Text(
                           // 'С 14 июля по 13 августа',
-                          date,
+                          _dateChanger(widget.date) +
+                              ', ' +
+                              monthChanger(widget.date),
                           style: FontStyles.regularStyle(
                             fontSize: 12,
                             fontFamily: 'Lato',
@@ -136,27 +286,27 @@ class ModerationCard extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Get.to(() => EditProductSceen(
-                          cityId: cityId,
-                          cityName: cityName,
-                          categoryId: categoryId,
+                          cityId: widget.cityId,
+                          cityName: widget.cityName,
+                          categoryId: widget.categoryId,
                           // lat: lat,
                           // long: long,
-                          dateTime: date,
-                          adderss: address,
-                          imageGallry: gallery,
-                          type_ad: type_ad,
-                          id: id,
-                          category: category,
-                          description: description,
-                          email: email,
-                          imageUrl: imageUrl,
+                          dateTime: widget.date,
+                          adderss: widget.address,
+                          imageGallry: widget.gallery,
+                          type_ad: widget.type_ad,
+                          id: widget.id,
+                          category: widget.category,
+                          description: widget.description,
+                          email: widget.email,
+                          imageUrl: widget.imageUrl,
                           // locationTitle: locationTitle,
-                          phoneNumber: phoneNumber,
-                          price: price.toString(),
-                          title: title,
-                          type: type,
-                          userName: userName,
-                          content: content,
+                          phoneNumber: widget.phoneNumber,
+                          price: widget.price.toString(),
+                          title: widget.title,
+                          type: widget.type,
+                          userName: widget.userName,
+                          content: widget.content,
                         ));
                   },
                   child: Container(
@@ -173,7 +323,7 @@ class ModerationCard extends StatelessWidget {
                         )),
                     child: Center(
                       child: Text(
-                        'Редактировать',
+                        'edit'.tr,
                         style: TextStyle(
                           fontSize: 14,
                           color: ColorPalate.mainColor,

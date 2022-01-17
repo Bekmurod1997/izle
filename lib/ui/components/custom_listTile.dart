@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:get/get.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
@@ -25,7 +26,7 @@ class CustomListTile extends StatelessWidget {
           onTap: onpress,
           contentPadding: const EdgeInsets.all(0),
           title: Text(
-            title,
+            title.tr,
             style: FontStyles.regularStyle(
               fontSize: 16,
               fontFamily: 'Roboto',

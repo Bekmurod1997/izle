@@ -57,7 +57,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 SizedBox(width: 20),
                 Text(
-                  'Добро пожаловать на IZLE',
+                  'welcomeToIzle'.tr,
                   style: FontStyles.boldStyle(
                     fontSize: 24,
                     fontFamily: 'Lato',
@@ -81,7 +81,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       });
                     },
                     child: Text(
-                      'Войти',
+                      'enter'.tr,
                       style: activeScreen == 0
                           ? FontStyles.boldStyle(
                               fontSize: 18, fontFamily: 'Lato', undeline: true)
@@ -105,7 +105,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       });
                     },
                     child: Text(
-                      'Зарегистрироваться',
+                      'singUp'.tr,
                       style: activeScreen == 1
                           ? FontStyles.boldStyle(
                               fontSize: 18, fontFamily: 'Lato', undeline: true)

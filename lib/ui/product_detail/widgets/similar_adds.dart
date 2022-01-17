@@ -16,7 +16,7 @@ class SimilarAdds extends StatelessWidget {
           children: [
             SizedBox(height: 5),
             Text(
-              'Похожие объявления',
+              'similarAds'.tr,
               style: FontStyles.semiBoldStyle(
                 fontSize: 24,
                 fontFamily: 'Lato',
@@ -51,6 +51,8 @@ class SimilarAdds extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.44,
                     height: 250,
                     child: RecommandationItem(
+                      // cityList: [],
+                      cityId: myList[index].cityId,
                       top: myList[index].top,
                       premium: myList[index].premium,
                       typeAd: '${myList[index].typeAd}',

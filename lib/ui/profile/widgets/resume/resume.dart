@@ -37,7 +37,7 @@ class _ResumeState extends State<Resume> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorPalate.mainPageColor,
-        appBar: customAppBar1(context, title: 'Ваше резюме'),
+        appBar: customAppBar1(context, title: 'yourResume'),
         body: g.Obx(() {
           if (userInfoController.isLoading.value) {
             return Center(
@@ -51,7 +51,7 @@ class _ResumeState extends State<Resume> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Актуальное резюме',
+                    'actualResume'.tr,
                     style: FontStyles.regularStyle(
                       fontSize: 16,
                       fontFamily: 'Lato',
@@ -115,7 +115,7 @@ class _ResumeState extends State<Resume> {
                                         userInfoController.fetchUserInfoList
                                                 .first.filePath ==
                                             ''
-                                    ? 'Загрузите свое резюме'
+                                    ? 'uploadYourResume'.tr
                                     : '${userInfoController.fetchUserInfoList.first.filePath?.split('/').last}',
                                 // 'Азиз Кобилов.doc',
                                 style: FontStyles.mediumStyle(
@@ -136,7 +136,7 @@ class _ResumeState extends State<Resume> {
                                     userToken: MyPref.token);
                               },
                               child: Text(
-                                'Удалить',
+                                'delete'.tr,
                                 style: FontStyles.boldStyle(
                                   fontSize: 16,
                                   fontFamily: 'Lato',
@@ -155,7 +155,7 @@ class _ResumeState extends State<Resume> {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'Хотите обновить резюме? Удалить и загрузить новое.',
+                    'wantToUpdateResume'.tr,
                     style: FontStyles.mediumStyle(
                       fontSize: 14,
                       fontFamily: 'Lato',
@@ -165,8 +165,7 @@ class _ResumeState extends State<Resume> {
                   Spacer(),
                   RichText(
                     text: TextSpan(
-                        text:
-                            'Загружая файл резюме, вы соглашаетесь, что его данные будут сохранены и обработаны ',
+                        text: 'uploadingYourResume'.tr,
                         style: FontStyles.mediumStyle(
                           fontSize: 14,
                           fontFamily: 'Lato',
@@ -174,7 +173,7 @@ class _ResumeState extends State<Resume> {
                         ),
                         children: [
                           TextSpan(
-                            text: 'Подробнее',
+                            text: 'more'.tr,
                             style: FontStyles.regularStyle(
                                 fontSize: 14,
                                 fontFamily: 'Lato',

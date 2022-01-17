@@ -9,6 +9,7 @@ import 'package:izle/ui/category/result_ads.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class AllCategoryScreen extends StatefulWidget {
   @override
@@ -41,7 +42,7 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text('Категории',
+        title: Text('categoryy'.tr,
             style: FontStyles.regularStyle(
               fontSize: 24,
               fontFamily: 'Lato',
@@ -68,14 +69,27 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                           mainCategories.categoriesList[index].id!);
 
                   filterDetalController.changerMainCategoryName(
-                      catName: mainCategories.categoriesList[index].nameRu!);
+                    catName: MyPref.lang == 'uz'
+                        ? mainCategories.categoriesList[index].nameUz.toString()
+                        : MyPref.lang == 'kr'
+                            ? mainCategories.categoriesList[index].nameEn
+                                .toString()
+                            : mainCategories.categoriesList[index].nameRu
+                                .toString(),
+                  );
                   print(filterDetalController.mainCategoryName.value);
                   Get.to(() => ResultAds(
                         mainCategoryId:
                             mainCategories.categoriesList[index].id!,
                         catId: mainCategories.categoriesList[index].id!,
-                        catName: mainCategories.categoriesList[index].nameRu
-                            .toString(),
+                        catName: MyPref.lang == 'uz'
+                            ? mainCategories.categoriesList[index].nameUz
+                                .toString()
+                            : MyPref.lang == 'kr'
+                                ? mainCategories.categoriesList[index].nameEn
+                                    .toString()
+                                : mainCategories.categoriesList[index].nameRu
+                                    .toString(),
                         imgUrl: mainCategories.categoriesList[index].photo!,
                       ));
                 },
@@ -99,7 +113,14 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                               mainCategories.categoriesList[index].photo!)),
                     ),
                     title: Text(
-                      mainCategories.categoriesList[index].nameRu.toString(),
+                      MyPref.lang == 'uz'
+                          ? mainCategories.categoriesList[index].nameUz
+                              .toString()
+                          : MyPref.lang == 'kr'
+                              ? mainCategories.categoriesList[index].nameEn
+                                  .toString()
+                              : mainCategories.categoriesList[index].nameRu
+                                  .toString(),
                       style: FontStyles.semiBoldStyle(
                         fontSize: 16,
                         fontFamily: 'Lato',

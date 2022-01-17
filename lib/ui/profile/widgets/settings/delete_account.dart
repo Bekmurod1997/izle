@@ -10,7 +10,8 @@ class DeleteAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar1(context, title: 'Удалить профиль', eleveation: 0.5),
+      appBar:
+          customAppBar1(context, title: 'deleteProfile'.tr, eleveation: 0.5),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 40,
@@ -19,7 +20,7 @@ class DeleteAccountScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'Нам грустно с вами расставаться. Чтобы удалить профиль, перейдите по ссылке, которую мы отправим вам на электронную почту. Вы действительно хотите удалить профиль?',
+              'weAreSadThatYouAreDeleting'.tr,
               style: FontStyles.regularStyle(
                 fontSize: 16,
                 fontFamily: 'Lato',
@@ -32,7 +33,7 @@ class DeleteAccountScreen extends StatelessWidget {
             ),
             Expanded(child: Container()),
             CutomeButton(
-              title: 'Удалить аккаунт',
+              title: 'deleteProfile',
               onpress: () {
                 showDialog(
                     context: context,
@@ -53,7 +54,7 @@ class DeleteAccountScreen extends StatelessWidget {
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Center(
                                   child: Text(
-                                    'Вы уверены, что хотите удалить аккаунт?',
+                                    'areYouSureToDeleteProfile'.tr,
                                     style: FontStyles.boldStyle(
                                         fontSize: 20, fontFamily: 'Lato'),
                                     textAlign: TextAlign.center,
@@ -86,7 +87,7 @@ class DeleteAccountScreen extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          'ДА',
+                                          'yes'.tr,
                                           style: FontStyles.boldStyle(
                                               fontSize: 25, fontFamily: 'Lato'),
                                         ),
@@ -107,7 +108,7 @@ class DeleteAccountScreen extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          'НЕТ',
+                                          'no'.tr,
                                           style: FontStyles.boldStyle(
                                               fontSize: 25, fontFamily: 'Lato'),
                                         ),

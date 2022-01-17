@@ -14,7 +14,7 @@ class CategoryChoice extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Категория*',
+          'categoryy'.tr + '*',
           style: FontStyles.regularStyle(
             fontSize: 16,
             fontFamily: 'Lato',
@@ -38,7 +38,7 @@ class CategoryChoice extends StatelessWidget {
                 title: Text(
                     creatingAddInfoController.mainCategory.value.isEmpty &&
                             creatingAddInfoController.subCategory.value.isEmpty
-                        ? 'выберите категорию'
+                        ? 'chooseCategory'.tr
                         : creatingAddInfoController.mainCategory.value +
                             '/' +
                             creatingAddInfoController.subCategory.value),

@@ -14,6 +14,7 @@ import 'package:izle/ui/product_detail/widgets/gallery_example_item.dart';
 import 'package:izle/ui/product_detail/widgets/more_vertical.dart';
 import 'package:izle/ui/product_detail/widgets/price.dart';
 import 'package:izle/ui/product_detail/widgets/title.dart';
+import 'package:izle/utils/my_prefs.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:share_plus/share_plus.dart';
@@ -224,7 +225,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 '${productDetailController.productDetailList?.data.typeAd}',
                             price: widget.currencySort == null ||
                                     widget.currencySort == ''
-                                ? '${formatCurrency.format(productDetailController.productDetailList?.data.price).replaceAll(',', ' ')} сум '
+                                ? '${formatCurrency.format(productDetailController.productDetailList?.data.price).replaceAll(',', ' ')}  ' +
+                                    'sum'.tr
                                 : '${formatCurrency.format(productDetailController.productDetailList?.data.price).replaceAll(',', ' ')} y.e '),
                         SizedBox(height: 14),
                         Wrap(
@@ -245,7 +247,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                         ),
                         SizedBox(height: 14),
-                        date(date: '${format.format(giventDate)}'),
+                        DateWidget(datee: '${format.format(giventDate)}'),
+                        // date(date: '${format.format(giventDate)}'),
                         SizedBox(height: 4),
                         address(
                             address:
@@ -292,7 +295,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ),
                       ),
                       child: Text(
-                        'Пожаловаться',
+                        'complain'.tr,
                         style: FontStyles.semiBoldStyle(
                           fontSize: 16,
                           fontFamily: 'Lato',

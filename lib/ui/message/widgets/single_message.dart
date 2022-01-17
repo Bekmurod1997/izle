@@ -148,8 +148,8 @@ class _SingleScreenState extends State<SingleScreen> {
                                                   .room!
                                                   .importantStatus ==
                                               1
-                                          ? "Снять отметку как важный"
-                                          : "Пометить как важное"),
+                                          ? "toUnImportant".tr
+                                          : "toMakeImporant".tr),
                                     ),
                                     PopupMenuItem(
                                       onTap: () {
@@ -168,8 +168,8 @@ class _SingleScreenState extends State<SingleScreen> {
                                                   .room!
                                                   .archiveStatus ==
                                               1
-                                          ? "Разархивировать"
-                                          : "Архивировать"),
+                                          ? "toUnarchive".tr
+                                          : "archive".tr),
                                     ),
                                     PopupMenuItem(
                                       onTap: () {
@@ -177,7 +177,7 @@ class _SingleScreenState extends State<SingleScreen> {
                                             widget.chatId.toString());
                                       },
                                       value: 3,
-                                      child: Text("Удалить "),
+                                      child: Text("delete".tr),
                                     ),
                                     PopupMenuDivider(
                                       height: 14,
@@ -213,8 +213,8 @@ class _SingleScreenState extends State<SingleScreen> {
                                                   .room!
                                                   .status ==
                                               1
-                                          ? "Разблокировать"
-                                          : "Заблокировать"),
+                                          ? "toUnblock".tr
+                                          : "toBlock".tr),
                                     ),
                                   ],
                                 ),
@@ -507,7 +507,7 @@ class _SingleScreenState extends State<SingleScreen> {
                                   decoration: InputDecoration(
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
-                                    hintText: 'Напишите сообщение',
+                                    hintText: 'writeMessage'.tr,
                                     hintStyle: FontStyles.regularStyle(
                                         fontSize: 16,
                                         fontFamily: 'Lato',

@@ -114,6 +114,8 @@ class _SearchProductState extends State<SearchProduct> {
                           onTap: () => Get.to(() => ProductDetailScreen(
                               proId: sController.searchList[index].id!)),
                           child: RecommandationItem(
+                            // cityList: [],
+                            cityId: sController.searchList[index].cityId,
                             premium: sController.searchList[index].premium!,
                             top: sController.searchList[index].top!,
                             isFavorite: false,

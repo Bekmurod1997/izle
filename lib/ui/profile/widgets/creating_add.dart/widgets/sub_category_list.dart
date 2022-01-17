@@ -7,6 +7,7 @@ import 'package:izle/ui/components/custom_appbar.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:get/get.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class SubCategoryList extends StatefulWidget {
   final int id;
@@ -46,7 +47,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalate.mainPageColor,
-      appBar: customAppBar1(context, title: 'Категории'),
+      appBar: customAppBar1(context, title: 'subCategory'),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
         child: Column(
@@ -113,8 +114,14 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         creatingAddInfoController.subCategoryId.value =
                             subCategoryController.subCategoryList[index].id!;
                         creatingAddInfoController.subCategory.value =
-                            subCategoryController
-                                .subCategoryList[index].nameRu!;
+                            MyPref.lang == 'kr'
+                                ? subCategoryController
+                                    .subCategoryList[index].nameEn!
+                                : MyPref.lang == 'uz'
+                                    ? subCategoryController
+                                        .subCategoryList[index].nameUz!
+                                    : subCategoryController
+                                        .subCategoryList[index].nameRu!;
                         print('pressed sub category id and name');
                         print(creatingAddInfoController.subCategory.value);
                         print(creatingAddInfoController.subCategoryId.value);
@@ -134,9 +141,17 @@ class _SubCategoryListState extends State<SubCategoryList> {
                           children: [
                             Text(
                               // 'Все в Детский мир',
-                              subCategoryController
-                                  .subCategoryList[index].nameRu
-                                  .toString(),
+                              MyPref.lang == 'kr'
+                                  ? subCategoryController
+                                      .subCategoryList[index].nameEn
+                                      .toString()
+                                  : MyPref.lang == 'uz'
+                                      ? subCategoryController
+                                          .subCategoryList[index].nameUz
+                                          .toString()
+                                      : subCategoryController
+                                          .subCategoryList[index].nameRu
+                                          .toString(),
                               style: FontStyles.regularStyle(
                                 fontSize: 16,
                                 fontFamily: 'Lato',

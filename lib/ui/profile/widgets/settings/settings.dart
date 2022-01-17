@@ -10,25 +10,25 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar1(context, title: 'Настройки', eleveation: 1),
+      appBar: customAppBar1(context, title: 'settings', eleveation: 1),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
         child: Column(
           children: [
             CustomListTile(
-              title: 'Редактировать профиль',
+              title: 'editProfile',
               onpress: () => Get.to(() => EditProfileScreen()),
             ),
             CustomListTile(
-              title: 'Уведомления',
+              title: 'notification',
               onpress: () {},
             ),
             CustomListTile(
-              title: 'Ваше резюме',
+              title: 'yourResume',
               onpress: () => Get.to(() => Resume()),
             ),
             CustomListTile(
-              title: 'Удалить профиль',
+              title: 'deleteProfile',
               onpress: () => Get.to(() => DeleteAccountScreen()),
             ),
             Expanded(child: Container()),

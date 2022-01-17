@@ -188,7 +188,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                     ),
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 5),
-                                    child: Text('Добавить еще фото')),
+                                    child: Text('addMorePhoto'.tr)),
                               ),
                             ],
                           )
@@ -230,7 +230,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                       children: [
                                         SvgPicture.asset(
                                             'assets/icons/upload_f.svg'),
-                                        Text('Добавить фото',
+                                        Text('addPhoto'.tr,
                                             style: FontStyles.semiBoldStyle(
                                               fontSize: 24,
                                               fontFamily: 'Lato',
@@ -261,7 +261,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     creatingAddInfoController.titleCheck.value == false &&
                             creatingAddInfoController.tCheck.value == true
                         ? Text(
-                            'Не может быть короче 10 символов',
+                            'cannotBeLessThan'.tr,
                             style: TextStyle(color: Colors.red),
                           )
                         : Container(),
@@ -272,7 +272,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Местоположение*',
+                          'location'.tr + '*',
                           style: FontStyles.regularStyle(
                             fontSize: 16,
                             fontFamily: 'Lato',
@@ -302,7 +302,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                                           creatingAddInfoController
                                                   .districtName.value ==
                                               '')
-                                  ? 'Выберите место'
+                                  ? 'chooseLocation'.tr
                                   : '${creatingAddInfoController.districtName.value} / ${creatingAddInfoController.cityName.value}'),
                               trailing: Icon(Icons.navigate_next),
                               onTap: () => Get.to(
@@ -317,7 +317,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     creatingAddInfoController.categoryCheck.value == false &&
                             creatingAddInfoController.cCheck.value == true
                         ? Text(
-                            'Поле обязательно для заполнения',
+                            'mandatoryField'.tr,
                             style: TextStyle(color: Colors.red),
                           )
                         : Container(),
@@ -326,7 +326,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     creatingAddInfoController.descriptionCheck.value == false &&
                             creatingAddInfoController.dCheck.value == true
                         ? Text(
-                            'Не может быть короче 10 символов',
+                            'cannotBeLessThan'.tr,
                             style: TextStyle(color: Colors.red),
                           )
                         : Container(),
@@ -341,7 +341,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     //     : Container(),d
                     Center(
                       child: Text(
-                        'Ваши контактные данные',
+                        'yourContactInfo'.tr,
                         style: FontStyles.regularStyle(
                           fontSize: 20,
                           fontFamily: 'Lato',
@@ -395,7 +395,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                     // SizedBox(height: 13),
 
                     Text(
-                      'Телефон',
+                      'phone'.tr,
                       style: FontStyles.regularStyle(
                         fontSize: 16,
                         fontFamily: 'Lato',
@@ -441,8 +441,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                         print(format.format(now));
                         if (phoneNumber.text.length < 16) {
                           setState(() {
-                            phoneNumbeError =
-                                'Пожалуйста, проверьте свой номер телефона правильно';
+                            phoneNumbeError = 'pleaseGiveCorrectPhone'.tr;
                           });
                         }
                         if (phoneNumber.text.length == 16) {
@@ -581,7 +580,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                             )),
                         child: Center(
                           child: Text(
-                            'Предпросмотр',
+                            'preview'.tr,
                             style: TextStyle(
                               fontSize: 18,
                               color: ColorPalate.mainColor,
@@ -595,8 +594,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                       onTap: () {
                         if (phoneNumber.text.length < 16) {
                           setState(() {
-                            phoneNumbeError =
-                                'Пожалуйста, проверьте свой номер телефона правильно';
+                            phoneNumbeError = 'pleaseGiveCorrectPhone'.tr;
                           });
                         }
                         if (phoneNumber.text.length == 16) {
@@ -743,7 +741,7 @@ class _CreatingAddScreenState extends State<CreatingAddScreen> {
                               //   )
                               // :
                               Text(
-                            'Опубликовать',
+                            'publish'.tr,
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,

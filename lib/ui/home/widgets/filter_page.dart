@@ -13,6 +13,7 @@ import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/home/widgets/search_reasult.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 // ignore: must_be_immutable
 class FilterPage extends StatefulWidget {
@@ -50,10 +51,10 @@ class _FilterPageState extends State<FilterPage> {
   int disrtictId = 0;
   int mainCategoryId = 0;
   int subCategoryId = 0;
-  String cityChoice = 'Город';
-  String districtChoice = 'Район';
-  String mainCategoryChoice = 'Категория';
-  String subCategoryChoice = 'Подкатегория';
+  String cityChoice = 'city'.tr;
+  String districtChoice = 'region'.tr;
+  String mainCategoryChoice = 'categoryy'.tr;
+  String subCategoryChoice = 'categoryy'.tr;
   bool isPriceSelected = false;
   String sortingType = '';
 
@@ -74,7 +75,7 @@ class _FilterPageState extends State<FilterPage> {
       backgroundColor: ColorPalate.mainPageColor,
       appBar: customAppBar1(
         context,
-        title: 'Фильтры',
+        title: 'filter',
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -95,7 +96,7 @@ class _FilterPageState extends State<FilterPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Сортировка',
+                      'sorting'.tr,
                       style: FontStyles.regularStyle(
                           fontSize: 16, fontFamily: 'Roboto'),
                     ),
@@ -127,7 +128,7 @@ class _FilterPageState extends State<FilterPage> {
                                 )),
                             child: Center(
                               child: Text(
-                                'Дешевые',
+                                'cheap'.tr,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: selectedIndex == 1
@@ -162,7 +163,7 @@ class _FilterPageState extends State<FilterPage> {
                                 )),
                             child: Center(
                               child: Text(
-                                'Дорогие',
+                                'expensive'.tr,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: selectedIndex == 2
@@ -197,7 +198,7 @@ class _FilterPageState extends State<FilterPage> {
                                 )),
                             child: Center(
                               child: Text(
-                                'Новые',
+                                'new'.tr,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: selectedIndex == 3
@@ -212,7 +213,7 @@ class _FilterPageState extends State<FilterPage> {
                     ),
                     SizedBox(height: 15),
                     Text(
-                      'Категория',
+                      'category'.tr,
                       style: FontStyles.regularStyle(
                           fontSize: 16, fontFamily: 'Roboto'),
                     ),
@@ -229,45 +230,78 @@ class _FilterPageState extends State<FilterPage> {
                           showDialog(
                               context: context,
                               builder: (context) {
-                                return AlertDialog(
-                                    content: Container(
-                                  height: 300,
-                                  width: double.maxFinite,
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: finalAllCategoriesController
-                                          .categoryList.length,
-                                      // mainCategories.categoriesList.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          onTap: () {
-                                            filterSearchController
-                                                    .mainCategoryId.value =
-                                                mainCategories
-                                                    .categoriesList[index].id!;
-                                            filterSearchController
-                                                    .mainCategoryName.value =
-                                                mainCategories
-                                                    .categoriesList[index]
-                                                    .nameRu!;
+                                return StatefulBuilder(
+                                    builder: (context, StateSetter setState) {
+                                  return AlertDialog(
+                                      content: Container(
+                                    height: 300,
+                                    width: double.maxFinite,
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: finalAllCategoriesController
+                                            .categoryList.length,
+                                        // mainCategories.categoriesList.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            onTap: () {
+                                              filterSearchController
+                                                      .mainCategoryId.value =
+                                                  mainCategories
+                                                      .categoriesList[index]
+                                                      .id!;
+                                              filterSearchController
+                                                      .mainCategoryName.value =
+                                                  // MyPref.lang == 'ru'
+                                                  //     ? mainCategories
+                                                  //         .categoriesList[index]
+                                                  //         .nameRu!
+                                                  //     :
+                                                  MyPref.lang == 'uz'
+                                                      ? mainCategories
+                                                          .categoriesList[index]
+                                                          .nameUz!
+                                                      : MyPref.lang == 'kr'
+                                                          ? mainCategories
+                                                              .categoriesList[
+                                                                  index]
+                                                              .nameEn!
+                                                          : mainCategories
+                                                              .categoriesList[
+                                                                  index]
+                                                              .nameRu!;
 
-                                            setState(() {
-                                              subCategories =
-                                                  finalAllCategoriesController
+                                              setState(() {
+                                                subCategories =
+                                                    finalAllCategoriesController
+                                                        .categoryList[index]
+                                                        .childs!;
+                                              });
+                                              print(filterSearchController
+                                                  .mainCategoryId.value);
+                                              Get.back();
+                                            },
+                                            title: Text(
+                                              // MyPref.lang == 'ru'
+                                              //     ? finalAllCategoriesController
+                                              //         .categoryList[index]
+                                              //         .nameRu!
+                                              //     :
+                                              MyPref.lang == 'uz'
+                                                  ? finalAllCategoriesController
                                                       .categoryList[index]
-                                                      .childs!;
-                                            });
-                                            print(filterSearchController
-                                                .mainCategoryId.value);
-                                            Get.back();
-                                          },
-                                          title: Text(
-                                            finalAllCategoriesController
-                                                .categoryList[index].nameRu!,
-                                          ),
-                                        );
-                                      }),
-                                ));
+                                                      .nameUz!
+                                                  : MyPref.lang == 'kr'
+                                                      ? finalAllCategoriesController
+                                                          .categoryList[index]
+                                                          .nameEn!
+                                                      : finalAllCategoriesController
+                                                          .categoryList[index]
+                                                          .nameRu!,
+                                            ),
+                                          );
+                                        }),
+                                  ));
+                                });
                               });
                         },
                         child: Container(
@@ -280,7 +314,7 @@ class _FilterPageState extends State<FilterPage> {
                           ),
                           child: Text(filterSearchController
                                   .mainCategoryName.value.isEmpty
-                              ? 'Выберите категорию'
+                              ? 'chooseCategory'.tr
                               : filterSearchController.mainCategoryName.value),
                         ),
                       ),
@@ -289,7 +323,7 @@ class _FilterPageState extends State<FilterPage> {
                     filterSearchController.mainCategoryName.value.isEmpty
                         ? Container()
                         : Text(
-                            'Подкатегория',
+                            'subCategory'.tr,
                             style: FontStyles.regularStyle(
                                 fontSize: 16, fontFamily: 'Roboto'),
                           ),
@@ -310,40 +344,63 @@ class _FilterPageState extends State<FilterPage> {
                                 showDialog(
                                     context: context,
                                     builder: (context) {
-                                      return AlertDialog(
-                                          content: Container(
-                                              height: 300,
-                                              width: double.maxFinite,
-                                              child: ListView.builder(
-                                                  itemCount:
-                                                      filterSearchController
+                                      return StatefulBuilder(builder:
+                                          (context, StateSetter setState) {
+                                        return AlertDialog(
+                                            content: Container(
+                                                height: 300,
+                                                width: double.maxFinite,
+                                                child: ListView.builder(
+                                                    itemCount: filterSearchController
+                                                                .subCategoryId
+                                                                .value ==
+                                                            0
+                                                        ? subCategories.length
+                                                        : subCategoryController
+                                                            .subCategoryList
+                                                            .length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return ListTile(
+                                                        onTap: () {
+                                                          filterSearchController
+                                                              .subCategoryId
+                                                              .value = filterSearchController
+                                                                      .subCategoryId
+                                                                      .value ==
+                                                                  0
+                                                              ? subCategories[
+                                                                      index]
+                                                                  .id!
+                                                              : subCategoryController
+                                                                  .subCategoryList[
+                                                                      index]
+                                                                  .id!;
+                                                          filterSearchController
+                                                              .subCategoryName
+                                                              .value = filterSearchController
+                                                                      .subCategoryId
+                                                                      .value ==
+                                                                  0
+                                                              ? subCategories[
+                                                                      index]
+                                                                  .nameRu!
+                                                              : subCategoryController
+                                                                  .subCategoryList[
+                                                                      index]
+                                                                  .nameRu!;
+
+                                                          print(
+                                                              filterSearchController
                                                                   .subCategoryId
-                                                                  .value ==
-                                                              0
-                                                          ? subCategories.length
-                                                          : subCategoryController
-                                                              .subCategoryList
-                                                              .length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return ListTile(
-                                                      onTap: () {
-                                                        filterSearchController
-                                                            .subCategoryId
-                                                            .value = filterSearchController
-                                                                    .subCategoryId
-                                                                    .value ==
-                                                                0
-                                                            ? subCategories[
-                                                                    index]
-                                                                .id!
-                                                            : subCategoryController
-                                                                .subCategoryList[
-                                                                    index]
-                                                                .id!;
-                                                        filterSearchController
-                                                            .subCategoryName
-                                                            .value = filterSearchController
+                                                                  .value);
+                                                          print('this is subcategeoyNameValue' +
+                                                              filterSearchController
+                                                                  .subCategoryName
+                                                                  .value);
+                                                          Get.back();
+                                                        },
+                                                        title: Text(filterSearchController
                                                                     .subCategoryId
                                                                     .value ==
                                                                 0
@@ -353,30 +410,10 @@ class _FilterPageState extends State<FilterPage> {
                                                             : subCategoryController
                                                                 .subCategoryList[
                                                                     index]
-                                                                .nameRu!;
-
-                                                        print(
-                                                            filterSearchController
-                                                                .subCategoryId
-                                                                .value);
-                                                        print(
-                                                            filterSearchController
-                                                                .subCategoryName
-                                                                .value);
-                                                        Get.back();
-                                                      },
-                                                      title: Text(filterSearchController
-                                                                  .subCategoryId
-                                                                  .value ==
-                                                              0
-                                                          ? subCategories[index]
-                                                              .nameRu!
-                                                          : subCategoryController
-                                                              .subCategoryList[
-                                                                  index]
-                                                              .nameRu!),
-                                                    );
-                                                  })));
+                                                                .nameRu!),
+                                                      );
+                                                    })));
+                                      });
                                     });
                               },
                               child: Container(
@@ -397,7 +434,7 @@ class _FilterPageState extends State<FilterPage> {
                           ),
                     SizedBox(height: 15),
                     Text(
-                      'Местоположение',
+                      'location'.tr,
                       style: FontStyles.regularStyle(
                           fontSize: 16, fontFamily: 'Roboto'),
                     ),
@@ -414,44 +451,83 @@ class _FilterPageState extends State<FilterPage> {
                           showDialog(
                               context: context,
                               builder: (context) {
-                                return AlertDialog(
-                                    content: Container(
-                                  height: 300,
-                                  width: double.maxFinite,
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: allRegionsController
-                                          .allRegionsList.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          onTap: () {
-                                            filterSearchController
-                                                    .cityId.value =
-                                                allRegionsController
-                                                    .allRegionsList[index].id!;
-                                            filterSearchController
-                                                    .cityName.value =
-                                                allRegionsController
-                                                    .allRegionsList[index]
-                                                    .nameRu!;
+                                return StatefulBuilder(
+                                    builder: (contxet, StateSetter setState) {
+                                  return AlertDialog(
+                                      content: Container(
+                                    height: 300,
+                                    width: double.maxFinite,
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: allRegionsController
+                                            .allRegionsList.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            onTap: () {
+                                              filterSearchController
+                                                      .cityId.value =
+                                                  allRegionsController
+                                                      .allRegionsList[index]
+                                                      .id!;
+                                              filterSearchController
+                                                      .cityName.value =
+                                                  // MyPref
+                                                  //         .lang ==
+                                                  //     'ru'
+                                                  // ? allRegionsController
+                                                  //     .allRegionsList[index]
+                                                  //     .nameRu!
+                                                  // :
+                                                  MyPref.lang == 'uz'
+                                                      ? allRegionsController
+                                                          .allRegionsList[index]
+                                                          .nameUz!
+                                                      : MyPref.lang == 'kr'
+                                                          ? allRegionsController
+                                                              .allRegionsList[
+                                                                  index]
+                                                              .nameEn!
+                                                          : allRegionsController
+                                                              .allRegionsList[
+                                                                  index]
+                                                              .nameRu!;
 
-                                            setState(() {
-                                              allRegions = allRegionsController
-                                                  .allRegionsList[index]
-                                                  .childs!;
-                                              mainCitySelected = true;
-                                              districtChoice =
-                                                  'Все ${allRegionsController.allRegionsList[index].nameRu!}';
-                                            });
-                                            print(
-                                                filterSearchController.cityId);
-                                            Get.back();
-                                          },
-                                          title: Text(allRegionsController
-                                              .allRegionsList[index].nameRu!),
-                                        );
-                                      }),
-                                ));
+                                              setState(() {
+                                                allRegions =
+                                                    allRegionsController
+                                                        .allRegionsList[index]
+                                                        .childs!;
+                                                mainCitySelected = true;
+                                                districtChoice =
+                                                    'Все ${MyPref.lang == 'uz' ? allRegionsController.allRegionsList[index].nameUz! : MyPref.lang == 'kr' ? allRegionsController.allRegionsList[index].nameEn : allRegionsController.allRegionsList[index].nameRu!}';
+                                              });
+                                              print(filterSearchController
+                                                  .cityId);
+                                              Get.back();
+                                            },
+                                            title: Text(
+                                                // MyPref.lang == 'ru'
+                                                //   ? allRegionsController
+                                                //       .allRegionsList[index]
+                                                //       .nameRu!
+                                                //   :
+                                                MyPref.lang == 'uz'
+                                                    ? allRegionsController
+                                                        .allRegionsList[index]
+                                                        .nameUz!
+                                                    : MyPref.lang == 'kr'
+                                                        ? allRegionsController
+                                                            .allRegionsList[
+                                                                index]
+                                                            .nameEn!
+                                                        : allRegionsController
+                                                            .allRegionsList[
+                                                                index]
+                                                            .nameRu!),
+                                          );
+                                        }),
+                                  ));
+                                });
                               });
                         },
                         child: Container(
@@ -471,7 +547,7 @@ class _FilterPageState extends State<FilterPage> {
                     ),
                     SizedBox(height: 15),
                     Text(
-                      'Район',
+                      'region'.tr,
                       style: FontStyles.regularStyle(
                           fontSize: 16, fontFamily: 'Roboto'),
                     ),
@@ -489,34 +565,74 @@ class _FilterPageState extends State<FilterPage> {
                                 showDialog(
                                     context: context,
                                     builder: (context) {
-                                      return AlertDialog(
-                                          content: Container(
-                                              height: 300,
-                                              width: double.maxFinite,
-                                              child: ListView.builder(
-                                                  shrinkWrap: true,
-                                                  itemCount: allRegions.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return ListTile(
-                                                      onTap: () {
-                                                        filterSearchController
-                                                                .districtName
-                                                                .value =
-                                                            allRegions[index]
-                                                                .nameRu!;
-                                                        filterSearchController
-                                                                .cityId.value =
-                                                            allRegions[index]
-                                                                .id!;
+                                      return StatefulBuilder(builder:
+                                          (context, StateSetter setState) {
+                                        return AlertDialog(
+                                            content: Container(
+                                                height: 300,
+                                                width: double.maxFinite,
+                                                child: ListView.builder(
+                                                    shrinkWrap: true,
+                                                    itemCount:
+                                                        allRegions.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return ListTile(
+                                                        onTap: () {
+                                                          filterSearchController
+                                                                  .districtName
+                                                                  .value =
+                                                              // MyPref
+                                                              //         .lang ==
+                                                              //     'ru'
+                                                              // ?
+                                                              // allRegions[
+                                                              //         index]
+                                                              //     .nameRu!
+                                                              // :
+                                                              MyPref.lang ==
+                                                                      'uz'
+                                                                  ? allRegions[
+                                                                          index]
+                                                                      .nameUz!
+                                                                  : MyPref.lang ==
+                                                                          'kr'
+                                                                      ? allRegions[
+                                                                              index]
+                                                                          .nameEn!
+                                                                      : allRegions[
+                                                                              index]
+                                                                          .nameRu!;
+                                                          filterSearchController
+                                                                  .cityId
+                                                                  .value =
+                                                              allRegions[index]
+                                                                  .id!;
 
-                                                        Get.back();
-                                                      },
-                                                      title: Text(
-                                                          allRegions[index]
-                                                              .nameRu!),
-                                                    );
-                                                  })));
+                                                          Get.back();
+                                                        },
+                                                        title: Text(
+                                                            // MyPref?
+                                                            //         .lang ==
+                                                            //     'ru'
+                                                            // ? allRegions[index]
+                                                            //     .nameRu!
+                                                            // :
+                                                            MyPref.lang == 'uz'
+                                                                ? allRegions[
+                                                                        index]
+                                                                    .nameUz!
+                                                                : MyPref.lang ==
+                                                                        'kr'
+                                                                    ? allRegions[
+                                                                            index]
+                                                                        .nameEn!
+                                                                    : allRegions[
+                                                                            index]
+                                                                        .nameRu!),
+                                                      );
+                                                    })));
+                                      });
                                     });
                               },
                               child: Container(
@@ -562,7 +678,7 @@ class _FilterPageState extends State<FilterPage> {
                               width: 2,
                             )),
                         child: Text(
-                          'Цена',
+                          'price'.tr,
                           style: TextStyle(
                             fontSize: 16,
                             color: isPriceSelected == true
@@ -575,7 +691,7 @@ class _FilterPageState extends State<FilterPage> {
                     SizedBox(height: 15),
                     isPriceSelected == true
                         ? Text(
-                            'Цена',
+                            'price'.tr,
                             style: FontStyles.regularStyle(
                                 fontSize: 16, fontFamily: 'Roboto'),
                           )
@@ -596,7 +712,8 @@ class _FilterPageState extends State<FilterPage> {
                                   controller: minPriceController,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
-                                      border: InputBorder.none, hintText: 'От'),
+                                      border: InputBorder.none,
+                                      hintText: 'from'.tr),
                                 ),
                               ),
                               SizedBox(width: 25),
@@ -612,7 +729,8 @@ class _FilterPageState extends State<FilterPage> {
                                   controller: maxPriceController,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
-                                      border: InputBorder.none, hintText: 'До'),
+                                      border: InputBorder.none,
+                                      hintText: 'to'.tr),
                                 ),
                               ),
                             ],
@@ -657,7 +775,7 @@ class _FilterPageState extends State<FilterPage> {
                         : Container(),
                     SizedBox(height: 80),
                     CutomeButton(
-                        title: 'Показать результаты',
+                        title: 'showResults',
                         onpress: () {
                           filterSearchController.price_start.value =
                               minPriceController.text;

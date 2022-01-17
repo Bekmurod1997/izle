@@ -25,7 +25,7 @@ AppBar customAppBar1(BuildContext context,
         ? Container(
             height: 40,
             child: Marquee(
-              text: title,
+              text: '  ' + title.tr + '  ',
               style: FontStyles.boldStyle(
                 fontSize: 24,
                 fontFamily: 'Lato',
@@ -33,7 +33,7 @@ AppBar customAppBar1(BuildContext context,
             ),
           )
         : Text(
-            title,
+            title.tr,
             style: FontStyles.boldStyle(
               fontSize: 24,
               fontFamily: 'Lato',

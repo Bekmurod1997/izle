@@ -6,6 +6,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:get/get.dart';
 import 'package:izle/ui/home/widgets/search_reasult.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class SearchSubCategories extends StatefulWidget {
   final int id;
@@ -35,7 +36,7 @@ class _SubCategoriesState extends State<SearchSubCategories> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorPalate.mainPageColor,
-        appBar: customAppBar1(context, title: 'Категории'),
+        appBar: customAppBar1(context, title: 'subCategory'),
         body: Obx(() {
           if (subCategoryController.isLoading.value) {
             return Center(
@@ -123,8 +124,14 @@ class _SubCategoriesState extends State<SearchSubCategories> {
                         filterSearchController.mainCategoryId.value =
                             subCategoryController.subCategoryList[index].id!;
                         filterSearchController.subCategoryName.value =
-                            subCategoryController
-                                .subCategoryList[index].nameRu!;
+                            MyPref.lang == 'uz'
+                                ? subCategoryController
+                                    .subCategoryList[index].nameUz!
+                                : MyPref.lang == 'kr'
+                                    ? subCategoryController
+                                        .subCategoryList[index].nameEn!
+                                    : subCategoryController
+                                        .subCategoryList[index].nameRu!;
                         print(filterSearchController.mainCategoryId.value);
                         print(filterSearchController.subCategoryName.value);
                         Get.back();
@@ -174,9 +181,17 @@ class _SubCategoriesState extends State<SearchSubCategories> {
                           children: [
                             Text(
                               // 'Все в Детский мир',
-                              subCategoryController
-                                  .subCategoryList[index].nameRu
-                                  .toString(),
+                              MyPref.lang == 'uz'
+                                  ? subCategoryController
+                                      .subCategoryList[index].nameUz
+                                      .toString()
+                                  : MyPref.lang == 'kr'
+                                      ? subCategoryController
+                                          .subCategoryList[index].nameEn
+                                          .toString()
+                                      : subCategoryController
+                                          .subCategoryList[index].nameRu
+                                          .toString(),
                               style: FontStyles.regularStyle(
                                 fontSize: 16,
                                 fontFamily: 'Lato',

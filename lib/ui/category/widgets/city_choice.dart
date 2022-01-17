@@ -6,6 +6,7 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/all_regions_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
 import 'package:izle/ui/category/widgets/district.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class CityChoice extends StatefulWidget {
   final int mainCategoryId;
@@ -61,7 +62,7 @@ class _CityChoiceState extends State<CityChoice> {
                 width: MediaQuery.of(context).size.width * 0.1,
               ),
               Text(
-                'Местоположение',
+                'location'.tr,
                 style: FontStyles.boldStyle(
                   fontSize: 24,
                   fontFamily: 'Lato',
@@ -84,8 +85,12 @@ class _CityChoiceState extends State<CityChoice> {
                   // shrinkWrap: true,
                   itemCount: allRegionsController.allRegionsList.length,
                   itemBuilder: (context, index) => ListTile(
-                    title: Text(
-                        allRegionsController.allRegionsList[index].nameRu!),
+                    title: Text(MyPref.lang == 'kr'
+                        ? allRegionsController.allRegionsList[index].nameEn!
+                        : MyPref.lang == 'uz'
+                            ? allRegionsController.allRegionsList[index].nameUz!
+                            : allRegionsController
+                                .allRegionsList[index].nameRu!),
                     trailing:
                         Icon(Icons.arrow_forward, color: ColorPalate.mainColor),
                     onTap: () {
@@ -96,8 +101,14 @@ class _CityChoiceState extends State<CityChoice> {
                           mainCityId:
                               allRegionsController.allRegionsList[index].id!,
                           mainCatId: widget.mainCategoryId,
-                          mainCityName: allRegionsController
-                              .allRegionsList[index].nameRu!,
+                          mainCityName: MyPref.lang == 'kr'
+                              ? allRegionsController
+                                  .allRegionsList[index].nameEn!
+                              : MyPref.lang == 'uz'
+                                  ? allRegionsController
+                                      .allRegionsList[index].nameUz!
+                                  : allRegionsController
+                                      .allRegionsList[index].nameRu!,
                           districts: allRegionsController
                                   .allRegionsList[index].childs ??
                               <Childs>[],

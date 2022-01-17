@@ -8,6 +8,7 @@ import 'package:izle/ui/components/custom_appbar.dart';
 import 'package:izle/ui/components/cutome_button.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class DetailFilterScreen extends StatefulWidget {
   final List<DataCategory> subCategories;
@@ -51,7 +52,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
       backgroundColor: ColorPalate.mainPageColor,
       appBar: customAppBar1(
         context,
-        title: 'Фильтры',
+        title: 'filter',
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -65,7 +66,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Сортировка',
+                  'sorting'.tr,
                   style: FontStyles.regularStyle(
                       fontSize: 16, fontFamily: 'Roboto'),
                 ),
@@ -98,7 +99,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                             )),
                         child: Center(
                           child: Text(
-                            'Дешевые',
+                            'cheap'.tr,
                             style: TextStyle(
                               fontSize: 14,
                               color: selectedIndex == 1
@@ -134,7 +135,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                             )),
                         child: Center(
                           child: Text(
-                            'Дорогие',
+                            'expensive'.tr,
                             style: TextStyle(
                               fontSize: 14,
                               color: selectedIndex == 2
@@ -170,7 +171,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                             )),
                         child: Center(
                           child: Text(
-                            'Новые',
+                            'new'.tr,
                             style: TextStyle(
                               fontSize: 14,
                               color: selectedIndex == 3
@@ -186,7 +187,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                 SizedBox(height: 15),
                 SizedBox(height: 20),
                 Text(
-                  'Категория',
+                  'categoryy'.tr,
                   style: FontStyles.regularStyle(
                       fontSize: 16, fontFamily: 'Roboto'),
                 ),
@@ -219,13 +220,22 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                                                     subCats[index].id!);
                                         filterDetalController
                                             .changerSubCategoryName(
-                                                subCategoryNamee:
-                                                    subCats[index].nameRu!);
+                                                subCategoryNamee: MyPref.lang ==
+                                                        'uz'
+                                                    ? subCats[index].nameUz!
+                                                    : MyPref.lang == 'kr'
+                                                        ? subCats[index].nameEn!
+                                                        : subCats[index]
+                                                            .nameRu!);
                                         print(filterDetalController
                                             .subCategoryId.value);
                                         Get.back();
                                       },
-                                      title: Text(subCats[index].nameRu!),
+                                      title: Text(MyPref.lang == 'uz'
+                                          ? subCats[index].nameUz!
+                                          : MyPref.lang == 'kr'
+                                              ? subCats[index].nameEn!
+                                              : subCats[index].nameRu!),
                                     );
                                   }),
                             ));
@@ -253,7 +263,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                 ),
                 SizedBox(height: 15),
                 Text(
-                  'Местоположение',
+                  'location'.tr,
                   style: FontStyles.regularStyle(
                       fontSize: 16, fontFamily: 'Roboto'),
                 ),
@@ -297,10 +307,20 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                                                       return ListTile(
                                                         onTap: () {
                                                           filterDetalController
-                                                                  .districtName
-                                                                  .value =
-                                                              regions[index]
-                                                                  .nameRu!;
+                                                              .districtName
+                                                              .value = MyPref
+                                                                      .lang ==
+                                                                  'kr'
+                                                              ? regions[index]
+                                                                  .nameEn!
+                                                              : MyPref.lang ==
+                                                                      'uz'
+                                                                  ? regions[
+                                                                          index]
+                                                                      .nameUz!
+                                                                  : regions[
+                                                                          index]
+                                                                      .nameRu!;
                                                           filterDetalController
                                                                   .cityId
                                                                   .value =
@@ -317,9 +337,17 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                                                           Get.back();
                                                           Get.back();
                                                         },
-                                                        title: Text(
-                                                            regions[index]
-                                                                .nameRu!),
+                                                        title: Text(MyPref
+                                                                    .lang ==
+                                                                'kr'
+                                                            ? regions[index]
+                                                                .nameEn!
+                                                            : MyPref.lang ==
+                                                                    'uz'
+                                                                ? regions[index]
+                                                                    .nameUz!
+                                                                : regions[index]
+                                                                    .nameRu!),
                                                       );
                                                     }),
                                               ));
@@ -329,13 +357,21 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                                           cityIdd: allRegions[index].id ?? 10,
                                         );
                                         filterDetalController.changerCityName(
-                                            cityNamee:
-                                                allRegions[index].nameRu!);
+                                            cityNamee: MyPref.lang == 'kr'
+                                                ? allRegions[index].nameEn!
+                                                : MyPref.lang == 'uz'
+                                                    ? allRegions[index].nameUz!
+                                                    : allRegions[index]
+                                                        .nameRu!);
                                         print(
                                             filterDetalController.cityId.value);
                                         // Get.back();
                                       },
-                                      title: Text(allRegions[index].nameRu!),
+                                      title: Text(MyPref.lang == 'kr'
+                                          ? allRegions[index].nameEn!
+                                          : MyPref.lang == 'uz'
+                                              ? allRegions[index].nameUz!
+                                              : allRegions[index].nameRu!),
                                     );
                                   }),
                             ));
@@ -352,7 +388,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                       child: Row(
                         children: [
                           Text(filterDetalController.cityName.value.isEmpty
-                              ? 'Город'
+                              ? 'city'.tr
                               : filterDetalController.cityName.value),
                           Text(filterDetalController.districtName.value.isEmpty
                               ? ''
@@ -388,7 +424,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                           width: 2,
                         )),
                     child: Text(
-                      'Цена',
+                      'price'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: isPriceSelected == true
@@ -401,7 +437,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                 SizedBox(height: 15),
                 isPriceSelected == true
                     ? Text(
-                        'Цена',
+                        'price'.tr,
                         style: FontStyles.regularStyle(
                             fontSize: 16, fontFamily: 'Roboto'),
                       )
@@ -422,7 +458,8 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                               controller: minPriceController,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                  border: InputBorder.none, hintText: 'От'),
+                                  border: InputBorder.none,
+                                  hintText: 'from'.tr),
                             ),
                           ),
                           SizedBox(width: 25),
@@ -438,7 +475,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                               controller: maxPriceController,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                  border: InputBorder.none, hintText: 'До'),
+                                  border: InputBorder.none, hintText: 'to'.tr),
                             ),
                           ),
                         ],
@@ -483,7 +520,7 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                     : Container(),
                 SizedBox(height: 80),
                 CutomeButton(
-                    title: 'Показать результаты',
+                    title: 'showResults'.tr,
                     onpress: () {
                       print('checkingggg');
                       print(filterDetalController.subCategoryId.value);

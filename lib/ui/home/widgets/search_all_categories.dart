@@ -8,6 +8,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/home/widgets/search_sub_category.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class SearchAllCategoryScreen extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _SearchAllCategoryScreenState extends State<SearchAllCategoryScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text('Категории',
+        title: Text('categoryy'.tr,
             style: FontStyles.regularStyle(
               fontSize: 24,
               fontFamily: 'Lato',
@@ -60,7 +61,11 @@ class _SearchAllCategoryScreenState extends State<SearchAllCategoryScreen> {
               return GestureDetector(
                 onTap: () => Get.to(() => SearchSubCategories(
                       id: mainCategories.categoriesList[index].id!,
-                      mainCatName: mainCategories.categoriesList[index].nameRu!,
+                      mainCatName: MyPref.lang == 'uz'
+                          ? mainCategories.categoriesList[index].nameUz!
+                          : MyPref.lang == 'kr'
+                              ? mainCategories.categoriesList[index].nameEn!
+                              : mainCategories.categoriesList[index].nameRu!,
                     )),
                 // onTap: () {
                 //   forSubCategoryController
@@ -101,7 +106,11 @@ class _SearchAllCategoryScreenState extends State<SearchAllCategoryScreen> {
                               mainCategories.categoriesList[index].photo!)),
                     ),
                     title: Text(
-                      mainCategories.categoriesList[index].nameRu.toString(),
+                      MyPref.lang == 'uz'
+                          ? mainCategories.categoriesList[index].nameUz!
+                          : MyPref.lang == 'kr'
+                              ? mainCategories.categoriesList[index].nameEn!
+                              : mainCategories.categoriesList[index].nameRu!,
                       style: FontStyles.semiBoldStyle(
                         fontSize: 16,
                         fontFamily: 'Lato',

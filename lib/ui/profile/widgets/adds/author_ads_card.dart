@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/services/all_services.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class AuthorAdsCard extends StatefulWidget {
@@ -114,7 +115,7 @@ class _AuthorAdsCardState extends State<AuthorAdsCard> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                widget.price + ' сум',
+                                widget.price + ' ' + 'sum'.tr,
                                 // '190 000 сум',
                                 style: FontStyles.boldStyle(
                                   fontSize: 18,
@@ -144,8 +145,8 @@ class _AuthorAdsCardState extends State<AuthorAdsCard> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                       content: Text(widget.isFavorite
-                                          ? "Добавлено в список избранных"
-                                          : "Удалено в список избранных")));
+                                          ? 'addedToFavorites'.tr
+                                          : 'deleteFromFavorites'.tr)));
                             });
                             AllServices.addAndRemoveFav(widget.id);
                           },

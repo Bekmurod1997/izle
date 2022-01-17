@@ -61,7 +61,7 @@ class UserInfo extends StatelessWidget {
                               userName: userName,
                             )),
                         child: Text(
-                          'Все объявления автора',
+                          'allAdsAuthor'.tr,
                           style: FontStyles.semiBoldStyle(
                             fontSize: 14,
                             fontFamily: 'Lato',

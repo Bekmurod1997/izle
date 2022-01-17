@@ -8,6 +8,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/sub_category_list.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class CategoryList extends StatefulWidget {
   @override
@@ -35,7 +36,7 @@ class _CategoryListState extends State<CategoryList> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text('Категории',
+        title: Text('categoryy'.tr,
             style: FontStyles.regularStyle(
               fontSize: 24,
               fontFamily: 'Lato',
@@ -56,14 +57,21 @@ class _CategoryListState extends State<CategoryList> {
               return GestureDetector(
                 onTap: () {
                   creatingAddInfoController.mainCategoryChanger(
-                      categoryName:
-                          mainCategories.categoriesList[index].nameRu);
+                      categoryName: MyPref.lang == 'kr'
+                          ? mainCategories.categoriesList[index].nameEn
+                          : MyPref.lang == 'uz'
+                              ? mainCategories.categoriesList[index].nameUz
+                              : mainCategories.categoriesList[index].nameRu);
                   print('pressed categroy name');
                   print(creatingAddInfoController.mainCategory);
                   Get.to(
                     () => SubCategoryList(
                       id: mainCategories.categoriesList[index].id!,
-                      catName: mainCategories.categoriesList[index].nameRu!,
+                      catName: MyPref.lang == 'kr'
+                          ? mainCategories.categoriesList[index].nameEn!
+                          : MyPref.lang == 'uz'
+                              ? mainCategories.categoriesList[index].nameUz!
+                              : mainCategories.categoriesList[index].nameRu!,
                       imgUrl: mainCategories.categoriesList[index].photo!,
                     ),
                   );
@@ -83,7 +91,14 @@ class _CategoryListState extends State<CategoryList> {
                               mainCategories.categoriesList[index].photo!)),
                     ),
                     title: Text(
-                      mainCategories.categoriesList[index].nameRu.toString(),
+                      MyPref.lang == 'kr'
+                          ? mainCategories.categoriesList[index].nameEn
+                              .toString()
+                          : MyPref.lang == 'uz'
+                              ? mainCategories.categoriesList[index].nameUz
+                                  .toString()
+                              : mainCategories.categoriesList[index].nameRu
+                                  .toString(),
                       style: FontStyles.semiBoldStyle(
                         fontSize: 16,
                         fontFamily: 'Lato',

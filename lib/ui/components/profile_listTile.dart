@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:get/get.dart';
 
 class ProfileListTile extends StatelessWidget {
   final bool isAmount;
@@ -50,7 +51,7 @@ class ProfileListTile extends StatelessWidget {
           ),
           contentPadding: const EdgeInsets.all(0),
           title: Text(
-            title,
+            title.tr,
             style: FontStyles.regularStyle(
               fontSize: 16,
               fontFamily: 'Roboto',

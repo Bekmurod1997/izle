@@ -17,7 +17,7 @@ class EditCategoryChoice extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Категория*',
+          'categoryy'.tr + '*',
           style: FontStyles.regularStyle(
             fontSize: 16,
             fontFamily: 'Lato',

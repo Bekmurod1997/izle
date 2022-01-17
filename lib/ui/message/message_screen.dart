@@ -27,11 +27,11 @@ class _MessageScreenState extends State<MessageScreen> {
 
   bool istabed = false;
   var titles = [
-    'Все сообщении',
-    'Важные',
-    'Архивные',
-    'Заблокированые',
-    'Непрочитанные',
+    'allMessages'.tr,
+    'important'.tr,
+    'archive'.tr,
+    'blocked'.tr,
+    'unreaded'.tr,
   ];
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _MessageScreenState extends State<MessageScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Сообщение',
+          'message'.tr,
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
-                                  'Выберите собшения',
+                                  'chooseMessage'.tr,
                                   style: TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold,
@@ -207,7 +207,7 @@ class _MessageScreenState extends State<MessageScreen> {
                               ),
                               SizedBox(height: 20),
                               Text(
-                                'Пока сообщений нет',
+                                'youHaveNotMessage'.tr,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,

@@ -107,9 +107,7 @@ class AllServices {
       if (response.statusCode == 200) {
         g.Get.snackbar(
           '',
-          status == 0
-              ? 'Пользователь заблокирован'
-              : 'Пользователь разблокирован',
+          status == 0 ? 'userBlocked'.tr : 'userUnblocked'.tr,
           backgroundColor: ColorPalate.lightGreen,
         );
         // ScaffoldMessenger.of(context)
@@ -135,7 +133,7 @@ class AllServices {
       if (response.statusCode == 200) {
         g.Get.snackbar(
           '',
-          status == 0 ? 'Добавлено в важные' : "Снять отметку как важный",
+          status == 0 ? 'asImportant'.tr : 'asUnimportant'.tr,
           backgroundColor: ColorPalate.lightGreen,
         );
         // ScaffoldMessenger.of(context)
@@ -162,7 +160,7 @@ class AllServices {
       if (response.statusCode == 200) {
         g.Get.snackbar(
           '',
-          'Чат удален',
+          'chatDeleted'.tr,
           backgroundColor: ColorPalate.lightGreen,
         );
         // ScaffoldMessenger.of(context)
@@ -190,9 +188,7 @@ class AllServices {
       if (response.statusCode == 200) {
         g.Get.snackbar(
           '',
-          status == 0
-              ? 'Сообщение было заархивировано'
-              : 'Сообщение было разархивировано',
+          status == 0 ? 'messageWasArchived'.tr : 'messageWasUnarchived'.tr,
           backgroundColor: ColorPalate.lightGreen,
         );
         // ScaffoldMessenger.of(context)
@@ -314,7 +310,8 @@ class AllServices {
                     SizedBox(height: 30),
                     g.Obx(
                       () => Text(
-                        'Отправляем ваши фото ' +
+                        'sendingYourPhoto'.tr +
+                            ' ' +
                             creatingAddInfoController
                                 .messageUploadingPercentage.value
                                 .toString() +
@@ -394,7 +391,8 @@ class AllServices {
                     SizedBox(height: 30),
                     g.Obx(
                       () => Text(
-                        'Отправляем ваши фото ' +
+                        'sendingYourPhoto'.tr +
+                            ' ' +
                             creatingAddInfoController
                                 .messageUploadingPercentage.value
                                 .toString() +
@@ -708,7 +706,8 @@ class AllServices {
                           SizedBox(height: 30),
                           g.Obx(
                             () => Text(
-                              'Загрузка ваших фото ' +
+                              'uploadingYourPhoto'.tr +
+                                  ' ' +
                                   creatingAddInfoController
                                       .uploadingPercentage.value
                                       .toString() +
@@ -857,7 +856,8 @@ class AllServices {
                     SizedBox(height: 30),
                     g.Obx(
                       () => Text(
-                        'Загрузка ваших фото ' +
+                        'uploadingYourPhoto'.tr +
+                            ' ' +
                             creatingAddInfoController.uploadingPercentage.value
                                 .toString() +
                             '%',
@@ -1005,7 +1005,7 @@ class AllServices {
                   SizedBox(
                     width: 30,
                   ),
-                  Text('Подождите пожалуйста'),
+                  Text('pleaseWait'.tr),
                 ],
               ),
             ),
@@ -1170,7 +1170,7 @@ class AllServices {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(height: 20),
-                    Text('Пожалуйста подождите',
+                    Text('pleaseWait'.tr,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -1206,7 +1206,7 @@ class AllServices {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SizedBox(height: 30),
-                      Text('Вы успешно купили пакет',
+                      Text('youSuccessfullyBoughtPackage'.tr,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -1235,7 +1235,7 @@ class AllServices {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(height: 30),
-                    Text('Ошибка, у вас может не хватить денег',
+                    Text('ErrorYourMoneyIsNotEnough'.tr,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -1280,7 +1280,7 @@ class AllServices {
                       SizedBox(
                         width: 30,
                       ),
-                      Text('Жалоба успешно отправлена'),
+                      Text('complainSuccessfullySent'.tr),
                       SizedBox(
                         width: 30,
                       ),
@@ -1309,7 +1309,7 @@ class AllServices {
                       SizedBox(
                         width: 30,
                       ),
-                      Text('Жалоба успешно отправлена'),
+                      Text('complainSuccessfullySent'.tr),
                       SizedBox(
                         width: 30,
                       ),
@@ -1433,7 +1433,7 @@ class AllServices {
           '',
           '',
           messageText: Text(
-            'Ваши данные успешно сохранены',
+            'yourDataWasSuccessfullySaved'.tr,
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: ColorPalate.mainColor,
@@ -1445,7 +1445,7 @@ class AllServices {
           '',
           '',
           messageText: Text(
-            'Что-то пошло не так, попробуйте позже',
+            'somethingWentWrongTryLater'.tr,
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: ColorPalate.mainColor,
@@ -1485,7 +1485,7 @@ class AllServices {
           '',
           '',
           messageText: Text(
-            'Ваши данные успешно сохранены',
+            'yourDataWasSuccessfullySaved'.tr,
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: ColorPalate.mainColor,
@@ -1497,7 +1497,7 @@ class AllServices {
           '',
           '',
           messageText: Text(
-            'Что-то пошло не так, попробуйте позже',
+            'somethingWentWrongTryLater'.tr,
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: ColorPalate.mainColor,
@@ -1757,7 +1757,7 @@ class AllServices {
                   SizedBox(
                     width: 30,
                   ),
-                  Text('Подождите пожалуйста'),
+                  Text('pleaseWait'.tr),
                 ],
               ),
             ),
@@ -1830,7 +1830,7 @@ class AllServices {
                     height: 100.0,
                     child: Center(
                       child: Text(
-                        'Не верный логин и/или пароль',
+                        'incorrectLoginOrPassword'.tr,
                         style: TextStyle(fontSize: 15),
                       ),
                     ),
@@ -2067,7 +2067,7 @@ class AllServices {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SizedBox(height: 30),
-                      Text('Номер телефона не найден',
+                      Text('phoneWasNotFound'.tr,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -2121,7 +2121,7 @@ class AllServices {
                     height: 100.0,
                     child: Center(
                       child: Text(
-                        'Код указан неверно ',
+                        'wrongCode'.tr,
                         style: TextStyle(fontSize: 15),
                       ),
                     ),

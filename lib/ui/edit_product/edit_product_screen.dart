@@ -210,10 +210,25 @@ class _EditProductSceenState extends State<EditProductSceen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          leading: Container(
+            width: 20,
+            height: 20,
+            padding: EdgeInsets.symmetric(horizontal: 17, vertical: 17),
+            child: GestureDetector(
+              onTap: () => Get.back(),
+              child: RotatedBox(
+                quarterTurns: 2,
+                child: SvgPicture.asset(
+                  'assets/icons/next-icon.svg',
+                  height: 10,
+                  width: 10,
+                ),
+              ),
+            ),
+          ),
           elevation: 0,
           backgroundColor: ColorPalate.mainPageColor,
-          automaticallyImplyLeading: false,
-          title: Text('Редактировать', style: TextStyle(color: Colors.black)),
+          title: Text('edit'.tr, style: TextStyle(color: Colors.black)),
           centerTitle: true,
         ),
         backgroundColor: ColorPalate.mainPageColor,
@@ -297,7 +312,7 @@ class _EditProductSceenState extends State<EditProductSceen> {
                                   ),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 5),
-                                  child: Text('Добавить еще фото')),
+                                  child: Text('addMorePhoto'.tr)),
                             ),
                           ),
                           EditTitle(
@@ -309,7 +324,7 @@ class _EditProductSceenState extends State<EditProductSceen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Местоположение*',
+                                'location'.tr + '*',
                                 style: FontStyles.regularStyle(
                                   fontSize: 16,
                                   fontFamily: 'Lato',
@@ -352,6 +367,7 @@ class _EditProductSceenState extends State<EditProductSceen> {
                                   ),
                                 ),
                               ),
+                              SizedBox(height: 11),
                             ],
                           ),
 
@@ -362,7 +378,7 @@ class _EditProductSceenState extends State<EditProductSceen> {
                           ),
                           Center(
                             child: Text(
-                              'Ваши контактные данные',
+                              'yourContactInfo'.tr,
                               style: FontStyles.regularStyle(
                                 fontSize: 20,
                                 fontFamily: 'Lato',
@@ -536,7 +552,7 @@ class _EditProductSceenState extends State<EditProductSceen> {
 
                           SizedBox(height: 10),
                           CutomeButton(
-                            title: 'Редактировать',
+                            title: 'edit',
                             onpress: () {
                               print(creatingAddInfoController.title.value);
                               print(creatingAddInfoController

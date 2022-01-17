@@ -4,6 +4,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/filter_search_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
 import 'package:izle/ui/home/widgets/search_reasult.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class SearchDistrictScreen extends StatefulWidget {
   final bool isDetailed;
@@ -112,17 +113,35 @@ class _SearchDistrictScreenState extends State<SearchDistrictScreen> {
                 child: ListTile(
                     trailing:
                         Icon(Icons.arrow_forward, color: ColorPalate.mainColor),
-                    title: Text(districts[index].nameRu!),
+                    title: Text(
+
+                        // MyPref.lang == 'ru'
+                        //   ?
+                        //    districts[index].nameRu!
+                        //   :
+                        MyPref.lang == 'uz'
+                            ? districts[index].nameUz!
+                            : MyPref.lang == 'kr'
+                                ? districts[index].nameEn!
+                                : districts[index].nameRu!),
                     onTap: () {
                       filterSearchController.cityName.value =
                           widget.mainCityName;
                       filterSearchController.cityId.value =
                           districts[index].id!;
                       filterSearchController.districtName.value =
-                          districts[index].nameRu!;
+                          MyPref.lang == 'uz'
+                              ? districts[index].nameUz!
+                              : MyPref.lang == 'kr'
+                                  ? districts[index].nameEn!
+                                  : districts[index].nameRu!;
                       print(filterSearchController.cityId.value);
                       filterSearchController.districtName.value =
-                          districts[index].nameRu!;
+                          MyPref.lang == 'uz'
+                              ? districts[index].nameUz!
+                              : MyPref.lang == 'kr'
+                                  ? districts[index].nameEn!
+                                  : districts[index].nameRu!;
                       print(filterSearchController.districtName.value);
                       Get.back();
                       Get.back();

@@ -27,7 +27,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalate.mainPageColor,
-      appBar: customAppBar1(context, title: 'Избранное'),
+      appBar: customAppBar1(context, title: 'favorite'),
       body: Obx(() {
         if (favoriteController.isLoading.value) {
           return Center(
@@ -37,7 +37,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           );
         } else if (favoriteController.favoriteList.isEmpty) {
           return Center(
-            child: Text('Вы еще не добавили'),
+            child: Text('haveNotAddedFavorites'.tr),
           );
         } else {
           return SingleChildScrollView(

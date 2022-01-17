@@ -29,18 +29,18 @@ class _FillUpWalletState extends State<FillUpWallet> {
   int paymentId = 0;
   bool toPay = false;
   var priceList = [
-    '5 000 сум',
-    '10 000 сум',
-    '20 000 сум',
-    '30 000 сум',
-    '50 000 сум',
-    '60 000 сум',
-    '80 000 сум',
-    '100 000 сум',
-    '120 000 сум',
-    '200 000 сум',
-    '500 000 сум',
-    '100 000 сум',
+    '5 000 ' + 'sum'.tr,
+    '10 000 ' + 'sum'.tr,
+    '20 000 ' + 'sum'.tr,
+    '30 000 ' + 'sum'.tr,
+    '50 000 ' + 'sum'.tr,
+    '60 000 ' + 'sum'.tr,
+    '80 000 ' + 'sum'.tr,
+    '100 000 ' + 'sum'.tr,
+    '120 000 ' + 'sum'.tr,
+    '200 000 ' + 'sum'.tr,
+    '500 000 ' + 'sum'.tr,
+    '100 000 ' + 'sum'.tr,
   ];
   @override
   void initState() {
@@ -100,7 +100,7 @@ class _FillUpWalletState extends State<FillUpWallet> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorPalate.mainPageColor,
-        appBar: customAppBar1(context, title: '  Пополнить кошелек'),
+        appBar: customAppBar1(context, title: '  ' + 'topUpBalance'.tr + '  '),
         body: Obx(() {
           if (listOfPriceController.isLoading.value) {
             return Center(
@@ -118,19 +118,20 @@ class _FillUpWalletState extends State<FillUpWallet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Выберите сумму пополнения',
+                      'chooseSum'.tr,
                       style: FontStyles.semiBoldStyle(
                         fontSize: 20,
                         fontFamily: 'Lato',
                       ),
                     ),
                     Text(
-                      'Цены указаны со всеми налогами',
+                      'priceIsWithTaxs'.tr,
                       style: FontStyles.regularStyle(
                         fontSize: 12,
                         fontFamily: 'Lato',
                       ),
                     ),
+                    SizedBox(height: 5),
                     GridView.builder(
                       reverse: true,
                       padding: EdgeInsets.zero,
@@ -184,7 +185,7 @@ class _FillUpWalletState extends State<FillUpWallet> {
                               });
                             },
                             child: Text(
-                              '$price сум',
+                              '$price ' + 'sum'.tr,
                               style: TextStyle(fontSize: 20),
                             ),
                             style: TextButton.styleFrom(
@@ -204,7 +205,7 @@ class _FillUpWalletState extends State<FillUpWallet> {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      'Как вы хотите оплатить?',
+                      'paymentChoice'.tr,
                       style: FontStyles.boldStyle(
                         fontSize: 18,
                         fontFamily: 'Lato',
@@ -219,9 +220,9 @@ class _FillUpWalletState extends State<FillUpWallet> {
 
                         toPay
                             ? paymentMethod()
-                            : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(
-                                    "Пожалуйста, выберите цены, указанные выше")));
+                            : ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text("pleaseChoosePrice".tr)));
                       },
                       child: Container(
                         height: 60,
@@ -245,9 +246,9 @@ class _FillUpWalletState extends State<FillUpWallet> {
                         });
                         toPay
                             ? paymentMethod()
-                            : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(
-                                    "Пожалуйста, выберите цены, указанные выше")));
+                            : ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text("pleaseChoosePrice".tr)));
                         // toPay ?
                       },
                       child: Container(

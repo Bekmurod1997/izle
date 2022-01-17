@@ -68,7 +68,7 @@ class _NonActiveAdsScreenState extends State<NonActiveAdsScreen> {
                       width: MediaQuery.of(context).size.width * 0.1,
                     ),
                     Text(
-                      'Неактивные ',
+                      'inActive'.tr,
                       style: FontStyles.boldStyle(
                         fontSize: 24,
                         fontFamily: 'Lato',
@@ -89,7 +89,7 @@ class _NonActiveAdsScreenState extends State<NonActiveAdsScreen> {
                           height: MediaQuery.of(context).size.height * .4,
                         ),
                         Text(
-                          'Пока, у вас нету неактивных объявления',
+                          'youHaveNotInActiveAds'.tr,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),

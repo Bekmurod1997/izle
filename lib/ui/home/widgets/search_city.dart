@@ -6,6 +6,7 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/all_regions_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
 import 'package:izle/ui/home/widgets/search_district.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 // ignore: must_be_immutable
 class SearchCityScreen extends StatefulWidget {
@@ -65,7 +66,7 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
                 width: MediaQuery.of(context).size.width * 0.1,
               ),
               Text(
-                'Местоположение',
+                'location'.tr,
                 style: FontStyles.boldStyle(
                   fontSize: 24,
                   fontFamily: 'Lato',
@@ -89,7 +90,16 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
                   itemCount: allRegionsController.allRegionsList.length,
                   itemBuilder: (context, index) => ListTile(
                     title: Text(
-                        allRegionsController.allRegionsList[index].nameRu!),
+                        // MyPref.lang == 'ru'
+                        //   ? allRegionsController.allRegionsList[index].nameRu!
+                        //   :
+                        MyPref.lang == 'uz'
+                            ? allRegionsController.allRegionsList[index].nameUz!
+                            : MyPref.lang == 'kr'
+                                ? allRegionsController
+                                    .allRegionsList[index].nameEn!
+                                : allRegionsController
+                                    .allRegionsList[index].nameRu!),
                     trailing:
                         Icon(Icons.arrow_forward, color: ColorPalate.mainColor),
                     onTap: () {
@@ -99,8 +109,19 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
                               <Childs>[],
                           mainCityId:
                               allRegionsController.allRegionsList[index].id!,
-                          mainCityName: allRegionsController
-                              .allRegionsList[index].nameRu!));
+                          mainCityName:
+                              // MyPref.lang == 'ru'
+                              //     ? allRegionsController
+                              //         .allRegionsList[index].nameRu!
+                              //     :
+                              MyPref.lang == 'uz'
+                                  ? allRegionsController
+                                      .allRegionsList[index].nameUz!
+                                  : MyPref.lang == 'kr'
+                                      ? allRegionsController
+                                          .allRegionsList[index].nameEn!
+                                      : allRegionsController
+                                          .allRegionsList[index].nameRu!));
                       // Get.to(
                       //   () => DistrictScreen(
                       //     // mainCategoryId: widget.mainCategoryId,

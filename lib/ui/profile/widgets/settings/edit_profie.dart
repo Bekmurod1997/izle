@@ -62,7 +62,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalate.mainPageColor,
-      appBar: customAppBar1(context, title: '  Редактировать профиль  '),
+      appBar: customAppBar1(context, title: 'editProfile'),
       body: Obx(() {
         if (userInfoController.isLoading.value) {
           return Center(
@@ -79,7 +79,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ваше имя',
+                    'yourName'.tr,
                     style: FontStyles.regularStyle(
                       fontSize: 16,
                       fontFamily: 'Lato',
@@ -98,7 +98,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         controller: nameController,
                         // controller: MyPref.userName ?? nameController,
                         decoration: InputDecoration(
-                          hintText: 'Например: Велосипед SKILLMAX',
+                          hintText: 'exampleSkil'.tr,
                           hintStyle: FontStyles.regularStyle(
                               fontSize: 16,
                               fontFamily: 'Lato',
@@ -110,7 +110,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'Изминить пароль',
+                    'changePassword'.tr,
                     style: FontStyles.regularStyle(
                       fontSize: 16,
                       fontFamily: 'Lato',
@@ -140,7 +140,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               child: InkWell(
                                 onTap: _toggle,
                                 child: Text(
-                                  _obscureText ? 'показать ' : 'скрыть',
+                                  _obscureText ? 'show'.tr : 'hide'.tr,
                                   style: TextStyle(
                                     color: Color(0xff635757),
                                   ),
@@ -193,7 +193,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Spacer(),
 
                   CutomeButton(
-                    title: 'Сохранить',
+                    title: 'save',
                     onpress: () {
                       MyPref.userName = nameController.text;
                       MyPref.password = passwordController.text;

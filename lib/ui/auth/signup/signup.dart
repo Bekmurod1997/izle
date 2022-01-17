@@ -4,6 +4,7 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/mask/mask_format.dart';
 import 'package:izle/services/signup.dart';
 import 'package:izle/utils/my_prefs.dart';
+import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -46,22 +47,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (passwordController.text.length < 6 &&
         passwordController.text.length > 0) {
       setState(() {
-        passwordError = 'Длина пароля должна быть больше 6';
+        passwordError = 'passwordLength'.tr;
       });
     }
     if (passwordController.text.length == 0) {
       setState(() {
-        passwordError = 'Пожалуйста, заполните поле пароля';
+        passwordError = 'pleaseFillPasswordFiled'.tr;
       });
     }
     if (phoneController.text.length > 0 && phoneController.text.length < 16) {
       setState(() {
-        phoneNumbeError = 'Введён неверный номер телефона';
+        phoneNumbeError = 'pleaseGiveCorrectPhone'.tr;
       });
     }
     if (phoneController.text.length == 0) {
       setState(() {
-        phoneNumbeError = 'Пожалуйста, заполните поле для номера телефона';
+        phoneNumbeError = 'pleaseFillPhoneFiled'.tr;
       });
     }
     if (phoneController.text.length == 16) {
@@ -88,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               margin: const EdgeInsets.only(left: 20, right: 20),
               padding: const EdgeInsets.only(top: 30),
               child: Text(
-                'Телефон или электронная почта*',
+                'phone'.tr,
                 style: FontStyles.regularStyle(
                   fontSize: 16,
                   fontFamily: 'Lato',
@@ -126,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               padding: const EdgeInsets.only(top: 15),
               margin: const EdgeInsets.only(left: 20, right: 20),
               child: Text(
-                'Ваш пароль*',
+                'yourPassword'.tr + '*',
                 style: FontStyles.regularStyle(
                   fontSize: 16,
                   fontFamily: 'Lato',
@@ -156,7 +157,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: InkWell(
                         onTap: _toggle,
                         child: Text(
-                          _obscureText ? 'показать ' : 'скрыть',
+                          _obscureText ? 'show'.tr : 'hide'.tr,
                           style: TextStyle(
                             color: Color(0xff635757),
                           ),
@@ -175,25 +176,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
             SizedBox(height: 40),
-            Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
+            Center(
               child: Text(
-                'Этот сайт защищен reCATCHA и Политикой конфиденциальности и Условиями использования Google.',
+                'agreeLong'.tr,
                 style: FontStyles.regularStyle(
                   fontSize: 12,
                   fontFamily: 'Lato',
                 ),
-              ),
-            ),
-            SizedBox(height: 5),
-            Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
-              child: Text(
-                'Я соглашаюсь с правилами использования сервиса, а также с передачей и обработкой моих данных в izle. Я подтверждаю свое совершеннолетие и ответственность за размещение объявления.',
-                style: FontStyles.regularStyle(
-                  fontSize: 12,
-                  fontFamily: 'Lato',
-                ),
+                textAlign: TextAlign.center,
               ),
             ),
             GestureDetector(
@@ -250,7 +240,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'Зарегистрироваться',
+                    'singUp'.tr,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,

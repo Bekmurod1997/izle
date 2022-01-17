@@ -6,6 +6,7 @@ import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/all_regions_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/widgets/sub_region_choice.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 // ignore: must_be_immutable
 class RegionChoice extends StatefulWidget {
@@ -65,7 +66,7 @@ class _RegionChoiceState extends State<RegionChoice> {
                 width: MediaQuery.of(context).size.width * 0.1,
               ),
               Text(
-                'Местоположение',
+                'location'.tr,
                 style: FontStyles.boldStyle(
                   fontSize: 24,
                   fontFamily: 'Lato',
@@ -96,8 +97,13 @@ class _RegionChoiceState extends State<RegionChoice> {
                       width: 0.4,
                     ))),
                     child: ListTile(
-                      title: Text(
-                          allRegionsController.allRegionsList[index].nameRu!),
+                      title: Text(MyPref.lang == 'kr'
+                          ? allRegionsController.allRegionsList[index].nameEn!
+                          : MyPref.lang == 'uz'
+                              ? allRegionsController
+                                  .allRegionsList[index].nameUz!
+                              : allRegionsController
+                                  .allRegionsList[index].nameRu!),
                       trailing: Icon(Icons.arrow_forward,
                           color: ColorPalate.mainColor),
                       onTap: () {
@@ -107,8 +113,14 @@ class _RegionChoiceState extends State<RegionChoice> {
                                 <Childs>[],
                             mainCityId:
                                 allRegionsController.allRegionsList[index].id!,
-                            mainCityName: allRegionsController
-                                .allRegionsList[index].nameRu!));
+                            mainCityName: MyPref.lang == 'kr'
+                                ? allRegionsController
+                                    .allRegionsList[index].nameEn!
+                                : MyPref.lang == 'uz'
+                                    ? allRegionsController
+                                        .allRegionsList[index].nameUz!
+                                    : allRegionsController
+                                        .allRegionsList[index].nameRu!));
                         // Get.to(
                         //   () => DistrictScreen(
                         //     // mainCategoryId: widget.mainCategoryId,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/ui/auth/login/login.dart';
 import 'package:izle/ui/auth/signup/signup.dart';
+import 'package:get/get.dart';
 
 class UnAuthMessageScreen extends StatefulWidget {
   @override
@@ -29,7 +30,7 @@ class _UnAuthMessageScreenState extends State<UnAuthMessageScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
-                  'Сообщение',
+                  'message'.tr,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -45,7 +46,7 @@ class _UnAuthMessageScreenState extends State<UnAuthMessageScreen> {
                         });
                       },
                       child: Text(
-                        'Войти',
+                        'enter'.tr,
                         style: activeScreen == 0
                             ? FontStyles.boldStyle(
                                 fontSize: 18,
@@ -72,7 +73,7 @@ class _UnAuthMessageScreenState extends State<UnAuthMessageScreen> {
                         });
                       },
                       child: Text(
-                        'Зарегистрироваться',
+                        'singUp'.tr,
                         style: activeScreen == 1
                             ? FontStyles.boldStyle(
                                 fontSize: 18,

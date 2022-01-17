@@ -23,12 +23,12 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
     }
     if (phoneNumber.text.length > 0 && phoneNumber.text.length < 16) {
       setState(() {
-        errorMessage = 'Введён неверный номер телефона';
+        errorMessage = 'pleaseGiveCorrectPhone'.tr;
       });
     }
     if (phoneNumber.text.length == 0) {
       setState(() {
-        errorMessage = 'Пожалуйста, заполните поле для номера телефона';
+        errorMessage = 'pleaseFillPhoneFiled'.tr;
       });
     }
     if (phoneNumber.text.length == 16) {
@@ -67,7 +67,7 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
                 ),
                 SizedBox(width: 20),
                 Text(
-                  'Восстановление пароля',
+                  'recoveryPassowrd'.tr,
                   style: FontStyles.boldStyle(
                     fontSize: 24,
                     fontFamily: 'Lato',
@@ -82,7 +82,7 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
             Container(
               margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
               child: Text(
-                'Введите свой номер*',
+                'pleaseFillPhoneFiled'.tr,
                 style: FontStyles.regularStyle(
                   fontSize: 16,
                   fontFamily: 'Lato',
@@ -143,7 +143,7 @@ class _RecovryPasswordScreenState extends State<RecovryPasswordScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'Далее',
+                    'next'.tr,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,

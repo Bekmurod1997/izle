@@ -23,14 +23,18 @@ class CreatAppBar extends StatelessWidget {
               SizedBox(width: 10),
               GestureDetector(
                 onTap: () {
-                  pageNavigationController.pageControllerChanger(0);
-                  pageNavigationController.tabIndexChanger(0);
+                  print('pressed');
+                  pageNavigationController.pageControllerChanger(4);
+                  pageNavigationController.tabIndexChanger(4);
                 },
-                child: RotatedBox(
-                  quarterTurns: 2,
-                  child: SvgPicture.asset(
-                    'assets/icons/next-icon.svg',
-                    height: 20,
+                child: Container(
+                  // color: Colors.red,
+                  child: RotatedBox(
+                    quarterTurns: 2,
+                    child: SvgPicture.asset(
+                      'assets/icons/next-icon.svg',
+                      height: 20,
+                    ),
                   ),
                 ),
               ),
@@ -38,7 +42,7 @@ class CreatAppBar extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.1,
               ),
               Text(
-                'Создать объявления',
+                'createAd'.tr,
                 style: FontStyles.boldStyle(
                   fontSize: 24,
                   fontFamily: 'Lato',

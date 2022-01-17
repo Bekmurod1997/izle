@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/controller/all_regions_controller.dart';
+import 'package:izle/models/all_regions_model.dart';
 import 'package:izle/services/all_services.dart';
+import 'package:get/get.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 // ignore: must_be_immutable
 class RecommandationItem extends StatefulWidget {
   bool isFavorite;
+  final int? cityId;
   final String title;
   final String typeAd;
   final String price;
@@ -16,6 +21,7 @@ class RecommandationItem extends StatefulWidget {
   final int id;
   final int top;
   final int premium;
+  // final List<DataRegions> cityList;
   RecommandationItem({
     required this.isFavorite,
     required this.title,
@@ -27,6 +33,8 @@ class RecommandationItem extends StatefulWidget {
     required this.city,
     required this.imageUrl,
     required this.id,
+    required this.cityId,
+    // required this.cityList,
   });
 
   @override
@@ -34,10 +42,163 @@ class RecommandationItem extends StatefulWidget {
 }
 
 class _RecommandationItemState extends State<RecommandationItem> {
+  AllRegionsController allRegionsController = Get.find<AllRegionsController>();
+
   Set<int> favoriteIndex = Set<int>();
+  String? day;
+  String? month;
+  DataRegions? aaa;
+
+  void fetchingCityName() {
+    // allRegionsController.fetchAllRegions();
+    print('sdfsdfsdfsdf');
+    // print(allRegionsController.allRegionsList.length);
+    // setState(() {
+    //   aaa = allRegionsController.allRegionsList
+    //       .firstWhere((element) => element.id == widget.cityId);
+    // });
+  }
+
+  String _dateChanger(String datee) {
+    var parts = datee.split(',');
+    setState(() {
+      day = parts[0].trim();
+      // monthh = parts[1].trim();
+    });
+    if (day!.contains('понедельник')) {
+      setState(() {
+        MyPref.lang == 'uz'
+            ? day!.replaceAll('понедельник', 'dushanba')
+            : MyPref.lang == 'kr'
+                ? day!.replaceAll('понедельник', 'dúyshembi')
+                : day!;
+      });
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('понедельник', 'dushanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('понедельник', 'dúyshembi')
+              : day!;
+    } else if (day!.contains('вторник')) {
+      setState(() {
+        MyPref.lang == 'uz'
+            ? day!.replaceAll('вторник', 'seshanba')
+            : MyPref.lang == 'kr'
+                ? day!.replaceAll('вторник', 'siyshembi')
+                : day!;
+      });
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('вторник', 'seshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('вторник', 'siyshembi')
+              : day!;
+    } else if (day!.contains('среда')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('среда', 'chorshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('среда', 'sa\'rshembi')
+              : day!;
+    } else if (day!.contains('четверг')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('четверг', 'payshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('четверг', 'piyshembi')
+              : day!;
+    } else if (day!.contains('пятница')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('пятница', 'juma')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('пятница', 'juma')
+              : day!;
+    } else if (day!.contains('суббота')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('суббота', 'shanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('суббота', 'shembi')
+              : day!;
+    } else {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('воскресенье', 'yakshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('воскресенье', 'ekshembi')
+              : day!;
+    }
+  }
+
+  String monthChanger(String monthh) {
+    var parts = monthh.split(',');
+    setState(() {
+      month = parts[1].trim();
+      // monthh = parts[1].trim();
+    });
+    // setState(() {
+    //   month = parts[1].trim();
+    // });
+    if (month!.contains('января')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('января', 'yanvar')
+          : month!;
+    } else if (month!.contains('февраля')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('февраля', 'fevral')
+          : month!;
+    } else if (month!.contains('марта')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('марта', 'mart')
+          : month!;
+    } else if (month!.contains('апреля')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('апреля', 'aprel')
+          : month!;
+    } else if (month!.contains('мая')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('мая', 'may')
+          : month!;
+    } else if (month!.contains('июня')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('июня', 'iyun')
+          : month!;
+    } else if (month!.contains('июля')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('июля', 'iyul')
+          : month!;
+    } else if (month!.contains('августа')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('августа', 'avgust')
+          : month!;
+    } else if (month!.contains('сентября')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('сентября', 'sentyabr')
+          : month!;
+    } else if (month!.contains('октября')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('октября', 'oktyabr')
+          : month!;
+    } else if (month!.contains('ноября')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('ноября', 'noyabr')
+          : month!;
+    }
+    setState(() {});
+
+    return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+        ? month!.replaceAll('декабря', 'dekabr')
+        : month!;
+  }
 
   @override
   Widget build(BuildContext context) {
+    // print('sdfsdfsd: ${aaa!.nameRu}');
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -114,10 +275,12 @@ class _RecommandationItemState extends State<RecommandationItem> {
                       onTap: () {
                         setState(() {
                           widget.isFavorite = !widget.isFavorite;
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(widget.isFavorite
-                                  ? "Добавлено в список избранных"
-                                  : "Удалено в список избранных")));
+                          ScaffoldMessenger.of(context)
+                            ..removeCurrentSnackBar()
+                            ..showSnackBar(SnackBar(
+                                content: Text(widget.isFavorite
+                                    ? 'addedToFavorites'.tr
+                                    : 'deleteFromFavorites'.tr)));
                         });
                         AllServices.addAndRemoveFav(widget.id);
                       },
@@ -162,9 +325,9 @@ class _RecommandationItemState extends State<RecommandationItem> {
 
                       Text(
                         widget.typeAd == 'free'
-                            ? 'бесплатно'
+                            ? 'free'.tr
                             : widget.typeAd == 'exchange'
-                                ? 'обмен'
+                                ? 'exchange'.tr
                                 : '${widget.price}',
                         style: widget.typeAd == 'free' ||
                                 widget.typeAd == 'exchange'
@@ -203,7 +366,7 @@ class _RecommandationItemState extends State<RecommandationItem> {
                   ),
                 ),
                 Text(
-                  widget.date,
+                  _dateChanger(widget.date) + ', ' + monthChanger(widget.date),
                   style: FontStyles.regularStyle(
                     fontSize: 13,
                     fontFamily: 'Lato',
@@ -211,6 +374,14 @@ class _RecommandationItemState extends State<RecommandationItem> {
                   ),
                 ),
                 SizedBox(height: 20),
+                // Text(aaa!.nameRu.toString()),
+                // Text(month!),
+
+                // Text(monthChanger(widget.date))
+                // Text(_dateChanger(widget.date))
+                // Text(
+                //   widget.date.replaceAll('четверг', 'payshanba'),
+                // ),
               ],
             ),
           ),

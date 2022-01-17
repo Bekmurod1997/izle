@@ -30,7 +30,7 @@ class _EditCreateDescriptionState extends State<EditCreateDescription> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Описание*',
+          'desctiption'.tr + '*',
           style: FontStyles.regularStyle(
             fontSize: 16,
             fontFamily: 'Lato',

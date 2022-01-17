@@ -21,7 +21,7 @@ class _CreateDescriptionState extends State<CreateDescription> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Описание*',
+          'desctiption'.tr + '*',
           style: FontStyles.regularStyle(
             fontSize: 16,
             fontFamily: 'Lato',
@@ -49,10 +49,10 @@ class _CreateDescriptionState extends State<CreateDescription> {
                   maxLines: 8,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: creatingAddInfoController
-                            .description.value.isEmpty
-                        ? 'Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание.'
-                        : creatingAddInfoController.description.value,
+                    hintText:
+                        creatingAddInfoController.description.value.isEmpty
+                            ? 'thinkAboutDes'.tr
+                            : creatingAddInfoController.description.value,
                     hintStyle: FontStyles.regularStyle(
                         fontSize: 16,
                         fontFamily: 'Lato',

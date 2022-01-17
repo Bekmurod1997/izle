@@ -55,7 +55,7 @@ class _SearchState extends State<Search> {
                 size: 25,
               )),
           border: InputBorder.none,
-          hintText: 'Что вы ищете?',
+          hintText: 'whatYouAreLookingFor'.tr,
           hintStyle: FontStyles.regularStyle(
             fontSize: 16,
             fontFamily: 'Lato',

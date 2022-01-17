@@ -14,7 +14,7 @@ class WalletScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalate.mainPageColor,
-      appBar: customAppBar1(context, title: 'Ваш кошелек'),
+      appBar: customAppBar1(context, title: 'yourWallet'),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 35),
         child: Column(
@@ -42,7 +42,7 @@ class WalletScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Ваш баланс:',
+                        'yourBalance'.tr,
                         style: FontStyles.mediumStyle(
                           fontSize: 14,
                           fontFamily: 'Lato',
@@ -68,7 +68,7 @@ class WalletScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Возврат',
+                        'return'.tr,
                         style: FontStyles.mediumStyle(
                           fontSize: 14,
                           fontFamily: 'Lato',
@@ -90,7 +90,7 @@ class WalletScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'Кошелек используется для оплаты всех платных услуг izle (реклама, размещение объявлений и покупка пакетов).',
+              'walletIsUsed'.tr,
               style: FontStyles.regularStyle(
                 fontSize: 16,
                 fontFamily: 'Lato',
@@ -104,7 +104,7 @@ class WalletScreen extends StatelessWidget {
             SizedBox(height: 40),
             Spacer(),
             CutomeButton(
-              title: 'Пополнить баланс',
+              title: 'topUpBalance',
               onpress: () => Get.to(() => FillUpWallet()),
               buttonColor: ColorPalate.mainColor,
               textColor: Colors.white,

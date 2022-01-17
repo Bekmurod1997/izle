@@ -12,7 +12,7 @@ class WalletInstruction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar1(context, title: '   Как пользоваться кошельком? '),
+      appBar: customAppBar1(context, title: 'wallet'),
       backgroundColor: Colors.white,
       // appBar: customAppBar1(context,
       //     title: '  Как пользоваться кошельком? ', eleveation: 0),
@@ -82,7 +82,7 @@ class WalletInstruction extends StatelessWidget {
                           children: [
                             Center(
                               child: Text(
-                                'Кошелек',
+                                'yourWallet'.tr,
                                 style: TextStyle(
                                   fontSize: 23,
                                   fontWeight: FontWeight.w500,
@@ -92,7 +92,7 @@ class WalletInstruction extends StatelessWidget {
                             ),
                             SizedBox(height: 15),
                             Text(
-                              'Кошелек используется для оплаты всех платных услуе IZLE (реклама, размещение объявлений и покупка пакетов).',
+                              'walletIsUsed'.tr,
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Color(0xffB9C2C4),
@@ -112,7 +112,7 @@ class WalletInstruction extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          'Ваш кашелок: $balance UZS',
+                          'yourWallet'.tr + ': ' + '$balance UZS',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,

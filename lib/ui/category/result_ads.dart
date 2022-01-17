@@ -320,7 +320,9 @@ class _ResultAdsState extends State<ResultAds> {
             subCatList = [
               new DataCategory(
                   id: forSubCategoryController.mainCatId.value,
-                  nameRu: widget.catName),
+                  nameRu: widget.catName,
+                  nameEn: widget.catName,
+                  nameUz: widget.catName),
               ...subCatList
             ];
             subCatStringList = subCatList.map((e) => e.nameRu).toList();
@@ -439,7 +441,7 @@ class _ResultAdsState extends State<ResultAds> {
                             size: 25,
                           )),
                       border: InputBorder.none,
-                      hintText: 'Что вы ищете?',
+                      hintText: 'whatYouAreLookingFor'.tr,
                       hintStyle: FontStyles.regularStyle(
                         fontSize: 16,
                         fontFamily: 'Lato',
@@ -477,7 +479,7 @@ class _ResultAdsState extends State<ResultAds> {
                             child: Row(
                               children: [
                                 Text(
-                                  'Фильтры',
+                                  'filter'.tr,
                                 ),
                                 RotatedBox(
                                   quarterTurns: 1,
@@ -526,7 +528,7 @@ class _ResultAdsState extends State<ResultAds> {
                                   children: [
                                     Text(filterDetalController.cityName.value ==
                                             ''
-                                        ? 'Все города'
+                                        ? 'allCities'.tr
                                         : filterDetalController.cityName.value
                                             .toString()),
                                     Text(filterDetalController
@@ -781,14 +783,14 @@ class _ResultAdsState extends State<ResultAds> {
                                         children: [
                                           if (!filterDetalController
                                               .price_start.value.isEmpty)
-                                            Text('от ' +
+                                            Text('from'.tr +
                                                 filterDetalController
                                                     .price_start.value
                                                     .toString() +
                                                 ' '),
                                           if (!filterDetalController
                                               .price_finish.isEmpty)
-                                            Text('до ' +
+                                            Text('to'.tr +
                                                 filterDetalController
                                                     .price_finish.value
                                                     .toString())
@@ -882,7 +884,7 @@ class _ResultAdsState extends State<ResultAds> {
                         advertismentSubCategoryController.isLoading.isFalse
                     ? Center(
                         child: Text(
-                        'К сожалению, мы не нашли ничего похожего...',
+                        'sorryWeCouldNotFindRightAds'.tr,
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ))
                     //     : advertismentSubCategoryController
@@ -1147,25 +1149,23 @@ class _ResultAdsState extends State<ResultAds> {
                                           .adsSubList[index].premium!,
                                       top: advertismentSubCategoryController
                                           .adsSubList[index].top!,
-                                      cityName:
-                                          advertismentSubCategoryController
-                                                  .adsSubList[index].cityName ??
-                                              '',
+                                      cityName: advertismentSubCategoryController
+                                              .adsSubList[index].cityName ??
+                                          '',
                                       date: format.format(giventDate),
                                       // date: advertismentSubCategoryController
                                       //         .adsSubList[index].date ??
 
-                                      imageUrl:
-                                          advertismentSubCategoryController
-                                                  .adsSubList[index].photo ??
-                                              '',
+                                      imageUrl: advertismentSubCategoryController
+                                              .adsSubList[index].photo ??
+                                          '',
                                       //               formatCurrency
                                       // .format(adsController.adsList[index].price)
                                       // .replaceAll(',', ' ')
                                       price: widget.currencySort == 'usd'
                                           ? '${formatCurrency.format(advertismentSubCategoryController.adsSubList[index].price).replaceAll(',', ' ')} y.e'
-                                          : '${formatCurrency.format(advertismentSubCategoryController.adsSubList[index].price).replaceAll(',', ' ')} сум'
-                                              .toString(),
+                                          : '${formatCurrency.format(advertismentSubCategoryController.adsSubList[index].price).replaceAll(',', ' ')} ' +
+                                              'sum'.tr.toString(),
                                       title: advertismentSubCategoryController
                                               .adsSubList[index].title ??
                                           '',

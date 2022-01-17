@@ -9,6 +9,7 @@ import 'package:izle/services/all_services.dart';
 import 'package:izle/ui/edit_product/edit_product_screen.dart';
 import 'package:izle/ui/product_detail/product_detail_screen.dart';
 import 'package:izle/ui/profile/widgets/advertise.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class AddsCard extends StatefulWidget {
   final List<String> imageGallery;
@@ -69,6 +70,145 @@ class AddsCard extends StatefulWidget {
 class _AddsCardState extends State<AddsCard> {
   final MyAdsActiveController myAdsActiveController =
       Get.find<MyAdsActiveController>();
+  String? day;
+  String? month;
+
+  String _dateChanger(String datee) {
+    var parts = datee.split(',');
+    setState(() {
+      day = parts[0].trim();
+      // monthh = parts[1].trim();
+    });
+    if (day!.contains('понедельник')) {
+      setState(() {
+        MyPref.lang == 'uz'
+            ? day!.replaceAll('понедельник', 'dushanba')
+            : MyPref.lang == 'kr'
+                ? day!.replaceAll('понедельник', 'dúyshembi')
+                : day!;
+      });
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('понедельник', 'dushanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('понедельник', 'dúyshembi')
+              : day!;
+    } else if (day!.contains('вторник')) {
+      setState(() {
+        MyPref.lang == 'uz'
+            ? day!.replaceAll('вторник', 'seshanba')
+            : MyPref.lang == 'kr'
+                ? day!.replaceAll('вторник', 'siyshembi')
+                : day!;
+      });
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('вторник', 'seshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('вторник', 'siyshembi')
+              : day!;
+    } else if (day!.contains('среда')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('среда', 'chorshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('среда', 'sa\'rshembi')
+              : day!;
+    } else if (day!.contains('четверг')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('четверг', 'payshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('четверг', 'piyshembi')
+              : day!;
+    } else if (day!.contains('пятница')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('пятница', 'juma')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('пятница', 'juma')
+              : day!;
+    } else if (day!.contains('суббота')) {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('суббота', 'shanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('суббота', 'shembi')
+              : day!;
+    } else {
+      return MyPref.lang == 'uz'
+          ? day!.replaceAll('воскресенье', 'yakshanba')
+          : MyPref.lang == 'kr'
+              ? day!.replaceAll('воскресенье', 'ekshembi')
+              : day!;
+    }
+  }
+
+  String monthChanger(String monthh) {
+    var parts = monthh.split(',');
+    setState(() {
+      month = parts[1].trim();
+      // monthh = parts[1].trim();
+    });
+    // setState(() {
+    //   month = parts[1].trim();
+    // });
+    if (month!.contains('января')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('января', 'yanvar')
+          : month!;
+    } else if (month!.contains('февраля')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('февраля', 'fevral')
+          : month!;
+    } else if (month!.contains('марта')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('марта', 'mart')
+          : month!;
+    } else if (month!.contains('апреля')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('апреля', 'aprel')
+          : month!;
+    } else if (month!.contains('мая')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('мая', 'may')
+          : month!;
+    } else if (month!.contains('июня')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('июня', 'iyun')
+          : month!;
+    } else if (month!.contains('июля')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('июля', 'iyul')
+          : month!;
+    } else if (month!.contains('августа')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('августа', 'avgust')
+          : month!;
+    } else if (month!.contains('сентября')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('сентября', 'sentyabr')
+          : month!;
+    } else if (month!.contains('октября')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('октября', 'oktyabr')
+          : month!;
+    } else if (month!.contains('ноября')) {
+      setState(() {});
+      return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+          ? month!.replaceAll('ноября', 'noyabr')
+          : month!;
+    }
+    setState(() {});
+
+    return MyPref.lang == 'uz' || MyPref.lang == 'kr'
+        ? month!.replaceAll('декабря', 'dekabr')
+        : month!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,12 +262,12 @@ class _AddsCardState extends State<AddsCard> {
                               SizedBox(height: 5),
                               Text(
                                 widget.type_ad == 'price'
-                                    ? '${widget.price} сум'
+                                    ? '${widget.price} ' + 'sum'.tr
                                     : widget.type_ad == 'exchange'
-                                        ? 'обмен'
+                                        ? 'exchange'.tr
                                         : widget.type_ad == 'negotiable'
-                                            ? 'договорная'
-                                            : 'бесплатно',
+                                            ? 'negotiable'.tr
+                                            : 'free'.tr,
                                 // '${widget.price} + сум',
                                 // '190 000 сум',
                                 style: FontStyles.boldStyle(
@@ -138,7 +278,9 @@ class _AddsCardState extends State<AddsCard> {
                               ),
                               SizedBox(height: 4),
                               Text(
-                                widget.date,
+                                _dateChanger(widget.date) +
+                                    ', ' +
+                                    monthChanger(widget.date),
                                 // 'С 14 июля по 13 августа',
                                 style: FontStyles.regularStyle(
                                   fontSize: 12,
@@ -265,7 +407,7 @@ class _AddsCardState extends State<AddsCard> {
                       ),
                       child: Center(
                         child: Text(
-                          'Рекламировать',
+                          'toAdvertise'.tr,
                           style: FontStyles.regularStyle(
                             fontSize: 14,
                             fontFamily: 'Lato',
@@ -290,7 +432,7 @@ class _AddsCardState extends State<AddsCard> {
                             width: 2,
                           )),
                       child: Center(
-                        child: Text('Поднять на 300 сум',
+                        child: Text('raiseBy300Sum'.tr + 'sum'.tr,
                             style: FontStyles.regularStyle(
                                 fontSize: 14,
                                 fontFamily: 'Lato',
@@ -298,117 +440,6 @@ class _AddsCardState extends State<AddsCard> {
                       ),
                     ),
                   ),
-                  // IconButton(
-                  //   icon: Icon(
-                  //     Icons.delete,
-                  //     color: ColorPalate.mainColor,
-                  //   ),
-                  //   onPressed: () {
-                  //     showDialog(
-                  //         context: context,
-                  //         builder: (context) {
-                  //           return Center(
-                  //             child: Container(
-                  //               padding:
-                  //                   const EdgeInsets.symmetric(vertical: 15),
-                  //               width: double.infinity,
-                  //               decoration: BoxDecoration(
-                  //                 borderRadius: BorderRadius.circular(10),
-                  //                 color: Colors.white,
-                  //               ),
-                  //               child: Column(
-                  //                 mainAxisSize: MainAxisSize.min,
-                  //                 children: [
-                  //                   Center(
-                  //                     child: Text(
-                  //                       'Удалось ли продать товар?',
-                  //                       style: FontStyles.boldStyle(
-                  //                           fontSize: 20, fontFamily: 'Lato'),
-                  //                       textAlign: TextAlign.center,
-                  //                     ),
-                  //                   ),
-                  //                   SizedBox(height: 20),
-                  //                   Row(
-                  //                     mainAxisAlignment:
-                  //                         MainAxisAlignment.spaceEvenly,
-                  //                     children: [
-                  //                       GestureDetector(
-                  //                         onTap: () async {
-                  //                           await AllServices.deleteAd(
-                  //                               widget.id);
-                  //                           Get.back();
-                  //                           myAdsActiveController
-                  //                               .fetchMyActiveOrders();
-                  //                         },
-                  //                         child: Container(
-                  //                           height: 100,
-                  //                           width: 100,
-                  //                           decoration: BoxDecoration(
-                  //                             shape: BoxShape.circle,
-                  //                             border: Border.all(
-                  //                               color: ColorPalate.mainColor,
-                  //                               width: 5,
-                  //                             ),
-                  //                           ),
-                  //                           child: Center(
-                  //                             child: Text(
-                  //                               'ДА',
-                  //                               style: FontStyles.boldStyle(
-                  //                                   fontSize: 25,
-                  //                                   fontFamily: 'Lato'),
-                  //                             ),
-                  //                           ),
-                  //                         ),
-                  //                       ),
-                  //                       GestureDetector(
-                  //                         onTap: () => Get.back(),
-                  //                         child: Container(
-                  //                           height: 100,
-                  //                           width: 100,
-                  //                           decoration: BoxDecoration(
-                  //                             shape: BoxShape.circle,
-                  //                             border: Border.all(
-                  //                               color: Color(0xffD7143A),
-                  //                               width: 5,
-                  //                             ),
-                  //                           ),
-                  //                           child: Center(
-                  //                             child: Text(
-                  //                               'НЕТ',
-                  //                               style: FontStyles.boldStyle(
-                  //                                   fontSize: 25,
-                  //                                   fontFamily: 'Lato'),
-                  //                             ),
-                  //                           ),
-                  //                         ),
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   SizedBox(height: 20),
-                  //                   Center(
-                  //                     child: GestureDetector(
-                  //                       onTap: () => Get.back(),
-                  //                       child: Text(
-                  //                         'Закрыть',
-                  //                         style: TextStyle(
-                  //                           fontFamily: 'Lato',
-                  //                           fontWeight: FontWeight.w700,
-                  //                           fontSize: 12,
-                  //                           color: Color(0xff585555),
-                  //                           decoration:
-                  //                               TextDecoration.underline,
-                  //                         ),
-                  //                       ),
-                  //                     ),
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           );
-                  //         });
-                  //   },
-                  // ),
-
                   PopupMenuButton(
                     onSelected: (value) {
                       print('tabebed' + value.toString());
@@ -430,7 +461,7 @@ class _AddsCardState extends State<AddsCard> {
                                           children: [
                                             Center(
                                               child: Text(
-                                                'Удалось ли продать товар?',
+                                                'couldYouSell'.tr,
                                                 style: FontStyles.boldStyle(
                                                     fontSize: 20,
                                                     fontFamily: 'Lato'),
@@ -463,7 +494,7 @@ class _AddsCardState extends State<AddsCard> {
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        'ДА',
+                                                        'yes'.tr,
                                                         style: FontStyles
                                                             .boldStyle(
                                                                 fontSize: 25,
@@ -488,7 +519,7 @@ class _AddsCardState extends State<AddsCard> {
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        'НЕТ',
+                                                        'no'.tr,
                                                         style: FontStyles
                                                             .boldStyle(
                                                                 fontSize: 25,
@@ -505,7 +536,7 @@ class _AddsCardState extends State<AddsCard> {
                                               child: GestureDetector(
                                                 onTap: () => Get.back(),
                                                 child: Text(
-                                                  'Закрыть',
+                                                  'close'.tr,
                                                   style: TextStyle(
                                                     fontFamily: 'Lato',
                                                     fontWeight: FontWeight.w700,
@@ -525,7 +556,7 @@ class _AddsCardState extends State<AddsCard> {
                                               children: [
                                                 Center(
                                                   child: Text(
-                                                    'Деактировать товар?',
+                                                    'deactivate'.tr + '?',
                                                     style: FontStyles.boldStyle(
                                                         fontSize: 20,
                                                         fontFamily: 'Lato'),
@@ -563,7 +594,7 @@ class _AddsCardState extends State<AddsCard> {
                                                         ),
                                                         child: Center(
                                                           child: Text(
-                                                            'ДА',
+                                                            'yes'.tr,
                                                             style: FontStyles
                                                                 .boldStyle(
                                                                     fontSize:
@@ -591,7 +622,7 @@ class _AddsCardState extends State<AddsCard> {
                                                         ),
                                                         child: Center(
                                                           child: Text(
-                                                            'НЕТ',
+                                                            'no'.tr,
                                                             style: FontStyles
                                                                 .boldStyle(
                                                                     fontSize:
@@ -609,7 +640,7 @@ class _AddsCardState extends State<AddsCard> {
                                                   child: GestureDetector(
                                                     onTap: () => Get.back(),
                                                     child: Text(
-                                                      'Закрыть',
+                                                      'close'.tr,
                                                       style: TextStyle(
                                                         fontFamily: 'Lato',
                                                         fontWeight:
@@ -631,7 +662,7 @@ class _AddsCardState extends State<AddsCard> {
                                               children: [
                                                 Center(
                                                   child: Text(
-                                                    'Редактировать товар?',
+                                                    'deactivate'.tr,
                                                     style: FontStyles.boldStyle(
                                                         fontSize: 20,
                                                         fontFamily: 'Lato'),
@@ -692,7 +723,7 @@ class _AddsCardState extends State<AddsCard> {
                                                         ),
                                                         child: Center(
                                                           child: Text(
-                                                            'ДА',
+                                                            'yes'.tr,
                                                             style: FontStyles
                                                                 .boldStyle(
                                                                     fontSize:
@@ -720,7 +751,7 @@ class _AddsCardState extends State<AddsCard> {
                                                         ),
                                                         child: Center(
                                                           child: Text(
-                                                            'НЕТ',
+                                                            'no'.tr,
                                                             style: FontStyles
                                                                 .boldStyle(
                                                                     fontSize:
@@ -738,7 +769,7 @@ class _AddsCardState extends State<AddsCard> {
                                                   child: GestureDetector(
                                                     onTap: () => Get.back(),
                                                     child: Text(
-                                                      'Закрыть',
+                                                      'close'.tr,
                                                       style: TextStyle(
                                                         fontFamily: 'Lato',
                                                         fontWeight:
@@ -766,16 +797,16 @@ class _AddsCardState extends State<AddsCard> {
                       PopupMenuItem(
                         onTap: () {},
                         value: 1,
-                        child: Text('Деактировать'),
+                        child: Text('deactivate'.tr),
                       ),
                       PopupMenuItem(
                         onTap: () => print('pressed edit'),
                         value: 3,
-                        child: Text('Редактировать'),
+                        child: Text('edit'.tr),
                       ),
                       PopupMenuItem(
                         value: 2,
-                        child: Text('Удалить'),
+                        child: Text('delete'.tr),
                       ),
 
                       // PopupMenuItem(

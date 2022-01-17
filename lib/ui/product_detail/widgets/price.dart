@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:get/get.dart';
 
 Widget price({required String price, required String typeAd}) {
   print('dsfsdf');
@@ -31,11 +32,11 @@ Widget price({required String price, required String typeAd}) {
       ),
       Text(
         typeAd == 'free'
-            ? 'бесплатно'
+            ? 'free'.tr
             : typeAd == 'negotiable'
-                ? 'договорная'
+                ? 'negotiable'.tr
                 : typeAd == 'exchange'
-                    ? 'обмен'
+                    ? 'exchange'.tr
                     : typeAd == 'договорная' && price != '0.0'
                         ? '$price'
                         : '',

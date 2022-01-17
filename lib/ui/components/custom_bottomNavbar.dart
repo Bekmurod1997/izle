@@ -122,7 +122,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             BottomNavigationBarItem(
               icon: _buildIcon(
                 'assets/icons/home3.svg',
-                'Главная',
+                'mainPage'.tr,
                 0,
                 pageNavigationController.tabIndex.value == 0
                     ? ColorPalate.mainColor
@@ -133,7 +133,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             BottomNavigationBarItem(
               icon: _buildIcon(
                 'assets/icons/1.svg',
-                'Категории',
+                'category'.tr,
                 1,
                 pageNavigationController.tabIndex.value == 1
                     ? ColorPalate.mainColor
@@ -144,7 +144,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             BottomNavigationBarItem(
               icon: _buildIcon(
                 'assets/icons/sozdat.svg',
-                'Создать',
+                'create'.tr,
                 2,
                 pageNavigationController.tabIndex.value == 2
                     ? ColorPalate.mainColor
@@ -155,7 +155,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             BottomNavigationBarItem(
               icon: _buildIcon(
                 'assets/icons/coolicon.svg',
-                'Сообщения',
+                'message'.tr,
                 3,
                 pageNavigationController.tabIndex.value == 3
                     ? ColorPalate.mainColor
@@ -166,7 +166,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             BottomNavigationBarItem(
               icon: _buildIcon(
                 'assets/icons/profile_active.svg',
-                'Профиль',
+                'profile'.tr,
                 4,
                 pageNavigationController.tabIndex.value == 4
                     ? ColorPalate.mainColor

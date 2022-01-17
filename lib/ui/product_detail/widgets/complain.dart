@@ -41,7 +41,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
         backgroundColor: ColorPalate.mainPageColor,
         appBar: customAppBar1(
           context,
-          title: 'Пожаловаться',
+          title: 'complain',
         ),
         body: Obx(() {
           if (complainController.isLoading.value) {
@@ -59,7 +59,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Что не так с объявлением?',
+                      'whatIsWrongWithAd'.tr,
                       style: FontStyles.mediumStyle(
                         fontSize: 18,
                         fontFamily: 'Lato',
@@ -81,7 +81,14 @@ class _ComplainScreenState extends State<ComplainScreen> {
                             print(complainId);
                           }),
                           title: Text(
-                            complainController.complatList[index].nameRu!,
+                            MyPref.lang == 'kr'
+                                ? complainController.complatList[index].nameEn!
+                                : MyPref.lang == 'uz'
+                                    ? complainController
+                                        .complatList[index].nameUz!
+                                        .replaceAll('&#39;', '\'')
+                                    : complainController
+                                        .complatList[index].nameRu!,
                             style: FontStyles.mediumStyle(
                               fontSize: 16,
                               fontFamily: 'Lato',
@@ -138,7 +145,7 @@ class _ComplainScreenState extends State<ComplainScreen> {
                       height: 60,
                     ),
                     CutomeButton(
-                      title: 'Пожаловаться',
+                      title: 'complain',
                       onpress: () => MyPref.token.isNotEmpty && complainId != 0
                           ? AllServices.sendComplain(
                               ads_id: widget.id.toString(),
@@ -160,10 +167,8 @@ class _ComplainScreenState extends State<ComplainScreen> {
                                         SizedBox(
                                           width: 30,
                                         ),
-                                        Text(
-                                            'Вы должны авторизоваться, чтобы использовать эту функцию '),
-                                        Text(
-                                            'Или вы не выбрали указанные выше варианты'),
+                                        Text('youHaveToBeAuth'.tr),
+                                        Text('youHaveNotChosenComplain'.tr),
                                         SizedBox(
                                           width: 30,
                                         ),

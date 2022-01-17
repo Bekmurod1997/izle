@@ -67,7 +67,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
           onPressed: () => Get.back(),
         ),
         title: Text(
-          'Предпросмотр',
+          'preview'.tr,
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -125,7 +125,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
                 price(price: widget.pricee, typeAd: widget.typeAd),
                 Divider(),
                 SizedBox(height: 14),
-                date(date: widget.datee),
+                DateWidget(datee: widget.datee),
 
                 SizedBox(height: 4),
                 address(address: widget.addresss),

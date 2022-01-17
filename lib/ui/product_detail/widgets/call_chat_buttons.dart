@@ -51,7 +51,7 @@ class _CallChatButtonsState extends State<CallChatButtons> {
                 )),
             child: Center(
               child: Text(
-                'Позвонить',
+                'call'.tr,
                 style: TextStyle(
                   fontSize: 18,
                   color: ColorPalate.mainColor,
@@ -80,7 +80,7 @@ class _CallChatButtonsState extends State<CallChatButtons> {
             ),
             child: Center(
               child: Text(
-                'Сообщение',
+                'messagee'.tr,
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white,

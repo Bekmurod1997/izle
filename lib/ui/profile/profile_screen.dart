@@ -3,17 +3,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:izle/constants/colors.dart';
+import 'package:izle/controller/language_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/ui/components/custom_listTile.dart';
 import 'package:get/get.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 import 'package:marquee/marquee.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final PageNavigationController pageNavigationController =
       Get.find<PageNavigationController>();
+
+  final LanguageController languageController = Get.find<LanguageController>();
+
   _launchURLApp() async {
     String url = 'https://izle.uz/';
     if (await canLaunch(url)) {
@@ -23,6 +33,8 @@ class ProfileScreen extends StatelessWidget {
     }
   }
 
+  bool _value = false;
+  int val = -1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
         title: Container(
           height: 40,
           child: Marquee(
-            text: '  Добро пожаловать на izle   ',
+            text: 'welcomeToIzle'.tr,
             style: FontStyles.regularStyle(
               fontSize: 24,
               fontFamily: 'Lato',
@@ -60,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.only(right: 10),
                       child: Text(
-                        'Войдите, чтобы создать объявление, ответить на сообщение или найдите то, что вам нужно. Нет профиля? Создайте его за минуты.',
+                        'pleaseAuthToCreateAds'.tr,
                         style: FontStyles.regularStyle(
                           fontSize: 12,
                           fontFamily: 'Lato',
@@ -84,7 +96,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'Создать',
+                      'enter'.tr,
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -95,7 +107,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               SizedBox(height: 30),
               Text(
-                'Профиль и настройки',
+                'profileAndSetting'.tr,
                 style: FontStyles.boldStyle(
                   fontSize: 20,
                   fontFamily: 'Lato',
@@ -103,7 +115,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               SizedBox(height: 30),
               CustomListTile(
-                title: 'Настройки',
+                title: 'settings',
                 onpress: () => showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
@@ -116,8 +128,7 @@ class ProfileScreen extends StatelessWidget {
                                   width: 130,
                                   height: 100,
                                 ),
-                                Text(
-                                    'Пожалуйста, сначала авторизуйтесь, чтобы использовать эту функцию'),
+                                Text('toUseThisFunction'.tr),
                               ]),
                               Positioned(
                                 top: -10,
@@ -141,17 +152,178 @@ class ProfileScreen extends StatelessWidget {
               //   onpress: () =>
               // ),
               CustomListTile(
-                title: 'Условия использования',
+                title: 'conditionUsage',
                 onpress: _launchURLApp,
               ),
               CustomListTile(
-                title: 'Политика конфиденциальности',
+                title: 'policeConfindential',
                 onpress: _launchURLApp,
               ),
               CustomListTile(
-                title: 'О приложении',
+                title: 'aboutApp',
                 onpress: _launchURLApp,
               ),
+
+              CustomListTile(
+                title: 'language',
+                onpress: () => showDialog(
+                  context: context,
+                  builder: (context) {
+                    return StatefulBuilder(
+                        builder: (context, StateSetter setState) {
+                      return AlertDialog(
+                        content:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                val = 1;
+                                languageController.changeLanguage('kr', 'KR');
+                                MyPref.lang = 'kr';
+
+                                Get.back();
+                              });
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Qaraqalpaq tili '),
+                                Radio(
+                                  value: 1,
+                                  groupValue: val,
+                                  onChanged: (int? value) {
+                                    setState(() {
+                                      val = value!;
+                                      languageController.changeLanguage(
+                                          'kr', 'KR');
+                                      MyPref.lang = 'kr';
+
+                                      Get.back();
+                                    });
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                val = 2;
+                                languageController.changeLanguage('ru', 'RU');
+                                MyPref.lang = 'ru';
+                                Get.back();
+                              });
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('русский язык'),
+                                Radio(
+                                  value: 2,
+                                  groupValue: val,
+                                  onChanged: (int? value) {
+                                    setState(() {
+                                      val = value!;
+                                      languageController.changeLanguage(
+                                          'ru', 'RU');
+                                      MyPref.lang = 'ru';
+                                      Get.back();
+                                    });
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                val = 3;
+                                languageController.changeLanguage('uz', 'UZ');
+                                MyPref.lang = 'uz';
+                                Get.back();
+                              });
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('O\'zbek tili'),
+                                Radio(
+                                  value: 3,
+                                  groupValue: val,
+                                  onChanged: (int? value) {
+                                    setState(() {
+                                      val = value!;
+                                      languageController.changeLanguage(
+                                          'uz', 'UZ');
+                                      MyPref.lang = 'uz';
+                                      Get.back();
+                                    });
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                        ]),
+
+                        // content: Text('This is my content'),
+                      );
+                    });
+                  },
+                ),
+              ),
+              // Container(
+              //     height: 40,
+              //     // width: 100,
+              //     child: Row(
+              //       children: [
+              //         GestureDetector(
+              //           onTap: () {
+              //             languageController.changeLanguage('kr', 'KR');
+              //             MyPref.lang = 'kr';
+              //           },
+              //           child: SizedBox(
+              //             height: 50,
+              //             width: 60,
+              //             child: Image.asset(
+              //               'assets/images/kara.png',
+              //               fit: BoxFit.cover,
+              //             ),
+              //           ),
+              //         ),
+              //         SizedBox(width: 20),
+              //         GestureDetector(
+              //           onTap: () {
+              //             languageController.changeLanguage('uz', 'UZ');
+              //             MyPref.lang = 'uz';
+              //           },
+              //           child: SizedBox(
+              //             height: 50,
+              //             width: 60,
+              //             child: Image.asset(
+              //               'assets/images/uz.png',
+              //               fit: BoxFit.cover,
+              //             ),
+              //           ),
+              //         ),
+              //         SizedBox(width: 20),
+              //         GestureDetector(
+              //           onTap: () {
+              //             languageController.changeLanguage('ru', 'RU');
+              //             MyPref.lang = 'ru';
+              //           },
+              //           child: SizedBox(
+              //             height: 50,
+              //             width: 60,
+              //             child: Image.asset(
+              //               'assets/images/ru1.png',
+              //               fit: BoxFit.cover,
+              //             ),
+              //           ),
+              //         ),
+              //       ],
+              //     )),
             ],
           ),
         ),

@@ -61,7 +61,7 @@ class _CreatePriceState extends State<CreatePrice> {
                     )),
                 child: Center(
                   child: Text(
-                    'Цена',
+                    'price'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       color: selectedIndex == 1
@@ -98,7 +98,7 @@ class _CreatePriceState extends State<CreatePrice> {
                     )),
                 child: Center(
                   child: Text(
-                    'Бесплатно',
+                    'free'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       color: selectedIndex == 2
@@ -134,7 +134,7 @@ class _CreatePriceState extends State<CreatePrice> {
                     )),
                 child: Center(
                   child: Text(
-                    'Обмен',
+                    'exchange'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       color: selectedIndex == 3
@@ -150,7 +150,7 @@ class _CreatePriceState extends State<CreatePrice> {
         selectedIndex == 1 ? SizedBox(height: 20) : Container(),
         selectedIndex == 1
             ? Text(
-                'Сумма*',
+                'price'.tr + '*',
                 style: FontStyles.regularStyle(
                   fontSize: 16,
                   fontFamily: 'Lato',
@@ -189,7 +189,7 @@ class _CreatePriceState extends State<CreatePrice> {
                         right: 0,
                         top: 9,
                         child: Text(
-                          'сум',
+                          'sum'.tr,
                           style: FontStyles.regularStyle(
                               fontSize: 20,
                               fontFamily: 'Lato',
@@ -204,7 +204,7 @@ class _CreatePriceState extends State<CreatePrice> {
         creatingAddInfoController.priceCheck.value == false &&
                 creatingAddInfoController.pCheck.value == true
             ? Text(
-                'Пожалуйста, укажите цену',
+                'pleaseGivePrice'.tr,
                 style: TextStyle(color: Colors.red),
               )
             : Container(),
@@ -214,7 +214,7 @@ class _CreatePriceState extends State<CreatePrice> {
                   status1 = !status1;
                 }),
                 title: Text(
-                  'Договорная',
+                  'negotiable'.tr,
                   style: FontStyles.regularStyle(
                     fontSize: 18,
                     fontFamily: 'Lato',

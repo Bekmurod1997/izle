@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/all_ads_controller.dart';
+import 'package:izle/controller/all_regions_controller.dart';
 import 'package:izle/controller/search_controller.dart';
 import 'package:izle/ui/home/widgets/recommendation_item.dart';
 import 'package:izle/ui/home/widgets/search.dart';
@@ -22,17 +23,23 @@ class _HomeScreenState extends State<HomeScreen> {
   final SearchController searchController = Get.put(SearchController());
   ScrollController _scrollController = ScrollController();
   final formatCurrency = NumberFormat.decimalPattern();
+  final AllRegionsController allRegionsController =
+      Get.find<AllRegionsController>();
 
   @override
   void initState() {
     initializeDateFormatting();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      adsController.fetchAllAds();
+      adsController.fetchAllPremiumAds();
+      adsController.fetchAllTopAds();
+    });
     Intl.defaultLocale = 'ru_RU';
     adsController.currentPagePremium = 1;
     adsController.currentPageTop = 1;
     // Firebase.initializeApp();
-    adsController.fetchAllAds();
-    adsController.fetchAllPremiumAds();
-    adsController.fetchAllTopAds();
+
+    // allRegionsController.fetchAllRegions();
     // configureFCM();
     print('my token');
     print(MyPref.token);
@@ -54,7 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (adsController.isLoading.value && !adsController.isLoadMore.value) {
+      if (adsController.isLoading.value &&
+          !adsController.isLoadMore.value &&
+          allRegionsController.isLoading.value) {
         return Center(
           child: CircularProgressIndicator(
             color: ColorPalate.mainColor,
@@ -220,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               padding: EdgeInsets.only(left: 15, top: 5, bottom: 10),
               child: Text(
-                'Рекомендованное вам',
+                'recommended'.tr,
                 style: FontStyles.boldStyle(
                   fontSize: 18,
                   fontFamily: 'Lato',
@@ -255,6 +264,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         currencySort: '',
                         proId: adsController.adsList[index].id)),
                     child: RecommandationItem(
+                      // cityList: allRegionsController.allRegionsList,
+                      cityId: adsController.adsList[index].cityId,
                       premium: adsController.adsList[index].premium!,
                       top: adsController.adsList[index].top!,
                       typeAd: adsController.adsList[index].typeAd ?? '',
@@ -265,7 +276,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       price: formatCurrency
                               .format(adsController.adsList[index].price)
                               .replaceAll(',', ' ') +
-                          ' сум',
+                          ' ' +
+                          'sum'.tr,
                       date: format.format(giventDate),
                       imageUrl: adsController.adsList[index].photo!,
                     ),

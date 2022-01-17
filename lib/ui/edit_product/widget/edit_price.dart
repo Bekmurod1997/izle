@@ -85,7 +85,7 @@ class _EditPriceState extends State<EditPrice> {
                     )),
                 child: Center(
                   child: Text(
-                    'Цена',
+                    'price'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       color: selectedIndex == 1
@@ -121,7 +121,7 @@ class _EditPriceState extends State<EditPrice> {
                     )),
                 child: Center(
                   child: Text(
-                    'Бесплатно',
+                    'free'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       color: selectedIndex == 2
@@ -157,7 +157,7 @@ class _EditPriceState extends State<EditPrice> {
                     )),
                 child: Center(
                   child: Text(
-                    'Обмен',
+                    'exchange'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       color: selectedIndex == 3
@@ -173,7 +173,7 @@ class _EditPriceState extends State<EditPrice> {
         selectedIndex == 1 ? SizedBox(height: 20) : Container(),
         selectedIndex == 1
             ? Text(
-                'Сумма*',
+                'price'.tr,
                 style: FontStyles.regularStyle(
                   fontSize: 16,
                   fontFamily: 'Lato',
@@ -247,7 +247,7 @@ class _EditPriceState extends State<EditPrice> {
                   status1 = !status1;
                 }),
                 title: Text(
-                  'Договорная',
+                  'negotiable'.tr,
                   style: FontStyles.regularStyle(
                     fontSize: 18,
                     fontFamily: 'Lato',

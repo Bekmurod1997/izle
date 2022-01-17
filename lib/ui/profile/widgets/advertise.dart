@@ -86,7 +86,8 @@ class _AdvertiseState extends State<Advertise> {
                                 listOfTarrifsController
                                         .listOfTariffs[index].price
                                         .toString() +
-                                    ' сум',
+                                    ' ' +
+                                    'sum'.tr,
                                 style: FontStyles.boldStyle(
                                   fontSize: 20,
                                   fontFamily: 'Lato',

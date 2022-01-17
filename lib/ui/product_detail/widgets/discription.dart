@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:izle/constants/fonts.dart';
+import 'package:get/get.dart';
 
 class ProductDesciption extends StatelessWidget {
   final String proDesc;
@@ -12,7 +13,7 @@ class ProductDesciption extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            'Описание',
+            'desctiption'.tr,
             style: FontStyles.semiBoldStyle(
               fontSize: 18,
               fontFamily: 'Lato',

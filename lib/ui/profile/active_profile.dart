@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
+import 'package:izle/controller/language_controller.dart';
 import 'package:izle/controller/my_ads_active_controller.dart';
 import 'package:izle/controller/my_ads_inactive_controller.dart';
 import 'package:izle/controller/my_ads_onmoderation_controller.dart';
@@ -46,7 +48,9 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
       Get.put(MyAdsOnModerationController());
   static PageNavigationController pageNavigationController =
       Get.find<PageNavigationController>();
+  final LanguageController languageController = Get.find<LanguageController>();
   int nonActiveAds = 0;
+  final formatCurrency = NumberFormat.decimalPattern();
 
   @override
   void initState() {
@@ -73,6 +77,9 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
       myModal();
     }
   }
+
+  bool _value = false;
+  int val = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +144,9 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                               child: Row(
                                 children: [
                                   Text(
-                                    'Ваш кошелек: ${balance ?? '0'}',
+                                    'yourWallet'.tr +
+                                        ':' +
+                                        '${formatCurrency.format(balance).replaceAll(',', ' ')}',
                                     // +
                                     // userInfoController
                                     //     .fetchUserInfoList.first.balance
@@ -178,7 +187,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                             GestureDetector(
                               onTap: () => Get.to(() => EditProfileScreen()),
                               child: Text(
-                                'Редактировать профиль',
+                                'editProfile'.tr,
                                 style: FontStyles.regularStyle(
                                     fontSize: 12,
                                     fontFamily: 'Lato',
@@ -196,7 +205,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                       horizontal: 20,
                     ),
                     child: CutomeButton(
-                      title: 'Опубликовать',
+                      title: 'publish',
                       onpress: () => Get.to(() => CreatingAddScreen()),
                       buttonColor: ColorPalate.lightGreen,
                       textColor: Colors.white,
@@ -208,7 +217,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                       horizontal: 20,
                     ),
                     child: CutomeButton(
-                      title: 'Купить пакет',
+                      title: 'buyPackage',
                       onpress: () => Get.to(() => FillUpWallet()),
                       buttonColor: ColorPalate.lightGreen,
                       textColor: Colors.white,
@@ -235,7 +244,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Ваши объявления',
+                                'yourAds'.tr,
                                 style: FontStyles.semiBoldStyle(
                                   fontSize: 18,
                                   fontFamily: 'Lato',
@@ -244,7 +253,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                               SizedBox(height: 17),
                               ProfileListTile(
                                 iconUrl: 'assets/icons/comm2.svg',
-                                title: 'Активные',
+                                title: 'active',
                                 onpress: () => Get.to(
                                   () => ActiveAdds(),
                                 ),
@@ -254,7 +263,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                                 amount:
                                     '${myAdsInActiveController.allMyAdsList().data?.length ?? 0}',
                                 iconUrl: 'assets/icons/act_no1.svg',
-                                title: 'Неактивные ',
+                                title: 'inActive',
                                 onpress: () => Get.to(
                                   () => NonActiveAdsScreen(),
                                 ),
@@ -264,14 +273,14 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                                 amount:
                                     '${myAdsOnModerationController.allMyAdsList().data?.length ?? 0}',
                                 iconUrl: 'assets/icons/act_no1.svg',
-                                title: 'На модерации ',
+                                title: 'onModeration',
                                 onpress: () => Get.to(
                                   () => Moderation(),
                                 ),
                               ),
                               ProfileListTile(
                                 iconUrl: 'assets/icons/act_fav.svg',
-                                title: 'Избранное',
+                                title: 'favorite',
                                 isDivider: false,
                                 onpress: () => Get.to(
                                   () => FavoriteScreen(),
@@ -296,7 +305,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Сообщения',
+                                'message'.tr,
                                 style: FontStyles.semiBoldStyle(
                                   fontSize: 18,
                                   fontFamily: 'Lato',
@@ -305,14 +314,14 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                               SizedBox(height: 17),
                               ProfileListTile(
                                 iconUrl: 'assets/icons/act_mes.svg',
-                                title: 'Недавние',
+                                title: 'recent',
                                 onpress: () => Get.to(
                                   () => MessageScreen(''),
                                 ),
                               ),
                               ProfileListTile(
                                 iconUrl: 'assets/icons/act_arch.svg',
-                                title: 'Архивные',
+                                title: 'archive',
                                 isDivider: false,
                                 onpress: () =>
                                     print('it should go to archive message'),
@@ -336,7 +345,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Платежи',
+                                'payments'.tr,
                                 style: FontStyles.semiBoldStyle(
                                   fontSize: 18,
                                   fontFamily: 'Lato',
@@ -345,7 +354,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                               SizedBox(height: 17),
                               ProfileListTile(
                                 iconUrl: 'assets/icons/act_wal.svg',
-                                title: 'Ваш кошелек',
+                                title: 'yourWallet',
                                 onpress: () => Get.to(
                                   () => WalletScreen(balance: balance ?? 0),
                                 ),
@@ -353,7 +362,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                               ProfileListTile(
                                 iconUrl: 'assets/icons/act_his.svg',
                                 isDivider: false,
-                                title: 'История платежей',
+                                title: 'paymentHistory',
                                 onpress: () => Get.to(
                                   () => TransactionScreen(),
                                 ),
@@ -377,7 +386,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Настройки и другое',
+                                'settingsAndOther'.tr,
                                 style: FontStyles.semiBoldStyle(
                                   fontSize: 18,
                                   fontFamily: 'Lato',
@@ -386,37 +395,165 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                               SizedBox(height: 17),
                               ProfileListTile(
                                 iconUrl: 'assets/icons/act_set.svg',
-                                title: 'Настройки',
+                                title: 'settings',
                                 onpress: () => Get.to(
                                   () => Settings(),
                                 ),
                               ),
                               ProfileListTile(
                                   iconUrl: 'assets/icons/act_help.svg',
-                                  title: 'Помощь',
+                                  title: 'help',
                                   onpress: () => print('ss')),
                               ProfileListTile(
                                 iconUrl: 'assets/icons/act_term.svg',
-                                title: 'Условия использования',
+                                title: 'conditionUsage',
                                 onpress: () => print('pressed'),
                               ),
                               ProfileListTile(
                                 iconUrl: 'assets/icons/act_locked.svg',
-                                title: 'Политика конфиденциальности',
+                                title: 'policeConfindential',
                                 onpress: () => print('pressed'),
                               ),
                               ProfileListTile(
                                 iconUrl: 'assets/icons/act_about.svg',
-                                title: 'О приложении',
+                                title: 'aboutApp',
                                 isDivider: false,
                                 onpress: () => print('pressed'),
+                              ),
+                              Divider(),
+                              ProfileListTile(
+                                iconUrl: 'assets/icons/act_locked.svg',
+                                title: 'language',
+                                isDivider: false,
+                                onpress: () => showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return StatefulBuilder(builder:
+                                        (context, StateSetter setState) {
+                                      return AlertDialog(
+                                        content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    val = 1;
+                                                    languageController
+                                                        .changeLanguage(
+                                                            'kr', 'KR');
+                                                    MyPref.lang = 'kr';
+
+                                                    Get.back();
+                                                  });
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text('Qaraqalpaq tili '),
+                                                    Radio(
+                                                      value: 1,
+                                                      groupValue: val,
+                                                      onChanged: (int? value) {
+                                                        setState(() {
+                                                          val = value!;
+                                                          languageController
+                                                              .changeLanguage(
+                                                                  'kr', 'KR');
+                                                          MyPref.lang = 'kr';
+
+                                                          Get.back();
+                                                        });
+                                                      },
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Divider(),
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    val = 2;
+                                                    languageController
+                                                        .changeLanguage(
+                                                            'ru', 'RU');
+                                                    MyPref.lang = 'ru';
+                                                    Get.back();
+                                                  });
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text('русский язык'),
+                                                    Radio(
+                                                      value: 2,
+                                                      groupValue: val,
+                                                      onChanged: (int? value) {
+                                                        setState(() {
+                                                          val = value!;
+                                                          languageController
+                                                              .changeLanguage(
+                                                                  'ru', 'RU');
+                                                          MyPref.lang = 'ru';
+                                                          Get.back();
+                                                        });
+                                                      },
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Divider(),
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    val = 3;
+                                                    languageController
+                                                        .changeLanguage(
+                                                            'uz', 'UZ');
+                                                    MyPref.lang = 'uz';
+                                                    Get.back();
+                                                  });
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text('O\'zbek tili'),
+                                                    Radio(
+                                                      value: 3,
+                                                      groupValue: val,
+                                                      onChanged: (int? value) {
+                                                        setState(() {
+                                                          val = value!;
+                                                          languageController
+                                                              .changeLanguage(
+                                                                  'uz', 'UZ');
+                                                          MyPref.lang = 'uz';
+                                                          Get.back();
+                                                        });
+                                                      },
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ]),
+
+                                        // content: Text('This is my content'),
+                                      );
+                                    });
+                                  },
+                                ),
                               ),
                             ],
                           ),
                         ),
                         SizedBox(height: 30),
                         CutomeButton(
-                          title: 'Редактировать',
+                          title: 'edit',
                           onpress: () => Get.to(() => EditProfileScreen()),
                           buttonColor: ColorPalate.mainColor,
                           textColor: Colors.white,
@@ -430,11 +567,11 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                               showDialog(
                                   context: context,
                                   builder: (_) => AlertDialog(
-                                        title: Text('Xотите выйти'),
+                                        title: Text('wantToLogout'.tr),
                                         actions: [
                                           TextButton(
                                             onPressed: () => Get.back(),
-                                            child: Text('Нет'),
+                                            child: Text('no'.tr),
                                           ),
                                           TextButton(
                                             onPressed: () async {
@@ -442,14 +579,14 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
 
                                               print('fff');
                                             },
-                                            child: Text('Да'),
+                                            child: Text('yes'.tr),
                                           ),
                                         ],
                                         // content: Text('This is my content'),
                                       ));
                               // AllServices.logout();
                             },
-                            label: Text('Выйти',
+                            label: Text('logOut'.tr,
                                 style: FontStyles.semiBoldStyle(
                                   fontSize: 20,
                                   fontFamily: 'Lato',
@@ -480,7 +617,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Пожалуйста, введите Ваше имя'),
+                  Text('plaeseEnterYourName'.tr),
                   SizedBox(height: 20),
                   Container(
                     // margin: const EdgeInsets.only(left: 0, right: 20),
@@ -493,7 +630,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                       child: TextFormField(
                         controller: nameController,
                         decoration: InputDecoration(
-                            border: InputBorder.none, hintText: 'Имя'),
+                            border: InputBorder.none, hintText: 'name'.tr),
                       ),
                     ),
                   ),
@@ -507,7 +644,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
               actions: [
                 TextButton(
                   onPressed: () => Get.back(),
-                  child: Text('Отменить'),
+                  child: Text('cancel'.tr),
                 ),
                 TextButton(
                   onPressed: () async {
@@ -520,7 +657,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                     // pageNavigationController.pageControllerChanger(4);
                     // pageNavigationController.tabIndexChanger(4);
                   },
-                  child: Text('Редактировать'),
+                  child: Text('edit'.tr),
                 ),
               ],
               // content: Text('This is my content'),

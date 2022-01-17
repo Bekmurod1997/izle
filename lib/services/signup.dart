@@ -77,7 +77,7 @@ class SignUp {
                     height: 100.0,
                     child: Center(
                       child: Text(
-                        'Аккаунт с таким номером уже существует',
+                        'accountWithThisNumberExist'.tr,
                         style: TextStyle(fontSize: 15),
                       ),
                     ),

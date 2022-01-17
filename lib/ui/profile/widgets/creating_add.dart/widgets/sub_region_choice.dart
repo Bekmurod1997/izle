@@ -5,6 +5,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class SubRegionChoice extends StatefulWidget {
   final bool isDetailed;
@@ -87,7 +88,11 @@ class _SubRegionChoiceState extends State<SubRegionChoice> {
                 child: ListTile(
                     trailing:
                         Icon(Icons.arrow_forward, color: ColorPalate.mainColor),
-                    title: Text(districts[index].nameRu!),
+                    title: Text(MyPref.lang == 'kr'
+                        ? districts[index].nameEn!
+                        : MyPref.lang == 'uz'
+                            ? districts[index].nameUz!
+                            : districts[index].nameRu!),
                     onTap: () {
                       // creatingAddInfoController.cityName.value =
                       //     widget.mainCityName;
@@ -100,11 +105,16 @@ class _SubRegionChoiceState extends State<SubRegionChoice> {
                       print('my city id');
                       print(creatingAddInfoController.cityId.value);
                       creatingAddInfoController.cityName.value =
-                          districts[index].nameRu!;
+                          MyPref.lang == 'kr'
+                              ? districts[index].nameEn!
+                              : MyPref.lang == 'uz'
+                                  ? districts[index].nameUz!
+                                  : districts[index].nameRu!;
 
-                      creatingAddInfoController.address.value =
-                          creatingAddInfoController.mainCity.value +
-                              '  ${districts[index].nameRu}';
+                      creatingAddInfoController
+                          .address.value = creatingAddInfoController
+                              .mainCity.value +
+                          '  ${MyPref.lang == 'kr' ? districts[index].nameEn! : MyPref.lang == 'uz' ? districts[index].nameUz! : districts[index].nameRu!}';
                       print(creatingAddInfoController.address.value);
                       Get.back();
                       Get.back();

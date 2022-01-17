@@ -38,22 +38,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (password.text.length < 6 && password.text.length > 0) {
       setState(() {
-        passwordError = 'Длина пароля должна быть больше 6';
+        passwordError = 'passwordLength'.tr;
       });
     }
     if (password.text.length == 0) {
       setState(() {
-        passwordError = 'Пожалуйста, заполните поле пароля';
+        passwordError = 'pleaseFillPasswordFiled'.tr;
       });
     }
     if (phoneNumber.text.length > 0 && phoneNumber.text.length < 16) {
       setState(() {
-        phoneNumbeError = 'Пожалуйста, проверьте свой номер телефона правильно';
+        phoneNumbeError = 'pleaseGiveCorrectPhone'.tr;
       });
     }
     if (phoneNumber.text.length == 0) {
       setState(() {
-        phoneNumbeError = 'Пожалуйста, заполните поле для номера телефона';
+        phoneNumbeError = 'pleaseFillPhoneFiled'.tr;
       });
     }
     if (phoneNumber.text.length == 16) {
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
               child: Text(
-                'Телефон*',
+                'phone'.tr,
                 style: FontStyles.regularStyle(
                   fontSize: 16,
                   fontFamily: 'Lato',
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
               margin: const EdgeInsets.only(left: 20, right: 20),
               padding: const EdgeInsets.only(top: 15),
               child: Text(
-                'Ваш пароль*',
+                'yourPassword'.tr,
                 style: FontStyles.regularStyle(
                   fontSize: 16,
                   fontFamily: 'Lato',
@@ -151,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: InkWell(
                         onTap: _toggle,
                         child: Text(
-                          _obscureText ? 'показать ' : 'скрыть',
+                          _obscureText ? 'show'.tr : 'hide'.tr,
                           style: TextStyle(
                             color: Color(0xff635757),
                           ),
@@ -175,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.only(top: 15),
                 margin: const EdgeInsets.only(left: 20, right: 20),
                 child: Text(
-                  'Забыли пароль?',
+                  'forgetPassword'.tr,
                   style: FontStyles.semiBoldStyle(
                     fontSize: 16,
                     fontFamily: 'Lato',
@@ -215,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'Войти',
+                    'enter'.tr,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
@@ -228,12 +228,15 @@ class _LoginScreenState extends State<LoginScreen> {
             Center(
               child: Column(
                 children: [
-                  Text('При входе вы соглашаетесь с нашими'),
                   Text(
-                    'Условиями использования.',
-                    style:
-                        FontStyles.boldStyle(fontSize: 12, fontFamily: 'Lato'),
+                    'youAgreeWithRule'.tr,
+                    textAlign: TextAlign.center,
                   ),
+                  // Text(
+                  //   'Условиями использования.',
+                  //   style:
+                  //       FontStyles.boldStyle(fontSize: 12, fontFamily: 'Lato'),
+                  // ),
                 ],
               ),
             )

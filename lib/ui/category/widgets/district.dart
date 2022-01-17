@@ -4,6 +4,7 @@ import 'package:izle/constants/colors.dart';
 import 'package:izle/controller/fitler_detal_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
 import 'package:izle/ui/category/result_ads.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class DistrictScreen extends StatefulWidget {
   final int mainCategoryId;
@@ -81,14 +82,22 @@ class _DistrictScreenState extends State<DistrictScreen> {
                 child: ListTile(
                     trailing:
                         Icon(Icons.arrow_forward, color: ColorPalate.mainColor),
-                    title: Text(districts[index].nameRu!),
+                    title: Text(MyPref.lang == 'kr'
+                        ? districts[index].nameEn!
+                        : MyPref.lang == 'uz'
+                            ? districts[index].nameUz!
+                            : districts[index].nameRu!),
                     onTap: () {
                       Get.back();
                       Get.back();
                       filterDetalController.cityName.value =
                           widget.mainCityName;
                       filterDetalController.districtName.value =
-                          districts[index].nameRu!;
+                          MyPref.lang == 'kr'
+                              ? districts[index].nameEn!
+                              : MyPref.lang == 'uz'
+                                  ? districts[index].nameUz!
+                                  : districts[index].nameRu!;
                       filterDetalController.cityId.value = districts[index].id!;
                       Navigator.pushReplacement(
                           context,

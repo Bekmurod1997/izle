@@ -166,7 +166,7 @@ class _SearchResultState extends State<SearchResult> {
                       icon: Icon(Icons.search),
                     ),
                     border: InputBorder.none,
-                    hintText: 'Что вы ищете?',
+                    hintText: 'whatYouAreLookingFor'.tr,
                   ),
                 ),
               ),
@@ -218,7 +218,7 @@ class _SearchResultState extends State<SearchResult> {
                                                           .cityName
                                                           .value
                                                           .isEmpty
-                                                      ? 'Все города'
+                                                      ? 'allCities'.tr
                                                       : filterSearchController
                                                           .cityName.value),
                                                   Text(filterSearchController
@@ -320,7 +320,7 @@ class _SearchResultState extends State<SearchResult> {
                                                           .mainCategoryName
                                                           .value
                                                           .isEmpty
-                                                      ? 'Все категории'
+                                                      ? 'allCategories'.tr
                                                       : filterSearchController
                                                           .mainCategoryName
                                                           .value),
@@ -424,7 +424,7 @@ class _SearchResultState extends State<SearchResult> {
                                                           .price_start
                                                           .value
                                                           .isEmpty)
-                                                        Text('от ' +
+                                                        Text('from'.tr +
                                                             filterSearchController
                                                                 .price_start
                                                                 .value
@@ -432,7 +432,7 @@ class _SearchResultState extends State<SearchResult> {
                                                             ' '),
                                                       if (!filterSearchController
                                                           .price_finish.isEmpty)
-                                                        Text('до ' +
+                                                        Text('to'.tr +
                                                             filterSearchController
                                                                 .price_finish
                                                                 .value
@@ -520,8 +520,7 @@ class _SearchResultState extends State<SearchResult> {
                                 'assets/images/ss.png',
                                 fit: BoxFit.fitWidth,
                               ),
-                              Text(
-                                  'К сожалению, мы не нашли ничего похожего...')
+                              Text('sorryWeCouldNotFindRightAds'.tr)
                             ],
                           ),
                         )
@@ -556,7 +555,7 @@ class _SearchResultState extends State<SearchResult> {
                                         child: Row(
                                           children: [
                                             Text(
-                                              'Фильтры',
+                                              'filter'.tr,
                                             ),
                                             Container(
                                               padding: const EdgeInsets.only(
@@ -597,7 +596,7 @@ class _SearchResultState extends State<SearchResult> {
                                                           .cityName
                                                           .value
                                                           .isEmpty
-                                                      ? 'Все города'
+                                                      ? 'allCities'.tr
                                                       : filterSearchController
                                                           .cityName.value),
                                                   Text(filterSearchController
@@ -698,7 +697,7 @@ class _SearchResultState extends State<SearchResult> {
                                                           .mainCategoryName
                                                           .value
                                                           .isEmpty
-                                                      ? 'Все категории'
+                                                      ? 'allCategories'.tr
                                                       : filterSearchController
                                                           .mainCategoryName
                                                           .value),
@@ -802,7 +801,7 @@ class _SearchResultState extends State<SearchResult> {
                                                           .price_start
                                                           .value
                                                           .isEmpty)
-                                                        Text('от ' +
+                                                        Text('from'.tr +
                                                             filterSearchController
                                                                 .price_start
                                                                 .value
@@ -810,7 +809,7 @@ class _SearchResultState extends State<SearchResult> {
                                                             ' '),
                                                       if (!filterSearchController
                                                           .price_finish.isEmpty)
-                                                        Text('до ' +
+                                                        Text('to'.tr +
                                                             filterSearchController
                                                                 .price_finish
                                                                 .value
@@ -900,9 +899,9 @@ class _SearchResultState extends State<SearchResult> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: Text(
-                                'Мы нашли ' +
+                                'weFound'.tr +
                                     sController.searchList.length.toString() +
-                                    ' объявлений',
+                                    'advertisement'.tr,
                                 // 'Мы нашли ${sController.allSearchList().mMeta?.totalCount} объявлений',
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w600),
@@ -1163,6 +1162,9 @@ class _SearchResultState extends State<SearchResult> {
                                                 proId: sController
                                                     .searchList[index].id!)),
                                         child: RecommandationItem(
+                                          // cityList: [],
+                                          cityId: sController
+                                              .searchList[index].cityId,
                                           premium: sController
                                               .searchList[index].premium!,
                                           top: sController

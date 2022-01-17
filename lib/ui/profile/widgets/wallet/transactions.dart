@@ -35,7 +35,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorPalate.mainPageColor,
-        appBar: customAppBar1(context, title: 'Ваш кошелек'),
+        appBar: customAppBar1(context, title: 'yourWallet'),
         body: Obx(() {
           if (transactionClickController.isLoading.value &&
               transactionPaymeController.isLoading.value) {
@@ -55,7 +55,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         left: 0,
                         right: 0,
                         child: CutomeButton(
-                          title: 'Пополнить баланс',
+                          title: 'topUpBalance',
                           buttonColor: ColorPalate.mainColor,
                           onpress: () => Get.to(() => FillUpWallet()),
                           textColor: Colors.white,
@@ -79,7 +79,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Пополнения счета',
+                                  'topUpBalance'.tr,
                                   style: FontStyles.boldStyle(
                                     fontSize: 16,
                                     fontFamily: 'Lato',
@@ -87,7 +87,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                   ),
                                 ),
                                 Text(
-                                  myAllList[index].amount.toString() + ' сум',
+                                  myAllList[index].amount.toString() +
+                                      ' ' +
+                                      'sum.t',
                                   style: FontStyles.boldStyle(
                                     fontSize: 16,
                                     fontFamily: 'Lato',

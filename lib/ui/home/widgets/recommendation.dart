@@ -59,6 +59,8 @@ class _RecommendationState extends State<Recommendation> {
                     onTap: () => Get.to(() => ProductDetailScreen(
                         proId: allAdsController.allAdsList().data![index].id)),
                     child: RecommandationItem(
+                      // cityList: [],
+                      cityId: allAdsController.allAdsList().data?[index].cityId,
                       premium:
                           allAdsController.allAdsList().data?[index].premium ??
                               0,

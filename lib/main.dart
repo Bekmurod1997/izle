@@ -8,11 +8,13 @@ import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/favorities_controller.dart';
 import 'package:izle/controller/filter_category_controller.dart';
 import 'package:izle/controller/filter_search_controller.dart';
+import 'package:izle/controller/language_controller.dart';
 import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/controller/product_detail_controller.dart';
 import 'package:izle/controller/single_chat_controller.dart';
 import 'package:izle/controller/sub_category_controller.dart';
 import 'package:izle/controller/user_info.dart';
+import 'package:izle/locales/strings.dart';
 import 'package:izle/pageview/my_pageview.dart';
 import 'package:get/get.dart';
 import 'package:izle/services/push_notication.dart';
@@ -54,13 +56,43 @@ class MyApp extends StatelessWidget {
       Get.put(AllRegionsController());
   final FilterCategoryController filterCategoryController =
       Get.put(FilterCategoryController());
+  final LanguageController languageController = Get.put(LanguageController());
   // This widget is the root of your application.`
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyPref.loginLanding == '' ? MyPageView() : NavScreen(),
+      home: Initializer(),
+      translations: StringTranslations(),
+      locale: Locale("uz", "UZ"),
+      fallbackLocale: Locale("uz", "UZ"),
+      // home: MyPref.loginLanding == '' ? MyPageView() : NavScreen(),
+
       // home: NavScreen(),
     );
+  }
+}
+
+class Initializer extends StatefulWidget {
+  @override
+  _InitializerState createState() => _InitializerState();
+}
+
+class _InitializerState extends State<Initializer> {
+  @override
+  void initState() {
+    super.initState();
+    var locale = MyPref.lang == "uz"
+        ? Locale("uz", "UZ")
+        : MyPref.lang == 'kr'
+            ? Locale("kr", "KR")
+            : Locale("ru", "RU");
+
+    Get.updateLocale(locale);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MyPref.loginLanding == '' ? MyPageView() : NavScreen();
   }
 }
