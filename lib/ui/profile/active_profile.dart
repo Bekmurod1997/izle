@@ -21,6 +21,7 @@ import 'package:izle/ui/photo_example.dart';
 import 'package:izle/ui/profile/widgets/adds/%20non_active_ads.dart';
 import 'package:izle/ui/profile/widgets/adds/active_adds.dart';
 import 'package:izle/ui/profile/widgets/adds/moderation.dart';
+import 'package:izle/ui/profile/widgets/archived/archive_message_screen.dart';
 import 'package:izle/ui/profile/widgets/creating_add.dart/create_add.dart';
 import 'package:izle/ui/profile/widgets/settings/edit_profie.dart';
 import 'package:izle/ui/profile/widgets/settings/settings.dart';
@@ -146,7 +147,9 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                                   Text(
                                     'yourWallet'.tr +
                                         ':' +
-                                        '${formatCurrency.format(balance).replaceAll(',', ' ')}',
+                                        '${formatCurrency.format(balance).replaceAll(',', ' ')}' +
+                                        ' ' +
+                                        'sum'.tr,
                                     // +
                                     // userInfoController
                                     //     .fetchUserInfoList.first.balance
@@ -324,7 +327,7 @@ class _ActiveProfileScreenState extends State<ActiveProfileScreen> {
                                 title: 'archive',
                                 isDivider: false,
                                 onpress: () =>
-                                    print('it should go to archive message'),
+                                    Get.to(() => ArchivedMessageScreen()),
                               ),
                             ],
                           ),

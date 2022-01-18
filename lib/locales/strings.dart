@@ -174,7 +174,7 @@ class StringTranslations extends Translations {
           'youHaveNotModetaionAds': 'Пока, у вас нету объявления',
           'haveNotAddedFavorites': 'Вы еще не добавили',
           'weAreSadThatYouAreDeleting':
-              'Нам грустно с вами расставаться.При удалении профиля перейдите по присланной вам ссылке и все ваши данные будут удалены. \n Вы действительно хотите удалить свой профиль?',
+              'При удалении профиля все ваши данные будут удалены.\n Вы действительно хотите удалить свой профиль?',
           'wallet': 'Кошелек',
           'sum': 'сум',
           'deleteFromFavorites': 'Удалено в список избранны',
@@ -199,6 +199,7 @@ class StringTranslations extends Translations {
           'asImportant': 'Добавлено в важные',
           'userUnblocked': 'Пользователь разблокирован',
           'userBlocked': 'Пользователь заблокирован',
+          'NoNotificationYet': 'Пока, у вас нету уведомлений'
         },
         'kr_KR': {
           'mainPage': 'Bas bólim',
@@ -373,7 +374,7 @@ class StringTranslations extends Translations {
           'youHaveNotModetaionAds': 'Sizde házirshe daǵazalar joq',
           'haveNotAddedFavorites': 'Házirshe daǵazalar joq',
           'weAreSadThatYouAreDeleting':
-              ' Profilińizdi óshiriwde sizge jiberiletuǵın siltemeǵa ótiń hám sonda sizdiń hámme maǵlıwmatlarıńız óshiriledi.\nHaqıyqattanda profilińizdi óshiresizbe?',
+              ' Profilińizdi óshiriwde sizdiń hámme maǵlıwmatlarıńız óshiriledi.\nHaqıyqattanda profilińizdi óshiresizbe?',
           'wallet': 'Xamyan',
           'sum': 'sumǵa',
           'deleteFromFavorites': 'Saylanǵanlar diziminen alıp taslandı',
@@ -398,6 +399,7 @@ class StringTranslations extends Translations {
           'asImportant': 'Saylanǵanlar qatarına qosıldı',
           'userUnblocked': 'Paydalanıwshı bloktan shıǵarıldı',
           'userBlocked': 'Paydalanıwshı bloklanǵan',
+          'NoNotificationYet': 'Sizde házirshe xabarnama joq',
         },
         'uz_UZ': {
           'mainPage': 'Bosh bo\'lim',
@@ -569,7 +571,7 @@ class StringTranslations extends Translations {
           'youHaveNotModetaionAds': 'Sizda hali  elonlar yo\'q',
           'haveNotAddedFavorites': 'Sizda hali  elonlar yo\'q',
           'weAreSadThatYouAreDeleting':
-              'Siz bilan xayrlashganimizdan afsusdamiz. Profilingizni o\ʻchirishda sizga yuboriladigan havolaga o\ʻting va shunda sizning hamma ma\`lumotlaringiz o\'chiriladi.\n Haqiqatan ham profilingizni oʻchirmoqchimisiz?',
+              'Siz bilan xayrlashganimizdan afsusdamiz. Profilingizni oʻchirishda sizning hamma ma`lumotlaringiz o\'chiriladi.\n Haqiqatan ham profilingizni oʻchirmoqchimisiz?',
           'wallet': 'Hamyon',
           'sum': 'so\'m',
           'deleteFromFavorites': 'Tanlanganlar roʻyxatidan olib tashlandi',
@@ -598,6 +600,7 @@ class StringTranslations extends Translations {
           'asImportant': 'Добавлено в важные',
           'userUnblocked': 'Foydalanuvchi blokdan chiqarildi',
           'userBlocked': 'Foydalanuvchi bloklangan',
+          'NoNotificationYet': 'Sizda hozicha xabarnomalar yo\q',
         },
       };
 }

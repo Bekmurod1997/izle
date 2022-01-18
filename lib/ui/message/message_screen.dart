@@ -21,9 +21,9 @@ class MessageScreen extends StatefulWidget {
 class _MessageScreenState extends State<MessageScreen> {
   final PageNavigationController pageNavigationController =
       Get.find<PageNavigationController>();
-  final AllChatController allChatController = Get.put(AllChatController());
+  final AllChatController allChatController = Get.find<AllChatController>();
   final UnReadChatController unReadChatController =
-      Get.put(UnReadChatController());
+      Get.find<UnReadChatController>();
 
   bool istabed = false;
   var titles = [

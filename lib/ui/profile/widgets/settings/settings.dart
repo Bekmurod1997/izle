@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:izle/ui/profile/widgets/resume/resume.dart';
 import 'package:izle/ui/profile/widgets/settings/delete_account.dart';
 import 'package:izle/ui/profile/widgets/settings/edit_profie.dart';
+import 'package:izle/ui/profile/widgets/settings/notification.dart';
 
 class Settings extends StatelessWidget {
   @override
@@ -21,7 +22,7 @@ class Settings extends StatelessWidget {
             ),
             CustomListTile(
               title: 'notification',
-              onpress: () {},
+              onpress: () => Get.to(() => NotificationScreen()),
             ),
             CustomListTile(
               title: 'yourResume',

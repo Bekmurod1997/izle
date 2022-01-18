@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:izle/controller/adrvertisement_subCategory_controller.dart';
 import 'package:izle/controller/all_ads_controller.dart';
 import 'package:izle/controller/all_categories.dart';
+import 'package:izle/controller/all_chat_controller.dart';
 import 'package:izle/controller/all_regions_controller.dart';
 import 'package:izle/controller/creating_add_info_controller.dart';
 import 'package:izle/controller/favorities_controller.dart';
@@ -13,6 +14,7 @@ import 'package:izle/controller/page_navgation_controller.dart';
 import 'package:izle/controller/product_detail_controller.dart';
 import 'package:izle/controller/single_chat_controller.dart';
 import 'package:izle/controller/sub_category_controller.dart';
+import 'package:izle/controller/unread_chat_controller.dart';
 import 'package:izle/controller/user_info.dart';
 import 'package:izle/locales/strings.dart';
 import 'package:izle/pageview/my_pageview.dart';
@@ -56,6 +58,9 @@ class MyApp extends StatelessWidget {
       Get.put(AllRegionsController());
   final FilterCategoryController filterCategoryController =
       Get.put(FilterCategoryController());
+  final AllChatController allChatController = Get.put(AllChatController());
+  final UnReadChatController unReadChatController =
+      Get.put(UnReadChatController());
   final LanguageController languageController = Get.put(LanguageController());
   // This widget is the root of your application.`
   @override

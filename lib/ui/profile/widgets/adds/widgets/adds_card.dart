@@ -392,431 +392,457 @@ class _AddsCardState extends State<AddsCard> {
                   ],
                 ),
               ),
-              SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () => Get.to(() => Advertise()),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2 - 60,
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      decoration: BoxDecoration(
-                        color: ColorPalate.mainColor,
-                        borderRadius: new BorderRadius.circular(10.0),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'toAdvertise'.tr,
-                          style: FontStyles.regularStyle(
-                            fontSize: 14,
-                            fontFamily: 'Lato',
-                            color: Colors.white,
-                          ),
+              SizedBox(height: 17),
+              GestureDetector(
+                onTap: () => Get.to(() => Advertise()),
+                child: Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      color: ColorPalate.mainColor,
+                      borderRadius: new BorderRadius.circular(10.0),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'toAdvertise'.tr,
+                        style: FontStyles.regularStyle(
+                          fontSize: 16,
+                          fontFamily: 'Lato',
+                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2 - 60,
-                      padding: const EdgeInsets.symmetric(vertical: 6),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: new BorderRadius.circular(
-                            10.0,
-                          ),
-                          border: Border.all(
-                            color: ColorPalate.mainColor,
-                            width: 2,
-                          )),
-                      child: Center(
-                        child: Text('raiseBy300Sum'.tr + 'sum'.tr,
-                            style: FontStyles.regularStyle(
-                                fontSize: 14,
-                                fontFamily: 'Lato',
-                                color: ColorPalate.mainColor)),
-                      ),
-                    ),
-                  ),
-                  PopupMenuButton(
-                    onSelected: (value) {
-                      print('tabebed' + value.toString());
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return Center(
-                              child: Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 15),
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white,
-                                  ),
-                                  child: value == 2
-                                      ? Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Center(
-                                              child: Text(
-                                                'couldYouSell'.tr,
-                                                style: FontStyles.boldStyle(
-                                                    fontSize: 20,
-                                                    fontFamily: 'Lato'),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                            SizedBox(height: 20),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    await AllServices.deleteAd(
-                                                        widget.id);
-                                                    Get.back();
-                                                    myAdsActiveController
-                                                        .fetchMyActiveOrders();
-                                                  },
-                                                  child: Container(
-                                                    height: 100,
-                                                    width: 100,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(
-                                                        color: ColorPalate
-                                                            .mainColor,
-                                                        width: 5,
-                                                      ),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        'yes'.tr,
-                                                        style: FontStyles
-                                                            .boldStyle(
-                                                                fontSize: 25,
-                                                                fontFamily:
-                                                                    'Lato'),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () => Get.back(),
-                                                  child: Container(
-                                                    height: 100,
-                                                    width: 100,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(
-                                                        color:
-                                                            Color(0xffD7143A),
-                                                        width: 5,
-                                                      ),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        'no'.tr,
-                                                        style: FontStyles
-                                                            .boldStyle(
-                                                                fontSize: 25,
-                                                                fontFamily:
-                                                                    'Lato'),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(height: 20),
-                                            Center(
-                                              child: GestureDetector(
-                                                onTap: () => Get.back(),
-                                                child: Text(
-                                                  'close'.tr,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Lato',
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: 12,
-                                                    color: Color(0xff585555),
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      : value == 1
-                                          ? Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Center(
-                                                  child: Text(
-                                                    'deactivate'.tr + '?',
-                                                    style: FontStyles.boldStyle(
-                                                        fontSize: 20,
-                                                        fontFamily: 'Lato'),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                                SizedBox(height: 20),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () async {
-                                                        await AllServices
-                                                            .deactivateStatus(
-                                                                adId: widget.id
-                                                                    .toString());
-                                                        Get.back();
-                                                        myAdsActiveController
-                                                            .fetchMyActiveOrders();
-                                                      },
-                                                      child: Container(
-                                                        height: 100,
-                                                        width: 100,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          border: Border.all(
-                                                            color: ColorPalate
-                                                                .mainColor,
-                                                            width: 5,
-                                                          ),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            'yes'.tr,
-                                                            style: FontStyles
-                                                                .boldStyle(
-                                                                    fontSize:
-                                                                        25,
-                                                                    fontFamily:
-                                                                        'Lato'),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () => Get.back(),
-                                                      child: Container(
-                                                        height: 100,
-                                                        width: 100,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          border: Border.all(
-                                                            color: Color(
-                                                                0xffD7143A),
-                                                            width: 5,
-                                                          ),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            'no'.tr,
-                                                            style: FontStyles
-                                                                .boldStyle(
-                                                                    fontSize:
-                                                                        25,
-                                                                    fontFamily:
-                                                                        'Lato'),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: 20),
-                                                Center(
-                                                  child: GestureDetector(
-                                                    onTap: () => Get.back(),
-                                                    child: Text(
-                                                      'close'.tr,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Lato',
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize: 12,
-                                                        color:
-                                                            Color(0xff585555),
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          : Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Center(
-                                                  child: Text(
-                                                    'deactivate'.tr,
-                                                    style: FontStyles.boldStyle(
-                                                        fontSize: 20,
-                                                        fontFamily: 'Lato'),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                                SizedBox(height: 20),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () async {
-                                                        Get.to(() =>
-                                                            EditProductSceen(
-                                                              category: widget
-                                                                  .category,
-                                                              categoryId: widget
-                                                                  .categoryId,
-                                                              content: widget
-                                                                  .content,
-                                                              dateTime:
-                                                                  widget.date,
-                                                              description: widget
-                                                                  .description,
-                                                              id: widget.id,
-                                                              imageGallry: widget
-                                                                  .imageGallery,
-                                                              // lat: widget.lat,
-                                                              // long: widget.long,
-                                                              phoneNumber: widget
-                                                                  .phoneNumber,
-                                                              price:
-                                                                  widget.price,
-                                                              type_ad: widget
-                                                                  .type_ad,
-                                                              title:
-                                                                  widget.title,
-                                                              userName: widget
-                                                                  .userName,
-                                                              // locationTitle: widget
-                                                              //     .locationTitle,
-                                                            ));
-                                                      },
-                                                      child: Container(
-                                                        height: 100,
-                                                        width: 100,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          border: Border.all(
-                                                            color: ColorPalate
-                                                                .mainColor,
-                                                            width: 5,
-                                                          ),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            'yes'.tr,
-                                                            style: FontStyles
-                                                                .boldStyle(
-                                                                    fontSize:
-                                                                        25,
-                                                                    fontFamily:
-                                                                        'Lato'),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () => Get.back(),
-                                                      child: Container(
-                                                        height: 100,
-                                                        width: 100,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          border: Border.all(
-                                                            color: Color(
-                                                                0xffD7143A),
-                                                            width: 5,
-                                                          ),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            'no'.tr,
-                                                            style: FontStyles
-                                                                .boldStyle(
-                                                                    fontSize:
-                                                                        25,
-                                                                    fontFamily:
-                                                                        'Lato'),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: 20),
-                                                Center(
-                                                  child: GestureDetector(
-                                                    onTap: () => Get.back(),
-                                                    child: Text(
-                                                      'close'.tr,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Lato',
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize: 12,
-                                                        color:
-                                                            Color(0xff585555),
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )),
-                            );
-                          });
-                    },
-                    icon: GestureDetector(
-                      onTap: () {},
-                      child: SvgPicture.asset('assets/icons/three_h.svg'),
-                    ),
-                    itemBuilder: (context) => [
-                      PopupMenuItem(
-                        onTap: () {},
-                        value: 1,
-                        child: Text('deactivate'.tr),
-                      ),
-                      PopupMenuItem(
-                        onTap: () => print('pressed edit'),
-                        value: 3,
-                        child: Text('edit'.tr),
-                      ),
-                      PopupMenuItem(
-                        value: 2,
-                        child: Text('delete'.tr),
-                      ),
-
-                      // PopupMenuItem(
-                      //   value: 3,
-                      //   child: Text('Обнулить статистику'),
-                      // ),
-                    ],
-                  ),
-                ],
+                ),
               ),
+
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     GestureDetector(
+              //       onTap: () => Get.to(() => Advertise()),
+              //       child: Container(
+              //         width: MediaQuery.of(context).size.width / 2 - 60,
+              //         padding: const EdgeInsets.symmetric(vertical: 8),
+              //         decoration: BoxDecoration(
+              //           color: ColorPalate.mainColor,
+              //           borderRadius: new BorderRadius.circular(10.0),
+              //         ),
+              //         child: Center(
+              //           child: Text(
+              //             'toAdvertise'.tr,
+              //             style: FontStyles.regularStyle(
+              //               fontSize: 14,
+              //               fontFamily: 'Lato',
+              //               color: Colors.white,
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+
+              //     GestureDetector(
+              //       onTap: () {},
+              //       child: Container(
+              //         width: MediaQuery.of(context).size.width / 2 - 60,
+              //         padding: const EdgeInsets.symmetric(vertical: 6),
+              //         decoration: BoxDecoration(
+              //             color: Colors.white,
+              //             borderRadius: new BorderRadius.circular(
+              //               10.0,
+              //             ),
+              //             border: Border.all(
+              //               color: ColorPalate.mainColor,
+              //               width: 2,
+              //             )),
+              //         child: Center(
+              //           child: Text('raiseBy300Sum'.tr + 'sum'.tr,
+              //               style: FontStyles.regularStyle(
+              //                   fontSize: 14,
+              //                   fontFamily: 'Lato',
+              //                   color: ColorPalate.mainColor)),
+              //         ),
+              //       ),
+              //     ),
+              //     PopupMenuButton(
+              //       onSelected: (value) {
+              //         print('tabebed' + value.toString());
+              //         showDialog(
+              //             context: context,
+              //             builder: (context) {
+              //               return Center(
+              //                 child: Container(
+              //                     padding:
+              //                         const EdgeInsets.symmetric(vertical: 15),
+              //                     width: double.infinity,
+              //                     decoration: BoxDecoration(
+              //                       borderRadius: BorderRadius.circular(10),
+              //                       color: Colors.white,
+              //                     ),
+              //                     child: value == 2
+              //                         ? Column(
+              //                             mainAxisSize: MainAxisSize.min,
+              //                             children: [
+              //                               Center(
+              //                                 child: Text(
+              //                                   'couldYouSell'.tr,
+              //                                   style: FontStyles.boldStyle(
+              //                                       fontSize: 20,
+              //                                       fontFamily: 'Lato'),
+              //                                   textAlign: TextAlign.center,
+              //                                 ),
+              //                               ),
+              //                               SizedBox(height: 20),
+              //                               Row(
+              //                                 mainAxisAlignment:
+              //                                     MainAxisAlignment.spaceEvenly,
+              //                                 children: [
+              //                                   GestureDetector(
+              //                                     onTap: () async {
+              //                                       await AllServices.deleteAd(
+              //                                           widget.id);
+              //                                       Get.back();
+              //                                       myAdsActiveController
+              //                                           .fetchMyActiveOrders();
+              //                                     },
+              //                                     child: Container(
+              //                                       height: 100,
+              //                                       width: 100,
+              //                                       decoration: BoxDecoration(
+              //                                         shape: BoxShape.circle,
+              //                                         border: Border.all(
+              //                                           color: ColorPalate
+              //                                               .mainColor,
+              //                                           width: 5,
+              //                                         ),
+              //                                       ),
+              //                                       child: Center(
+              //                                         child: Text(
+              //                                           'yes'.tr,
+              //                                           style: FontStyles
+              //                                               .boldStyle(
+              //                                                   fontSize: 25,
+              //                                                   fontFamily:
+              //                                                       'Lato'),
+              //                                         ),
+              //                                       ),
+              //                                     ),
+              //                                   ),
+              //                                   GestureDetector(
+              //                                     onTap: () => Get.back(),
+              //                                     child: Container(
+              //                                       height: 100,
+              //                                       width: 100,
+              //                                       decoration: BoxDecoration(
+              //                                         shape: BoxShape.circle,
+              //                                         border: Border.all(
+              //                                           color:
+              //                                               Color(0xffD7143A),
+              //                                           width: 5,
+              //                                         ),
+              //                                       ),
+              //                                       child: Center(
+              //                                         child: Text(
+              //                                           'no'.tr,
+              //                                           style: FontStyles
+              //                                               .boldStyle(
+              //                                                   fontSize: 25,
+              //                                                   fontFamily:
+              //                                                       'Lato'),
+              //                                         ),
+              //                                       ),
+              //                                     ),
+              //                                   ),
+              //                                 ],
+              //                               ),
+              //                               SizedBox(height: 20),
+              //                               Center(
+              //                                 child: GestureDetector(
+              //                                   onTap: () => Get.back(),
+              //                                   child: Text(
+              //                                     'close'.tr,
+              //                                     style: TextStyle(
+              //                                       fontFamily: 'Lato',
+              //                                       fontWeight: FontWeight.w700,
+              //                                       fontSize: 12,
+              //                                       color: Color(0xff585555),
+              //                                       decoration: TextDecoration
+              //                                           .underline,
+              //                                     ),
+              //                                   ),
+              //                                 ),
+              //                               ),
+              //                             ],
+              //                           )
+              //                         : value == 1
+              //                             ? Column(
+              //                                 mainAxisSize: MainAxisSize.min,
+              //                                 children: [
+              //                                   Center(
+              //                                     child: Text(
+              //                                       'deactivate'.tr + '?',
+              //                                       style: FontStyles.boldStyle(
+              //                                           fontSize: 20,
+              //                                           fontFamily: 'Lato'),
+              //                                       textAlign: TextAlign.center,
+              //                                     ),
+              //                                   ),
+              //                                   SizedBox(height: 20),
+              //                                   Row(
+              //                                     mainAxisAlignment:
+              //                                         MainAxisAlignment
+              //                                             .spaceEvenly,
+              //                                     children: [
+              //                                       GestureDetector(
+              //                                         onTap: () async {
+              //                                           await AllServices
+              //                                               .deactivateStatus(
+              //                                                   adId: widget.id
+              //                                                       .toString());
+              //                                           Get.back();
+              //                                           myAdsActiveController
+              //                                               .fetchMyActiveOrders();
+              //                                         },
+              //                                         child: Container(
+              //                                           height: 100,
+              //                                           width: 100,
+              //                                           decoration:
+              //                                               BoxDecoration(
+              //                                             shape:
+              //                                                 BoxShape.circle,
+              //                                             border: Border.all(
+              //                                               color: ColorPalate
+              //                                                   .mainColor,
+              //                                               width: 5,
+              //                                             ),
+              //                                           ),
+              //                                           child: Center(
+              //                                             child: Text(
+              //                                               'yes'.tr,
+              //                                               style: FontStyles
+              //                                                   .boldStyle(
+              //                                                       fontSize:
+              //                                                           25,
+              //                                                       fontFamily:
+              //                                                           'Lato'),
+              //                                             ),
+              //                                           ),
+              //                                         ),
+              //                                       ),
+              //                                       GestureDetector(
+              //                                         onTap: () => Get.back(),
+              //                                         child: Container(
+              //                                           height: 100,
+              //                                           width: 100,
+              //                                           decoration:
+              //                                               BoxDecoration(
+              //                                             shape:
+              //                                                 BoxShape.circle,
+              //                                             border: Border.all(
+              //                                               color: Color(
+              //                                                   0xffD7143A),
+              //                                               width: 5,
+              //                                             ),
+              //                                           ),
+              //                                           child: Center(
+              //                                             child: Text(
+              //                                               'no'.tr,
+              //                                               style: FontStyles
+              //                                                   .boldStyle(
+              //                                                       fontSize:
+              //                                                           25,
+              //                                                       fontFamily:
+              //                                                           'Lato'),
+              //                                             ),
+              //                                           ),
+              //                                         ),
+              //                                       ),
+              //                                     ],
+              //                                   ),
+              //                                   SizedBox(height: 20),
+              //                                   Center(
+              //                                     child: GestureDetector(
+              //                                       onTap: () => Get.back(),
+              //                                       child: Text(
+              //                                         'close'.tr,
+              //                                         style: TextStyle(
+              //                                           fontFamily: 'Lato',
+              //                                           fontWeight:
+              //                                               FontWeight.w700,
+              //                                           fontSize: 12,
+              //                                           color:
+              //                                               Color(0xff585555),
+              //                                           decoration:
+              //                                               TextDecoration
+              //                                                   .underline,
+              //                                         ),
+              //                                       ),
+              //                                     ),
+              //                                   ),
+              //                                 ],
+              //                               )
+              //                             : Column(
+              //                                 mainAxisSize: MainAxisSize.min,
+              //                                 children: [
+              //                                   Center(
+              //                                     child: Text(
+              //                                       'deactivate'.tr,
+              //                                       style: FontStyles.boldStyle(
+              //                                           fontSize: 20,
+              //                                           fontFamily: 'Lato'),
+              //                                       textAlign: TextAlign.center,
+              //                                     ),
+              //                                   ),
+              //                                   SizedBox(height: 20),
+              //                                   Row(
+              //                                     mainAxisAlignment:
+              //                                         MainAxisAlignment
+              //                                             .spaceEvenly,
+              //                                     children: [
+              //                                       GestureDetector(
+              //                                         onTap: () async {
+              //                                           Get.to(() =>
+              //                                               EditProductSceen(
+              //                                                 category: widget
+              //                                                     .category,
+              //                                                 categoryId: widget
+              //                                                     .categoryId,
+              //                                                 content: widget
+              //                                                     .content,
+              //                                                 dateTime:
+              //                                                     widget.date,
+              //                                                 description: widget
+              //                                                     .description,
+              //                                                 id: widget.id,
+              //                                                 imageGallry: widget
+              //                                                     .imageGallery,
+              //                                                 // lat: widget.lat,
+              //                                                 // long: widget.long,
+              //                                                 phoneNumber: widget
+              //                                                     .phoneNumber,
+              //                                                 price:
+              //                                                     widget.price,
+              //                                                 type_ad: widget
+              //                                                     .type_ad,
+              //                                                 title:
+              //                                                     widget.title,
+              //                                                 userName: widget
+              //                                                     .userName,
+              //                                                 // locationTitle: widget
+              //                                                 //     .locationTitle,
+              //                                               ));
+              //                                         },
+              //                                         child: Container(
+              //                                           height: 100,
+              //                                           width: 100,
+              //                                           decoration:
+              //                                               BoxDecoration(
+              //                                             shape:
+              //                                                 BoxShape.circle,
+              //                                             border: Border.all(
+              //                                               color: ColorPalate
+              //                                                   .mainColor,
+              //                                               width: 5,
+              //                                             ),
+              //                                           ),
+              //                                           child: Center(
+              //                                             child: Text(
+              //                                               'yes'.tr,
+              //                                               style: FontStyles
+              //                                                   .boldStyle(
+              //                                                       fontSize:
+              //                                                           25,
+              //                                                       fontFamily:
+              //                                                           'Lato'),
+              //                                             ),
+              //                                           ),
+              //                                         ),
+              //                                       ),
+              //                                       GestureDetector(
+              //                                         onTap: () => Get.back(),
+              //                                         child: Container(
+              //                                           height: 100,
+              //                                           width: 100,
+              //                                           decoration:
+              //                                               BoxDecoration(
+              //                                             shape:
+              //                                                 BoxShape.circle,
+              //                                             border: Border.all(
+              //                                               color: Color(
+              //                                                   0xffD7143A),
+              //                                               width: 5,
+              //                                             ),
+              //                                           ),
+              //                                           child: Center(
+              //                                             child: Text(
+              //                                               'no'.tr,
+              //                                               style: FontStyles
+              //                                                   .boldStyle(
+              //                                                       fontSize:
+              //                                                           25,
+              //                                                       fontFamily:
+              //                                                           'Lato'),
+              //                                             ),
+              //                                           ),
+              //                                         ),
+              //                                       ),
+              //                                     ],
+              //                                   ),
+              //                                   SizedBox(height: 20),
+              //                                   Center(
+              //                                     child: GestureDetector(
+              //                                       onTap: () => Get.back(),
+              //                                       child: Text(
+              //                                         'close'.tr,
+              //                                         style: TextStyle(
+              //                                           fontFamily: 'Lato',
+              //                                           fontWeight:
+              //                                               FontWeight.w700,
+              //                                           fontSize: 12,
+              //                                           color:
+              //                                               Color(0xff585555),
+              //                                           decoration:
+              //                                               TextDecoration
+              //                                                   .underline,
+              //                                         ),
+              //                                       ),
+              //                                     ),
+              //                                   ),
+              //                                 ],
+              //                               )),
+              //               );
+              //             });
+              //       },
+              //       icon: GestureDetector(
+              //         onTap: () {},
+              //         child: SvgPicture.asset('assets/icons/three_h.svg'),
+              //       ),
+              //       itemBuilder: (context) => [
+              //         PopupMenuItem(
+              //           onTap: () {},
+              //           value: 1,
+              //           child: Text('deactivate'.tr),
+              //         ),
+              //         PopupMenuItem(
+              //           onTap: () => print('pressed edit'),
+              //           value: 3,
+              //           child: Text('edit'.tr),
+              //         ),
+              //         PopupMenuItem(
+              //           value: 2,
+              //           child: Text('delete'.tr),
+              //         ),
+
+              //         // PopupMenuItem(
+              //         //   value: 3,
+              //         //   child: Text('Обнулить статистику'),
+              //         // ),
+              //       ],
+              //     ),
+              //   ],
+              // ),
+
               SizedBox(height: 13),
             ],
           ),
