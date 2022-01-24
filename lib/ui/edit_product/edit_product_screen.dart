@@ -437,7 +437,7 @@ class _EditProductSceenState extends State<EditProductSceen> {
                           //     ),
 
                           Text(
-                            'Телефон',
+                            'phone'.tr,
                             style: FontStyles.regularStyle(
                               fontSize: 16,
                               fontFamily: 'Lato',

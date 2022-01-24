@@ -184,8 +184,8 @@ class _SearchResultState extends State<SearchResult> {
                     ),
                   );
                 } else {
-                  print('+++++');
-                  print(sController.searchList.length);
+                  // print('+++++');
+                  // print(sController.searchList.length);
                   return sController.searchList.length == 0
                       ? Center(
                           child: Column(

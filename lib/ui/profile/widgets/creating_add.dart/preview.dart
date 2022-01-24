@@ -125,7 +125,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
                 price(price: widget.pricee, typeAd: widget.typeAd),
                 Divider(),
                 SizedBox(height: 14),
-                DateWidget(datee: widget.datee),
+                DateWidget(datee: widget.datee.replaceAll('г.', ' ')),
 
                 SizedBox(height: 4),
                 address(address: widget.addresss),

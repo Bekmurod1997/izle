@@ -1156,6 +1156,15 @@ class AllServices {
 
   static Future buyTariff({required String id}) async {
     try {
+      var response = await client.post(Uri.parse(ApiUrl.buyTarif), headers: {
+        "Authorization": "Bearer ${MyPref.token}"
+      }, body: {
+        'id': id,
+      });
+      print('+++++++=');
+      print(response.body);
+      print('--------------');
+
       g.Get.dialog(
         Scaffold(
           backgroundColor: Colors.black.withOpacity(.1),
@@ -1184,41 +1193,142 @@ class AllServices {
           ),
         ),
       );
-      var response = await client.post(Uri.parse(ApiUrl.buyTarif), headers: {
-        "Authorization": "Bearer ${MyPref.token}"
-      }, body: {
-        'id': id,
-      });
+
       if (response.statusCode == 200) {
-        print(response.statusCode);
-        g.GetBar();
+        // print(response.statusCode);
+        g.Get.back();
         g.Get.dialog(
-          Scaffold(
-            backgroundColor: Colors.black.withOpacity(.1),
-            body: Center(
-              child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  color: Colors.white,
-                  width: double.infinity,
-                  height: 100.0,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(height: 30),
-                      Text('youSuccessfullyBoughtPackage'.tr,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      SizedBox(height: 30),
-                    ],
-                  )),
+          GestureDetector(
+            onTap: () => g.Get.back(),
+            child: Scaffold(
+              backgroundColor: Colors.black.withOpacity(.1),
+              body: Center(
+                child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    color: Colors.white,
+                    width: double.infinity,
+                    // height: 140.0,
+                    child: Stack(
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: 10),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     Get.back();
+                            //   },
+                            //   child: Container(
+                            //     alignment:
+                            //         Alignment.topRight,
+                            //     child: Icon(
+                            //       Icons.cancel,
+                            //       color:
+                            //           ColorPalate.mainColor,
+                            //     ),
+                            //   ),
+                            // ),
+                            SizedBox(height: 20),
+                            Text('youSuccessfullyBoughtPackage'.tr,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            SizedBox(height: 30),
+                          ],
+                        ),
+                        Positioned(
+                          top: 15,
+                          right: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              g.Get.back();
+                            },
+                            child: Container(
+                              alignment: Alignment.topRight,
+                              child: Icon(
+                                Icons.cancel,
+                                color: ColorPalate.mainColor,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
+              ),
+            ),
+          ),
+        );
+      } else if (response.body.isNotEmpty) {
+        g.Get.back();
+        g.Get.dialog(
+          GestureDetector(
+            onTap: () => g.Get.back(),
+            child: Scaffold(
+              backgroundColor: Colors.black.withOpacity(.1),
+              body: Center(
+                child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    color: Colors.white,
+                    width: double.infinity,
+                    // height: 140.0,
+                    child: Stack(
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: 10),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     Get.back();
+                            //   },
+                            //   child: Container(
+                            //     alignment:
+                            //         Alignment.topRight,
+                            //     child: Icon(
+                            //       Icons.cancel,
+                            //       color:
+                            //           ColorPalate.mainColor,
+                            //     ),
+                            //   ),
+                            // ),
+                            SizedBox(height: 20),
+                            Text('ErrorYourMoneyIsNotEnough'.tr,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            SizedBox(height: 30),
+                          ],
+                        ),
+                        Positioned(
+                          top: 5,
+                          right: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              g.Get.back();
+                            },
+                            child: Container(
+                              alignment: Alignment.topRight,
+                              child: Icon(
+                                Icons.cancel,
+                                color: ColorPalate.mainColor,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
+              ),
             ),
           ),
         );
       }
     } catch (e) {
+      print('this is catch');
+      g.Get.back();
       print('error in buying tariff');
       print(e);
       g.Get.dialog(
@@ -1809,8 +1919,8 @@ class AllServices {
 
         // editDeviceToke(deviceId: body.deviceId!);
 
-        pageNavigationController.pageControllerChanger(4);
-        pageNavigationController.tabIndexChanger(4);
+        pageNavigationController.pageControllerChanger(2);
+        pageNavigationController.tabIndexChanger(2);
       } else if (response.statusCode == 422) {
         g.Get.back();
 

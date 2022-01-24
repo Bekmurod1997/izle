@@ -34,6 +34,8 @@ class ListOfTarrifsModel {
 class Data {
   int? id;
   String? name;
+  String? nameEn;
+  String? nameUz;
   String? price;
   int? top;
   int? up;
@@ -42,10 +44,14 @@ class Data {
   int? upLimit;
   int? vipLimit;
   String? note;
+  String? noteEn;
+  String? noteUz;
 
   Data(
       {this.id,
       this.name,
+      this.nameEn,
+      this.nameUz,
       this.price,
       this.top,
       this.up,
@@ -53,11 +59,15 @@ class Data {
       this.topLimit,
       this.upLimit,
       this.vipLimit,
-      this.note});
+      this.note,
+      this.noteEn,
+      this.noteUz});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    nameEn = json['name_en'];
+    nameUz = json['name_uz'];
     price = json['price'];
     top = json['top'];
     up = json['up'];
@@ -66,12 +76,16 @@ class Data {
     upLimit = json['up_limit'];
     vipLimit = json['vip_limit'];
     note = json['note'];
+    noteEn = json['note_en'];
+    noteUz = json['note_uz'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['name_en'] = this.nameEn;
+    data['name_uz'] = this.nameUz;
     data['price'] = this.price;
     data['top'] = this.top;
     data['up'] = this.up;
@@ -80,6 +94,8 @@ class Data {
     data['up_limit'] = this.upLimit;
     data['vip_limit'] = this.vipLimit;
     data['note'] = this.note;
+    data['note_en'] = this.noteEn;
+    data['note_uz'] = this.noteUz;
     return data;
   }
 }

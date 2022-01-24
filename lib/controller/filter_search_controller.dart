@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:izle/models/all_categories_model.dart';
 
 class FilterSearchController extends GetxController {
+  var subCategoyList = <Childs>[];
   var searchWord = ''.obs;
   var mainCategoryId = 0.obs;
   var mainCategoryName = ''.obs;
@@ -17,6 +19,7 @@ class FilterSearchController extends GetxController {
   var currencySort = ''.obs;
 
   void resetAllForSearchController() {
+    subCategoyList = [];
     searchWord = ''.obs;
     mainCategoryId = 0.obs;
     mainCategoryName = ''.obs;

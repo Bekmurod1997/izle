@@ -6,6 +6,7 @@ import 'package:izle/ui/components/custom_appbar.dart';
 import 'package:izle/constants/colors.dart';
 import 'package:izle/constants/fonts.dart';
 import 'package:get/get.dart';
+import 'package:izle/utils/my_prefs.dart';
 
 class Advertise extends StatefulWidget {
   const Advertise({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _AdvertiseState extends State<Advertise> {
       backgroundColor: ColorPalate.mainPageColor,
       appBar: customAppBar1(
         context,
-        title: 'Рекламировать',
+        title: 'toAdvertise',
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,6 +51,9 @@ class _AdvertiseState extends State<Advertise> {
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                        // var numberOfsee =
+                        //     listOfTarrifsController.listOfTariffs[index].note!;
+
                         print('lengtj');
                         print(listOfTarrifsController.listOfTariffs.length);
                         print(listOfTarrifsController.listOfTariffs[0].name);
@@ -67,8 +71,14 @@ class _AdvertiseState extends State<Advertise> {
                                     top: 15, right: 40, left: 40, bottom: 30),
                                 child: Text(
                                   // 'Быстрая продажа',
-                                  listOfTarrifsController
-                                      .listOfTariffs[index].name!,
+                                  MyPref.lang == 'uz'
+                                      ? listOfTarrifsController
+                                          .listOfTariffs[index].nameUz!
+                                      : MyPref.lang == 'kr'
+                                          ? listOfTarrifsController
+                                              .listOfTariffs[index].nameUz!
+                                          : listOfTarrifsController
+                                              .listOfTariffs[index].name!,
                                   textAlign: TextAlign.center,
                                   style: FontStyles.semiBoldStyle(
                                     fontSize: 18,
@@ -94,8 +104,17 @@ class _AdvertiseState extends State<Advertise> {
                                 ),
                               ),
                               Text(
-                                listOfTarrifsController
-                                    .listOfTariffs[index].note!,
+                                MyPref.lang == 'uz'
+                                    ? listOfTarrifsController
+                                        .listOfTariffs[index].noteUz!
+                                    : MyPref.lang == 'kr'
+                                        ? listOfTarrifsController
+                                            .listOfTariffs[index].noteEn!
+                                        : listOfTarrifsController
+                                            .listOfTariffs[index].note!,
+                                // numberOfsee.replaceAll(
+                                //         'больше просмотров', '') +
+                                //     'moreSee'.tr,
                                 style: FontStyles.regularStyle(
                                   fontSize: 18,
                                   fontFamily: 'Lato',
@@ -115,11 +134,13 @@ class _AdvertiseState extends State<Advertise> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
-                                      'Топ объявление на ' +
+                                      'topAds'.tr +
+                                          ' ' +
                                           listOfTarrifsController
                                               .listOfTariffs[index].topLimit
                                               .toString() +
-                                          ' дней',
+                                          ' ' +
+                                          'day'.tr,
                                       style: FontStyles.regularStyle(
                                         fontSize: 14,
                                         fontFamily: 'Lato',
@@ -151,7 +172,8 @@ class _AdvertiseState extends State<Advertise> {
                                                     .listOfTariffs[index]
                                                     .upLimit
                                                     .toString() +
-                                                ' поднятие вверх списка',
+                                                ' ' +
+                                                'liftAds'.tr,
                                             style: FontStyles.regularStyle(
                                               fontSize: 14,
                                               fontFamily: 'Lato',
@@ -179,12 +201,14 @@ class _AdvertiseState extends State<Advertise> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Text(
-                                            'Vip-объявление ' +
+                                            'vipAds'.tr +
+                                                ' ' +
                                                 listOfTarrifsController
                                                     .listOfTariffs[index]
                                                     .vipLimit
                                                     .toString() +
-                                                ' дней',
+                                                ' ' +
+                                                'day'.tr,
                                             style: FontStyles.regularStyle(
                                               fontSize: 14,
                                               fontFamily: 'Lato',
@@ -205,6 +229,7 @@ class _AdvertiseState extends State<Advertise> {
                                   print('sss');
                                   print(listOfTarrifsController
                                       .listOfTariffs[index].id);
+
                                   AllServices.buyTariff(
                                       id: listOfTarrifsController
                                           .listOfTariffs[index].id
@@ -218,7 +243,7 @@ class _AdvertiseState extends State<Advertise> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    'Выбрать',
+                                    'choose'.tr,
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),

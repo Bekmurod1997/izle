@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/controller/all_categories.dart';
 import 'package:izle/controller/all_regions_controller.dart';
@@ -60,17 +62,20 @@ class _FilterPageState extends State<FilterPage> {
 
   @override
   void initState() {
-    allRegionsController.fetchAllRegions();
-    subCategoryController
-        .fetchSubCategries(filterSearchController.mainCategoryId.value);
-    mainCategories.fetchMainCategries();
-    finalAllCategoriesController.fetchAllCategories();
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      allRegionsController.fetchAllRegions();
+      subCategoryController
+          .fetchSubCategries(filterSearchController.mainCategoryId.value);
+      mainCategories.fetchMainCategries();
+      finalAllCategoriesController.fetchAllCategories();
+    });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.searchTitle);
+    // print(widget.searchTitle);
     return Scaffold(
       backgroundColor: ColorPalate.mainPageColor,
       appBar: customAppBar1(
@@ -110,7 +115,7 @@ class _FilterPageState extends State<FilterPage> {
                               selectedIndex = 1;
                               sortingType = 'min';
                             });
-                            print(sortingType);
+                            // print(sortingType);
                           },
                           child: Container(
                             width: 101,
@@ -145,7 +150,7 @@ class _FilterPageState extends State<FilterPage> {
                               selectedIndex = 2;
                               sortingType = 'max';
                             });
-                            print(sortingType);
+                            // print(sortingType);
                           },
                           child: Container(
                             width: 101,
@@ -180,7 +185,7 @@ class _FilterPageState extends State<FilterPage> {
                               selectedIndex = 3;
                               sortingType = '';
                             });
-                            print(sortingType);
+                            // print(sortingType);
                           },
                           child: Container(
                             width: 101,
@@ -236,70 +241,88 @@ class _FilterPageState extends State<FilterPage> {
                                       content: Container(
                                     height: 300,
                                     width: double.maxFinite,
-                                    child: ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: finalAllCategoriesController
-                                            .categoryList.length,
-                                        // mainCategories.categoriesList.length,
-                                        itemBuilder: (context, index) {
-                                          return ListTile(
-                                            onTap: () {
-                                              filterSearchController
-                                                      .mainCategoryId.value =
-                                                  mainCategories
-                                                      .categoriesList[index]
-                                                      .id!;
-                                              filterSearchController
-                                                      .mainCategoryName.value =
-                                                  // MyPref.lang == 'ru'
-                                                  //     ? mainCategories
-                                                  //         .categoriesList[index]
-                                                  //         .nameRu!
-                                                  //     :
-                                                  MyPref.lang == 'uz'
-                                                      ? mainCategories
-                                                          .categoriesList[index]
-                                                          .nameUz!
-                                                      : MyPref.lang == 'kr'
-                                                          ? mainCategories
-                                                              .categoriesList[
-                                                                  index]
-                                                              .nameEn!
-                                                          : mainCategories
-                                                              .categoriesList[
-                                                                  index]
-                                                              .nameRu!;
-
-                                              setState(() {
-                                                subCategories =
+                                    child: CupertinoScrollbar(
+                                      child: ListView.separated(
+                                          separatorBuilder: (context, index) =>
+                                              Divider(
+                                                thickness: 1.5,
+                                              ),
+                                          shrinkWrap: true,
+                                          itemCount:
+                                              finalAllCategoriesController
+                                                  .categoryList.length,
+                                          // mainCategories.categoriesList.length,
+                                          itemBuilder: (context, index) {
+                                            return ListTile(
+                                              onTap: () {
+                                                filterSearchController
+                                                        .mainCategoryId.value =
+                                                    mainCategories
+                                                        .categoriesList[index]
+                                                        .id!;
+                                                filterSearchController
+                                                        .mainCategoryName
+                                                        .value =
+                                                    // MyPref.lang == 'ru'
+                                                    //     ? mainCategories
+                                                    //         .categoriesList[index]
+                                                    //         .nameRu!
+                                                    //     :
+                                                    MyPref.lang == 'uz'
+                                                        ? mainCategories
+                                                            .categoriesList[
+                                                                index]
+                                                            .nameUz!
+                                                        : MyPref.lang == 'kr'
+                                                            ? mainCategories
+                                                                .categoriesList[
+                                                                    index]
+                                                                .nameEn!
+                                                            : mainCategories
+                                                                .categoriesList[
+                                                                    index]
+                                                                .nameRu!;
+                                                filterSearchController
+                                                        .subCategoyList =
                                                     finalAllCategoriesController
                                                         .categoryList[index]
                                                         .childs!;
-                                              });
-                                              print(filterSearchController
-                                                  .mainCategoryId.value);
-                                              Get.back();
-                                            },
-                                            title: Text(
-                                              // MyPref.lang == 'ru'
-                                              //     ? finalAllCategoriesController
-                                              //         .categoryList[index]
-                                              //         .nameRu!
-                                              //     :
-                                              MyPref.lang == 'uz'
-                                                  ? finalAllCategoriesController
-                                                      .categoryList[index]
-                                                      .nameUz!
-                                                  : MyPref.lang == 'kr'
-                                                      ? finalAllCategoriesController
-                                                          .categoryList[index]
-                                                          .nameEn!
-                                                      : finalAllCategoriesController
-                                                          .categoryList[index]
-                                                          .nameRu!,
-                                            ),
-                                          );
-                                        }),
+                                                // setState(() {
+                                                //   subCategories =
+                                                // finalAllCategoriesController
+                                                //     .categoryList[index]
+                                                //     .childs!;
+                                                // });
+                                                // print('this is subCategoriss');
+                                                // print(filterSearchController
+                                                //     .subCategoyList.length);
+                                                // print(filterSearchController
+                                                //     .subCategoyList.first.nameRu);
+                                                // print(filterSearchController
+                                                //     .mainCategoryId.value);
+                                                Get.back();
+                                              },
+                                              title: Text(
+                                                // MyPref.lang == 'ru'
+                                                //     ? finalAllCategoriesController
+                                                //         .categoryList[index]
+                                                //         .nameRu!
+                                                //     :
+                                                MyPref.lang == 'uz'
+                                                    ? finalAllCategoriesController
+                                                        .categoryList[index]
+                                                        .nameUz!
+                                                    : MyPref.lang == 'kr'
+                                                        ? finalAllCategoriesController
+                                                            .categoryList[index]
+                                                            .nameEn!
+                                                        : finalAllCategoriesController
+                                                            .categoryList[index]
+                                                            .nameRu!,
+                                              ),
+                                            );
+                                          }),
+                                    ),
                                   ));
                                 });
                               });
@@ -319,6 +342,11 @@ class _FilterPageState extends State<FilterPage> {
                         ),
                       ),
                     ),
+                    // Text(filterSearchController.subCategoyList.isEmpty ||
+                    //         filterSearchController.subCategoyList.length == 0
+                    //     ? 'pustoy'
+                    //     : filterSearchController.subCategoyList.length
+                    //         .toString()),
                     SizedBox(height: 12),
                     filterSearchController.mainCategoryName.value.isEmpty
                         ? Container()
@@ -350,69 +378,161 @@ class _FilterPageState extends State<FilterPage> {
                                             content: Container(
                                                 height: 300,
                                                 width: double.maxFinite,
-                                                child: ListView.builder(
-                                                    itemCount: filterSearchController
-                                                                .subCategoryId
-                                                                .value ==
-                                                            0
-                                                        ? subCategories.length
-                                                        : subCategoryController
-                                                            .subCategoryList
-                                                            .length,
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      return ListTile(
-                                                        onTap: () {
-                                                          filterSearchController
-                                                              .subCategoryId
-                                                              .value = filterSearchController
-                                                                      .subCategoryId
-                                                                      .value ==
-                                                                  0
-                                                              ? subCategories[
-                                                                      index]
-                                                                  .id!
-                                                              : subCategoryController
-                                                                  .subCategoryList[
-                                                                      index]
-                                                                  .id!;
-                                                          filterSearchController
-                                                              .subCategoryName
-                                                              .value = filterSearchController
-                                                                      .subCategoryId
-                                                                      .value ==
-                                                                  0
-                                                              ? subCategories[
-                                                                      index]
-                                                                  .nameRu!
-                                                              : subCategoryController
-                                                                  .subCategoryList[
-                                                                      index]
-                                                                  .nameRu!;
-
-                                                          print(
-                                                              filterSearchController
+                                                child: CupertinoScrollbar(
+                                                  child: ListView.separated(
+                                                      separatorBuilder:
+                                                          (context, index) =>
+                                                              Divider(
+                                                                thickness: 1.5,
+                                                              ),
+                                                      itemCount: filterSearchController
                                                                   .subCategoryId
-                                                                  .value);
-                                                          print('this is subcategeoyNameValue' +
-                                                              filterSearchController
-                                                                  .subCategoryName
-                                                                  .value);
-                                                          Get.back();
-                                                        },
-                                                        title: Text(filterSearchController
+                                                                  .value ==
+                                                              0
+                                                          ? filterSearchController
+                                                              .subCategoyList
+                                                              .length
+                                                          : subCategoryController
+                                                              .subCategoryList
+                                                              .length,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return ListTile(
+                                                          onTap: () {
+                                                            filterSearchController
                                                                     .subCategoryId
-                                                                    .value ==
-                                                                0
-                                                            ? subCategories[
-                                                                    index]
-                                                                .nameRu!
-                                                            : subCategoryController
-                                                                .subCategoryList[
-                                                                    index]
-                                                                .nameRu!),
-                                                      );
-                                                    })));
+                                                                    .value =
+                                                                filterSearchController
+                                                                    .subCategoyList[
+                                                                        index]
+                                                                    .id!;
+                                                            // filterSearchController
+                                                            //     .subCategoryId
+                                                            //     .value = filterSearchController
+                                                            //             .subCategoryId
+                                                            //             .value ==
+                                                            //         0
+                                                            //     ? subCategories[
+                                                            //             index]
+                                                            //         .id!
+                                                            //     : subCategoryController
+                                                            //         .subCategoryList[
+                                                            //             index]
+                                                            //         .id!;
+                                                            filterSearchController
+                                                                    .subCategoryName
+                                                                    .value =
+                                                                // filterSearchController
+                                                                //         .subCategoryId
+                                                                //         .value ==
+                                                                //     0
+                                                                // ?
+                                                                MyPref.lang ==
+                                                                        'uz'
+                                                                    ? filterSearchController
+                                                                        .subCategoyList[
+                                                                            index]
+                                                                        .nameUz!
+                                                                    : MyPref.lang ==
+                                                                            'kr'
+                                                                        ? filterSearchController
+                                                                            .subCategoyList[
+                                                                                index]
+                                                                            .nameEn!
+                                                                        : filterSearchController
+                                                                            .subCategoyList[index]
+                                                                            .nameRu!;
+                                                            // : (MyPref.lang ==
+                                                            //         'uz'
+                                                            //     ? subCategoryController
+                                                            //         .subCategoryList[
+                                                            //             index]
+                                                            //         .nameUz!
+                                                            //     : MyPref.lang ==
+                                                            //             'kr'
+                                                            //         ? subCategoryController
+                                                            //             .subCategoryList[index]
+                                                            //             .nameEn!
+                                                            //         : subCategoryController.subCategoryList[index].nameRu!);
+                                                            // filterSearchController
+                                                            //     .subCategoryName
+                                                            //     .value = filterSearchController
+                                                            //             .subCategoryId
+                                                            //             .value ==
+                                                            //         0
+                                                            //     ? (MyPref.lang ==
+                                                            //             'uz'
+                                                            //         ? subCategories[
+                                                            //                 index]
+                                                            //             .nameUz!
+                                                            //         : MyPref.lang ==
+                                                            //                 'kr'
+                                                            //             ? subCategories[index]
+                                                            //                 .nameEn!
+                                                            //             : subCategories[index]
+                                                            //                 .nameRu!)
+                                                            //     : (MyPref.lang ==
+                                                            //             'uz'
+                                                            //         ? subCategoryController
+                                                            //             .subCategoryList[
+                                                            //                 index]
+                                                            //             .nameUz!
+                                                            //         : MyPref.lang ==
+                                                            //                 'kr'
+                                                            //             ? subCategoryController
+                                                            //                 .subCategoryList[index]
+                                                            //                 .nameEn!
+                                                            //             : subCategoryController.subCategoryList[index].nameRu!);
+
+                                                            // print(
+                                                            //     filterSearchController
+                                                            //         .subCategoryId
+                                                            //         .value);
+                                                            // print('this is subcategeoyNameValue' +
+                                                            //     filterSearchController
+                                                            //         .subCategoryName
+                                                            //         .value);
+                                                            Get.back();
+                                                          },
+                                                          title: Text(filterSearchController
+                                                                      .subCategoryId
+                                                                      .value ==
+                                                                  0
+                                                              ? (MyPref.lang ==
+                                                                      'uz'
+                                                                  ? filterSearchController
+                                                                      .subCategoyList[
+                                                                          index]
+                                                                      .nameUz!
+                                                                  : MyPref.lang ==
+                                                                          'kr'
+                                                                      ? filterSearchController
+                                                                          .subCategoyList[
+                                                                              index]
+                                                                          .nameEn!
+                                                                      : filterSearchController
+                                                                          .subCategoyList[
+                                                                              index]
+                                                                          .nameRu!)
+                                                              : (MyPref.lang ==
+                                                                      'uz'
+                                                                  ? subCategoryController
+                                                                      .subCategoryList[
+                                                                          index]
+                                                                      .nameUz!
+                                                                  : MyPref.lang ==
+                                                                          'kr'
+                                                                      ? subCategoryController
+                                                                          .subCategoryList[
+                                                                              index]
+                                                                          .nameEn!
+                                                                      : subCategoryController
+                                                                          .subCategoryList[
+                                                                              index]
+                                                                          .nameRu!)),
+                                                        );
+                                                      }),
+                                                )));
                                       });
                                     });
                               },
@@ -426,7 +546,7 @@ class _FilterPageState extends State<FilterPage> {
                                 ),
                                 child: Text(filterSearchController
                                         .subCategoryName.value.isEmpty
-                                    ? 'Все ${filterSearchController.mainCategoryName.value}'
+                                    ? '${MyPref.lang == 'ru' ? 'Все' : ' '}   ${filterSearchController.mainCategoryName.value}'
                                     : filterSearchController
                                         .subCategoryName.value),
                               ),
@@ -457,27 +577,70 @@ class _FilterPageState extends State<FilterPage> {
                                       content: Container(
                                     height: 300,
                                     width: double.maxFinite,
-                                    child: ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: allRegionsController
-                                            .allRegionsList.length,
-                                        itemBuilder: (context, index) {
-                                          return ListTile(
-                                            onTap: () {
-                                              filterSearchController
-                                                      .cityId.value =
-                                                  allRegionsController
-                                                      .allRegionsList[index]
-                                                      .id!;
-                                              filterSearchController
-                                                      .cityName.value =
-                                                  // MyPref
-                                                  //         .lang ==
-                                                  //     'ru'
-                                                  // ? allRegionsController
-                                                  //     .allRegionsList[index]
-                                                  //     .nameRu!
-                                                  // :
+                                    child: CupertinoScrollbar(
+                                      child: ListView.separated(
+                                          separatorBuilder: (context, index) =>
+                                              Divider(
+                                                thickness: 1.5,
+                                              ),
+                                          shrinkWrap: true,
+                                          itemCount: allRegionsController
+                                              .allRegionsList.length,
+                                          itemBuilder: (context, index) {
+                                            return ListTile(
+                                              onTap: () {
+                                                filterSearchController
+                                                        .cityId.value =
+                                                    allRegionsController
+                                                        .allRegionsList[index]
+                                                        .id!;
+                                                filterSearchController
+                                                        .cityName.value =
+                                                    // MyPref
+                                                    //         .lang ==
+                                                    //     'ru'
+                                                    // ? allRegionsController
+                                                    //     .allRegionsList[index]
+                                                    //     .nameRu!
+                                                    // :
+                                                    MyPref.lang == 'uz'
+                                                        ? allRegionsController
+                                                            .allRegionsList[
+                                                                index]
+                                                            .nameUz!
+                                                        : MyPref.lang == 'kr'
+                                                            ? allRegionsController
+                                                                .allRegionsList[
+                                                                    index]
+                                                                .nameEn!
+                                                            : allRegionsController
+                                                                .allRegionsList[
+                                                                    index]
+                                                                .nameRu!;
+
+                                                setState(() {
+                                                  allRegions =
+                                                      allRegionsController
+                                                          .allRegionsList[index]
+                                                          .childs!;
+                                                  mainCitySelected = true;
+                                                  districtChoice = MyPref
+                                                              .lang ==
+                                                          'ru'
+                                                      ? 'Все '
+                                                      : ' ' +
+                                                          '${MyPref.lang == 'uz' ? allRegionsController.allRegionsList[index].nameUz! : MyPref.lang == 'kr' ? allRegionsController.allRegionsList[index].nameEn : allRegionsController.allRegionsList[index].nameRu!}';
+                                                });
+                                                // print(filterSearchController
+                                                //     .cityId);
+                                                Get.back();
+                                              },
+                                              title: Text(
+                                                  // MyPref.lang == 'ru'
+                                                  //   ? allRegionsController
+                                                  //       .allRegionsList[index]
+                                                  //       .nameRu!
+                                                  //   :
                                                   MyPref.lang == 'uz'
                                                       ? allRegionsController
                                                           .allRegionsList[index]
@@ -490,42 +653,10 @@ class _FilterPageState extends State<FilterPage> {
                                                           : allRegionsController
                                                               .allRegionsList[
                                                                   index]
-                                                              .nameRu!;
-
-                                              setState(() {
-                                                allRegions =
-                                                    allRegionsController
-                                                        .allRegionsList[index]
-                                                        .childs!;
-                                                mainCitySelected = true;
-                                                districtChoice =
-                                                    'Все ${MyPref.lang == 'uz' ? allRegionsController.allRegionsList[index].nameUz! : MyPref.lang == 'kr' ? allRegionsController.allRegionsList[index].nameEn : allRegionsController.allRegionsList[index].nameRu!}';
-                                              });
-                                              print(filterSearchController
-                                                  .cityId);
-                                              Get.back();
-                                            },
-                                            title: Text(
-                                                // MyPref.lang == 'ru'
-                                                //   ? allRegionsController
-                                                //       .allRegionsList[index]
-                                                //       .nameRu!
-                                                //   :
-                                                MyPref.lang == 'uz'
-                                                    ? allRegionsController
-                                                        .allRegionsList[index]
-                                                        .nameUz!
-                                                    : MyPref.lang == 'kr'
-                                                        ? allRegionsController
-                                                            .allRegionsList[
-                                                                index]
-                                                            .nameEn!
-                                                        : allRegionsController
-                                                            .allRegionsList[
-                                                                index]
-                                                            .nameRu!),
-                                          );
-                                        }),
+                                                              .nameRu!),
+                                            );
+                                          }),
+                                    ),
                                   ));
                                 });
                               });
@@ -546,11 +677,12 @@ class _FilterPageState extends State<FilterPage> {
                       ),
                     ),
                     SizedBox(height: 15),
-                    Text(
-                      'region'.tr,
-                      style: FontStyles.regularStyle(
-                          fontSize: 16, fontFamily: 'Roboto'),
-                    ),
+                    if (mainCitySelected)
+                      Text(
+                        'region'.tr,
+                        style: FontStyles.regularStyle(
+                            fontSize: 16, fontFamily: 'Roboto'),
+                      ),
                     if (mainCitySelected) SizedBox(height: 12),
                     mainCitySelected
                         ? Container(
@@ -571,23 +703,56 @@ class _FilterPageState extends State<FilterPage> {
                                             content: Container(
                                                 height: 300,
                                                 width: double.maxFinite,
-                                                child: ListView.builder(
-                                                    shrinkWrap: true,
-                                                    itemCount:
-                                                        allRegions.length,
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      return ListTile(
-                                                        onTap: () {
-                                                          filterSearchController
-                                                                  .districtName
-                                                                  .value =
-                                                              // MyPref
+                                                child: CupertinoScrollbar(
+                                                  child: ListView.separated(
+                                                      separatorBuilder:
+                                                          (context, index) =>
+                                                              Divider(
+                                                                thickness: 1.5,
+                                                              ),
+                                                      shrinkWrap: true,
+                                                      itemCount:
+                                                          allRegions.length,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return ListTile(
+                                                          onTap: () {
+                                                            filterSearchController
+                                                                    .districtName
+                                                                    .value =
+                                                                // MyPref
+                                                                //         .lang ==
+                                                                //     'ru'
+                                                                // ?
+                                                                // allRegions[
+                                                                //         index]
+                                                                //     .nameRu!
+                                                                // :
+                                                                MyPref.lang ==
+                                                                        'uz'
+                                                                    ? allRegions[
+                                                                            index]
+                                                                        .nameUz!
+                                                                    : MyPref.lang ==
+                                                                            'kr'
+                                                                        ? allRegions[index]
+                                                                            .nameEn!
+                                                                        : allRegions[index]
+                                                                            .nameRu!;
+                                                            filterSearchController
+                                                                    .cityId
+                                                                    .value =
+                                                                allRegions[
+                                                                        index]
+                                                                    .id!;
+
+                                                            Get.back();
+                                                          },
+                                                          title: Text(
+                                                              // MyPref?
                                                               //         .lang ==
                                                               //     'ru'
-                                                              // ?
-                                                              // allRegions[
-                                                              //         index]
+                                                              // ? allRegions[index]
                                                               //     .nameRu!
                                                               // :
                                                               MyPref.lang ==
@@ -602,36 +767,10 @@ class _FilterPageState extends State<FilterPage> {
                                                                           .nameEn!
                                                                       : allRegions[
                                                                               index]
-                                                                          .nameRu!;
-                                                          filterSearchController
-                                                                  .cityId
-                                                                  .value =
-                                                              allRegions[index]
-                                                                  .id!;
-
-                                                          Get.back();
-                                                        },
-                                                        title: Text(
-                                                            // MyPref?
-                                                            //         .lang ==
-                                                            //     'ru'
-                                                            // ? allRegions[index]
-                                                            //     .nameRu!
-                                                            // :
-                                                            MyPref.lang == 'uz'
-                                                                ? allRegions[
-                                                                        index]
-                                                                    .nameUz!
-                                                                : MyPref.lang ==
-                                                                        'kr'
-                                                                    ? allRegions[
-                                                                            index]
-                                                                        .nameEn!
-                                                                    : allRegions[
-                                                                            index]
-                                                                        .nameRu!),
-                                                      );
-                                                    })));
+                                                                          .nameRu!),
+                                                        );
+                                                      }),
+                                                )));
                                       });
                                     });
                               },
@@ -655,14 +794,14 @@ class _FilterPageState extends State<FilterPage> {
                     SizedBox(height: 15),
                     GestureDetector(
                       onTap: () {
-                        print('ss');
+                        // print('ss');
                         setState(() {
                           isPriceSelected = !isPriceSelected;
                         });
                       },
                       child: Container(
                         padding: const EdgeInsets.only(
-                            top: 10, bottom: 10, left: 10),
+                            top: 10, bottom: 10, left: 10, right: 10),
                         width: double.infinity,
                         decoration: BoxDecoration(
                             color: isPriceSelected == true
@@ -674,17 +813,31 @@ class _FilterPageState extends State<FilterPage> {
                             border: Border.all(
                               color: isPriceSelected == true
                                   ? ColorPalate.mainColor
-                                  : Colors.white,
+                                  : ColorPalate.mainColor,
                               width: 2,
                             )),
-                        child: Text(
-                          'price'.tr,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: isPriceSelected == true
-                                ? Colors.white
-                                : Colors.black,
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'price'.tr,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: isPriceSelected == true
+                                    ? Colors.white
+                                    : ColorPalate.mainColor,
+                              ),
+                            ),
+                            if (!isPriceSelected)
+                              RotatedBox(
+                                quarterTurns: 1,
+                                child: SvgPicture.asset(
+                                  'assets/icons/next-icon.svg',
+                                  height: 13,
+                                  color: ColorPalate.mainColor,
+                                ),
+                              ),
+                          ],
                         ),
                       ),
                     ),

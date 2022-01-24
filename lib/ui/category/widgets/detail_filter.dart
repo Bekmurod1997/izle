@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:izle/controller/fitler_detal_controller.dart';
 import 'package:izle/models/all_regions_model.dart';
@@ -208,36 +210,44 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                                 content: Container(
                               height: 300,
                               width: double.maxFinite,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: subCats.length,
-                                  itemBuilder: (context, index) {
-                                    return ListTile(
-                                      onTap: () {
-                                        filterDetalController
-                                            .changerSubCategoryId(
-                                                subcategoryIdd:
-                                                    subCats[index].id!);
-                                        filterDetalController
-                                            .changerSubCategoryName(
-                                                subCategoryNamee: MyPref.lang ==
-                                                        'uz'
-                                                    ? subCats[index].nameUz!
-                                                    : MyPref.lang == 'kr'
-                                                        ? subCats[index].nameEn!
-                                                        : subCats[index]
-                                                            .nameRu!);
-                                        print(filterDetalController
-                                            .subCategoryId.value);
-                                        Get.back();
-                                      },
-                                      title: Text(MyPref.lang == 'uz'
-                                          ? subCats[index].nameUz!
-                                          : MyPref.lang == 'kr'
-                                              ? subCats[index].nameEn!
-                                              : subCats[index].nameRu!),
-                                    );
-                                  }),
+                              child: CupertinoScrollbar(
+                                child: ListView.separated(
+                                    separatorBuilder: (context, index) =>
+                                        Divider(
+                                          thickness: 1.5,
+                                        ),
+                                    shrinkWrap: true,
+                                    itemCount: subCats.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                        onTap: () {
+                                          filterDetalController
+                                              .changerSubCategoryId(
+                                                  subcategoryIdd:
+                                                      subCats[index].id!);
+                                          filterDetalController
+                                              .changerSubCategoryName(
+                                                  subCategoryNamee:
+                                                      MyPref.lang == 'uz'
+                                                          ? subCats[index]
+                                                              .nameUz!
+                                                          : MyPref.lang == 'kr'
+                                                              ? subCats[index]
+                                                                  .nameEn!
+                                                              : subCats[index]
+                                                                  .nameRu!);
+                                          print(filterDetalController
+                                              .subCategoryId.value);
+                                          Get.back();
+                                        },
+                                        title: Text(MyPref.lang == 'uz'
+                                            ? subCats[index].nameUz!
+                                            : MyPref.lang == 'kr'
+                                                ? subCats[index].nameEn!
+                                                : subCats[index].nameRu!),
+                                      );
+                                    }),
+                              ),
                             ));
                           });
                     },
@@ -284,96 +294,114 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                                 content: Container(
                               height: 300,
                               width: double.maxFinite,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: allRegions.length,
-                                  itemBuilder: (context, index) {
-                                    List<Childs> regions =
-                                        allRegions[index].childs!;
-                                    return ListTile(
-                                      onTap: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                  content: Container(
-                                                height: 300,
-                                                width: double.maxFinite,
-                                                child: ListView.builder(
-                                                    shrinkWrap: true,
-                                                    itemCount: regions.length,
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      return ListTile(
-                                                        onTap: () {
-                                                          filterDetalController
-                                                              .districtName
-                                                              .value = MyPref
-                                                                      .lang ==
-                                                                  'kr'
-                                                              ? regions[index]
-                                                                  .nameEn!
-                                                              : MyPref.lang ==
-                                                                      'uz'
-                                                                  ? regions[
-                                                                          index]
-                                                                      .nameUz!
-                                                                  : regions[
-                                                                          index]
-                                                                      .nameRu!;
-                                                          filterDetalController
-                                                                  .cityId
-                                                                  .value =
-                                                              regions[index]
-                                                                  .id!;
-                                                          // filterDetalController.changerCityId(
-                                                          //   cityIdd: allRegions[index].id ?? 10,
-                                                          // );
-                                                          // filterDetalController.changerCityName(
-                                                          //     cityNamee:
-                                                          //         allRegions[index].nameRu!);
-                                                          // print(
-                                                          //     filterDetalController.cityId.value);
-                                                          Get.back();
-                                                          Get.back();
-                                                        },
-                                                        title: Text(MyPref
-                                                                    .lang ==
-                                                                'kr'
-                                                            ? regions[index]
-                                                                .nameEn!
-                                                            : MyPref.lang ==
-                                                                    'uz'
+                              child: CupertinoScrollbar(
+                                child: ListView.separated(
+                                    separatorBuilder: (context, index) =>
+                                        Divider(
+                                          thickness: 1.5,
+                                        ),
+                                    shrinkWrap: true,
+                                    itemCount: allRegions.length,
+                                    itemBuilder: (context, index) {
+                                      List<Childs> regions =
+                                          allRegions[index].childs!;
+                                      return ListTile(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                    content: Container(
+                                                  height: 300,
+                                                  width: double.maxFinite,
+                                                  child: CupertinoScrollbar(
+                                                    child: ListView.separated(
+                                                        separatorBuilder:
+                                                            (context, index) =>
+                                                                Divider(
+                                                                  thickness:
+                                                                      1.5,
+                                                                ),
+                                                        shrinkWrap: true,
+                                                        itemCount:
+                                                            regions.length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return ListTile(
+                                                            onTap: () {
+                                                              filterDetalController
+                                                                  .districtName
+                                                                  .value = MyPref
+                                                                          .lang ==
+                                                                      'kr'
+                                                                  ? regions[index]
+                                                                      .nameEn!
+                                                                  : MyPref.lang ==
+                                                                          'uz'
+                                                                      ? regions[
+                                                                              index]
+                                                                          .nameUz!
+                                                                      : regions[
+                                                                              index]
+                                                                          .nameRu!;
+                                                              filterDetalController
+                                                                      .cityId
+                                                                      .value =
+                                                                  regions[index]
+                                                                      .id!;
+                                                              // filterDetalController.changerCityId(
+                                                              //   cityIdd: allRegions[index].id ?? 10,
+                                                              // );
+                                                              // filterDetalController.changerCityName(
+                                                              //     cityNamee:
+                                                              //         allRegions[index].nameRu!);
+                                                              // print(
+                                                              //     filterDetalController.cityId.value);
+                                                              Get.back();
+                                                              Get.back();
+                                                            },
+                                                            title: Text(MyPref
+                                                                        .lang ==
+                                                                    'kr'
                                                                 ? regions[index]
-                                                                    .nameUz!
-                                                                : regions[index]
-                                                                    .nameRu!),
-                                                      );
-                                                    }),
-                                              ));
-                                            });
+                                                                    .nameEn!
+                                                                : MyPref.lang ==
+                                                                        'uz'
+                                                                    ? regions[
+                                                                            index]
+                                                                        .nameUz!
+                                                                    : regions[
+                                                                            index]
+                                                                        .nameRu!),
+                                                          );
+                                                        }),
+                                                  ),
+                                                ));
+                                              });
 
-                                        filterDetalController.changerCityId(
-                                          cityIdd: allRegions[index].id ?? 10,
-                                        );
-                                        filterDetalController.changerCityName(
-                                            cityNamee: MyPref.lang == 'kr'
-                                                ? allRegions[index].nameEn!
-                                                : MyPref.lang == 'uz'
-                                                    ? allRegions[index].nameUz!
-                                                    : allRegions[index]
-                                                        .nameRu!);
-                                        print(
-                                            filterDetalController.cityId.value);
-                                        // Get.back();
-                                      },
-                                      title: Text(MyPref.lang == 'kr'
-                                          ? allRegions[index].nameEn!
-                                          : MyPref.lang == 'uz'
-                                              ? allRegions[index].nameUz!
-                                              : allRegions[index].nameRu!),
-                                    );
-                                  }),
+                                          filterDetalController.changerCityId(
+                                            cityIdd: allRegions[index].id ?? 10,
+                                          );
+                                          filterDetalController.changerCityName(
+                                              cityNamee: MyPref.lang == 'kr'
+                                                  ? allRegions[index].nameEn!
+                                                  : MyPref.lang == 'uz'
+                                                      ? allRegions[index]
+                                                          .nameUz!
+                                                      : allRegions[index]
+                                                          .nameRu!);
+                                          print(filterDetalController
+                                              .cityId.value);
+                                          // Get.back();
+                                        },
+                                        title: Text(MyPref.lang == 'kr'
+                                            ? allRegions[index].nameEn!
+                                            : MyPref.lang == 'uz'
+                                                ? allRegions[index].nameUz!
+                                                : allRegions[index].nameRu!),
+                                      );
+                                    }),
+                              ),
                             ));
                           });
                     },
@@ -407,8 +435,8 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                     });
                   },
                   child: Container(
-                    padding:
-                        const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    padding: const EdgeInsets.only(
+                        top: 10, bottom: 10, left: 10, right: 10),
                     width: double.infinity,
                     decoration: BoxDecoration(
                         color: isPriceSelected == true
@@ -420,17 +448,31 @@ class _DetailFilterScreenState extends State<DetailFilterScreen> {
                         border: Border.all(
                           color: isPriceSelected == true
                               ? ColorPalate.mainColor
-                              : Colors.white,
+                              : ColorPalate.mainColor,
                           width: 2,
                         )),
-                    child: Text(
-                      'price'.tr,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: isPriceSelected == true
-                            ? Colors.white
-                            : Colors.black,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'price'.tr,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: isPriceSelected == true
+                                ? Colors.white
+                                : ColorPalate.mainColor,
+                          ),
+                        ),
+                        if (!isPriceSelected)
+                          RotatedBox(
+                            quarterTurns: 1,
+                            child: SvgPicture.asset(
+                              'assets/icons/next-icon.svg',
+                              height: 13,
+                              color: ColorPalate.mainColor,
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ),

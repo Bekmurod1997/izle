@@ -188,7 +188,7 @@ class _FirstMessageScreenState extends State<FirstMessageScreen> {
                             decoration: InputDecoration(
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
-                              hintText: 'Напишите сообщение',
+                              hintText: 'writeMessage'.tr,
                               hintStyle: FontStyles.regularStyle(
                                   fontSize: 16,
                                   fontFamily: 'Lato',

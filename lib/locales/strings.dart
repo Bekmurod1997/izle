@@ -187,7 +187,7 @@ class StringTranslations extends Translations {
           'yourDataWasSuccessfullySaved': 'Ваши данные успешно сохранены',
           'somethingWentWrongTryLater': 'Что-то пошло не так, попробуйте позже',
           'complainSuccessfullySent': 'Жалоба успешно отправлена',
-          'ErrorYourMoneyIsNotEnough': 'Ошибка, у вас может не хватить денег',
+          'ErrorYourMoneyIsNotEnough': 'Пожалуйста пополните ваш счёт',
           'youSuccessfullyBoughtPackage': 'Вы успешно купили пакет',
           'pleaseWait': 'Подождите пожалуйста',
           'uploadingYourPhoto': 'Загрузка ваших фото',
@@ -199,7 +199,13 @@ class StringTranslations extends Translations {
           'asImportant': 'Добавлено в важные',
           'userUnblocked': 'Пользователь разблокирован',
           'userBlocked': 'Пользователь заблокирован',
-          'NoNotificationYet': 'Пока, у вас нету уведомлений'
+          'NoNotificationYet': 'Пока, у вас нету уведомлений',
+          'all': 'Все',
+          'topAds': 'Топ объявление на',
+          'day': 'дня',
+          'liftAds': 'Поднятие вверх списка',
+          'vipAds': 'Vip-объявление',
+          'moreSee': 'больше просмотров',
         },
         'kr_KR': {
           'mainPage': 'Bas bólim',
@@ -387,7 +393,7 @@ class StringTranslations extends Translations {
           'somethingWentWrongTryLater':
               'Qandayda bir qáte ketti, keyinraq qayta urınıp kóriń',
           'complainSuccessfullySent': '	Shaǵım jiberildi',
-          'ErrorYourMoneyIsNotEnough': 'Qáte, aqshasıńız jetkilikli emes',
+          'ErrorYourMoneyIsNotEnough': 'Ótinish, esabıńızdı toldırıń',
           'youSuccessfullyBoughtPackage': 'Siz paketti satıp aldıńiz',
           'pleaseWait': 'Ótinish, kútip turing',
           'uploadingYourPhoto': 'Suretleriniz júklenip atır',
@@ -400,6 +406,12 @@ class StringTranslations extends Translations {
           'userUnblocked': 'Paydalanıwshı bloktan shıǵarıldı',
           'userBlocked': 'Paydalanıwshı bloklanǵan',
           'NoNotificationYet': 'Sizde házirshe xabarnama joq',
+          'all': 'Hámmesi',
+          'topAds': 'Eń TOP dag\'azalar',
+          'day': 'ku\'n',
+          'liftAds': 'Dag\'azani joqarıǵa kóteriw',
+          'vipAds': 'VIP dag\'azaе',
+          'moreSee': 'kóbirek kóriwler',
         },
         'uz_UZ': {
           'mainPage': 'Bosh bo\'lim',
@@ -587,7 +599,7 @@ class StringTranslations extends Translations {
           'somethingWentWrongTryLater':
               'Nimadir xato ketdi, keyinroq qayta urinib ko‘ring',
           'complainSuccessfullySent': 'Shikoyat muvaffaqiyatli yuborildi',
-          'ErrorYourMoneyIsNotEnough': 'Xato, pulingiz yetarli emas',
+          'ErrorYourMoneyIsNotEnough': 'Iltimos, hisobingizni toʻldiring',
           'youSuccessfullyBoughtPackage':
               'Siz paketni muvaffaqiyatli sotib oldingiz',
           'pleaseWait': 'Iltimos, kutib turing',
@@ -601,6 +613,12 @@ class StringTranslations extends Translations {
           'userUnblocked': 'Foydalanuvchi blokdan chiqarildi',
           'userBlocked': 'Foydalanuvchi bloklangan',
           'NoNotificationYet': 'Sizda hozicha xabarnomalar yo\q',
+          'all': 'Hammasi',
+          'topAds': 'Eng yaxshi ro\'yxat',
+          'day': 'kunga',
+          'liftAds': 'Roʻyxatni yuqoriga koʻtaring',
+          'vipAds': 'VIP reklama',
+          'moreSee': 'ko\'proq ko\'rishlar',
         },
       };
 }
